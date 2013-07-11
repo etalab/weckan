@@ -1,9 +1,11 @@
 <%!
+import json
+
 from biryani1 import strings
 
 from weckan import urls
 
-from weckan.model import meta, Package
+from weckan.model import Activity, meta, Package
 %>
 
 
@@ -121,8 +123,9 @@ from weckan.model import meta, Package
 
         <div class="home_feeds">
             <ul class="home_feeds_tabs">
-                <li data-tab="last_data" class="active">Dernières données</li>
-                <li data-tab="last_news">Dernières acualités</li>
+                <li data-tab="best_data" class="active">Les + consultées</li>
+                <li data-tab="last_data">Dernières données</li>
+                <li data-tab="last_news">Dernières actualités</li>
             </ul>
             <div class="home_feeds_content">
                 <ul class="last_news">
@@ -135,15 +138,25 @@ from weckan.model import meta, Package
                     <li><a href="#">Les entreprises publiques à l’heure de l’open data</a><span class="feed_date news">17/05/2013</span></li>
                     <li><a href="#">Openstreetmap complète sa carte du monde interactive</a><span class="feed_date news">11/05/2013</span></li>
                 </ul>
-                <ul class="last_data active">
-                    <li><span class="data_add"></span><a href="data.php">Taux de chomage<span>a été ajouté</span></a><span class="feed_date">25/06/2013</span></li>
-                    <li><span class="data_update"></span><a href="data.php">Recensement population <span>a été mis à jour</span></a><span class="feed_date">23/06/2013</span></li>
-                    <li><span class="data_add"></span><a href="data.php">Espaces verts <span>a été ajouté</span></a><span class="feed_date">17/06/2013</span></li>
-                    <li><span class="data_add"></span><a href="data.php">Qualité de l'eau <span>a été ajouté</span></a><span class="feed_date">17/06/2013</span></li>
-                    <li><span class="data_add"></span><a href="data.php">Insertion des diplômés <span>a été ajouté</span></a><span class="feed_date">08/06/2013</span></li>
-                    <li><span class="data_update"></span><a href="data.php">Résultats présidentielles <span>a été mis à jour</span></a><span class="feed_date">02/06/2013</span></li>
-                    <li><span class="data_update"></span><a href="data.php">Répartition logements <span>a été mis à jour</span></a><span class="feed_date">28/05/2013</span></li>
-                    <li><span class="data_add"></span><a href="data.php">Commerce extérieur <span>a été mis à jour</span></a><span class="feed_date">23/05/2013</span></li>
+                <ul class="last_data">
+    % for activity in meta.Session.query(Activity).filter(Activity.activity_type.in_(['changed package', 'new package'])).order_by(Activity.timestamp.desc()).limit(8):
+<%
+        title = activity.data['package']['title']
+        if len(title) > 80:
+            title = title[:77] + u'...'
+%>\
+                    <li><span class="${'data_add' if activity.activity_type == 'new package' else 'data_update'}"></span><a href="data.php">${title}<span>a été ${u'ajouté'  if activity.activity_type == 'new package' else u'modifié'}</span></a><span class="feed_date">${activity.timestamp.isoformat().split('T')[0]}</span></li>
+    % endfor
+                </ul>
+                <ul class="best_data active">
+                    <li><a href="#">Remise des prix DataConnexions #3</a><span class="feed_date news">22/06/2013</span></li>
+                    <li><a href="#">Le G8 signe une Charte pour l’Ouverture des Données Publiques</a><span class="feed_date news">16/06/2013</span></li>
+                    <li><a href="#">Datajournalisme : Des données pour s’informer</a><span class="feed_date news">12/06/2013</span></li>
+                    <li><a href="#">Contribution de data publica à la consultation codesign</a><span class="feed_date news">05/06/2013</span></li>
+                    <li><a href="#">Lancement de la phase 2 du codesign</a><span class="feed_date news">27/05/2013</span></li>
+                    <li><a href="#">Etalab lance le codesign du prochain data.gouv.fr</a><span class="feed_date news">23/05/2013</span></li>
+                    <li><a href="#">Les entreprises publiques à l’heure de l’open data</a><span class="feed_date news">17/05/2013</span></li>
+                    <li><a href="#">Openstreetmap complète sa carte du monde interactive</a><span class="feed_date news">11/05/2013</span></li>
                 </ul>
             </div>
         </div>
@@ -180,7 +193,7 @@ from weckan.model import meta, Package
             <h1>Projets à la une</h1>
             <ul>
                 <li>
-                    <figure style="background-image:url(img/wdmtg.png)"></figure>
+                    <figure style="background-image:url(/hetic/img/wdmtg.png)"></figure>
                     <div class="project_view">
                         <a href="http://wdmtg.com/">Accéder au projet</a>
                     </div>
@@ -192,7 +205,7 @@ from weckan.model import meta, Package
                     </div>
                 </li>
                 <li>
-                    <figure style="background-image:url(img/rennes.png)"></figure>
+                    <figure style="background-image:url(/hetic/img/rennes.png)"></figure>
                     <div class="project_view">
                         <a href="http://dataviz.rennesmetropole.fr/quisommesnous/index-fr.php">Accéder au projet</a>
                     </div>
@@ -204,7 +217,7 @@ from weckan.model import meta, Package
                     </div>
                 </li>
                 <li>
-                    <figure style="background-image:url(img/dataparis.png)"></figure>
+                    <figure style="background-image:url(/hetic/img/dataparis.png)"></figure>
                     <div class="project_view">
                         <a href="http://dataparis.io">Accéder au projet</a>
                     </div>
@@ -222,7 +235,7 @@ from weckan.model import meta, Package
 
 </div>
 
-<script src="js/lib/jquery-2.0.0.min.js"></script>
-<script src="js/main.js"></script>
+<script src="/hetic/js/lib/jquery-2.0.0.min.js"></script>
+<script src="/hetic/js/main.js"></script>
 </body>
 </html>
