@@ -11,20 +11,19 @@ from weckan.model import meta, Package
 <html lang="fr">
 <head>
 <meta charset="utf-8">
-<title>Emploi & formation professionnelle | Data.Gouv.fr</title>
-<base href="http://devserver.me/datagouv/index.php">
+<title>Data.Gouv.fr</title>
 <meta name="robots" content="noindex, nofollow">
 <meta name="description" content="Document sans nom">
 <meta name="author" content="Anonymous" />
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<link rel="shortcut icon" type="image/x-icon" href="img/favicon.ico" />
-<link rel="stylesheet" media="screen" href="css/style.css">
-<link rel="stylesheet" media="screen" href="css/chosen.css">
+<link rel="shortcut icon" type="image/x-icon" href="/hetic/img/favicon.ico" />
+<link rel="stylesheet" media="screen" href="/hetic/css/style.css">
+<link rel="stylesheet" media="screen" href="/hetic/css/chosen.css">
 </head>
 <body>
 
 <header class="mainheader">
-    <a href="index.php">
+    <a href="${urls.get_url(ctx)}">
         <h1>Data.Gouv.fr</h1>
         <span>Innovation, transparence, ouverture</span>
     </a>
@@ -39,10 +38,10 @@ from weckan.model import meta, Package
                         <span>Données publiques</span>
                         <ul>
                             <li><a href="#">Définition</a></li>
-                            <li><a href="productor.php">Producteurs</a></li>
-                            <li><a href="#">Licence Ouverte</a></li>
+                            <li><a href="${urls.get_url(ctx, 'organization')}">Producteurs</a></li>
+                            <li><a href="http://www.etalab.gouv.fr/pages/licence-ouverte-open-licence-5899923.html">Licence Ouverte</a></li>
                             <li><a href="#">Quelles données ?</a></li>
-                            <li><a href="#">ETALAB</a></li>
+                            <li><a href="http://www.etalab.gouv.fr/">ETALAB</a></li>
                         </ul>
                     </li>
                     <li>
@@ -55,29 +54,10 @@ from weckan.model import meta, Package
             <li class="nav_search">
                 <ul>
                     <li class="searchnav">
-                        <form action="#">
-                            <input type="search" placeholder="Rechercher..." />
+                        <form action="${urls.get_url(ctx, 'dataset')}">
+                            <input name="q" type="search" placeholder="Rechercher..." />
                             <input type="submit" value="&#xe00a;">
                         </form>
-                    </li>
-                    <li class="results_search">
-                        <span>Appuyez sur Entrée pour lancer la recherche...</span>
-                        <ul class="q_datas">
-                            <li>
-                                <span>Jeux de données</span>
-                                <ul>
-                                    <li><a href="data.php">Taux de chômage</a></li>
-                                    <li><a href="data.php">Criminalité dans les villes</a></li>
-                                </ul>
-                            </li>
-                            <li>
-                                <span>Producteurs</span>
-                                <ul>
-                                    <li><a href="productor.php">INSEE</a></li>
-                                    <li><a href="productor.php">Mairie de Paris</a></li>
-                                </ul>
-                            </li>
-                        </ul>
                     </li>
                 </ul>
             </li>
@@ -103,7 +83,7 @@ from weckan.model import meta, Package
 %>\
     % for group_title in groups_title:
                     <li>
-                        <span><a href="${urls.get_full_url(ctx, 'group', strings.slugify(group_title))}">${group_title}</a></span>
+                        <span><a href="${urls.get_url(ctx, 'group', strings.slugify(group_title))}">${group_title}</a></span>
                     </li>
     % endfor
                 </ul>
@@ -118,26 +98,12 @@ from weckan.model import meta, Package
 
 <section class="topbar">
     <nav>
-        <ul class="top_breadcrumb">
-            <li><a href="rubric.php" class="prev_breadcrumb">Emploi et formation professionnelle</a></li>
-        </ul>
         <ul class="top_actions">
             <li class="actions_profilmenu noconnected">
                 <span>Connexion / Inscription</span>
                 <ul>
-                    <form action="me.php">
-                    <li>
-                        <input type="text" placeholder="Adresse e-mail">
-                    </li>
-                    <li>
-                        <input type="text" placeholder="Mot de passe">
-                    </li>
-                    <li>
-                        <input type="submit" value="Connexion" class="bt_connect">
-                    </li>
-                    </form>
-                    <li><a href="#" class="problem_account">Je n'arrive pas à me connecter</a></li>
-                    <li><a href="#" class="create_account">Créer un compte</a></li>
+                    <li><a href="${urls.get_url(ctx, 'user', 'login')}" class="problem_account">Connexion</a></li>
+                    <li><a href="${urls.get_url(ctx, 'user', 'register')}" class="create_account">Créer un compte</a></li>
                 </ul>
             </li>
         </ul>
@@ -186,22 +152,22 @@ from weckan.model import meta, Package
         <section class="description_home">
             <ul>
                 <li>
-                    <a href="#">
-                    <img src="img/ico1.png" alt="Données publiques" width="84" height="84" />
+                    <a href="${urls.get_url(ctx, 'dataset')}">
+                    <img src="/hetic/img/ico1.png" alt="Données publiques" width="84" height="84" />
                     <h2>Données publiques</h2>
                     <p>Les données publiques sont l’ensemble des données de la cité publiées ou tenues à disposition du public, qui sont produites ou collectées par une collectivité, un organisme ou un service public.</p>
                     </a>
                 </li>
                 <li>
-                    <a href="#">
-                    <img src="img/ico2.png" alt="Producteurs de données" width="84" height="84" />
+                    <a href="${urls.get_url(ctx, 'organization')}">
+                    <img src="/hetic/img/ico2.png" alt="Producteurs de données" width="84" height="84" />
                     <h2>Producteurs de données</h2>
                     <p>Les prodcuteurs de données, qu'ils soient des organismes ou des administrations, contribuent à l'élaboration de l'open gouvernance en redistribuant les données dans l'espace publique.</p>
                     </a>
                 </li>
                 <li>
-                    <a href="#">
-                    <img src="img/ico3.png" alt="Etalab" width="84" height="84" />
+                    <a href="http://www.etalab.gouv.fr/">
+                    <img src="/hetic/img/ico3.png" alt="Etalab" width="84" height="84" />
                     <h2>Etalab</h2>
                     <p>Au sein du Secrétariat général pour la modernisation de l’action publique, Etalab coordonne l’action des services de l’Etat et de ses établissements publics pour faciliter la réutilisation.</p>
                     </a>
