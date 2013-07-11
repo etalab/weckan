@@ -124,9 +124,9 @@ from weckan.model import Activity, meta, Package
 
         <div class="home_feeds">
             <ul class="home_feeds_tabs">
-                <li data-tab="best_data" class="active">Les plus consultées</li>
-                <li data-tab="last_data">Dernières données</li>
-                <li data-tab="last_news">Dernières actualités</li>
+                <li data-tab="best_data" class="active">Les plus<br>consultées</li>
+                <li data-tab="last_data">Dernières<br>données</li>
+                <li data-tab="last_news">Dernières<br>actualités</li>
             </ul>
             <div class="home_feeds_content">
                 <ul class="last_news">
