@@ -123,7 +123,7 @@ from weckan.model import Activity, meta, Package
 
         <div class="home_feeds">
             <ul class="home_feeds_tabs">
-                <li data-tab="best_data" class="active">Les + consultées</li>
+                <li data-tab="best_data" class="active">Les plus consultées</li>
                 <li data-tab="last_data">Dernières données</li>
                 <li data-tab="last_news">Dernières actualités</li>
             </ul>
