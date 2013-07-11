@@ -2,6 +2,7 @@
 import json
 
 from biryani1 import strings
+from  sqlalchemy.sql import func
 
 from weckan import urls
 
@@ -150,7 +151,7 @@ from weckan.model import Activity, meta, Package
     % endfor
                 </ul>
                 <ul class="best_data active">
-    % for package in meta.Session.query(Package).limit(8):
+    % for package in meta.Session.query(Package).order_by(func.random()).limit(8):
                     <li><a href="${package.get_url(ctx)}">${package.title}</a></li>
     % endfor
                 </ul>
