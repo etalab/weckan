@@ -141,11 +141,12 @@ from weckan.model import Activity, meta, Package
                 <ul class="last_data">
     % for activity in meta.Session.query(Activity).filter(Activity.activity_type.in_(['changed package', 'new package'])).order_by(Activity.timestamp.desc()).limit(8):
 <%
-        title = activity.data['package']['title']
+        package = activity.data['package']
+        title = package['title']
         if len(title) > 80:
             title = title[:77] + u'...'
 %>\
-                    <li><span class="${'data_add' if activity.activity_type == 'new package' else 'data_update'}"></span><a href="data.php">${title}<span>a été ${u'ajouté'  if activity.activity_type == 'new package' else u'modifié'}</span></a><span class="feed_date">${activity.timestamp.isoformat().split('T')[0]}</span></li>
+                    <li><span class="${'data_add' if activity.activity_type == 'new package' else 'data_update'}"></span><a href="${urls.get_url(ctx, 'dataset', package['name'])}">${title}<span>a été ${u'ajouté'  if activity.activity_type == 'new package' else u'modifié'}</span></a><span class="feed_date">${activity.timestamp.isoformat().split('T')[0]}</span></li>
     % endfor
                 </ul>
                 <ul class="best_data active">
