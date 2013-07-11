@@ -150,14 +150,9 @@ from weckan.model import Activity, meta, Package
     % endfor
                 </ul>
                 <ul class="best_data active">
-                    <li><a href="#">Remise des prix DataConnexions #3</a><span class="feed_date news">22/06/2013</span></li>
-                    <li><a href="#">Le G8 signe une Charte pour l’Ouverture des Données Publiques</a><span class="feed_date news">16/06/2013</span></li>
-                    <li><a href="#">Datajournalisme : Des données pour s’informer</a><span class="feed_date news">12/06/2013</span></li>
-                    <li><a href="#">Contribution de data publica à la consultation codesign</a><span class="feed_date news">05/06/2013</span></li>
-                    <li><a href="#">Lancement de la phase 2 du codesign</a><span class="feed_date news">27/05/2013</span></li>
-                    <li><a href="#">Etalab lance le codesign du prochain data.gouv.fr</a><span class="feed_date news">23/05/2013</span></li>
-                    <li><a href="#">Les entreprises publiques à l’heure de l’open data</a><span class="feed_date news">17/05/2013</span></li>
-                    <li><a href="#">Openstreetmap complète sa carte du monde interactive</a><span class="feed_date news">11/05/2013</span></li>
+    % for package in meta.Session.query(Package).limit(8):
+                    <li><a href="${package.get_url(ctx)}">${package.title}</a></li>
+    % endfor
                 </ul>
             </div>
         </div>
