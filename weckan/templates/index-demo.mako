@@ -102,7 +102,7 @@ from weckan.model import meta, Package
             <li class="actions_profilmenu noconnected">
                 <span>Connexion / Inscription</span>
                 <ul>
-                    <li><a href="${urls.get_url(ctx, 'user', 'login')}" class="problem_account">Connexion</a></li>
+                    <li><a href="${urls.get_url(ctx, 'user', 'login')}" class="create_account">Connexion</a></li>
                     <li><a href="${urls.get_url(ctx, 'user', 'register')}" class="create_account">Créer un compte</a></li>
                 </ul>
             </li>
