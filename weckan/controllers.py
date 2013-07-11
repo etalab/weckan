@@ -46,6 +46,7 @@ def make_router(app):
     global router
     router = urls.make_router(app,
         ('GET', '^/?$', index),
+        ('GET', '^/fr/?$', index),
 
 #        (None, '^/admin/accounts(?=/|$)', accounts.route_admin_class),
 #        (None, '^/admin/forms(?=/|$)', forms.route_admin_class),
