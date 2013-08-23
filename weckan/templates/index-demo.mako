@@ -187,20 +187,32 @@ from weckan.model import Activity, meta, Package
 
         <!-- PROJECTS -->
         <section class="projects_block home">
-            <h1>Projets à la une</h1>
+            <h1>À la une</h1>
             <ul>
                 <li>
-                    <figure style="background-image:url(/hetic/img/wdmtg.png)"></figure>
+                    <figure style="background-image:url(https://dl.dropboxusercontent.com/u/2194909/egaliteHF.png)"></figure>
                     <div class="project_view">
-                        <a href="http://wdmtg.com/">Accéder au projet</a>
+                        <a href="http://wiki.etalab2.fr/wiki/L%27%C3%A9galit%C3%A9_Femmes_Hommes">Accéder au projet</a>
                     </div>
                     <div class="project_txt">
                     <div>
-                        <h2>Where Does My Tweet Go?</h2>
-                        <p>Interface de visualisation, au travers d'un graph, de l'influence d'un tweet et des influenceurs.</p>
+                        <h2>Égalité Femmes Hommes</h2>
+                        <p>Projet de loi pour l’égalité entre les femmes et les hommes. </p>
                     </div>
                     </div>
                 </li>
+##                <li>
+##                    <figure style="background-image:url(/hetic/img/wdmtg.png)"></figure>
+##                    <div class="project_view">
+##                        <a href="http://wdmtg.com/">Accéder au projet</a>
+##                    </div>
+##                    <div class="project_txt">
+##                    <div>
+##                        <h2>Where Does My Tweet Go?</h2>
+##                        <p>Interface de visualisation, au travers d'un graph, de l'influence d'un tweet et des influenceurs.</p>
+##                    </div>
+##                    </div>
+##                </li>
                 <li>
                     <figure style="background-image:url(/hetic/img/rennes.png)"></figure>
                     <div class="project_view">
