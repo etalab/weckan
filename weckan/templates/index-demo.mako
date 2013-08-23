@@ -158,8 +158,8 @@ from weckan.model import Activity, meta, Package
             </div>
         </div>
 
-##        <!-- DESCRIPTION -->
-##        <section class="description_home">
+        <!-- DESCRIPTION -->
+        <section class="description_home">
 ##            <ul>
 ##                <li>
 ##                    <a href="${urls.get_url(ctx, 'dataset')}">
@@ -183,7 +183,7 @@ from weckan.model import Activity, meta, Package
 ##                    </a>
 ##                </li>
 ##            </ul>
-##        </section>
+        </section>
 
         <!-- PROJECTS -->
         <section class="projects_block home">
