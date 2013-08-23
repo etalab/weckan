@@ -28,7 +28,7 @@ from weckan.model import Activity, meta, Package
 <header class="mainheader">
     <a href="${urls.get_url(ctx)}">
         <h1>Data.Gouv.fr</h1>
-        <span>Innovation, transparence, ouverture</span>
+        <span>La plate-forme ouverte des données publiques françaises</span>
     </a>
     
     <nav class="mainnav">
