@@ -47,9 +47,9 @@ from weckan.model import Activity, meta, Package
                             <li><a href="http://www.etalab.gouv.fr/">ETALAB</a></li>
                         </ul>
                     </li>
-                    <li>
-                        <span>Actualités</span>
-                    </li>
+##                    <li>
+##                        <span>Actualités</span>
+##                    </li>
                 </ul>
             </li>
 
