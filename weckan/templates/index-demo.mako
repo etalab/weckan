@@ -189,7 +189,7 @@ from weckan.model import Activity, meta, Package
         <section class="projects_block home">
             <p></p>
             <p></p>
-            <h1>À la une</h1>
+            <h1> </h1>
             <ul>
                 <li>
                     <figure style="background-image:url(https://dl.dropboxusercontent.com/u/2194909/egaliteHF.png)"></figure>
