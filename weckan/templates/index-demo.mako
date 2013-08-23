@@ -126,19 +126,19 @@ from weckan.model import Activity, meta, Package
             <ul class="home_feeds_tabs">
                 <li data-tab="best_data" class="active">Les plus<br>consultées</li>
                 <li data-tab="last_data">Dernières<br>données</li>
-                <li data-tab="last_news">Dernières<br>actualités</li>
+##                <li data-tab="last_news">Dernières<br>actualités</li>
             </ul>
             <div class="home_feeds_content">
-                <ul class="last_news">
-                    <li><a href="#">Remise des prix DataConnexions #3</a><span class="feed_date news">22/06/2013</span></li>
-                    <li><a href="#">Le G8 signe une Charte pour l’Ouverture des Données Publiques</a><span class="feed_date news">16/06/2013</span></li>
-                    <li><a href="#">Datajournalisme : Des données pour s’informer</a><span class="feed_date news">12/06/2013</span></li>
-                    <li><a href="#">Contribution de data publica à la consultation codesign</a><span class="feed_date news">05/06/2013</span></li>
-                    <li><a href="#">Lancement de la phase 2 du codesign</a><span class="feed_date news">27/05/2013</span></li>
-                    <li><a href="#">Etalab lance le codesign du prochain data.gouv.fr</a><span class="feed_date news">23/05/2013</span></li>
-                    <li><a href="#">Les entreprises publiques à l’heure de l’open data</a><span class="feed_date news">17/05/2013</span></li>
-                    <li><a href="#">Openstreetmap complète sa carte du monde interactive</a><span class="feed_date news">11/05/2013</span></li>
-                </ul>
+##                <ul class="last_news">
+##                    <li><a href="#">Remise des prix DataConnexions #3</a><span class="feed_date news">22/06/2013</span></li>
+##                    <li><a href="#">Le G8 signe une Charte pour l’Ouverture des Données Publiques</a><span class="feed_date news">16/06/2013</span></li>
+##                    <li><a href="#">Datajournalisme : Des données pour s’informer</a><span class="feed_date news">12/06/2013</span></li>
+##                    <li><a href="#">Contribution de data publica à la consultation codesign</a><span class="feed_date news">05/06/2013</span></li>
+##                    <li><a href="#">Lancement de la phase 2 du codesign</a><span class="feed_date news">27/05/2013</span></li>
+##                    <li><a href="#">Etalab lance le codesign du prochain data.gouv.fr</a><span class="feed_date news">23/05/2013</span></li>
+##                    <li><a href="#">Les entreprises publiques à l’heure de l’open data</a><span class="feed_date news">17/05/2013</span></li>
+##                    <li><a href="#">Openstreetmap complète sa carte du monde interactive</a><span class="feed_date news">11/05/2013</span></li>
+##                </ul>
                 <ul class="last_data">
     % for activity in meta.Session.query(Activity).filter(Activity.activity_type.in_(['changed package', 'new package'])).order_by(Activity.timestamp.desc()).limit(8):
 <%
@@ -158,32 +158,32 @@ from weckan.model import Activity, meta, Package
             </div>
         </div>
 
-        <!-- DESCRIPTION -->
-        <section class="description_home">
-            <ul>
-                <li>
-                    <a href="${urls.get_url(ctx, 'dataset')}">
-                    <img src="/hetic/img/ico1.png" alt="Données publiques" width="84" height="84" />
-                    <h2>Données publiques</h2>
-                    <p>Les données publiques sont l’ensemble des données de la cité publiées ou tenues à disposition du public, qui sont produites ou collectées par une collectivité, un organisme ou un service public.</p>
-                    </a>
-                </li>
-                <li>
-                    <a href="${urls.get_url(ctx, 'organization')}">
-                    <img src="/hetic/img/ico2.png" alt="Producteurs de données" width="84" height="84" />
-                    <h2>Producteurs de données</h2>
-                    <p>Les prodcuteurs de données, qu'ils soient des organismes ou des administrations, contribuent à l'élaboration de l'open gouvernance en redistribuant les données dans l'espace publique.</p>
-                    </a>
-                </li>
-                <li>
-                    <a href="http://www.etalab.gouv.fr/">
-                    <img src="/hetic/img/ico3.png" alt="Etalab" width="84" height="84" />
-                    <h2>Etalab</h2>
-                    <p>Au sein du Secrétariat général pour la modernisation de l’action publique, Etalab coordonne l’action des services de l’Etat et de ses établissements publics pour faciliter la réutilisation.</p>
-                    </a>
-                </li>
-            </ul>
-        </section>
+##        <!-- DESCRIPTION -->
+##        <section class="description_home">
+##            <ul>
+##                <li>
+##                    <a href="${urls.get_url(ctx, 'dataset')}">
+##                    <img src="/hetic/img/ico1.png" alt="Données publiques" width="84" height="84" />
+##                    <h2>Données publiques</h2>
+##                    <p>Les données publiques sont l’ensemble des données de la cité publiées ou tenues à disposition du public, qui sont produites ou collectées par une collectivité, un organisme ou un service public.</p>
+##                    </a>
+##                </li>
+##                <li>
+##                    <a href="${urls.get_url(ctx, 'organization')}">
+##                    <img src="/hetic/img/ico2.png" alt="Producteurs de données" width="84" height="84" />
+##                    <h2>Producteurs de données</h2>
+##                    <p>Les prodcuteurs de données, qu'ils soient des organismes ou des administrations, contribuent à l'élaboration de l'open gouvernance en redistribuant les données dans l'espace publique.</p>
+##                    </a>
+##                </li>
+##                <li>
+##                    <a href="http://www.etalab.gouv.fr/">
+##                    <img src="/hetic/img/ico3.png" alt="Etalab" width="84" height="84" />
+##                    <h2>Etalab</h2>
+##                    <p>Au sein du Secrétariat général pour la modernisation de l’action publique, Etalab coordonne l’action des services de l’Etat et de ses établissements publics pour faciliter la réutilisation.</p>
+##                    </a>
+##                </li>
+##            </ul>
+##        </section>
 
         <!-- PROJECTS -->
         <section class="projects_block home">
@@ -192,7 +192,7 @@ from weckan.model import Activity, meta, Package
                 <li>
                     <figure style="background-image:url(https://dl.dropboxusercontent.com/u/2194909/egaliteHF.png)"></figure>
                     <div class="project_view">
-                        <a href="http://wiki.etalab2.fr/wiki/L%27%C3%A9galit%C3%A9_Femmes_Hommes">Accéder au projet</a>
+                        <a href="http://wiki.etalab2.fr/wiki/L%27%C3%A9galit%C3%A9_Femmes_Hommes">Accéder</a>
                     </div>
                     <div class="project_txt">
                     <div>
