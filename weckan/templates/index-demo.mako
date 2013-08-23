@@ -117,10 +117,10 @@ from weckan.model import Activity, meta, Package
          <p style="font-family: 'ProximaNova'; font-size: 2em; line-height: 1.2em; padding-bottom: 1em">Ici, les acteurs publics <strong>co-construisent</strong> avec la société civile une <strong>vision partagé$
        
         <div class="home_featured" style="width: calc(55% - 30px); height: 320px; float: left; border-radius: 4px 4px 4px 4px; background: url(http://i-cms.journaldesfemmes.com/image_cms/original/1167773.jpg) repeat scroll 0% 0% transparent; position: relative; overflow: hidden; font-family: 'ProximaNova'; color: rgb(244, 244, 244)">
-            <a href="#">
+            <a href="http://wiki.etalab2.fr/wiki/L%27%C3%A9galit%C3%A9_Femmes_Hommes">
             <div class="home_gradient"></div>
             <span>À la une</span>
-            <h1><a href="#" class="titlenews">Projet de loi pour l’égalité entre les femmes et les hommes</a></h1>
+            <h1><a href="http://wiki.etalab2.fr/wiki/L%27%C3%A9galit%C3%A9_Femmes_Hommes" class="titlenews">Projet de loi pour l’égalité entre les femmes et les hommes</a></h1>
             </a>
         </div>
 
