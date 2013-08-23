@@ -126,19 +126,19 @@ from weckan.model import Activity, meta, Package
             <ul class="home_feeds_tabs">
                 <li data-tab="best_data" class="active">Les plus<br>consultées</li>
                 <li data-tab="last_data">Dernières<br>données</li>
-##                <li data-tab="last_news">Dernières<br>actualités</li>
+                <li data-tab="last_news">Dernières<br>actualités</li>
             </ul>
             <div class="home_feeds_content">
-##                <ul class="last_news">
-##                    <li><a href="#">Remise des prix DataConnexions #3</a><span class="feed_date news">22/06/2013</span></li>
-##                    <li><a href="#">Le G8 signe une Charte pour l’Ouverture des Données Publiques</a><span class="feed_date news">16/06/2013</span></li>
-##                    <li><a href="#">Datajournalisme : Des données pour s’informer</a><span class="feed_date news">12/06/2013</span></li>
-##                    <li><a href="#">Contribution de data publica à la consultation codesign</a><span class="feed_date news">05/06/2013</span></li>
-##                    <li><a href="#">Lancement de la phase 2 du codesign</a><span class="feed_date news">27/05/2013</span></li>
-##                    <li><a href="#">Etalab lance le codesign du prochain data.gouv.fr</a><span class="feed_date news">23/05/2013</span></li>
-##                    <li><a href="#">Les entreprises publiques à l’heure de l’open data</a><span class="feed_date news">17/05/2013</span></li>
-##                    <li><a href="#">Openstreetmap complète sa carte du monde interactive</a><span class="feed_date news">11/05/2013</span></li>
-##                </ul>
+                <ul class="last_news">
+                    <li><a href="#">Remise des prix DataConnexions #3</a><span class="feed_date news">22/06/2013</span></li>
+                    <li><a href="#">Le G8 signe une Charte pour l’Ouverture des Données Publiques</a><span class="feed_date news">16/06/2013</span></li>
+                    <li><a href="#">Datajournalisme : Des données pour s’informer</a><span class="feed_date news">12/06/2013</span></li>
+                    <li><a href="#">Contribution de data publica à la consultation codesign</a><span class="feed_date news">05/06/2013</span></li>
+                    <li><a href="#">Lancement de la phase 2 du codesign</a><span class="feed_date news">27/05/2013</span></li>
+                    <li><a href="#">Etalab lance le codesign du prochain data.gouv.fr</a><span class="feed_date news">23/05/2013</span></li>
+                    <li><a href="#">Les entreprises publiques à l’heure de l’open data</a><span class="feed_date news">17/05/2013</span></li>
+                    <li><a href="#">Openstreetmap complète sa carte du monde interactive</a><span class="feed_date news">11/05/2013</span></li>
+                </ul>
                 <ul class="last_data">
     % for activity in meta.Session.query(Activity).filter(Activity.activity_type.in_(['changed package', 'new package'])).order_by(Activity.timestamp.desc()).limit(8):
 <%
@@ -187,6 +187,8 @@ from weckan.model import Activity, meta, Package
 
         <!-- PROJECTS -->
         <section class="projects_block home">
+            <p></p>
+            <p></p>
             <h1>À la une</h1>
             <ul>
                 <li>
