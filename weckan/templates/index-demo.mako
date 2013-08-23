@@ -114,7 +114,7 @@ from weckan.model import Activity, meta, Package
     </nav>
     <div class="contentpage">
 
-         <p style="font-family: 'ProximaNova'; font-size: 2em; line-height: 1.2em; padding-bottom: 1em">Ici, les acteurs publics <strong>co-construisent</strong> avec la société civile une <strong>vision partagé$
+         <p style="font-family: 'ProximaNova'; font-size: 2em; line-height: 1.2em; padding-bottom: 1em">Ici, les acteurs publics <strong>co-construisent</strong> avec la société civile une <strong>vision partagée</strong> de la France qui stimule <strong>l'innovation</strong>.</p>
        
         <div class="home_featured" style="width: calc(55% - 30px); height: 320px; float: left; border-radius: 4px 4px 4px 4px; background: url(http://i-cms.journaldesfemmes.com/image_cms/original/1167773.jpg) repeat scroll 0% 0% transparent; position: relative; overflow: hidden; font-family: 'ProximaNova'; color: rgb(244, 244, 244)">
             <a href="http://wiki.etalab2.fr/wiki/L%27%C3%A9galit%C3%A9_Femmes_Hommes">
