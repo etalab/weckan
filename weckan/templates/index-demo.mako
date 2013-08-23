@@ -110,15 +110,17 @@ from weckan.model import Activity, meta, Package
                 </ul>
             </li>
         </ul>
-    </nav>
 </section>
+    </nav>
     <div class="contentpage">
-        
-        <div class="home_featured">
+
+         <p style="font-family: 'ProximaNova'; font-size: 2em; line-height: 1.2em; padding-bottom: 1em">Ici, les acteurs publics <strong>co-construisent</strong> avec la société civile une <strong>vision partagé$
+       
+        <div class="home_featured" style="width: calc(55% - 30px); height: 320px; float: left; border-radius: 4px 4px 4px 4px; background: url(http://i-cms.journaldesfemmes.com/image_cms/original/1167773.jpg) repeat scroll 0% 0% transparent; position: relative; overflow: hidden; font-family: 'ProximaNova'; color: rgb(244, 244, 244)">
             <a href="#">
             <div class="home_gradient"></div>
             <span>À la une</span>
-            <h1><a href="#" class="titlenews">Le G8 signe une Charte pour l’Ouverture des Données Publiques</a></h1>
+            <h1><a href="#" class="titlenews">Projet de loi pour l’égalité entre les femmes et les hommes</a></h1>
             </a>
         </div>
 
@@ -189,30 +191,30 @@ from weckan.model import Activity, meta, Package
         <section class="projects_block home">
             <h1>À la une</h1>
             <ul>
-                <li>
-                    <figure style="background-image:url(https://dl.dropboxusercontent.com/u/2194909/egaliteHF.png)"></figure>
-                    <div class="project_view">
-                        <a href="http://wiki.etalab2.fr/wiki/L%27%C3%A9galit%C3%A9_Femmes_Hommes">Accéder</a>
-                    </div>
-                    <div class="project_txt">
-                    <div>
-                        <h2>Égalité Femmes Hommes</h2>
-                        <p>Projet de loi pour l’égalité entre les femmes et les hommes. </p>
-                    </div>
-                    </div>
-                </li>
 ##                <li>
-##                    <figure style="background-image:url(/hetic/img/wdmtg.png)"></figure>
+##                    <figure style="background-image:url(https://dl.dropboxusercontent.com/u/2194909/egaliteHF.png)"></figure>
 ##                    <div class="project_view">
-##                        <a href="http://wdmtg.com/">Accéder au projet</a>
+##                        <a href="http://wiki.etalab2.fr/wiki/L%27%C3%A9galit%C3%A9_Femmes_Hommes">Accéder</a>
 ##                    </div>
 ##                    <div class="project_txt">
 ##                    <div>
-##                        <h2>Where Does My Tweet Go?</h2>
-##                        <p>Interface de visualisation, au travers d'un graph, de l'influence d'un tweet et des influenceurs.</p>
+##                        <h2>Égalité Femmes Hommes</h2>
+##                        <p>Projet de loi pour l’égalité entre les femmes et les hommes. </p>
 ##                    </div>
 ##                    </div>
 ##                </li>
+                <li>
+                    <figure style="background-image:url(/hetic/img/wdmtg.png)"></figure>
+                    <div class="project_view">
+                        <a href="http://wdmtg.com/">Accéder au projet</a>
+                    </div>
+                    <div class="project_txt">
+                    <div>
+                        <h2>Where Does My Tweet Go?</h2>
+                        <p>Interface de visualisation, au travers d'un graph, de l'influence d'un tweet et des influenceurs.</p>
+                    </div>
+                    </div>
+                </li>
                 <li>
                     <figure style="background-image:url(/hetic/img/rennes.png)"></figure>
                     <div class="project_view">
