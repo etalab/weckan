@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>Data.Gouv.fr</title>
+<meta name="robots" content="noindex, nofollow">
+<meta name="description" content="Données ouvertes françaises">
+<meta name="author" content="Anonymous" />
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<link rel="shortcut icon" type="image/x-icon" href="/hetic/img/favicon.ico" />
+
+{% assets "hetic", "style" %}
+    <link rel="stylesheet" media="screen" href="{{ ASSET_URL }}">
+{% endassets %}
+</head>
+<body>
+
+{% include "header.html" %}
+
+<div class="maincontent" data-page="home">
+
+    <div class="opacitycontent">
+
+    </div>
+
+    {% include "topbar.html" %}
+
+    <div class="contentpage">
+
+         <p style="font-family: 'ProximaNova'; font-size: 2em; line-height: 1.2em; padding-bottom: 1em">Ici, les acteurs publics <strong>co-construisent</strong> avec la société civile une <strong>vision partagée</strong> de la France qui stimule l'<strong>innovation</strong>.</p>
+
+        {% include "featured.html" %}
+        {% include "feeds.html" %}
+
+        {# WTF!? Need CSS replacement #}
+        <section class="description_home"></section>
+
+        {% include "projects.html" %}
+
+    </div>
+
+</div>
+
+{% assets "js" %}
+<script src="{{ ASSET_URL}}"></script>
+{% endassets %}
+
+</body>
+</html>

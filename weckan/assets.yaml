@@ -1,0 +1,23 @@
+directory: static
+url: /
+debug: True
+auto_build: True
+updater: timestamp
+
+bundles:
+    hetic:
+        output: css/hetic.min.css
+        contents:
+            - hetic/css/style.css
+            - hetic/css/chosen.css
+    style:
+        filters: less
+        output: css/home.min.css
+        contents:
+            - less/home.less
+    js:
+        filters: jsmin
+        output: home.min.js
+        contents:
+            - hetic/js/lib/jquery-2.0.0.min.js
+            - hetic/js/main.js

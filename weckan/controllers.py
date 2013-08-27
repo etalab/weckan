@@ -40,6 +40,12 @@ def index(req):
     ctx = contexts.Ctx(req)
     return templates.render(ctx, '/index-demo.mako')
 
+@wsgihelpers.wsgify
+def proto(req):
+    from .jinja import env
+    template = env.get_template('home.html')
+    return template.render()
+
 
 def make_router(app):
     """Return a WSGI application that searches requests to controllers """
@@ -47,6 +53,7 @@ def make_router(app):
     router = urls.make_router(app,
         ('GET', '^/?$', index),
         ('GET', '^/fr/?$', index),
+        ('GET', '^/proto/?$', proto),
 
 #        (None, '^/admin/accounts(?=/|$)', accounts.route_admin_class),
 #        (None, '^/admin/forms(?=/|$)', forms.route_admin_class),
