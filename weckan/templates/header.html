@@ -1,5 +1,5 @@
 <header class="mainheader">
-    <a href="${urls.get_url(ctx)}">
+    <a href="{{ url() }}">
         <h1>Data.Gouv.fr</h1>
         <span>La plate-forme ouverte des données publiques françaises</span>
     </a>
@@ -14,7 +14,7 @@
                         <span>Données publiques</span>
                         <ul>
                             <li><a href="#">Définition</a></li>
-                            <li><a href="${urls.get_url(ctx, 'organization')}">Producteurs</a></li>
+                            <li><a href="{{ url('organization') }}">Producteurs</a></li>
                             <li><a href="http://www.etalab.gouv.fr/pages/licence-ouverte-open-licence-5899923.html">Licence Ouverte</a></li>
                             <li><a href="#">Quelles données ?</a></li>
                             <li><a href="http://www.etalab.gouv.fr/">ETALAB</a></li>
@@ -27,7 +27,7 @@
             <li class="nav_search">
                 <ul>
                     <li class="searchnav">
-                        <form action="${urls.get_url(ctx, 'dataset')}">
+                        <form action="{{ url('dataset')}}">
                             <input name="q" type="search" placeholder="Rechercher..." />
                             <input type="submit" value="&#xe00a;">
                         </form>
@@ -39,9 +39,11 @@
             <!-- Rubrics -->
             <li class="nav_rubrics">
                 <ul>
+                    {% for group in groups %}
                     <li>
-                        <span><a href="${urls.get_url(ctx, 'group', strings.slugify(group_title))}">${group_title}</a></span>
+                        <span><a href="{{ url('group', slugify(group)) }}">{{ group }}</a></span>
                     </li>
+                    {% endfor %}
                 </ul>
             </li>
 

@@ -30,9 +30,52 @@ import logging
 
 from . import contexts, templates, urls, wsgihelpers
 
+from .model import Activity, meta, Package
+from sqlalchemy.sql import func
+
 
 log = logging.getLogger(__name__)
 router = None
+
+groups = [
+    u"Culture et communication",
+    u"Développement durable",
+    u"Éducation et recherche",
+    u"État et collectivités",
+    u"Europe",
+    u"Justice",
+    u"Monde",
+    u"Santé et solidarité",
+    u"Sécurité et défense",
+    u"Société",
+    u"Travail, économie, emploi",
+    ]
+
+
+def last_datasets():
+    datasets = []
+    for activity in meta.Session.query(Activity)\
+            .filter(Activity.activity_type.in_(['changed package', 'new package']))\
+            .order_by(Activity.timestamp.desc()).limit(8):
+
+        package = activity.data['package']
+        datasets.append({
+            'package': package['name'].strip(),
+            'title': package['title'].strip(),
+            'new': activity.activity_type == 'new package',
+            'timestamp': activity.timestamp,
+        })
+    return datasets
+
+def popular_datasets():
+    datasets = []
+    for package in meta.Session.query(Package).order_by(func.random()).limit(8):
+        datasets.append({
+            'name': package.name,
+            'title': package.title,
+            'timestamp': package.metadata_modified,
+        })
+    return datasets
 
 
 @wsgihelpers.wsgify
@@ -43,8 +86,13 @@ def index(req):
 @wsgihelpers.wsgify
 def proto(req):
     from .jinja import env
-    template = env.get_template('home.html')
-    return template.render()
+    template = env.get_template('proto.html')
+    return template.render(
+        groups=groups,
+        last_datasets=last_datasets(),
+        popular_datasets=popular_datasets()
+    )
+
 
 
 def make_router(app):
