@@ -1,0 +1,18 @@
+include setup.py COPYING MANIFEST.in
+
+recursive-include weckan *
+
+recursive-exclude weckan/static/css *.min.css
+recursive-exclude weckan/static/js *.min.js
+
+prune weckan/static/.webassets-cache
+prune weckan/static/bower
+
+include weckan/static/bower/bootstrap/less/*.less
+include weckan/static/bower/bootstrap/dist/js/bootstrap.js
+include weckan/static/bower/jquery/jquery.js
+include weckan/static/bower/jquery-legacy/index.js
+include weckan/static/bower/modernizr/modernizr.js
+include weckan/static/bower/respond/respond.src.js
+
+global-exclude *~ *.egg *.pyc
