@@ -1,0 +1,24 @@
+<nav class="navbar navbar-default navbar-static-top" role="navigation">
+    <header class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="#">Data.Gouv.fr</a>
+        <p class="navbar-text">La plate-forme ouverte des données publiques françaises</p>
+    </header>
+
+    <ul class="nav navbar-nav navbar-right">
+        <li class="dropdown">
+            <button class="btn btn-dark navbar-btn dropdown-toggle" data-toggle="dropdown">
+                Connexion / Inscription
+                <b class="caret"></b>
+            </button>
+            <ul class="dropdown-menu">
+                <li><a href="{{ url('user', 'login') }}">Connexion</a></li>
+                <li><a href="{{ url('user', 'register') }}">Créer un compte</a></li>
+            </ul>
+        </li>
+    </ul>
+</nav>

@@ -1,0 +1,22 @@
+{
+  "name": "weckan",
+  "version": "0.1.0.dev",
+  "description": "Etalab Front Page",
+  "license": "MIT",
+  "homepage": "http://data.gouv.fr",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "respond": "~1.3.0",
+    "jquery": "~2.0.3",
+    "jquery-legacy": "http://code.jquery.com/jquery-1.10.2.js",
+    "bootstrap": "~3.0.0",
+    "modernizr": "~2.6.2"
+  }
+}

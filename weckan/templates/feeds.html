@@ -1,29 +1,37 @@
-<div class="home_feeds">
-    <ul class="home_feeds_tabs">
-        <li data-tab="last_data" class="active">Les plus<br>récentes</li>
-        <li data-tab="popular_data">Les plus<br/>populaires</li>
+<div class="feeds panel panel-default">
+    <ul class="nav nav-tabs nav-justified">
+        <li class="active"><a href="#last-datasets"  data-toggle="tab">Récents</a></li>
+        <li><a href="#popular-datasets" data-toggle="tab">Populaires</a></li>
     </ul>
-    <div class="home_feeds_content">
-        <ul class="last_data active">
-            {% for dataset in last_datasets %}
-            <li>
-                <span class="data_{{ ifelse(dataset.new, 'add', 'update') }}"></span>
-                <a href="{{ url('dataset', dataset.package) }}">
-                    {{ dataset.title|truncate(65) }}
-                    {# <span>a été {{ ifelse(dataset.new, 'ajouté', 'modifié') }}</span> #}
-                </a>
-                <span class="feed_date">{{ dataset.timestamp|datetime}}</span>
-            </li>
-            {% endfor %}
-        </ul>
 
-        <ul class="popular_data">
-            {% for dataset in popular_datasets %}
-            <li>
-                <a href="{{ url('dataset', dataset.name) }}">{{ dataset.title|truncate(65) }}</a>
-                <span class="feed_date news">{{ dataset.timestamp|datetime }}</span>
-            </li>
-            {% endfor %}
-        </ul>
+    <div class="tab-content tab-datasets">
+        <div class="tab-pane active" id="last-datasets">
+            <table class="table table-striped table-hover">
+                {% for dataset in last_datasets %}
+                <tr>
+                    <td class="ellipsis">
+                        <a href="{{ url('dataset', dataset.package) }}">
+                            <span class="pull-right">{{ dataset.timestamp|datetime}}</span>
+                            {{ dataset.title }}
+                        </a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+        <div class="tab-pane" id="popular-datasets">
+            <table class="table table-striped able-hover">
+                {% for dataset in popular_datasets %}
+                <tr>
+                    <td class="ellipsis">
+                        <a href="{{ url('dataset', dataset.package) }}">
+                            <span class="pull-right">{{ dataset.timestamp|datetime}}</span>
+                            {{ dataset.title }}
+                        </a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
     </div>
 </div>

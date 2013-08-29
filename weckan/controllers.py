@@ -37,19 +37,19 @@ from sqlalchemy.sql import func
 log = logging.getLogger(__name__)
 router = None
 
-groups = [
-    u"Culture et communication",
-    u"Développement durable",
-    u"Éducation et recherche",
-    u"État et collectivités",
-    u"Europe",
-    u"Justice",
-    u"Monde",
-    u"Santé et solidarité",
-    u"Sécurité et défense",
-    u"Société",
-    u"Travail, économie, emploi",
-    ]
+groups = (
+    (u'Culture et communication', 'culture'),
+    (u'Développement durable', 'wind'),
+    (u'Éducation et recherche', 'education'),
+    (u'État et collectivités', 'france'),
+    (u'Europe', 'europe'),
+    (u'Justice', 'justice'),
+    (u'Monde', 'world'),
+    (u'Santé et solidarité', 'hearth'),
+    (u'Sécurité et défense', 'shield'),
+    (u'Société', 'people'),
+    (u'Travail, économie, emploi', 'case'),
+)
 
 
 def last_datasets():
@@ -83,11 +83,13 @@ def index(req):
     ctx = contexts.Ctx(req)
     return templates.render(ctx, '/index-demo.mako')
 
+
 @wsgihelpers.wsgify
-def proto(req):
+def home(req):
     from .jinja import env
-    template = env.get_template('proto.html')
+    template = env.get_template('home.html')
     return template.render(
+        lang='fr',
         groups=groups,
         last_datasets=last_datasets(),
         popular_datasets=popular_datasets()
@@ -101,7 +103,7 @@ def make_router(app):
     router = urls.make_router(app,
         ('GET', '^/?$', index),
         ('GET', '^/fr/?$', index),
-        ('GET', '^/proto/?$', proto),
+        ('GET', '^/bootstrap/?$', home),
 
 #        (None, '^/admin/accounts(?=/|$)', accounts.route_admin_class),
 #        (None, '^/admin/forms(?=/|$)', forms.route_admin_class),

@@ -1,0 +1,108 @@
+@import "../bower/bootstrap/less/bootstrap.less";
+@import "icons.less";
+@import "variables.less";
+
+
+.full-container {
+    padding-left: 15px;
+    padding-right: 15px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.featured {
+    a.thumbnail {
+        text-decoration: none;
+        height: 390px;
+    }
+}
+
+.tab-datasets {
+    tr {
+        cursor: pointer;
+
+        a {
+            text-decoration: none;
+            color: black;
+        }
+    }
+}
+
+.ellipsis {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+
+#search-form {
+    height: 34px;
+    margin-bottom: 20px;
+}
+
+
+
+// Custom buttons
+.btn-dark {
+    .button-variant(white; @bg-darker; @bg-dark);
+}
+.btn-highlight {
+    .button-variant(white; @highlight; @highlight);
+}
+
+
+/**
+ * Navbar style and fixes
+ */
+.navbar-static-top {
+    .navbar-right .dropdown {
+        margin-right: 5px;
+
+        .caret {
+            color: white;
+            border-top-color: white;
+            border-bottom-color: white;
+        }
+    }
+}
+
+/**
+ * Sidebar style and fixes
+ */
+#sidebar {
+    a {
+        color: white;
+        text-decoration: none;
+    }
+
+    .panel-heading {
+        background-color: transparent;
+    }
+
+    ul.list-unstyled li{
+        margin: 10px;
+        // line-height:30px;
+        -webkit-border-radius:4px;
+        -webkit-transition:padding .2s ease, background .2s ease;
+        // margin-bottom:1px;
+
+        &:hover {
+            margin-left: 15px;
+            background-color: @hover-bg
+        }
+    }
+
+//     .nav_pages > ul > li > ul > li{ line-height:30px;-webkit-border-radius:4px;margin-bottom:1px;
+//   -webkit-transition:padding .2s ease, background .2s ease;
+// }
+// .nav_pages > ul > li > ul > li a{display:block; width:100%;}
+// .nav_pages > ul > li > ul > li:hover, .nav_pages > ul > li > ul > li.active{ background:#3D5772; padding-left: .7em; }
+}
+
+// Feeds fixes
+.feeds {
+    background-color: @gray-lighter;
+    .table {
+        margin: 0;
+    }
+}

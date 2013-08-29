@@ -1,17 +1,28 @@
-hetic:
-    filters: cssrewrite,cssmin
-    output: css/hetic.min.css
+style:
+    filters: less,cssrewrite,cssmin
+    output: css/site.min.css
+    contents: less/site.less
+    depends: less/*.less
+
+modernizr:
+    filters: jsmin
+    output: js/modernizr.min.js
     contents:
-        - hetic/css/style.css
-        - hetic/css/chosen.css
-proto:
-    filters: less,cssmin
-    output: css/proto.min.css
-    contents:
-        - less/proto.less
-proto-js:
+        - bower/modernizr/modernizr.js
+        - bower/respond/respond.src.js
+
+home-js:
     filters: jsmin
     output: js/home.min.js
     contents:
-        - hetic/js/lib/jquery-2.0.0.min.js
-        - hetic/js/main.js
+        - bower/jquery/jquery.js
+        - bower/bootstrap/dist/js/bootstrap.js
+        - js/home.js
+
+home-legacy-js:
+    filters: jsmin
+    output: js/home-legacy.min.js
+    contents:
+        - bower/jquery-legacy/index.js
+        - bower/bootstrap/dist/js/bootstrap.js
+        - js/home.js

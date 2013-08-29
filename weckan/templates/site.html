@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="{{lang}}"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8" lang="{{lang}}"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9" lang="{{lang}}"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="{{lang}}"> <!--<![endif]-->
+<head>
+    <meta charset="utf-8">
+
+    <meta name="robots" content="noindex, nofollow">
+    <meta name="description" content="Données ouvertes françaises">
+    <meta name="author" content="ETALAB">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+    <title>Data.Gouv.fr</title>
+    <link rel="shortcut icon" href="../../assets/ico/favicon.png">
+
+    {% assets "style" %}
+    <link rel="stylesheet" media="screen" href="{{ ASSET_URL }}">
+    {% endassets %}
+
+    {% assets "modernizr" %}
+    <script src="{{ ASSET_URL}}"></script>
+    {% endassets %}
+
+</head>
+<body>
+
+    {% include "navbar.html" %}
+
+    <div class="full-container">
+
+        {% block content %}{% endblock %}
+
+        <hr/>
+        <footer>
+            <p class="pull-right"><a href="#">Back to top</a></p>
+            <p>&copy; 2013 ETALAB, Inc. &middot; <a href="#">Privacy</a> &middot; <a href="#">Terms</a></p>
+        </footer>
+
+    </div>
+
+
+    {# Load scripts after for faster page loading #}
+    <!--[if lt IE 9]>
+        {% assets "home-legacy-js" %}
+        <script src="{{ ASSET_URL}}"></script>
+        {% endassets %}
+    <![endif]-->
+    <!--[if gte IE 9]><!-->
+        {% assets "home-js" %}
+        <script src="{{ ASSET_URL}}"></script>
+        {% endassets %}
+    <!--<![endif]-->
+</body>
+</html>

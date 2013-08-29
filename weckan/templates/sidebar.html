@@ -1,0 +1,25 @@
+<nav id="sidebar" class="panel panel-default">
+    <div class="panel-heading">
+        <a href data-toggle="collapse" data-target="#sidebar .panel-body">Données publiques</a>
+    </div>
+    <div class="panel-body collapse">
+        <ul class="list-unstyled">
+            <li><a href="#">Définition</a></li>
+            <li><a href="{{ url('organization') }}">Producteurs</a></li>
+            <li><a href="http://www.etalab.gouv.fr/pages/licence-ouverte-open-licence-5899923.html">Licence Ouverte</a></li>
+            <li><a href="#">Quelles données ?</a></li>
+            <li><a href="http://www.etalab.gouv.fr/">ETALAB</a></li>
+        </ul>
+    </div>
+
+    {% include "search.html" %}
+
+    <div class="list-group">
+        {% for title, icon in groups %}
+        <a class="list-group-item" href="{{ url('group', slugify(title)) }}">
+            <span class="icon icon-{{icon}}"></span>
+            {{ title }}
+        </a>
+        {% endfor %}
+    </div>
+</nav>

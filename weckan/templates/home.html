@@ -1,0 +1,41 @@
+{% extends "site.html" %}
+
+{% block content %}
+
+
+<div class="row">
+    <div class="col-md-3">
+        {% include "sidebar.html" %}
+    </div>
+
+    <div class="col-md-9">
+
+        <div class="row">
+            <div class="col-md-12">
+                <p class="lead">
+                Ici, les acteurs publics <strong>co-construisent</strong> avec la société civile
+                une <strong>vision partagée</strong> de la France qui stimule l'<strong>innovation</strong>.
+                </p>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+            <div class="panel panel-default">
+                {% include "caroussel.html" %}
+            </div>
+            </div>
+            <div class="col-md-6">
+                {% include "feeds.html" %}
+            </div>
+        </div>
+
+        <div class="container marketing">
+          {% include "featured.html" %}
+        </div>
+    </div>
+</div>
+
+
+
+{% endblock %}
