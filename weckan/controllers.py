@@ -30,8 +30,8 @@ import logging
 
 from . import contexts, templates, urls, wsgihelpers
 
-from .model import Activity, meta, Package
-from sqlalchemy.sql import func
+from .model import Activity, meta, Package, RelatedDataset
+from sqlalchemy.sql import func, desc
 
 
 log = logging.getLogger(__name__)
@@ -52,29 +52,36 @@ groups = (
 )
 
 
-def last_datasets():
+def last_datasets(num=8):
+    '''Get the ``num`` latest created datasets'''
     datasets = []
-    for activity in meta.Session.query(Activity)\
-            .filter(Activity.activity_type.in_(['changed package', 'new package']))\
-            .order_by(Activity.timestamp.desc()).limit(8):
+    for package, timestamp in meta.Session.query(Package, func.max(Activity.timestamp).label('timestamp'))\
+            .filter(Activity.object_id == Package.id)\
+            .filter(Activity.activity_type == 'new package')\
+            .group_by(Package).order_by(desc('timestamp')).limit(num):
 
-        package = activity.data['package']
         datasets.append({
-            'package': package['name'].strip(),
-            'title': package['title'].strip(),
-            'new': activity.activity_type == 'new package',
-            'timestamp': activity.timestamp,
+            'name': package.name,
+            'title': package.title,
+            'timestamp': timestamp,
         })
+
     return datasets
 
-def popular_datasets():
+
+def popular_datasets(num=8):
+    '''Get the ``num`` most popular (ie. with the most related) datasets'''
     datasets = []
-    for package in meta.Session.query(Package).order_by(func.random()).limit(8):
+    for package in meta.Session.query(Package).join(RelatedDataset)\
+            .filter(RelatedDataset.status == 'active').group_by(Package)\
+            .order_by(desc(func.count(RelatedDataset.related_id))).limit(num):
+
         datasets.append({
             'name': package.name,
             'title': package.title,
             'timestamp': package.metadata_modified,
         })
+
     return datasets
 
 
@@ -94,7 +101,6 @@ def home(req):
         last_datasets=last_datasets(),
         popular_datasets=popular_datasets()
     )
-
 
 
 def make_router(app):

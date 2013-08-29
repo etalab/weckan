@@ -10,7 +10,7 @@
                 {% for dataset in last_datasets %}
                 <tr>
                     <td class="ellipsis">
-                        <a href="{{ url('dataset', dataset.package) }}">
+                        <a href="{{ url('dataset', dataset.name) }}">
                             <span class="pull-right">{{ dataset.timestamp|datetime}}</span>
                             {{ dataset.title }}
                         </a>
@@ -24,7 +24,7 @@
                 {% for dataset in popular_datasets %}
                 <tr>
                     <td class="ellipsis">
-                        <a href="{{ url('dataset', dataset.package) }}">
+                        <a href="{{ url('dataset', dataset.name) }}">
                             <span class="pull-right">{{ dataset.timestamp|datetime}}</span>
                             {{ dataset.title }}
                         </a>
