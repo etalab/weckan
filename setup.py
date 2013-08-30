@@ -80,7 +80,6 @@ setup(
         'webassets >= 0.8',
         'PyYAML',
         'cssmin',
-        'jsmin',
         ],
     message_extractors = {'weckan': [
         ('**.py', 'python', None),

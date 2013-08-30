@@ -5,14 +5,14 @@ style:
     depends: less/*.less
 
 modernizr:
-    filters: jsmin
+    filters: uglifyjs
     output: js/modernizr.min.js
     contents:
         - bower/modernizr/modernizr.js
         - bower/respond/respond.src.js
 
 home-js:
-    filters: jsmin
+    filters: uglifyjs
     output: js/home.min.js
     contents:
         - bower/jquery/jquery.js
@@ -20,7 +20,7 @@ home-js:
         - js/home.js
 
 home-legacy-js:
-    filters: jsmin
+    filters: uglifyjs
     output: js/home-legacy.min.js
     contents:
         - bower/jquery-legacy/index.js
