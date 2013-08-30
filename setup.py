@@ -73,7 +73,6 @@ setup(
     include_package_data = True,
     install_requires = [
         'Biryani1 >= 0.9dev',
-        'Mako >= 0.8',
         'WebError >= 0.10',
 #        'WebOb >= 1.1',
         'WebOb >= 1.0.8',
@@ -86,7 +85,6 @@ setup(
     message_extractors = {'weckan': [
         ('**.py', 'python', None),
         ('**/templates/**.html', 'jinja2', {'encoding': 'utf-8'}),
-        ('templates/**.mako', 'mako', {'input_encoding': 'utf-8'}),
         ('static/**', 'ignore', None)]},
 #    package_data = {'weckan': ['i18n/*/LC_MESSAGES/*.mo']},
     packages = find_packages(),
