@@ -97,7 +97,7 @@ msgstr "Accueil"
 msgid ""
 "Here, the public actors are <strong>co-creating</strong> with the civil "
 "society a <strong>shared vision</strong> of France that stimulates "
-"<strong>innovation</strong>."
+"<strong>innovation</strong>".
 msgstr "Ici, les acteurs publics <strong>co-construisent</strong> avec la société civile une <strong>vision partagée</strong> de la France qui stimule l'<strong>innovation</strong>."
 
 #: weckan/templates/navbar.html:9
