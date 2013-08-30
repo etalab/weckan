@@ -87,12 +87,6 @@ def popular_datasets(num=8):
 
 
 @wsgihelpers.wsgify
-def hetic(req):
-    ctx = contexts.Ctx(req)
-    return templates.render(ctx, '/index-demo.mako')
-
-
-@wsgihelpers.wsgify
 def home(req):
     from .jinja import render_template, LANGUAGES, DEFAULT_LANG
 
@@ -122,7 +116,6 @@ def make_router(app):
     router = urls.make_router(app,
         ('GET', '^/?$', home),
         ('GET', '^/(?P<lang>\w{2})/?$', home),
-        ('GET', '^/hetic/?$', hetic),
 
 #        (None, '^/admin/accounts(?=/|$)', accounts.route_admin_class),
 #        (None, '^/admin/forms(?=/|$)', forms.route_admin_class),
