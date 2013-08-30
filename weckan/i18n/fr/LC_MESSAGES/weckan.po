@@ -1,65 +1,68 @@
-# French translations for Weckan.
+# Translations template for Weckan.
 # Copyright (C) 2013 ORGANIZATION
 # This file is distributed under the same license as the Weckan project.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2013.
-#
+# 
+# Translators:
+# noirbizarre <noirbizarre@gmail.com>, 2013
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2013
 msgid ""
 msgstr ""
-"Project-Id-Version: Weckan 0.1dev\n"
+"Project-Id-Version: weckan\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
 "POT-Creation-Date: 2013-08-30 16:37+0200\n"
-"PO-Revision-Date: 2013-08-30 11:21+0200\n"
-"Last-Translator: Axel Haustant <axel.haustant@etalab2.fr>\n"
-"Language-Team: fr <LL@li.org>\n"
-"Plural-Forms: nplurals=2; plural=(n > 1)\n"
+"PO-Revision-Date: 2013-08-30 15:02+0000\n"
+"Last-Translator: noirbizarre <noirbizarre@gmail.com>\n"
+"Language-Team: French (http://www.transifex.com/projects/p/weckan/language/fr/)\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 0.9.6\n"
+"Language: fr\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 #: weckan/application.py:55
 msgid "Web site not found."
-msgstr ""
+msgstr "Site web introuvable."
 
 #: weckan/conv.py:61
 msgid "External URL"
-msgstr ""
+msgstr "URL externe"
 
 #: weckan/model.py:57
 msgid "Keyword doesn't exist"
-msgstr ""
+msgstr "Le mot-clef n'existe pas"
 
 #: weckan/urls.py:129
 msgid "Invalid path: {0}"
-msgstr ""
+msgstr "Chemin invalide: {0}"
 
 #: weckan/urls.py:150
 msgid "Path not found: {0}"
-msgstr ""
+msgstr "Chemin introuvable: {0}"
 
 #: weckan/wsgihelpers.py:46
 msgid "Request is faulty"
-msgstr ""
+msgstr "La requête est fautive"
 
 #: weckan/wsgihelpers.py:47
 msgid "Access is restricted to authorized persons."
-msgstr ""
+msgstr "Accès limité aux personnes autorisées."
 
 #: weckan/wsgihelpers.py:48
 msgid "Access is forbidden."
-msgstr ""
+msgstr "Accès interdit"
 
 #: weckan/wsgihelpers.py:49
 msgid "The requested page was not found."
-msgstr ""
+msgstr "La page demandée n'a pu être trouvée."
 
 #: weckan/wsgihelpers.py:52
 msgid "You must login to access this page."
-msgstr ""
+msgstr "Vous devez être authentifié pour accéder à cette page"
 
 #: weckan/wsgihelpers.py:55 weckan/wsgihelpers.py:58
 msgid "Unable to Access"
-msgstr ""
+msgstr "Impossible d'accéder à la ressource"
 
 #: weckan/wsgihelpers.py:56 weckan/wsgihelpers.py:57
 msgid "Access Denied"
@@ -71,7 +74,7 @@ msgstr ""
 
 #: weckan/wsgihelpers.py:163
 msgid "You'll be redirected to page"
-msgstr ""
+msgstr "Vous allez être redirigé vers"
 
 #: weckan/wsgihelpers.py:171
 msgid "Redirection in progress..."
@@ -94,10 +97,7 @@ msgid ""
 "Here, the public actors are <strong>co-creating</strong> with the civil "
 "society a <strong>shared vision</strong> of France that stimulates "
 "<strong>innovation.</strong>"
-msgstr ""
-"Ici, les acteurs publics <strong>co-construisent</strong> avec la société"
-" civile une <strong>vision partagée</strong> de la France qui stimule "
-"l'<strong>innovation</strong>."
+msgstr "Ici, les acteurs publics <strong>co-construisent</strong> avec la société civile une <strong>vision partagée</strong> de la France qui stimule l'<strong>innovation</strong>."
 
 #: weckan/templates/navbar.html:9
 msgid "The open platform for french public data"
@@ -142,4 +142,3 @@ msgstr "Licence Ouverte"
 #: weckan/templates/sidebar.html:14
 msgid "Which data ?"
 msgstr "Quelles données ?"
-
