@@ -1,0 +1,8 @@
+[main]
+host = https://www.transifex.com
+
+[weckan.master]
+file_filter = weckan/i18n/<lang>/LC_MESSAGES/weckan.po
+source_file = weckan/i18n/weckan.pot
+source_lang = en
+type = PO
