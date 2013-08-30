@@ -5,7 +5,7 @@
 # By: Emmanuel Raviart <emmanuel@raviart.com>
 #
 # Copyright (C) 2013 Emmanuel Raviart
-# http://gitorious.org/etalab/weckan
+# http://github.com/etalab/weckan
 #
 # This file is part of Weckan.
 #
