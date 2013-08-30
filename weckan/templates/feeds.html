@@ -10,7 +10,7 @@
                 {% for dataset in last_datasets %}
                 <tr>
                     <td class="ellipsis">
-                        <a href="{{ url('dataset', dataset.name) }}">{{ dataset.title }}</a>
+                        <a href="{{ url(lang, 'dataset', dataset.name) }}">{{ dataset.title }}</a>
                     </td>
                 </tr>
                 {% endfor %}
@@ -21,7 +21,7 @@
                 {% for dataset in popular_datasets %}
                 <tr>
                     <td class="ellipsis">
-                        <a href="{{ url('dataset', dataset.name) }}">{{ dataset.title }}</a>
+                        <a href="{{ url(lang, 'dataset', dataset.name) }}">{{ dataset.title }}</a>
                     </td>
                 </tr>
                 {% endfor %}

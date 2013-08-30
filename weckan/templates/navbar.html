@@ -5,7 +5,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="{{ url() }}">Data.Gouv.fr</a>
+        <a class="navbar-brand" href="{{ url(lang) }}">Data.Gouv.fr</a>
         <p class="navbar-text">{% trans %}The open platform for french public data{% endtrans %}</p>
     </header>
 
@@ -16,8 +16,8 @@
                 <b class="caret"></b>
             </button>
             <ul class="dropdown-menu">
-                <li><a href="{{ url('user', 'login') }}">{% trans %}Sign In{% endtrans %}</a></li>
-                <li><a href="{{ url('user', 'register') }}">{% trans %}Register{% endtrans %}</a></li>
+                <li><a href="{{ url(lang, 'user', 'login') }}">{% trans %}Sign In{% endtrans %}</a></li>
+                <li><a href="{{ url(lang, 'user', 'register') }}">{% trans %}Register{% endtrans %}</a></li>
             </ul>
         </li>
         <li class="dropdown">

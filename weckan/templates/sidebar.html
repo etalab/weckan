@@ -5,7 +5,7 @@
     <div class="panel-body collapse">
         <ul class="list-unstyled">
             <li><a href="#">{% trans %}Definition{% endtrans %}</a></li>
-            <li><a href="{{ url('organization') }}">{% trans %}Publishers{% endtrans %}</a></li>
+            <li><a href="{{ url(lang, 'organization') }}">{% trans %}Publishers{% endtrans %}</a></li>
             <li>
                 <a href="http://www.etalab.gouv.fr/pages/licence-ouverte-open-licence-5899923.html">
                     {% trans %}Open license{% endtrans %}
@@ -20,7 +20,7 @@
 
     <div class="list-group">
         {% for title, icon in groups %}
-        <a class="list-group-item" href="{{ url('group', slugify(title)) }}">
+        <a class="list-group-item" href="{{ url(lang, 'group', slugify(title)) }}">
             <span class="icon icon-{{icon}}"></span>
             {{ title }}
         </a>
