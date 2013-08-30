@@ -35,13 +35,6 @@
 }
 
 
-#search-form {
-    height: 34px;
-    margin-bottom: 20px;
-}
-
-
-
 // Custom buttons
 .btn-dark {
     .button-variant(white; @bg-darker; @bg-dark);
@@ -77,26 +70,53 @@
 
     .panel-heading {
         background-color: transparent;
+        a {
+            width: 100%
+        }
     }
 
     ul.list-unstyled li{
-        margin: 10px;
-        // line-height:30px;
+        padding: 5px;
         -webkit-border-radius:4px;
         -webkit-transition:padding .2s ease, background .2s ease;
-        // margin-bottom:1px;
 
-        &:hover {
-            margin-left: 15px;
-            background-color: @hover-bg
+        &:hover, &:focus {
+            padding-left: 15px;
+            background-color: @highlight-dark;
         }
     }
+
 
 //     .nav_pages > ul > li > ul > li{ line-height:30px;-webkit-border-radius:4px;margin-bottom:1px;
 //   -webkit-transition:padding .2s ease, background .2s ease;
 // }
 // .nav_pages > ul > li > ul > li a{display:block; width:100%;}
 // .nav_pages > ul > li > ul > li:hover, .nav_pages > ul > li > ul > li.active{ background:#3D5772; padding-left: .7em; }
+
+    form {
+        margin: 0;
+        display: block;
+    }
+
+    input[type="search"] {
+        color: white;
+        background-color: @bg-darker;
+        border-radius: 0;
+    }
+
+    .glyphicon {
+        color: white;
+    }
+
+    .list-group-item {
+        // margin: -2px 0;
+        border-top: 2px solid lighten(@bg-dark, 20%);
+        border-bottom: 2px solid darken(@bg-dark, 15%);
+
+        &:hover, &:focus {
+            background-color: @highlight-dark;
+        }
+    }
 }
 
 // Feeds fixes

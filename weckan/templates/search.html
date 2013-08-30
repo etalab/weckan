@@ -1,12 +1,14 @@
-<div class="input-group">
-    <input type="search" class="form-control" placeholder="Search">
-    <span class="input-group-btn">
-        <button class="btn btn-highlight" type="button"><span class="glyphicon glyphicon-search"></span></button>
+<form id="search-form" action="{{ url('dataset') }}">
+    <div class="input-group input-group-lg">
+        <input id="search-input" name="q" type="search" class="form-control" placeholder="Search">
+        <span class="input-group-btn">
+            <button class="btn btn-highlight" type="submit"><span class="glyphicon glyphicon-search"></span></button>
+        </span>
+    </div>
+</form>
+<div id="where-group" class="input-group input-group-lg hide">
+    <span class="input-group-addon">
+        <span class="glyphicon glyphicon-globe"></span>
     </span>
-</div>
-<div id="search-where" class="input-group collapse">
     <input type="search" class="form-control" placeholder="Where">
-    <span class="input-group-btn">
-        <button class="btn btn-highlight" type="button"><span class="glyphicon glyphicon-globe"></span></button>
-    </span>
 </div>
