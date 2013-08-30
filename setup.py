@@ -85,6 +85,7 @@ setup(
         ],
     message_extractors = {'weckan': [
         ('**.py', 'python', None),
+        ('**/templates/**.html', 'jinja2', {'encoding': 'utf-8'}),
         ('templates/**.mako', 'mako', {'input_encoding': 'utf-8'}),
         ('static/**', 'ignore', None)]},
 #    package_data = {'weckan': ['i18n/*/LC_MESSAGES/*.mo']},

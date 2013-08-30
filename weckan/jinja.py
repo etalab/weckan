@@ -11,6 +11,13 @@ from biryani1 import strings
 from . import conf
 from . import urls
 
+# Langugages definitions: language code => (Display name, flag)
+LANGUAGES = {
+    'fr': (u'Français', 'fr'),
+    'en': (u'English', 'us'),
+}
+DEFAULT_LANG = 'fr'
+
 
 def url(*args, **kwargs):
     return urls.get_url(None, *args, **kwargs)
@@ -32,7 +39,7 @@ for name, bundle in bundles.items():
     assets_environment.register(name, bundle)
 
 # Configure Jinja Environment with webassets
-env = Environment(loader=PackageLoader('weckan', 'templates'), extensions=[AssetsExtension])
+env = Environment(loader=PackageLoader('weckan', 'templates'), extensions=[AssetsExtension, 'jinja2.ext.i18n'])
 env.assets_environment = assets_environment
 
 # Custom global functions
@@ -42,3 +49,11 @@ env.globals['ifelse'] = lambda condition, first, second: first if condition else
 
 # Custom filters
 env.filters['datetime'] = format_datetime
+
+
+def render_template(context, name, **kwargs):
+    '''Render a localized template using Jinja'''
+    env.install_gettext_translations(context.translator)
+    template = env.get_template(name)
+    lang = kwargs.pop('lang', DEFAULT_LANG)
+    return template.render(lang=lang, flag=LANGUAGES[lang][1], languages=LANGUAGES, **kwargs)

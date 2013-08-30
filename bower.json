@@ -17,6 +17,7 @@
     "jquery": "~2.0.3",
     "jquery-legacy": "http://code.jquery.com/jquery-1.10.2.js",
     "bootstrap": "~3.0.0",
-    "modernizr": "~2.6.2"
+    "modernizr": "~2.6.2",
+    "flags": "*"
   }
 }

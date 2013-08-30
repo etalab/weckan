@@ -35,6 +35,8 @@ from . import conf, conv
 
 __all__ = ['Ctx', 'null_ctx']
 
+DEFAULT_LANGS = ['fr-FR', 'fr', 'en-US', 'en']
+
 
 class Ctx(conv.State):
     _parent = None
@@ -128,7 +130,7 @@ class Ctx(conv.State):
 
     def lang_get(self):
         if self._lang is None:
-            self._lang = ['en-US', 'en']
+            self._lang = DEFAULT_LANGS
             if self.req is not None:
                 self.req.environ.setdefault('weckan', {})['_lang'] = self._lang
         return self._lang
@@ -195,7 +197,7 @@ class Ctx(conv.State):
 
 
 null_ctx = Ctx()
-null_ctx.lang = ['en-US', 'en']
+null_ctx.lang = DEFAULT_LANGS
 
 
 def new_translator(domain, localedir, languages, fallback = None):

@@ -14,5 +14,7 @@ include weckan/static/bower/jquery/jquery.js
 include weckan/static/bower/jquery-legacy/index.js
 include weckan/static/bower/modernizr/modernizr.js
 include weckan/static/bower/respond/respond.src.js
+include weckan/static/bower/flags/flags/flags-iso/shiny/16/*.png
+include weckan/static/bower/flags/flags/flags-iso/shiny/24/*.png
 
 global-exclude *~ *.egg *.pyc

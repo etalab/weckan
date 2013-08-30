@@ -1,6 +1,6 @@
 <form id="search-form" action="{{ url('dataset') }}">
     <div class="input-group input-group-lg">
-        <input id="search-input" name="q" type="search" class="form-control" placeholder="Search">
+        <input id="search-input" name="q" type="search" class="form-control" placeholder="{% trans %}Search{% endtrans %}">
         <span class="input-group-btn">
             <button class="btn btn-highlight" type="submit"><span class="glyphicon glyphicon-search"></span></button>
         </span>
@@ -10,5 +10,5 @@
     <span class="input-group-addon">
         <span class="glyphicon glyphicon-globe"></span>
     </span>
-    <input type="search" class="form-control" placeholder="Where">
+    <input type="search" class="form-control" placeholder="{% trans %}Where{% endtrans %}">
 </div>

@@ -28,16 +28,17 @@
 
 import logging
 
+from sqlalchemy.sql import func, desc
+
 from . import contexts, templates, urls, wsgihelpers
 
 from .model import Activity, meta, Package, RelatedDataset
-from sqlalchemy.sql import func, desc
 
 
 log = logging.getLogger(__name__)
 router = None
 
-groups = (
+GROUPS = (
     (u'Culture et communication', 'culture'),
     (u'Développement durable', 'wind'),
     (u'Éducation et recherche', 'education'),
@@ -86,18 +87,30 @@ def popular_datasets(num=8):
 
 
 @wsgihelpers.wsgify
-def index(req):
+def hetic(req):
     ctx = contexts.Ctx(req)
     return templates.render(ctx, '/index-demo.mako')
 
 
 @wsgihelpers.wsgify
 def home(req):
-    from .jinja import env
-    template = env.get_template('home.html')
-    return template.render(
-        lang='fr',
-        groups=groups,
+    from .jinja import render_template, LANGUAGES, DEFAULT_LANG
+
+    ctx = contexts.Ctx(req)
+
+    lang = req.urlvars.get('lang', None)
+
+    # Override browser language
+    if lang in LANGUAGES:
+        ctx.lang = lang
+    elif lang is None:
+        lang = DEFAULT_LANG
+    else:
+        return wsgihelpers.redirect(ctx, location='/')
+
+    return render_template(ctx, 'home.html',
+        lang=lang,
+        groups=GROUPS,
         last_datasets=last_datasets(),
         popular_datasets=popular_datasets()
     )
@@ -107,9 +120,9 @@ def make_router(app):
     """Return a WSGI application that searches requests to controllers """
     global router
     router = urls.make_router(app,
-        ('GET', '^/?$', index),
-        ('GET', '^/fr/?$', index),
-        ('GET', '^/bootstrap/?$', home),
+        ('GET', '^/?$', home),
+        ('GET', '^/(?P<lang>\w{2})/?$', home),
+        ('GET', '^/hetic/?$', hetic),
 
 #        (None, '^/admin/accounts(?=/|$)', accounts.route_admin_class),
 #        (None, '^/admin/forms(?=/|$)', forms.route_admin_class),

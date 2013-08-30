@@ -150,12 +150,13 @@ def not_found(ctx, **kw):
 
 
 def redirect(ctx, code = 302, location = None, **kw):
+    from .jinja import render_template
     assert location is not None
     location_str = location.encode('utf-8') if isinstance(location, unicode) else location
     response = webob.exc.status_map[code](headers = kw.pop('headers', None), location = location_str)
     body = kw.pop('body', None)
     if body is None:
-        template_path = kw.pop('template_path', '/http-error.mako')
+        template = kw.pop('template', 'http-error.html')
         explanation = kw.pop('explanation', None)
         if explanation is None:
             explanation = Markup(ctx._('{0} <a href="{1}">{1}</a>.')).format(
@@ -168,7 +169,7 @@ def redirect(ctx, code = 302, location = None, **kw):
         title = kw.pop('title', None)
         if title is None:
             title = ctx._("Redirection in progress...")
-        body = templates.render(ctx, template_path,
+        body =  render_template(ctx, template,
             comment = kw.pop('comment', None),
             explanation = explanation,
             message = message,

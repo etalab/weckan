@@ -1,0 +1,142 @@
+# Translations template for Weckan.
+# Copyright (C) 2013 ORGANIZATION
+# This file is distributed under the same license as the Weckan project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2013.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Weckan 0.1dev\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2013-08-30 16:37+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 0.9.6\n"
+
+#: weckan/application.py:55
+msgid "Web site not found."
+msgstr ""
+
+#: weckan/conv.py:61
+msgid "External URL"
+msgstr ""
+
+#: weckan/model.py:57
+msgid "Keyword doesn't exist"
+msgstr ""
+
+#: weckan/urls.py:129
+msgid "Invalid path: {0}"
+msgstr ""
+
+#: weckan/urls.py:150
+msgid "Path not found: {0}"
+msgstr ""
+
+#: weckan/wsgihelpers.py:46
+msgid "Request is faulty"
+msgstr ""
+
+#: weckan/wsgihelpers.py:47
+msgid "Access is restricted to authorized persons."
+msgstr ""
+
+#: weckan/wsgihelpers.py:48
+msgid "Access is forbidden."
+msgstr ""
+
+#: weckan/wsgihelpers.py:49
+msgid "The requested page was not found."
+msgstr ""
+
+#: weckan/wsgihelpers.py:52
+msgid "You must login to access this page."
+msgstr ""
+
+#: weckan/wsgihelpers.py:55 weckan/wsgihelpers.py:58
+msgid "Unable to Access"
+msgstr ""
+
+#: weckan/wsgihelpers.py:56 weckan/wsgihelpers.py:57
+msgid "Access Denied"
+msgstr ""
+
+#: weckan/wsgihelpers.py:162
+msgid "{0} <a href=\"{1}\">{1}</a>."
+msgstr ""
+
+#: weckan/wsgihelpers.py:163
+msgid "You'll be redirected to page"
+msgstr ""
+
+#: weckan/wsgihelpers.py:171
+msgid "Redirection in progress..."
+msgstr ""
+
+#: weckan/templates/featured.html:2
+msgid "Featured"
+msgstr ""
+
+#: weckan/templates/feeds.html:3
+msgid "Last"
+msgstr ""
+
+#: weckan/templates/feeds.html:4
+msgid "Popular"
+msgstr ""
+
+#: weckan/templates/home.html:16
+msgid ""
+"Here, the public actors are <strong>co-creating</strong> with the civil "
+"society a <strong>shared vision</strong> of France that stimulates "
+"<strong>innovation.</strong>"
+msgstr ""
+
+#: weckan/templates/navbar.html:9
+msgid "The open platform for french public data"
+msgstr ""
+
+#: weckan/templates/navbar.html:15
+msgid "Sign In / Register"
+msgstr ""
+
+#: weckan/templates/navbar.html:19
+msgid "Sign In"
+msgstr ""
+
+#: weckan/templates/navbar.html:20
+msgid "Register"
+msgstr ""
+
+#: weckan/templates/search.html:3
+msgid "Search"
+msgstr ""
+
+#: weckan/templates/search.html:13
+msgid "Where"
+msgstr ""
+
+#: weckan/templates/sidebar.html:3
+msgid "Public data"
+msgstr ""
+
+#: weckan/templates/sidebar.html:7
+msgid "Definition"
+msgstr ""
+
+#: weckan/templates/sidebar.html:8
+msgid "Publishers"
+msgstr ""
+
+#: weckan/templates/sidebar.html:11
+msgid "Open license"
+msgstr ""
+
+#: weckan/templates/sidebar.html:14
+msgid "Which data ?"
+msgstr ""
+
