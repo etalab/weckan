@@ -11,18 +11,22 @@ modernizr:
         - bower/modernizr/modernizr.js
         - bower/respond/respond.src.js
 
+vendor-js:
+    filters: uglifyjs
+    output: js/vendor.min.js
+    contents:
+        - bower/jquery/jquery.js
+        - bower/bootstrap/dist/js/bootstrap.js
+
+vendor-legacy-js:
+    filters: uglifyjs
+    output: js/vendor-legacy.min.js
+    contents:
+        - bower/jquery-legacy/index.js
+        - bower/bootstrap/dist/js/bootstrap.js
+
 home-js:
     filters: uglifyjs
     output: js/home.min.js
     contents:
-        - bower/jquery/jquery.js
-        - bower/bootstrap/dist/js/bootstrap.js
-        - js/home.js
-
-home-legacy-js:
-    filters: uglifyjs
-    output: js/home-legacy.min.js
-    contents:
-        - bower/jquery-legacy/index.js
-        - bower/bootstrap/dist/js/bootstrap.js
         - js/home.js
