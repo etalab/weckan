@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Weckan 0.1dev\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2013-08-30 18:36+0200\n"
+"POT-Creation-Date: 2013-08-31 03:33+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -89,7 +89,7 @@ msgstr ""
 msgid "Home"
 msgstr ""
 
-#: weckan/templates/home.html:18
+#: weckan/templates/home.html:16
 msgid ""
 "Here, the public actors are <strong>co-creating</strong> with the civil "
 "society a <strong>shared vision</strong> of France that stimulates "
@@ -138,5 +138,17 @@ msgstr ""
 
 #: weckan/templates/sidebar.html:14
 msgid "Which data ?"
+msgstr ""
+
+#: weckan/templates/site.html:37
+msgid "Back to top"
+msgstr ""
+
+#: weckan/templates/site.html:40
+msgid "Privacy"
+msgstr ""
+
+#: weckan/templates/site.html:41
+msgid "Terms"
 msgstr ""
 
