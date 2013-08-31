@@ -11,19 +11,23 @@ modernizr:
         - bower/modernizr/modernizr.js
         - bower/respond/respond.src.js
 
+vendor-common:
+    contents:
+        - bower/bootstrap/dist/js/bootstrap.js
+
 vendor-js:
     filters: uglifyjs
     output: js/vendor.min.js
     contents:
         - bower/jquery/jquery.js
-        - bower/bootstrap/dist/js/bootstrap.js
+        - vendor-common
 
 vendor-legacy-js:
     filters: uglifyjs
     output: js/vendor-legacy.min.js
     contents:
         - bower/jquery-legacy/index.js
-        - bower/bootstrap/dist/js/bootstrap.js
+        - vendor-common
 
 home-js:
     filters: uglifyjs

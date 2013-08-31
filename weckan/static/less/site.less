@@ -13,7 +13,12 @@
 .featured {
     a.thumbnail {
         text-decoration: none;
-        height: 390px;
+        height: 340px;
+        margin-bottom: 10px;
+        background-color: darken(@body-bg, 5%);
+
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
 }
 
@@ -70,19 +75,35 @@
 
     .panel-heading {
         background-color: transparent;
+        border-bottom: none;
+        padding: 0;
         a {
-            width: 100%
+            padding: 10px 15px;
+            display: block;
+            -webkit-transition:padding .2s ease, background .2s ease;
+
+            &:hover, &:focus {
+                padding-left: 15px;
+                background-color: @highlight-dark;
+            }
         }
     }
 
-    ul.list-unstyled li{
-        padding: 5px;
-        -webkit-border-radius:4px;
-        -webkit-transition:padding .2s ease, background .2s ease;
+    .panel-body {
+        background-color: @bg-dark;
 
-        &:hover, &:focus {
-            padding-left: 15px;
-            background-color: @highlight-dark;
+        ul.list-unstyled {
+            margin: 0;
+            li{
+                padding: 5px;
+                -webkit-border-radius:4px;
+                -webkit-transition:padding .2s ease, background .2s ease;
+
+                &:hover, &:focus {
+                    padding-left: 15px;
+                    background-color: @list-group-hover-bg;
+                }
+            }
         }
     }
 
@@ -102,12 +123,18 @@
     }
 
     .list-group-item {
-        // margin: -2px 0;
-        border-top: 2px solid lighten(@bg-dark, 20%);
-        border-bottom: 2px solid darken(@bg-dark, 15%);
+        border-top: 1px solid lighten(@bg-dark, 20%);
+        border-bottom: 1px solid darken(@bg-dark, 15%);
+        -webkit-transition:padding .2s ease, background .2s ease;
 
         &:hover, &:focus {
-            background-color: @highlight-dark;
+            padding-left: 20px;
+            border-top: 1px solid lighten(@highlight-dark, 20%);
+            border-bottom: 1px solid darken(@highlight-dark, 15%);
+        }
+
+        &:last-child {
+            border-bottom: none;
         }
     }
 }
@@ -115,6 +142,11 @@
 // Feeds fixes
 .feeds {
     background-color: @gray-lighter;
+
+    .nav-tabs a {
+        border: none;
+    }
+
     .table {
         margin: 0;
         table-layout: fixed;
