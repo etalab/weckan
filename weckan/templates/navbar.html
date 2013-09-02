@@ -12,12 +12,62 @@
     <ul class="nav navbar-nav navbar-right">
         <li class="dropdown">
             <button class="btn btn-dark navbar-btn dropdown-toggle" data-toggle="dropdown">
-                {% trans %}Sign In / Register{% endtrans %}
+                {% if user %}
+                    {{gravatar(user.email_hash, 20)}} {{ user.display_name }}
+                {% else %}
+                    {% trans %}Sign In / Register{% endtrans %}
+                {% endif %}
                 <b class="caret"></b>
             </button>
             <ul class="dropdown-menu">
-                <li><a href="{{ url(lang, 'user', 'login') }}">{% trans %}Sign In{% endtrans %}</a></li>
-                <li><a href="{{ url(lang, 'user', 'register') }}">{% trans %}Register{% endtrans %}</a></li>
+                {% if user %}
+                    {% if user.sysadmin %}
+                    <li>
+                        <a href="{{ url(lang, 'ckan-admin') }}" title="{% trans %}Sysadmin settings{% endtrans %}">
+                            <span class="glyphicon glyphicon-wrench"></span>
+                            {% trans %}Sysadmin settings{% endtrans %}
+                        </a>
+                    </li>
+                    {% endif %}
+                    <li>
+                        <a href="{{ url(lang, 'user', user.name) }}", title="{% trans %}Profile{% endtrans %}">
+                            <span class="glyphicon glyphicon-user"></span>
+                            {% trans %}Profile{% endtrans %}
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ url(lang, 'dashboard') }}", title="{% trans %}Dashboard{% endtrans %}">
+                            <span class="glyphicon glyphicon-dashboard"></span>
+                            {% trans %}Dashboard{% endtrans %}
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ url(lang, 'user', 'edit', user.name) }}" title="{% trans %}Settings{% endtrans %}">
+                            <span class="glyphicon glyphicon-cog"></span>
+                            {% trans %}Settings{% endtrans %}
+                        </a>
+                    </li>
+                    <li class="divider"></li>
+                    <li>
+                        <a href="{{ url(lang, 'user', 'logout') }}" title="{% trans %}Log out{% endtrans %}">
+                            <span class="glyphicon glyphicon-log-out"></span>
+                            {% trans %}Log out{% endtrans %}
+                        </a>
+                    </li>
+                {% else %}
+                    <li>
+                        <a href="{{ url(lang, 'user', 'login') }}" title="{% trans %}Sign In{% endtrans %}">
+                            <span class="glyphicon glyphicon-log-in"></span>
+                            {% trans %}Sign In{% endtrans %}
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ url(lang, 'user', 'register') }}" title="{% trans %}Register{% endtrans %}">
+                            <span class="glyphicon glyphicon-edit"></span>
+                            {% trans %}Register{% endtrans %}
+                        </a>
+                    </li>
+                {% endif %}
             </ul>
         </li>
         <li class="dropdown">

@@ -30,7 +30,7 @@ import logging
 
 from sqlalchemy.sql import func, desc
 
-from . import contexts, templates, urls, wsgihelpers
+from . import contexts, templates, urls, wsgihelpers, auth
 
 from .model import Activity, meta, Package, RelatedDataset
 
@@ -103,6 +103,7 @@ def home(req):
         return wsgihelpers.redirect(ctx, location='/')
 
     return render_template(ctx, 'home.html',
+        user=auth.get_user_from_request(req),
         lang=lang,
         groups=GROUPS,
         last_datasets=last_datasets(),

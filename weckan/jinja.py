@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+import urllib
+
 from pkg_resources import resource_stream
 
 from jinja2 import Environment, PackageLoader
@@ -18,6 +20,8 @@ LANGUAGES = {
 }
 DEFAULT_LANG = 'fr'
 
+GRAVATAR_DEFAULTS = ('404', 'mm', 'identicon', 'monsterid', 'wavatar', 'retro')
+
 
 def url(*args, **kwargs):
     return urls.get_url(None, *args, **kwargs)
@@ -25,6 +29,20 @@ def url(*args, **kwargs):
 
 def format_datetime(value, format='%Y-%m-%d'):
     return value.strftime(format)
+
+
+def gravatar(email_hash, size=100, default=None):
+    if default is None:
+        default = conf.get('ckan.gravatar_default', 'identicon')
+
+    if not default in GRAVATAR_DEFAULTS:
+        # treat the default as a url
+        default = urllib.quote(default, safe='')
+
+    return (
+        '<img src="//gravatar.com/avatar/{hash}?s={size}&amp;d={default}"'
+        'class="gravatar" width="{size}" height="{size}" />'
+        ).format(hash=email_hash, size=size, default=default)
 
 
 # Configure webassets
@@ -46,6 +64,7 @@ env.assets_environment = assets_environment
 env.globals['url'] = url
 env.globals['slugify'] = strings.slugify
 env.globals['ifelse'] = lambda condition, first, second: first if condition else second
+env.globals['gravatar'] = gravatar
 
 # Custom filters
 env.filters['datetime'] = format_datetime
