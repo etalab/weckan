@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Weckan 0.1dev\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2013-09-01 10:43+0200\n"
+"POT-Creation-Date: 2013-09-02 16:44+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -100,15 +100,35 @@ msgstr ""
 msgid "The open platform for french public data"
 msgstr ""
 
-#: weckan/templates/navbar.html:15
+#: weckan/templates/navbar.html:18
 msgid "Sign In / Register"
 msgstr ""
 
-#: weckan/templates/navbar.html:19
+#: weckan/templates/navbar.html:26 weckan/templates/navbar.html:28
+msgid "Sysadmin settings"
+msgstr ""
+
+#: weckan/templates/navbar.html:33 weckan/templates/navbar.html:35
+msgid "Profile"
+msgstr ""
+
+#: weckan/templates/navbar.html:39 weckan/templates/navbar.html:41
+msgid "Dashboard"
+msgstr ""
+
+#: weckan/templates/navbar.html:45 weckan/templates/navbar.html:47
+msgid "Settings"
+msgstr ""
+
+#: weckan/templates/navbar.html:52 weckan/templates/navbar.html:54
+msgid "Log out"
+msgstr ""
+
+#: weckan/templates/navbar.html:59 weckan/templates/navbar.html:61
 msgid "Sign In"
 msgstr ""
 
-#: weckan/templates/navbar.html:20
+#: weckan/templates/navbar.html:65 weckan/templates/navbar.html:67
 msgid "Register"
 msgstr ""
 
