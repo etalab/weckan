@@ -77,7 +77,7 @@
             <ul class="dropdown-menu">
                 {% for locale, (name, flag) in languages.items() %}
                 <li>
-                    <a href="{{ url(locale) }}">
+                    <a href="{{ url(locale, current_base_location) }}">
                         <img src="/bower/flags/flags/flags-iso/shiny/16/{{flag|upper}}.png" />
                         {{name}}
                     </a>

@@ -64,18 +64,22 @@ def render_site_template(name, request, **kwargs):
     from .jinja import render_template, LANGUAGES, DEFAULT_LANG
 
     context = contexts.Ctx(request)
+    lang = request.urlvars.get('lang', None)
+
+    # Locale-less location
+    base_location = request.uscript_name.replace('/{0}'.format(lang), '')
 
     # Override browser language
-    lang = request.urlvars.get('lang', None)
     if lang in LANGUAGES:
         context.lang = lang
     elif lang is None:
         lang = DEFAULT_LANG
     else:
-        default_url = request.path_url.replace('/{0}'.format(lang), '')
-        return wsgihelpers.redirect(context, location=default_url)
+        return wsgihelpers.redirect(context, location=base_location)
 
     return render_template(context, name,
+        current_location = request.uscript_name,
+        current_base_location = base_location,
         user = auth.get_user_from_request(request),
         lang = lang,
         sidebar_groups = GROUPS,
