@@ -1,36 +1,16 @@
+/**
+ * Common site styles and helpers.
+ */
 @import "../bower/bootstrap/less/bootstrap.less";
+@import "ckan-imports.less";
 @import "icons.less";
 @import "variables.less";
-
 
 .full-container {
     padding-left: 15px;
     padding-right: 15px;
     margin-left: auto;
     margin-right: auto;
-}
-
-.featured {
-    a.thumbnail {
-        text-decoration: none;
-        height: 340px;
-        margin-bottom: 10px;
-        background-color: darken(@body-bg, 5%);
-
-        overflow: hidden;
-        text-overflow: ellipsis;
-    }
-}
-
-.tab-datasets {
-    tr {
-        cursor: pointer;
-
-        a {
-            text-decoration: none;
-            color: black;
-        }
-    }
 }
 
 .ellipsis {
@@ -64,10 +44,14 @@
     }
 }
 
+
 /**
  * Sidebar style and fixes
  */
 #sidebar {
+    background-color: @bg-light;
+    color: white;
+
     a {
         color: white;
         text-decoration: none;
@@ -107,6 +91,7 @@
         }
     }
 
+
     form {
         margin: 0;
         display: block;
@@ -123,11 +108,14 @@
     }
 
     .list-group-item {
+        color: white;
+        background-color: @bg-light;
         border-top: 1px solid lighten(@bg-dark, 20%);
         border-bottom: 1px solid darken(@bg-dark, 15%);
         -webkit-transition:padding .2s ease, background .2s ease;
 
         &:hover, &:focus {
+            background-color: darken(@bg-light, 8%);
             padding-left: 20px;
             border-top: 1px solid lighten(@highlight-dark, 20%);
             border-bottom: 1px solid darken(@highlight-dark, 15%);
@@ -138,20 +126,3 @@
         }
     }
 }
-
-// Feeds fixes
-.feeds {
-    background-color: @gray-lighter;
-
-    .nav-tabs a {
-        border: none;
-    }
-
-    .table {
-        margin: 0;
-        table-layout: fixed;
-    }
-}
-
-// Fix carsoussel
-.carousel-inner > .item > img { margin: 0 auto; }

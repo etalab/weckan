@@ -1,0 +1,209 @@
+{% extends "site.html" %}
+
+{% set style = 'dataset' %}
+
+{% block title %}{{ dataset.title }}{% endblock %}
+
+{% block content %}
+<div class="container dataset-container">
+    <div class="row">
+
+        <div class="col-md-9 col-sm-9">
+            <div class="page-header">
+                <h1>{{ dataset.title or dataset.name }}</h1>
+            </div>
+
+            <p>{{ markdown(dataset.notes) }}</p>
+
+            {% if dataset.author %}
+            <p>{% trans author=dataset.author %}Published by {{ author }}{% endtrans %}</p>
+            {% endif %}
+
+            <div class="list-group resources-list">
+                {% for resource in dataset.resources %}
+                <a class="list-group-item" href="{{ url(lang, 'dataset', dataset.name, 'resource', resource.id) }}">
+                    <span class="format-label pull-left" property="dc:format" data-format="{{ resource.format.lower() or 'data' }}">{{ resource.format }}</span>
+                    <h4 class="list-group-item-heading">
+                        {% if resource.name or resource.description %}
+                        {{ resource.name or resource.description|truncate(50) }}
+                        {% else %}
+                        {% trans %}Nameless resource{% endtrans %}
+                        {% endif %}
+                    </h4>
+                    <p class="list-group-item-text">
+                    {% if resource.description.strip() %}
+                    {{ markdown_extract(resource.description, 80) }}
+                    {% else %}
+                    <span class="text-muted">{% trans %}No description for this resource{% endtrans %}</span>
+                    {% endif %}
+                    </p>
+                </a>
+                {% endfor %}
+            </div>
+
+            <div class="page-header">
+                <h2>{% trans %}Community resources{% endtrans %}</h2>
+            </div>
+
+            {% if dataset.related %}
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">{% trans %}Interpretations{% endtrans %}</h3>
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        {% for related in dataset.related %}
+                        <a class="col-sm-6 col-md-4" href="{{ related.url }}" target="_blank">
+                            <div class="thumbnail">
+                                <img class="media-object"  alt="{{ related.title }}"
+                                    src="{{ related.image_url or static('/base/images/placeholder-image.png') }}">
+                                <div class="caption">
+                                    <h4>{{ related.title }}</h3>
+                                    {% if related.description %}
+                                    <p>{{ markdown(related.description) }}</p>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </a>
+                        {% endfor %}
+                    </div>
+                    <br/>
+                    <p class="text-center">
+                        <a class="btn btn-success" href="{{ url(lang, 'dataset', dataset.name, 'related', 'new') }}">
+                            <span class="glyphicon glyphicon-graph"></span>
+                            {% trans %}Publish an interpretation{% endtrans %}
+                        </a>
+                    </p>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+
+        {# Right sidebar #}
+        <aside class="col-md-3 col-sm-3">
+
+            {# Optionnal organization panel #}
+            {% if organization %}
+            <div class="thumbnail">
+                <img src="{{ organization.image_url or static('/base/images/placeholder-organization.png') }}" alt="{{ organization.name }}" />
+                <div class="caption">
+                    <h3>{{ organization.display_name }}</h3>
+                    {% if organization.description %}
+                    <p>
+                        {{ markdown_extract(organization.description, 180) }}
+                    </p>
+                    <p class="text-center">
+                        <a href="{{ url(lang, 'organization', organization.name) }}"
+                            class="btn btn-default btn-primary btn-sm">
+                        {% trans %}read more{% endtrans %}
+                        </a>
+                    </p>
+                    {% endif %}
+                </div>
+            </div>
+            {% endif %}
+
+            {# Information panel #}
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">{% trans %}Informations{% endtrans %}</h3>
+                </div>
+                <div class="panel-body">
+                    <ul class="list-unstyled">
+
+                        {# License #}
+                        {% if dataset.license %}
+                        <li>
+                            <a href class="btn btn-link btn-xs" rel="tooltip" data-placement="right auto"
+                                title="{% trans %}license{% endtrans %}">
+                                <span class="glyphicon glyphicon-copyright-mark"></span>
+                            </a>
+                            <a href="{{ dataset.license.url }}">{{ dataset.license.title }}</a>
+                        </li>
+                        {% endif %}
+
+                        {# Temporal coverage #}
+                        {% if temporal_coverage.from and temporal_coverage.to %}
+                        <li>
+                            <a href class="btn btn-xs btn-default" rel="tooltip" data-placement="right auto"
+                                title="{% trans %}Temporal coverage{% endtrans %}">
+                                <span class="glyphicon glyphicon-calendar"></span>
+                            </a>
+                            {% trans from=temporal_coverage.from, to=temporal_coverage.to %}
+                            {{ from }} to {{ to }}
+                            {% endtrans %}
+                        </li>
+                        {% endif %}
+
+                        {# Periodicity #}
+                        {% if periodicity %}
+                        <li>
+                            <a href class="btn btn-xs" rel="tooltip" data-placement="right auto"
+                                title="{% trans %}Periodicity{% endtrans %}">
+                                <span class="glyphicon glyphicon-time"></span>
+                            </a>
+                            {{ periodicity }}
+                        </li>
+                        {% endif %}
+
+                        {# Territorial coverage #}
+                        {% if territorial_coverage.name %}
+                        <li>
+                            <a href class="btn btn-xs btn-default" rel="tooltip" data-placement="right auto"
+                                title="{% trans %}Territorial coverage{% endtrans %}">
+                                <span class="glyphicon glyphicon-globe"></span>
+                            </a>
+                            {% set ellipsis = '<a href title="{0}">...</a>'.format(territorial_coverage.name) %}
+                            {{ territorial_coverage.name|truncate(15, True, ellipsis) }}
+                        </li>
+                        {% endif %}
+
+                        {% if territorial_coverage.granularity %}
+                        <li>
+                            <a href class="btn btn-xs btn-default" rel="tooltip" data-placement="right auto"
+                                title="{% trans %}Territorial coverage granularity{% endtrans %}">
+                                <span class="glyphicon glyphicon-screenshot"></span>
+                            </a>
+                            {{ territorial_coverage.granularity }}
+                        </li>
+                        {% endif %}
+
+                    </ul>
+
+
+                    <div class="tags">
+                        {% for package_tag in dataset.package_tag_all %}
+                        <a href="{{ url(lang, 'dataset', tags=package_tag.tag.name) }}" class="btn btn-primary btn-xs"
+                            title="{{ package_tag.tag.name }}">
+                            {{ package_tag.tag.name|truncate(14, True) }}
+                        </a>
+                        {% endfor %}
+                    </div>
+
+                    {% if groups %}
+                    <div class="groups row">
+                        {% for group in groups[:2] %}
+                        <div class="col-sm-12">
+                            <a href="{{ url(lang, 'group', group.name) }}" class="thumbnail">
+                                <img src="{{ group.image_url or static('/base/images/placeholder-group.png') }}"
+                                    alt="{{ group.title }}">
+                            </a>
+                            <div class="caption text-center">
+                                <h4>{{ group.title }}</h4>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </aside>
+    </div>
+</div>
+{% endblock %}
+
+{% block javascript %}
+{% assets "dataset-js" %}
+<script src="{{ ASSET_URL}}"></script>
+{% endassets %}
+{% endblock javascript %}

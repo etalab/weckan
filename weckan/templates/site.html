@@ -15,7 +15,9 @@
     <title>{% block title %}{% endblock %} - Data.Gouv.fr</title>
     <link rel="shortcut icon" href="/img/favicon.png">
 
-    {% assets "style" %}
+    {# Default style to site, overridden by child templates #}
+    {% set style = style|default('site') -%}
+    {% assets '{0}-css'.format(style) %}
     <link rel="stylesheet" media="screen" href="{{ ASSET_URL }}">
     {% endassets %}
 
@@ -29,8 +31,15 @@
     {% include "navbar.html" %}
 
     <div class="full-container">
+        <div class="row">
+            <div class="col-md-3 col-sm-3">
+                {% include "sidebar.html" %}
+            </div>
 
-        {% block content %}{% endblock %}
+            <div class="col-md-9 col-sm-9">
+            {% block content %}{% endblock %}
+            </div>
+        </div>
 
         <hr/>
         <footer>
@@ -47,12 +56,12 @@
 
     {# Load scripts after for faster page loading #}
     <!--[if lt IE 9]>
-        {% assets "vendor-legacy-js" %}
+        {% assets "site-legacy-js" %}
         <script src="{{ ASSET_URL}}"></script>
         {% endassets %}
     <![endif]-->
     <!--[if gte IE 9]><!-->
-        {% assets "vendor-js" %}
+        {% assets "site-js" %}
         <script src="{{ ASSET_URL}}"></script>
         {% endassets %}
     <!--<![endif]-->

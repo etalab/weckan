@@ -10,6 +10,8 @@ from webassets.loaders import YAMLLoader
 
 from biryani1 import strings
 
+from ckan.lib.helpers import markdown, markdown_extract
+
 from . import conf
 from . import urls
 
@@ -25,6 +27,10 @@ GRAVATAR_DEFAULTS = ('404', 'mm', 'identicon', 'monsterid', 'wavatar', 'retro')
 
 def url(*args, **kwargs):
     return urls.get_url(None, *args, **kwargs)
+
+
+def static(*args, **kwargs):
+    return url(*args, **kwargs)
 
 
 def format_datetime(value, format='%Y-%m-%d'):
@@ -57,14 +63,20 @@ for name, bundle in bundles.items():
     assets_environment.register(name, bundle)
 
 # Configure Jinja Environment with webassets
-env = Environment(loader=PackageLoader('weckan', 'templates'), extensions=[AssetsExtension, 'jinja2.ext.i18n'])
+env = Environment(
+    loader = PackageLoader('weckan', 'templates'),
+    extensions = (AssetsExtension, 'jinja2.ext.i18n')
+    )
 env.assets_environment = assets_environment
 
 # Custom global functions
 env.globals['url'] = url
+env.globals['static'] = static
 env.globals['slugify'] = strings.slugify
 env.globals['ifelse'] = lambda condition, first, second: first if condition else second
 env.globals['gravatar'] = gravatar
+env.globals['markdown'] = markdown
+env.globals['markdown_extract'] = markdown_extract
 
 # Custom filters
 env.filters['datetime'] = format_datetime

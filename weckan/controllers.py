@@ -32,7 +32,7 @@ from sqlalchemy.sql import func, desc
 
 from . import contexts, templates, urls, wsgihelpers, auth
 
-from .model import Activity, meta, Package, RelatedDataset
+from .model import Activity, meta, Package, RelatedDataset, Group
 
 
 log = logging.getLogger(__name__)
@@ -51,6 +51,36 @@ GROUPS = (
     (u'Société', 'people'),
     (u'Travail, économie, emploi', 'case'),
 )
+
+
+def render_site_template(name, request, **kwargs):
+    '''
+    Render a template with a common site behavior.
+
+    - handle language choice and fallback
+    - inject user
+    - inject sidebar items
+    '''
+    from .jinja import render_template, LANGUAGES, DEFAULT_LANG
+
+    context = contexts.Ctx(request)
+
+    # Override browser language
+    lang = request.urlvars.get('lang', None)
+    if lang in LANGUAGES:
+        context.lang = lang
+    elif lang is None:
+        lang = DEFAULT_LANG
+    else:
+        default_url = request.path_url.replace('/{0}'.format(lang), '')
+        return wsgihelpers.redirect(context, location=default_url)
+
+    return render_template(context, name,
+        user = auth.get_user_from_request(request),
+        lang = lang,
+        sidebar_groups = GROUPS,
+        **kwargs
+    )
 
 
 def last_datasets(num=8):
@@ -87,27 +117,43 @@ def popular_datasets(num=8):
 
 
 @wsgihelpers.wsgify
-def home(req):
-    from .jinja import render_template, LANGUAGES, DEFAULT_LANG
+def home(request):
+    return render_site_template('home.html', request,
+        last_datasets = last_datasets(),
+        popular_datasets = popular_datasets()
+    )
 
-    ctx = contexts.Ctx(req)
 
-    lang = req.urlvars.get('lang', None)
+@wsgihelpers.wsgify
+def display_dataset(request):
+    dataset_name = request.urlvars.get('name')
 
-    # Override browser language
-    if lang in LANGUAGES:
-        ctx.lang = lang
-    elif lang is None:
-        lang = DEFAULT_LANG
-    else:
-        return wsgihelpers.redirect(ctx, location='/')
+    dataset, organization = meta.Session.query(Package, Group)\
+        .filter(Package.name == dataset_name)\
+        .filter(Group.id == Package.owner_org)\
+        .filter(Group.is_organization == True)\
+        .first()
 
-    return render_template(ctx, 'home.html',
-        user=auth.get_user_from_request(req),
-        lang=lang,
-        groups=GROUPS,
-        last_datasets=last_datasets(),
-        popular_datasets=popular_datasets()
+
+    territorial_coverage = {
+        'name': dataset.extras.get('territorial_coverage', None),
+        'granularity': dataset.extras.get('territorial_coverage_granularity', None),
+    }
+
+    temporal_coverage = {
+        'from': dataset.extras.get('temporal_coverage_from', None),
+        'to': dataset.extras.get('temporal_coverage_to', None),
+    }
+
+    periodicity = dataset.extras.get('"dct:accrualPeriodicity"', None)
+
+    return render_site_template('dataset.html', request,
+        dataset = dataset,
+        organization = organization,
+        territorial_coverage = territorial_coverage,
+        temporal_coverage = temporal_coverage,
+        periodicity = periodicity,
+        groups = dataset.get_groups('group')
     )
 
 
@@ -115,8 +161,9 @@ def make_router(app):
     """Return a WSGI application that searches requests to controllers """
     global router
     router = urls.make_router(app,
-        ('GET', '^/?$', home),
-        ('GET', '^/(?P<lang>\w{2})/?$', home),
+        # ('GET', r'^/?$', home),
+        ('GET', r'^(/(?P<lang>\w{2}))?/?$', home),
+        ('GET', r'^(/(?P<lang>\w{2}))?/dataset/(?P<name>[\w_-]+)/?$', display_dataset),
 
 #        (None, '^/admin/accounts(?=/|$)', accounts.route_admin_class),
 #        (None, '^/admin/forms(?=/|$)', forms.route_admin_class),

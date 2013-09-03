@@ -1,0 +1,41 @@
+@import "site.less";
+
+.featured {
+    a.thumbnail {
+        text-decoration: none;
+        height: 340px;
+        margin-bottom: 10px;
+        background-color: darken(@body-bg, 5%);
+
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+}
+
+.tab-datasets {
+    tr {
+        cursor: pointer;
+
+        a {
+            text-decoration: none;
+            color: black;
+        }
+    }
+}
+
+// Feeds fixes
+.feeds {
+    background-color: @gray-lighter;
+
+    .nav-tabs a {
+        border: none;
+    }
+
+    .table {
+        margin: 0;
+        table-layout: fixed;
+    }
+}
+
+// Fix carsoussel
+.carousel-inner > .item > img { margin: 0 auto; }

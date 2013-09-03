@@ -1,9 +1,3 @@
-style:
-    filters: less,cssrewrite,cssmin
-    output: css/site.min.css
-    contents: less/site.less
-    depends: less/*.less
-
 modernizr:
     filters: uglifyjs
     output: js/modernizr.min.js
@@ -11,26 +5,45 @@ modernizr:
         - bower/modernizr/modernizr.js
         - bower/respond/respond.src.js
 
-vendor-common:
+site-common:
     contents:
         - bower/bootstrap/dist/js/bootstrap.js
+        - js/site.js
 
-vendor-js:
+site-js:
     filters: uglifyjs
-    output: js/vendor.min.js
+    output: js/site.min.js
     contents:
         - bower/jquery/jquery.js
-        - vendor-common
+        - site-common
 
-vendor-legacy-js:
+site-legacy-js:
     filters: uglifyjs
     output: js/vendor-legacy.min.js
     contents:
         - bower/jquery-legacy/index.js
-        - vendor-common
+        - site-common
 
-home-js:
+site-css:
+    filters: less,cssrewrite,cssmin
+    output: css/site.min.css
+    contents: less/site.less
+    depends: less/*.less
+
+home-css:
+    filters: less,cssrewrite,cssmin
+    output: css/home.min.css
+    contents: less/home.less
+    depends: less/*.less
+
+dataset-js:
     filters: uglifyjs
-    output: js/home.min.js
+    output: js/dataset.min.js
     contents:
-        - js/home.js
+        - js/dataset.js
+
+dataset-css:
+    filters: less,cssrewrite,cssmin
+    output: css/dataset.min.css
+    contents: less/dataset.less
+    depends: less/*.less
