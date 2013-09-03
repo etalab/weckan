@@ -10,3 +10,7 @@ pep8:
 pyflakes:
 	rm -Rf cache/templates/
 	pyflakes .
+
+i18n:
+	@python setup.py extract_messages
+	@python setup.py update_catalog

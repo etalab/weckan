@@ -95,7 +95,7 @@
                     <p class="text-center">
                         <a href="{{ url(lang, 'organization', organization.name) }}"
                             class="btn btn-default btn-primary btn-sm">
-                        {% trans %}read more{% endtrans %}
+                        {% trans %}more{% endtrans %}
                         </a>
                     </p>
                     {% endif %}
@@ -115,7 +115,7 @@
                         {% if dataset.license %}
                         <li>
                             <a href class="btn btn-link btn-xs" rel="tooltip" data-placement="right auto"
-                                title="{% trans %}license{% endtrans %}">
+                                title="{% trans %}License{% endtrans %}">
                                 <span class="glyphicon glyphicon-copyright-mark"></span>
                             </a>
                             <a href="{{ dataset.license.url }}">{{ dataset.license.title }}</a>
@@ -129,9 +129,9 @@
                                 title="{% trans %}Temporal coverage{% endtrans %}">
                                 <span class="glyphicon glyphicon-calendar"></span>
                             </a>
-                            {% trans from=temporal_coverage.from, to=temporal_coverage.to %}
+                            {% trans from=temporal_coverage.from, to=temporal_coverage.to -%}
                             {{ from }} to {{ to }}
-                            {% endtrans %}
+                            {%- endtrans %}
                         </li>
                         {% endif %}
 
