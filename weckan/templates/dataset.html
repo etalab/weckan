@@ -51,21 +51,19 @@
                 {% endfor %}
             </div>
 
-            {% if dataset.related %}
             <div class="page-header">
                 <h2>{% trans %}Community resources{% endtrans %}</h2>
             </div>
-            {% endif %}
 
-            {% if dataset.related %}
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <h3 class="panel-title">{% trans %}Interpretations{% endtrans %}</h3>
                 </div>
                 <div class="panel-body">
+                    {% if dataset.related %}
                     <div class="row">
                         {% for related in dataset.related %}
-                        <a class="col-sm-6 col-md-4" href="{{ related.url }}" target="_blank">
+                        <a class="col-sm-6 col-md-4 thumbnail-link" href="{{ related.url }}" target="_blank">
                             <div class="thumbnail">
                                 <img class="media-object"  alt="{{ related.title }}"
                                     src="{{ related.image_url or static('/base/images/placeholder-image.png') }}">
@@ -80,15 +78,15 @@
                         {% endfor %}
                     </div>
                     <br/>
+                    {% endif %}
                     <p class="text-center">
-                        <a class="btn btn-success" href="{{ url(lang, 'dataset', dataset.name, 'related', 'new') }}">
-                            <span class="glyphicon glyphicon-graph"></span>
+                        <a class="btn btn-success btn-lg" href="{{ url(lang, 'dataset', dataset.name, 'related', 'new') }}">
+                            <span class="glyphicon glyphicon-stats"></span>
                             {% trans %}Publish an interpretation{% endtrans %}
                         </a>
                     </p>
                 </div>
             </div>
-            {% endif %}
         </div>
 
         {# Right sidebar #}

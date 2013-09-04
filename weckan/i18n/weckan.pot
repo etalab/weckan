@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Weckan 0.1dev\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2013-09-03 20:41+0200\n"
+"POT-Creation-Date: 2013-09-04 15:26+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -78,56 +78,52 @@ msgstr ""
 msgid "Published by %(author)s"
 msgstr ""
 
-#: weckan/templates/dataset.html:30
+#: weckan/templates/dataset.html:37
 msgid "Nameless resource"
 msgstr ""
 
-#: weckan/templates/dataset.html:37
-msgid "No description for this resource"
-msgstr ""
-
-#: weckan/templates/dataset.html:45
+#: weckan/templates/dataset.html:55
 msgid "Community resources"
 msgstr ""
 
-#: weckan/templates/dataset.html:51
+#: weckan/templates/dataset.html:60
 msgid "Interpretations"
 msgstr ""
 
-#: weckan/templates/dataset.html:74
+#: weckan/templates/dataset.html:85
 msgid "Publish an interpretation"
 msgstr ""
 
-#: weckan/templates/dataset.html:98
+#: weckan/templates/dataset.html:108
 msgid "more"
 msgstr ""
 
-#: weckan/templates/dataset.html:109
+#: weckan/templates/dataset.html:119
 msgid "Informations"
 msgstr ""
 
-#: weckan/templates/dataset.html:118
+#: weckan/templates/dataset.html:128
 msgid "License"
 msgstr ""
 
-#: weckan/templates/dataset.html:129
+#: weckan/templates/dataset.html:139
 msgid "Temporal coverage"
 msgstr ""
 
-#: weckan/templates/dataset.html:132
+#: weckan/templates/dataset.html:142
 #, python-format
 msgid "%(from)s to %(to)s"
 msgstr ""
 
-#: weckan/templates/dataset.html:142
+#: weckan/templates/dataset.html:152
 msgid "Periodicity"
 msgstr ""
 
-#: weckan/templates/dataset.html:153
+#: weckan/templates/dataset.html:163
 msgid "Territorial coverage"
 msgstr ""
 
-#: weckan/templates/dataset.html:164
+#: weckan/templates/dataset.html:174
 msgid "Territorial coverage granularity"
 msgstr ""
 
@@ -154,39 +150,39 @@ msgstr ""
 msgid "Featured"
 msgstr ""
 
-#: weckan/templates/navbar.html:9
+#: weckan/templates/navbar.html:13
 msgid "The open platform for french public data"
 msgstr ""
 
-#: weckan/templates/navbar.html:18
+#: weckan/templates/navbar.html:20
 msgid "Sign In / Register"
 msgstr ""
 
-#: weckan/templates/navbar.html:26 weckan/templates/navbar.html:28
+#: weckan/templates/navbar.html:28 weckan/templates/navbar.html:30
 msgid "Sysadmin settings"
 msgstr ""
 
-#: weckan/templates/navbar.html:33 weckan/templates/navbar.html:35
+#: weckan/templates/navbar.html:35 weckan/templates/navbar.html:37
 msgid "Profile"
 msgstr ""
 
-#: weckan/templates/navbar.html:39 weckan/templates/navbar.html:41
+#: weckan/templates/navbar.html:41 weckan/templates/navbar.html:43
 msgid "Dashboard"
 msgstr ""
 
-#: weckan/templates/navbar.html:45 weckan/templates/navbar.html:47
+#: weckan/templates/navbar.html:47 weckan/templates/navbar.html:49
 msgid "Settings"
 msgstr ""
 
-#: weckan/templates/navbar.html:52 weckan/templates/navbar.html:54
+#: weckan/templates/navbar.html:54 weckan/templates/navbar.html:56
 msgid "Log out"
 msgstr ""
 
-#: weckan/templates/navbar.html:59 weckan/templates/navbar.html:61
+#: weckan/templates/navbar.html:61 weckan/templates/navbar.html:63
 msgid "Sign In"
 msgstr ""
 
-#: weckan/templates/navbar.html:65 weckan/templates/navbar.html:67
+#: weckan/templates/navbar.html:67 weckan/templates/navbar.html:69
 msgid "Register"
 msgstr ""
 

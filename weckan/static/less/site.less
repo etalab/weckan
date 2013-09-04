@@ -38,6 +38,15 @@
     .button-variant(white; @highlight; @highlight);
 }
 
+// Clickable thumbnail
+a.thumbnail-link {
+    text-decoration: none;
+
+    &:hover .thumbnail {
+        border: 1px solid @highlight;
+    }
+}
+
 
 /**
  * Navbar style and fixes
