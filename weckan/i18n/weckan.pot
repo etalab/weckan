@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Weckan 0.1dev\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2013-09-04 15:26+0200\n"
+"POT-Creation-Date: 2013-09-04 16:37+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -91,7 +91,7 @@ msgid "Interpretations"
 msgstr ""
 
 #: weckan/templates/dataset.html:85
-msgid "Publish an interpretation"
+msgid "Publish an interpretation !"
 msgstr ""
 
 #: weckan/templates/dataset.html:108
@@ -210,7 +210,7 @@ msgstr ""
 msgid "Search"
 msgstr ""
 
-#: weckan/templates/sidebar.html:34
+#: weckan/templates/sidebar.html:30
 msgid "Where"
 msgstr ""
 

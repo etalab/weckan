@@ -63,6 +63,15 @@ a.thumbnail-link {
     }
 }
 
+.input-group.collapse {
+    display: none;
+}
+
+.btn-punch {
+    font-size: 22px;
+    font-weight: bold;
+}
+
 
 /**
  * Sidebar style and fixes
@@ -112,7 +121,7 @@ a.thumbnail-link {
 
 
     form {
-        margin: 0;
+        margin: -1px;
         display: block;
     }
 
@@ -120,6 +129,15 @@ a.thumbnail-link {
         color: white;
         background-color: @bg-darker;
         border-radius: 0;
+        border: 1px solid transparent;
+    }
+
+    .input-group-addon, .input-group-btn .btn {
+        border-radius: 0;
+    }
+
+    #where-group {
+        width: 100%;
     }
 
     .glyphicon {

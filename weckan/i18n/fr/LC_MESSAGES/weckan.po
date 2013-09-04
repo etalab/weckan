@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: weckan\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2013-09-04 15:26+0200\n"
-"PO-Revision-Date: 2013-09-04 13:27+0000\n"
+"POT-Creation-Date: 2013-09-04 16:37+0200\n"
+"PO-Revision-Date: 2013-09-04 14:39+0000\n"
 "Last-Translator: noirbizarre <noirbizarre@gmail.com>\n"
 "Language-Team: French (http://www.transifex.com/projects/p/weckan/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -95,8 +95,8 @@ msgid "Interpretations"
 msgstr "Interprétations"
 
 #: weckan/templates/dataset.html:85
-msgid "Publish an interpretation"
-msgstr "Publiez un interprétation"
+msgid "Publish an interpretation !"
+msgstr "Publiez un interprétation !"
 
 #: weckan/templates/dataset.html:108
 msgid "more"
@@ -214,7 +214,7 @@ msgstr "Quelles données ?"
 msgid "Search"
 msgstr "Recherche"
 
-#: weckan/templates/sidebar.html:34
+#: weckan/templates/sidebar.html:30
 msgid "Where"
 msgstr "Où"
 

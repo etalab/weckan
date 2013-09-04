@@ -20,19 +20,16 @@
 
     {# Search #}
     <form id="search-form" action="{{ url(lang, 'dataset') }}">
-        <div class="input-group input-group-lg">
+        <div id="search-group" class="input-group input-group-lg">
             <input id="search-input" name="q" type="search" class="form-control" placeholder="{% trans %}Search{% endtrans %}">
             <span class="input-group-btn">
                 <button class="btn btn-highlight" type="submit"><span class="glyphicon glyphicon-search"></span></button>
             </span>
         </div>
+        <div id="where-group" class="input-group collapse">
+            <input type="search" class="form-control" placeholder="{% trans %}Where{% endtrans %}">
+        </div>
     </form>
-    <div id="where-group" class="input-group input-group-lg hide">
-        <span class="input-group-addon">
-            <span class="glyphicon glyphicon-globe"></span>
-        </span>
-        <input type="search" class="form-control" placeholder="{% trans %}Where{% endtrans %}">
-    </div>
 
     {# Groups #}
     <div class="list-group">
