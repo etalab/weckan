@@ -21,29 +21,41 @@
 
             <div class="list-group resources-list">
                 {% for resource in dataset.resources %}
-                <a class="list-group-item" href="{{ url(lang, 'dataset', dataset.name, 'resource', resource.id) }}">
+                {% set embedded = resource.format.lower() == 'html' %}
+                <a class="list-group-item"
+                    {% if embedded %}
+                    data-toggle="collapse" data-target="#resource-viewer-{{resource.id}}"
+                    {% else %}
+                    href="{{ resource.url }}"
+                    {% endif %}
+                    >
                     <span class="format-label pull-left" property="dc:format" data-format="{{ resource.format.lower() or 'data' }}">{{ resource.format }}</span>
-                    <h4 class="list-group-item-heading">
+                    <h4 class="list-group-item-heading {% if not resource.description.strip() %}dual{% endif %}">
                         {% if resource.name or resource.description %}
                         {{ resource.name or resource.description|truncate(50) }}
                         {% else %}
                         {% trans %}Nameless resource{% endtrans %}
                         {% endif %}
                     </h4>
-                    <p class="list-group-item-text">
                     {% if resource.description.strip() %}
+                    <p class="list-group-item-text">
                     {{ markdown_extract(resource.description, 80) }}
-                    {% else %}
-                    <span class="text-muted">{% trans %}No description for this resource{% endtrans %}</span>
-                    {% endif %}
                     </p>
+                    {% endif %}
+                    {% if embedded %}
+                    <div id="resource-viewer-{{resource.id}}" class="html-resource-container collapse">
+                        <iframe src="{{ resource.url }}" class="resource-frame"></iframe>
+                    </div>
+                    {% endif %}
                 </a>
                 {% endfor %}
             </div>
 
+            {% if dataset.related %}
             <div class="page-header">
                 <h2>{% trans %}Community resources{% endtrans %}</h2>
             </div>
+            {% endif %}
 
             {% if dataset.related %}
             <div class="panel panel-default">
