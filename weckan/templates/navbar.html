@@ -1,89 +1,92 @@
 <nav class="navbar navbar-default navbar-static-top" role="navigation">
     <header class="navbar-header">
-      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
         </button>
         <a class="navbar-brand" href="{{ url(lang) }}">Data.Gouv.fr</a>
-        <p class="navbar-text">{% trans %}The open platform for french public data{% endtrans %}</p>
     </header>
 
-    <ul class="nav navbar-nav navbar-right">
-        <li class="dropdown">
-            <button class="btn btn-dark navbar-btn dropdown-toggle" data-toggle="dropdown">
-                {% if user %}
-                    {{gravatar(user.email_hash, 20)}} {{ user.display_name }}
-                {% else %}
-                    {% trans %}Sign In / Register{% endtrans %}
-                {% endif %}
-                <b class="caret"></b>
-            </button>
-            <ul class="dropdown-menu">
-                {% if user %}
-                    {% if user.sysadmin %}
-                    <li>
-                        <a href="{{ url(lang, 'ckan-admin') }}" title="{% trans %}Sysadmin settings{% endtrans %}">
-                            <span class="glyphicon glyphicon-wrench"></span>
-                            {% trans %}Sysadmin settings{% endtrans %}
-                        </a>
-                    </li>
+    <div class="collapse navbar-collapse">
+        <p class="navbar-text">{% trans %}The open platform for french public data{% endtrans %}</p>
+        <ul class="nav navbar-nav navbar-right">
+            <li class="dropdown">
+                <button class="btn btn-dark navbar-btn dropdown-toggle" data-toggle="dropdown">
+                    {% if user %}
+                        {{gravatar(user.email_hash, 20)}} {{ user.display_name }}
+                    {% else %}
+                        {% trans %}Sign In / Register{% endtrans %}
                     {% endif %}
+                    <b class="caret"></b>
+                </button>
+                <ul class="dropdown-menu">
+                    {% if user %}
+                        {% if user.sysadmin %}
+                        <li>
+                            <a href="{{ url(lang, 'ckan-admin') }}" title="{% trans %}Sysadmin settings{% endtrans %}">
+                                <span class="glyphicon glyphicon-wrench"></span>
+                                {% trans %}Sysadmin settings{% endtrans %}
+                            </a>
+                        </li>
+                        {% endif %}
+                        <li>
+                            <a href="{{ url(lang, 'user', user.name) }}", title="{% trans %}Profile{% endtrans %}">
+                                <span class="glyphicon glyphicon-user"></span>
+                                {% trans %}Profile{% endtrans %}
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ url(lang, 'dashboard') }}", title="{% trans %}Dashboard{% endtrans %}">
+                                <span class="glyphicon glyphicon-dashboard"></span>
+                                {% trans %}Dashboard{% endtrans %}
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ url(lang, 'user', 'edit', user.name) }}" title="{% trans %}Settings{% endtrans %}">
+                                <span class="glyphicon glyphicon-cog"></span>
+                                {% trans %}Settings{% endtrans %}
+                            </a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <a href="{{ url(lang, 'user', 'logout') }}" title="{% trans %}Log out{% endtrans %}">
+                                <span class="glyphicon glyphicon-log-out"></span>
+                                {% trans %}Log out{% endtrans %}
+                            </a>
+                        </li>
+                    {% else %}
+                        <li>
+                            <a href="{{ url(lang, 'user', 'login') }}" title="{% trans %}Sign In{% endtrans %}">
+                                <span class="glyphicon glyphicon-log-in"></span>
+                                {% trans %}Sign In{% endtrans %}
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ url(lang, 'user', 'register') }}" title="{% trans %}Register{% endtrans %}">
+                                <span class="glyphicon glyphicon-edit"></span>
+                                {% trans %}Register{% endtrans %}
+                            </a>
+                        </li>
+                    {% endif %}
+                </ul>
+            </li>
+            <li class="dropdown">
+                <button class="btn btn-dark navbar-btn dropdown-toggle" data-toggle="dropdown">
+                    <img src="/bower/flags/flags/flags-iso/shiny/16/{{flag|upper}}.png" />
+                </button>
+                <ul class="dropdown-menu">
+                    {% for locale, (name, flag) in languages.items() %}
                     <li>
-                        <a href="{{ url(lang, 'user', user.name) }}", title="{% trans %}Profile{% endtrans %}">
-                            <span class="glyphicon glyphicon-user"></span>
-                            {% trans %}Profile{% endtrans %}
+                        <a href="{{ url(locale, current_base_location) }}">
+                            <img src="/bower/flags/flags/flags-iso/shiny/16/{{flag|upper}}.png" />
+                            {{name}}
                         </a>
                     </li>
-                    <li>
-                        <a href="{{ url(lang, 'dashboard') }}", title="{% trans %}Dashboard{% endtrans %}">
-                            <span class="glyphicon glyphicon-dashboard"></span>
-                            {% trans %}Dashboard{% endtrans %}
-                        </a>
-                    </li>
-                    <li>
-                        <a href="{{ url(lang, 'user', 'edit', user.name) }}" title="{% trans %}Settings{% endtrans %}">
-                            <span class="glyphicon glyphicon-cog"></span>
-                            {% trans %}Settings{% endtrans %}
-                        </a>
-                    </li>
-                    <li class="divider"></li>
-                    <li>
-                        <a href="{{ url(lang, 'user', 'logout') }}" title="{% trans %}Log out{% endtrans %}">
-                            <span class="glyphicon glyphicon-log-out"></span>
-                            {% trans %}Log out{% endtrans %}
-                        </a>
-                    </li>
-                {% else %}
-                    <li>
-                        <a href="{{ url(lang, 'user', 'login') }}" title="{% trans %}Sign In{% endtrans %}">
-                            <span class="glyphicon glyphicon-log-in"></span>
-                            {% trans %}Sign In{% endtrans %}
-                        </a>
-                    </li>
-                    <li>
-                        <a href="{{ url(lang, 'user', 'register') }}" title="{% trans %}Register{% endtrans %}">
-                            <span class="glyphicon glyphicon-edit"></span>
-                            {% trans %}Register{% endtrans %}
-                        </a>
-                    </li>
-                {% endif %}
-            </ul>
-        </li>
-        <li class="dropdown">
-            <button class="btn btn-dark navbar-btn dropdown-toggle" data-toggle="dropdown">
-                <img src="/bower/flags/flags/flags-iso/shiny/16/{{flag|upper}}.png" />
-            </button>
-            <ul class="dropdown-menu">
-                {% for locale, (name, flag) in languages.items() %}
-                <li>
-                    <a href="{{ url(locale, current_base_location) }}">
-                        <img src="/bower/flags/flags/flags-iso/shiny/16/{{flag|upper}}.png" />
-                        {{name}}
-                    </a>
-                </li>
-                {% endfor %}
-            </ul>
-        </li>
-    </ul>
+                    {% endfor %}
+                </ul>
+            </li>
+        </ul>
+    </div>
 </nav>

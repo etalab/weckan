@@ -19,6 +19,16 @@
     text-overflow: ellipsis;
 }
 
+.transition(...) {
+    @value: ~`"@{arguments}".replace(/[\[\]]|\,\sX/g, '')`;
+
+    -webkit-transition: @value;
+    -moz-transition: @value;
+    -ms-transition: @value;
+    -o-transition: @value;
+    transition: @value;
+}
+
 
 // Custom buttons
 .btn-dark {
@@ -64,7 +74,7 @@
         a {
             padding: 10px 15px;
             display: block;
-            -webkit-transition:padding .2s ease, background .2s ease;
+            .transition(padding .2s ease, background .2s ease);
 
             &:hover, &:focus {
                 padding-left: 15px;
@@ -80,12 +90,12 @@
             margin: 0;
             li{
                 padding: 5px;
-                -webkit-border-radius:4px;
-                -webkit-transition:padding .2s ease, background .2s ease;
+                border-radius:4px;
+                .transition(padding .2s ease, background .2s ease);
 
                 &:hover, &:focus {
                     padding-left: 15px;
-                    background-color: @list-group-hover-bg;
+                    background-color: lighten(@bg-dark, 10%);
                 }
             }
         }
