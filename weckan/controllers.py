@@ -53,6 +53,14 @@ GROUPS = (
     (u'Travail, économie, emploi', 'case'),
 )
 
+EXCLUDED_PATTERNS = (
+    'activity',
+    'delete',
+    'edit',
+    'follow',
+    'new',
+)
+
 
 def render_site_template(name, request, **kwargs):
     '''
@@ -174,7 +182,7 @@ def make_router(app):
     global router
     router = urls.make_router(app,
         ('GET', r'^(/(?P<lang>\w{2}))?/?$', home),
-        ('GET', r'^(/(?P<lang>\w{2}))?/dataset/(?P<name>[\w_-]+)/?$', display_dataset),
+        ('GET', r'^(/(?P<lang>\w{{2}}))?/dataset/(?!{0}(/|$))(?P<name>[\w_-]+)/?$'.format('|'.join(EXCLUDED_PATTERNS)), display_dataset),
         )
 
     return router
