@@ -27,6 +27,7 @@
 
 
 import logging
+import json
 
 from sqlalchemy.sql import func, desc
 
@@ -151,13 +152,20 @@ def display_dataset(request):
 
     periodicity = dataset.extras.get('"dct:accrualPeriodicity"', None)
 
+    territory = json.loads(request.cookies.get('territory', '{}'))
+
     return render_site_template('dataset.html', request,
         dataset = dataset,
         organization = organization,
         territorial_coverage = territorial_coverage,
         temporal_coverage = temporal_coverage,
         periodicity = periodicity,
-        groups = dataset.get_groups('group')
+        groups = dataset.get_groups('group'),
+        territory = {
+            'full_name': territory.get('full_name', ''),
+            'full_name_slug': territory.get('full_name_slug',''),
+            'depcom': territory.get('code', '')
+        }
     )
 
 
@@ -165,25 +173,8 @@ def make_router(app):
     """Return a WSGI application that searches requests to controllers """
     global router
     router = urls.make_router(app,
-        # ('GET', r'^/?$', home),
         ('GET', r'^(/(?P<lang>\w{2}))?/?$', home),
         ('GET', r'^(/(?P<lang>\w{2}))?/dataset/(?P<name>[\w_-]+)/?$', display_dataset),
-
-#        (None, '^/admin/accounts(?=/|$)', accounts.route_admin_class),
-#        (None, '^/admin/forms(?=/|$)', forms.route_admin_class),
-#        (None, '^/admin/projects(?=/|$)', projects.route_admin_class),
-#        (None, '^/admin/sessions(?=/|$)', sessions.route_admin_class),
-#        (None, '^/admin/subscriptions(?=/|$)', subscriptions.route_admin_class),
-#        ('POST', '^/api/1/forms/fill_out?$', forms.api1_fill_out),
-#        ('POST', '^/api/1/forms/start?$', forms.api1_start),
-#        ('POST', '^/api/1/forms/stop?$', forms.api1_stop),
-#        ('GET', '^/api/1/protos/autocomplete/?$', protos.api1_autocomplete),
-#        ('GET', '^/api/1/protos/get/?$', protos.api1_get),
-#        ('GET', '^/confirm/(?P<secret>[^/]+)/?$', forms.confirm),
-#        (None, '^/forms(?=/|$)', projects.route_class),
-#        ('GET', '^/google/authorize_done/?$', google.authorize_done),
-#        ('GET', '^/login/?$', accounts.login),
-#        ('GET', '^/login_done/?$', accounts.login_done),
-#        ('GET', '^/logout/?$', accounts.logout),
         )
+
     return router

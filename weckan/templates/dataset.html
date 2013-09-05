@@ -63,12 +63,12 @@
                     {% if dataset.related %}
                     <div class="row">
                         {% for related in dataset.related %}
-                        <a class="col-sm-6 col-md-4 thumbnail-link" href="{{ related.url }}" target="_blank">
+                        <a class="col-sm-6 col-md-4 thumbnail-link" href="{{ related.url.format(**territory) }}" target="_blank">
                             <div class="thumbnail">
-                                <img class="media-object"  alt="{{ related.title }}"
+                                <img class="media-object"  alt="{{ related.title.format(**territory) }}"
                                     src="{{ related.image_url or static('/base/images/placeholder-image.png') }}">
                                 <div class="caption">
-                                    <h4>{{ related.title }}</h3>
+                                    <h4>{{ related.title.format(**territory) }}</h3>
                                     {% if related.description %}
                                     <p>{{ markdown(related.description) }}</p>
                                     {% endif %}
