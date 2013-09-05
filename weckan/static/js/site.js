@@ -101,7 +101,14 @@
 
         // Restore territory state from cookie
         if ($.cookie(COOKIE_NAME)) {
-            set_territory.apply(null, $.cookie(COOKIE_NAME).split('|'));
+            var cookie = $.cookie(COOKIE_NAME);
+            if (cookie.charAt(0) === '"') {
+                cookie = cookie.substring(1);
+            }
+            if (cookie.charAt(cookie.length - 1) === '"') {
+                cookie = cookie.substring(0, cookie.length - 1);
+            }
+            set_territory.apply(null, cookie.split('|'));
         }
     });
 

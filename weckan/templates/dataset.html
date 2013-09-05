@@ -25,9 +25,9 @@
                     {% if resource.format.lower() == 'html' %}target="_blank"{% endif %}
                     >
                     <span class="format-label pull-left" property="dc:format" data-format="{{ resource.format.lower() or 'data' }}">{{ resource.format }}</span>
-                    <h4 class="list-group-item-heading {% if not resource.description.strip() %}dual{% endif %}">
+                    <h4 class="list-group-item-heading ellipsis {% if not resource.description.strip() %}dual{% endif %}">
                         {% if resource.name or resource.description %}
-                        {{ resource.name or resource.description|truncate(50) }}
+                        {{ resource.name or resource.description }}
                         {% else %}
                         {% trans %}Nameless resource{% endtrans %}
                         {% endif %}
@@ -114,7 +114,7 @@
                         {# License #}
                         {% if dataset.license %}
                         <li>
-                            <a href class="btn btn-link btn-xs" rel="tooltip" data-placement="right auto"
+                            <a href class="btn btn-default btn-xs" rel="tooltip" data-placement="right auto"
                                 title="{% trans %}License{% endtrans %}">
                                 <span class="glyphicon glyphicon-copyright-mark"></span>
                             </a>
