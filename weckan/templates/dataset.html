@@ -21,13 +21,8 @@
 
             <div class="list-group resources-list">
                 {% for resource in dataset.resources %}
-                {% set embedded = resource.format.lower() == 'html' %}
-                <a class="list-group-item"
-                    {% if embedded %}
-                    data-toggle="collapse" data-target="#resource-viewer-{{resource.id}}"
-                    {% else %}
-                    href="{{ resource.url }}"
-                    {% endif %}
+                <a class="list-group-item" href="{{ resource.url }}"
+                    {% if resource.format.lower() == 'html' %}target="_blank"{% endif %}
                     >
                     <span class="format-label pull-left" property="dc:format" data-format="{{ resource.format.lower() or 'data' }}">{{ resource.format }}</span>
                     <h4 class="list-group-item-heading {% if not resource.description.strip() %}dual{% endif %}">
@@ -41,11 +36,6 @@
                     <p class="list-group-item-text">
                     {{ markdown_extract(resource.description, 80) }}
                     </p>
-                    {% endif %}
-                    {% if embedded %}
-                    <div id="resource-viewer-{{resource.id}}" class="html-resource-container collapse">
-                        <iframe src="{{ resource.url }}" class="resource-frame"></iframe>
-                    </div>
                     {% endif %}
                 </a>
                 {% endfor %}
@@ -211,9 +201,3 @@
     </div>
 </div>
 {% endblock %}
-
-{% block javascript %}
-{% assets "dataset-js" %}
-<script src="{{ ASSET_URL}}"></script>
-{% endassets %}
-{% endblock javascript %}

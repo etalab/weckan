@@ -38,12 +38,6 @@ home-css:
     contents: less/home.less
     depends: less/*.less
 
-dataset-js:
-    filters: uglifyjs
-    output: js/dataset.min.js
-    contents:
-        - js/dataset.js
-
 dataset-css:
     filters: less,cssrewrite,cssmin
     output: css/dataset.min.css

@@ -18,15 +18,6 @@
         COOKIE_NAME = 'territory-infos';
 
     /**
-     * Hide the "where" field
-     */
-    var hide_where = function() {
-        if (!$('#ext_territory').val() && !$('#where-group input').is(':focus')) {
-            $('#where-group').collapse('hide');
-        }
-    };
-
-    /**
      * Filter the Territory API to match Typeahead expected format.
      */
     var filter_territory_api = function(response) {
@@ -57,7 +48,6 @@
             .removeClass('glyphicon-globe')
             .addClass('glyphicon-remove')
             .addClass('territory-clear');
-        $('#where-group').collapse('show');
 
         // Persist the filter into the cookie
         $.cookie(COOKIE_NAME, value + '|' + display, {path: '/'});
@@ -89,15 +79,7 @@
         $('[rel=popover]').popover();
 
         // Search field behavior
-        $('#search-input')
-            .on('focus', function() {
-                $('#where-group').collapse('show');
-            })
-            .on('blur', function() {
-                setTimeout(hide_where, 500);
-            });
-
-        $('#where-input').on('blur', hide_where)
+        $('#where-input')
             .typeahead({
                 name: 'territories',
                 valueKey: 'main_postal_distribution',
@@ -112,7 +94,8 @@
             .on('typeahead:selected typeahead:autocompleted', function(e, territory) {
                 set_territory(territory.kind + '/' + territory.code);
                 $('#search-input').focus();
-            });
+            })
+            ;
 
         $('#where-group').on('click', '.territory-clear', clear_territory);
 

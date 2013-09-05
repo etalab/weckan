@@ -12,8 +12,10 @@ include weckan/static/bower/bootstrap/less/*.less
 include weckan/static/bower/bootstrap/dist/js/bootstrap.js
 include weckan/static/bower/jquery/jquery.js
 include weckan/static/bower/jquery-legacy/index.js
+include weckan/static/bower/jquery.cookie/jquery.cookie.js
 include weckan/static/bower/modernizr/modernizr.js
 include weckan/static/bower/respond/respond.src.js
+include weckan/static/bower/typeahead.js/dist/typeahead.js
 include weckan/static/bower/flags/flags/flags-iso/shiny/16/*.png
 include weckan/static/bower/flags/flags/flags-iso/shiny/24/*.png
 
