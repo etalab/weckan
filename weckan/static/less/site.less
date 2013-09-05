@@ -138,10 +138,60 @@ a.thumbnail-link {
 
     #where-group {
         width: 100%;
+
+        .input-group-addon {
+            background-color: @bg-darker;
+            border: 1px solid @bg-darker;
+        }
+
+        // Typeahead.js fixes for BS3
+        .twitter-typeahead {
+            width: 100%;
+
+            .tt-hint {
+                width: 100%;
+                height: @input-height-base;;
+                padding: 6px 12px;
+            }
+
+            .tt-dropdown-menu {
+                width: 100%;
+                background-color: @bg-dark;
+                margin-top: -1px;
+                padding: 5px 0;
+                border: 1px solid #ccc;
+                border: 1px solid rgba(0,0,0,.2);
+                *border-right-width: 2px;
+                *border-bottom-width: 2px;
+                border-radius: 6px;
+                .box-shadow(0 5px 10px rgba(0,0,0,.2));
+                  -webkit-background-clip: padding-box;
+                     -moz-background-clip: padding;
+                          background-clip: padding-box;
+            }
+
+            .tt-suggestion {
+                display: block;
+                padding: 3px 20px;
+
+                &.tt-is-under-cursor {
+                    background-color: @bg-light;
+                    #gradient.vertical(@bg-light, @highlight);
+                }
+
+                p {
+                    margin: 0;
+                }
+            }
+        }
     }
 
     .glyphicon {
         color: white;
+    }
+
+    .territory-clear {
+        color: red;
     }
 
     .list-group-item {
