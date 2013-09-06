@@ -37,8 +37,8 @@
 
     {# Groups #}
     <div class="list-group">
-        {% for title, icon in sidebar_groups %}
-        <a class="list-group-item" href="{{ url(lang, 'group', slugify(title)) }}">
+        {% for title, icon, link in sidebar_groups %}
+        <a class="list-group-item" href="{{ link or url(lang, 'group', slugify(title)) }}">
             <span class="icon icon-{{icon}}"></span>
             {{ title }}
         </a>

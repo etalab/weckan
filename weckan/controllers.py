@@ -40,17 +40,17 @@ log = logging.getLogger(__name__)
 router = None
 
 GROUPS = (
-    (u'Culture et communication', 'culture'),
-    (u'Développement durable', 'wind'),
-    (u'Éducation et recherche', 'education'),
-    (u'État et collectivités', 'france'),
-    (u'Europe', 'europe'),
-    (u'Justice', 'justice'),
-    (u'Monde', 'world'),
-    (u'Santé et solidarité', 'hearth'),
-    (u'Sécurité et défense', 'shield'),
-    (u'Société', 'people'),
-    (u'Travail, économie, emploi', 'case'),
+    (u'Culture et communication', 'culture', None),
+    (u'Développement durable', 'wind', 'http://wiki.etalab2.fr/wiki/Le_D%C3%A9veloppement_Durable'),
+    (u'Éducation et recherche', 'education', None),
+    (u'État et collectivités', 'france', None),
+    (u'Europe', 'europe', None),
+    (u'Justice', 'justice', None),
+    (u'Monde', 'world', None),
+    (u'Santé et solidarité', 'hearth', None),
+    (u'Sécurité et défense', 'shield', None),
+    (u'Société', 'people', None),
+    (u'Travail, économie, emploi', 'case', None),
 )
 
 EXCLUDED_PATTERNS = (
