@@ -44,3 +44,16 @@
 
 // Fix carsoussel
 .carousel-inner > .item > img { margin: 0 auto; }
+
+.carousel-caption {
+    color: white;
+    background-color: fadeout(@bg-light, 20%);
+    border-radius: 5px;
+    padding: 5px;
+    margin: 20px 0 30px;
+
+    &:hover {
+        color: white;
+        background-color: fadeout(@bg-light, 10%);
+    }
+}
