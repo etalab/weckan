@@ -12,6 +12,8 @@ from biryani1 import strings
 
 from ckan.lib.helpers import markdown, markdown_extract
 
+from babel import dates
+
 from . import conf
 from . import urls
 
@@ -33,8 +35,18 @@ def static(*args, **kwargs):
     return url(*args, **kwargs)
 
 
-def format_datetime(value, format='%Y-%m-%d'):
-    return value.strftime(format)
+def format_datetime(value, format='short', locale='fr'):
+    try:
+        return dates.format_datetime(value, format, locale=locale)
+    except:
+        return value
+
+
+def format_date(value, format='short', locale='fr'):
+    try:
+        return dates.format_date(value, format, locale=locale)
+    except:
+        return value
 
 
 def gravatar(email_hash, size=100, default=None):
@@ -80,6 +92,7 @@ env.globals['markdown_extract'] = markdown_extract
 
 # Custom filters
 env.filters['datetime'] = format_datetime
+env.filters['date'] = format_date
 
 
 def render_template(context, name, **kwargs):

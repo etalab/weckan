@@ -25,9 +25,10 @@
 
 """Root controllers"""
 
-
 import logging
 import json
+
+from datetime import datetime
 
 from sqlalchemy.sql import func, desc
 
@@ -157,6 +158,14 @@ def display_dataset(request):
         'from': dataset.extras.get('temporal_coverage_from', None),
         'to': dataset.extras.get('temporal_coverage_to', None),
     }
+    try:
+        temporal_coverage['from'] = datetime.strptime(temporal_coverage['from'], '%Y-%m-%d')
+    except:
+        pass
+    try:
+        temporal_coverage['to'] = datetime.strptime(temporal_coverage['to'], '%Y-%m-%d')
+    except:
+        pass
 
     periodicity = dataset.extras.get('"dct:accrualPeriodicity"', None)
 

@@ -129,7 +129,7 @@
                                 title="{% trans %}Temporal coverage{% endtrans %}">
                                 <span class="glyphicon glyphicon-calendar"></span>
                             </a>
-                            {% trans from=temporal_coverage.from, to=temporal_coverage.to -%}
+                            {% trans from=temporal_coverage.from|date(locale=lang), to=temporal_coverage.to|date(locale=lang) -%}
                             {{ from }} to {{ to }}
                             {%- endtrans %}
                         </li>
