@@ -59,6 +59,8 @@ EXCLUDED_PATTERNS = (
     'edit',
     'follow',
     'new',
+    'new_metadata',
+    'new_resource',
 )
 
 
@@ -142,11 +144,9 @@ def display_dataset(request):
     dataset_name = request.urlvars.get('name')
 
     dataset, organization = meta.Session.query(Package, Group)\
+        .outerjoin(Group, Group.id == Package.owner_org)\
         .filter(Package.name == dataset_name)\
-        .filter(Group.id == Package.owner_org)\
-        .filter(Group.is_organization == True)\
         .first()
-
 
     territorial_coverage = {
         'name': dataset.extras.get('territorial_coverage', None),
