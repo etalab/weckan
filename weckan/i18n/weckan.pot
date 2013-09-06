@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Weckan 0.1dev\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2013-09-04 16:37+0200\n"
+"POT-Creation-Date: 2013-09-06 14:44+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -78,52 +78,52 @@ msgstr ""
 msgid "Published by %(author)s"
 msgstr ""
 
-#: weckan/templates/dataset.html:37
+#: weckan/templates/dataset.html:32
 msgid "Nameless resource"
 msgstr ""
 
-#: weckan/templates/dataset.html:55
+#: weckan/templates/dataset.html:45
 msgid "Community resources"
 msgstr ""
 
-#: weckan/templates/dataset.html:60
+#: weckan/templates/dataset.html:50
 msgid "Interpretations"
 msgstr ""
 
-#: weckan/templates/dataset.html:85
+#: weckan/templates/dataset.html:75
 msgid "Publish an interpretation !"
 msgstr ""
 
-#: weckan/templates/dataset.html:108
+#: weckan/templates/dataset.html:98
 msgid "more"
 msgstr ""
 
-#: weckan/templates/dataset.html:119
+#: weckan/templates/dataset.html:109
 msgid "Informations"
 msgstr ""
 
-#: weckan/templates/dataset.html:128
+#: weckan/templates/dataset.html:118
 msgid "License"
 msgstr ""
 
-#: weckan/templates/dataset.html:139
+#: weckan/templates/dataset.html:129
 msgid "Temporal coverage"
 msgstr ""
 
-#: weckan/templates/dataset.html:142
+#: weckan/templates/dataset.html:132
 #, python-format
 msgid "%(from)s to %(to)s"
 msgstr ""
 
-#: weckan/templates/dataset.html:152
+#: weckan/templates/dataset.html:142
 msgid "Periodicity"
 msgstr ""
 
-#: weckan/templates/dataset.html:163
+#: weckan/templates/dataset.html:153
 msgid "Territorial coverage"
 msgstr ""
 
-#: weckan/templates/dataset.html:174
+#: weckan/templates/dataset.html:164
 msgid "Territorial coverage granularity"
 msgstr ""
 
@@ -132,10 +132,7 @@ msgid "Home"
 msgstr ""
 
 #: weckan/templates/home.html:11
-msgid ""
-"Here, the public actors are <strong>co-creating</strong> with the civil "
-"society a <strong>shared vision</strong> of France that stimulates "
-"<strong>innovation</strong>."
+msgid "Let's debate facts to make them undebatable"
 msgstr ""
 
 #: weckan/templates/home.html:62
@@ -206,11 +203,11 @@ msgstr ""
 msgid "Which data ?"
 msgstr ""
 
-#: weckan/templates/sidebar.html:24
+#: weckan/templates/sidebar.html:25
 msgid "Search"
 msgstr ""
 
-#: weckan/templates/sidebar.html:30
+#: weckan/templates/sidebar.html:32
 msgid "Where"
 msgstr ""
 
