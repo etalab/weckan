@@ -68,8 +68,11 @@ a.thumbnail-link {
 }
 
 .btn-punch {
-    font-size: 22px;
-    font-weight: bold;
+    @media (min-width: @screen-xs) {
+        .btn-lg();
+        font-size: 22px;
+        font-weight: bold;
+    }
 }
 
 
