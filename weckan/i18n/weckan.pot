@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Weckan 0.1dev\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2013-09-09 18:03+0200\n"
+"POT-Creation-Date: 2013-09-09 18:43+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -73,62 +73,60 @@ msgstr ""
 msgid "Redirection in progress..."
 msgstr ""
 
-#: weckan/templates/dataset.html:23
-#, python-format
-msgid "Published by %(author)s"
+#: weckan/templates/dataset.html:22
+msgid "Published by"
 msgstr ""
 
-#: weckan/templates/dataset.html:39
-#, python-format
-msgid "Provided by %(provider)s"
+#: weckan/templates/dataset.html:34
+msgid "Provided by"
 msgstr ""
 
-#: weckan/templates/dataset.html:55
+#: weckan/templates/dataset.html:56
 msgid "Nameless resource"
 msgstr ""
 
-#: weckan/templates/dataset.html:68
+#: weckan/templates/dataset.html:69
 msgid "Community resources"
 msgstr ""
 
-#: weckan/templates/dataset.html:73
+#: weckan/templates/dataset.html:74
 msgid "Interpretations"
 msgstr ""
 
-#: weckan/templates/dataset.html:98
+#: weckan/templates/dataset.html:99
 msgid "Publish an interpretation !"
 msgstr ""
 
-#: weckan/templates/dataset.html:121
+#: weckan/templates/dataset.html:122
 msgid "more"
 msgstr ""
 
-#: weckan/templates/dataset.html:132
+#: weckan/templates/dataset.html:133
 msgid "Informations"
 msgstr ""
 
-#: weckan/templates/dataset.html:141
+#: weckan/templates/dataset.html:142
 msgid "License"
 msgstr ""
 
-#: weckan/templates/dataset.html:152
+#: weckan/templates/dataset.html:153
 msgid "Temporal coverage"
 msgstr ""
 
-#: weckan/templates/dataset.html:155
+#: weckan/templates/dataset.html:156
 #, python-format
 msgid "%(from)s to %(to)s"
 msgstr ""
 
-#: weckan/templates/dataset.html:165
+#: weckan/templates/dataset.html:166
 msgid "Periodicity"
 msgstr ""
 
-#: weckan/templates/dataset.html:176
+#: weckan/templates/dataset.html:177
 msgid "Territorial coverage"
 msgstr ""
 
-#: weckan/templates/dataset.html:187
+#: weckan/templates/dataset.html:188
 msgid "Territorial coverage granularity"
 msgstr ""
 

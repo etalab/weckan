@@ -19,28 +19,25 @@
                 <p class="col-md-6 text-muted">
                 {% if dataset.author %}
                     <small>
+                        {% trans %}Published by{% endtrans %}
                         {% if dataset.author_email %}
-                        {% set author_html='<a href="mailto:{0}" title="{1}">{1}</a>'.format(dataset.author_email,dataset.author) %}
+                        <a href="mailto:{{ dataset.author_email }}" title="{{ dataset.author }}">{{ dataset.author }}</a>
                         {% else %}
-                        {% set author_html=dataset.author %}
+                        {{ dataset.author}}
                         {% endif %}
-                        {% trans author=author_html %}Published by {{ author }}{% endtrans %}
                     </small>
                 {% endif %}
                 </p>
                 {% if supplier %}
                 <p class="col-md-6 text-right text-muted">
                     <small>
-                        {% set supplier_html = '<a href="{0}" title="{1}">{1}'.format(
-                            url(lang, 'organization', supplier.name), supplier.display_name
-                        ) %}
-                        {% if supplier.image_url %}
-                        {% set supplier_html = supplier_html + ' <img src="{0}" alt="{1}" height="16px"/>'.format(
-                            supplier.image_url, supplier.display_name
-                        ) %}
-                        {% endif %}
-                        {% set supplier_html = supplier_html + '</a>' %}
-                        {% trans provider=supplier_html %}Provided by {{ provider }}{% endtrans %}
+                        {% trans %}Provided by{% endtrans %}
+                        <a href="{{ url(lang, 'organization', supplier.name) }}" title="{{ supplier.display_name }}">
+                            {{ supplier.display_name }}
+                            {% if supplier.image_url %}
+                            <img src="{{ supplier.image_url }}" alt="{{ supplier.name }}" height="16px"/>
+                            {% endif %}
+                        </a>
                     </small>
                 </p>
                 {% endif %}
