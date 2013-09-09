@@ -13,7 +13,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
     <title>{% block title %}{% endblock %} - Data.Gouv.fr</title>
-    <link rel="shortcut icon" href="/img/favicon.png">
+    <link rel="shortcut icon" href="{{ static('/images/favicon.png') }}">
 
     {# Default style to site, overridden by child templates #}
     {% set style = style|default('site') -%}
