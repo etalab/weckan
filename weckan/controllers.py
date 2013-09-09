@@ -171,9 +171,13 @@ def display_dataset(request):
 
     territory = json.loads(request.cookies.get('territory', '{}'))
 
+    supplier_id = dataset.extras.get('supplier_id', None)
+    supplier = meta.Session.query(Group).filter(Group.id == supplier_id).first() if supplier_id else None
+
     return render_site_template('dataset.html', request,
         dataset = dataset,
         organization = organization,
+        supplier = supplier,
         territorial_coverage = territorial_coverage,
         temporal_coverage = temporal_coverage,
         periodicity = periodicity,

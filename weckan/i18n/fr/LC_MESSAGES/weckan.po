@@ -12,8 +12,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: weckan\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2013-09-06 14:44+0200\n"
-"PO-Revision-Date: 2013-09-06 15:09+0000\n"
+"POT-Creation-Date: 2013-09-09 18:03+0200\n"
+"PO-Revision-Date: 2013-09-09 16:04+0000\n"
 "Last-Translator: noirbizarre <noirbizarre@gmail.com>\n"
 "Language-Team: French (http://www.transifex.com/projects/p/weckan/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -79,57 +79,62 @@ msgstr "Vous allez être redirigé vers la page <a href=\"{0}\">{0}</a>."
 msgid "Redirection in progress..."
 msgstr "Redirection en cours..."
 
-#: weckan/templates/dataset.html:19
+#: weckan/templates/dataset.html:23
 #, python-format
 msgid "Published by %(author)s"
 msgstr "Publié par %(author)s"
 
-#: weckan/templates/dataset.html:32
+#: weckan/templates/dataset.html:39
+#, python-format
+msgid "Provided by %(provider)s"
+msgstr "Fourni par %(provider)s"
+
+#: weckan/templates/dataset.html:55
 msgid "Nameless resource"
 msgstr "Ressource sans nom"
 
-#: weckan/templates/dataset.html:45
+#: weckan/templates/dataset.html:68
 msgid "Community resources"
 msgstr "Ressources de la communauté"
 
-#: weckan/templates/dataset.html:50
+#: weckan/templates/dataset.html:73
 msgid "Interpretations"
 msgstr "Interprétations"
 
-#: weckan/templates/dataset.html:75
+#: weckan/templates/dataset.html:98
 msgid "Publish an interpretation !"
 msgstr "Publiez une interprétation !"
 
-#: weckan/templates/dataset.html:98
+#: weckan/templates/dataset.html:121
 msgid "more"
 msgstr "plus"
 
-#: weckan/templates/dataset.html:109
+#: weckan/templates/dataset.html:132
 msgid "Informations"
 msgstr "Informations"
 
-#: weckan/templates/dataset.html:118
+#: weckan/templates/dataset.html:141
 msgid "License"
 msgstr "License"
 
-#: weckan/templates/dataset.html:129
+#: weckan/templates/dataset.html:152
 msgid "Temporal coverage"
 msgstr "Couverture temporelle"
 
-#: weckan/templates/dataset.html:132
+#: weckan/templates/dataset.html:155
 #, python-format
 msgid "%(from)s to %(to)s"
 msgstr "%(from)s à %(to)s"
 
-#: weckan/templates/dataset.html:142
+#: weckan/templates/dataset.html:165
 msgid "Periodicity"
 msgstr "Périodicité"
 
-#: weckan/templates/dataset.html:153
+#: weckan/templates/dataset.html:176
 msgid "Territorial coverage"
 msgstr "Couverture territoriale"
 
-#: weckan/templates/dataset.html:164
+#: weckan/templates/dataset.html:187
 msgid "Territorial coverage granularity"
 msgstr "Granularité de la couverture territoriale"
 
@@ -141,15 +146,15 @@ msgstr "Accueil"
 msgid "Let's debate facts to make them undebatable"
 msgstr "Discutons les faits pour qu'ils deviennent indiscutables"
 
-#: weckan/templates/home.html:62
+#: weckan/templates/home.html:57
 msgid "Last"
 msgstr "Récents"
 
-#: weckan/templates/home.html:68
+#: weckan/templates/home.html:63
 msgid "Popular"
 msgstr "Populaires"
 
-#: weckan/templates/home.html:109
+#: weckan/templates/home.html:104
 msgid "Featured"
 msgstr "En vedette"
 

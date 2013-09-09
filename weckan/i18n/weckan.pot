@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Weckan 0.1dev\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2013-09-06 14:44+0200\n"
+"POT-Creation-Date: 2013-09-09 18:03+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -73,57 +73,62 @@ msgstr ""
 msgid "Redirection in progress..."
 msgstr ""
 
-#: weckan/templates/dataset.html:19
+#: weckan/templates/dataset.html:23
 #, python-format
 msgid "Published by %(author)s"
 msgstr ""
 
-#: weckan/templates/dataset.html:32
+#: weckan/templates/dataset.html:39
+#, python-format
+msgid "Provided by %(provider)s"
+msgstr ""
+
+#: weckan/templates/dataset.html:55
 msgid "Nameless resource"
 msgstr ""
 
-#: weckan/templates/dataset.html:45
+#: weckan/templates/dataset.html:68
 msgid "Community resources"
 msgstr ""
 
-#: weckan/templates/dataset.html:50
+#: weckan/templates/dataset.html:73
 msgid "Interpretations"
 msgstr ""
 
-#: weckan/templates/dataset.html:75
+#: weckan/templates/dataset.html:98
 msgid "Publish an interpretation !"
 msgstr ""
 
-#: weckan/templates/dataset.html:98
+#: weckan/templates/dataset.html:121
 msgid "more"
 msgstr ""
 
-#: weckan/templates/dataset.html:109
+#: weckan/templates/dataset.html:132
 msgid "Informations"
 msgstr ""
 
-#: weckan/templates/dataset.html:118
+#: weckan/templates/dataset.html:141
 msgid "License"
 msgstr ""
 
-#: weckan/templates/dataset.html:129
+#: weckan/templates/dataset.html:152
 msgid "Temporal coverage"
 msgstr ""
 
-#: weckan/templates/dataset.html:132
+#: weckan/templates/dataset.html:155
 #, python-format
 msgid "%(from)s to %(to)s"
 msgstr ""
 
-#: weckan/templates/dataset.html:142
+#: weckan/templates/dataset.html:165
 msgid "Periodicity"
 msgstr ""
 
-#: weckan/templates/dataset.html:153
+#: weckan/templates/dataset.html:176
 msgid "Territorial coverage"
 msgstr ""
 
-#: weckan/templates/dataset.html:164
+#: weckan/templates/dataset.html:187
 msgid "Territorial coverage granularity"
 msgstr ""
 
@@ -135,15 +140,15 @@ msgstr ""
 msgid "Let's debate facts to make them undebatable"
 msgstr ""
 
-#: weckan/templates/home.html:62
+#: weckan/templates/home.html:57
 msgid "Last"
 msgstr ""
 
-#: weckan/templates/home.html:68
+#: weckan/templates/home.html:63
 msgid "Popular"
 msgstr ""
 
-#: weckan/templates/home.html:109
+#: weckan/templates/home.html:104
 msgid "Featured"
 msgstr ""
 

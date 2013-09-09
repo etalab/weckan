@@ -15,9 +15,36 @@
 
             <p>{{ markdown(dataset.notes) }}</p>
 
-            {% if dataset.author %}
-            <p>{% trans author=dataset.author %}Published by {{ author }}{% endtrans %}</p>
-            {% endif %}
+            <div class="row">
+                <p class="col-md-6 text-muted">
+                {% if dataset.author %}
+                    <small>
+                        {% if dataset.author_email %}
+                        {% set author_html='<a href="mailto:{0}" title="{1}">{1}</a>'.format(dataset.author_email,dataset.author) %}
+                        {% else %}
+                        {% set author_html=dataset.author %}
+                        {% endif %}
+                        {% trans author=author_html %}Published by {{ author }}{% endtrans %}
+                    </small>
+                {% endif %}
+                </p>
+                {% if supplier %}
+                <p class="col-md-6 text-right text-muted">
+                    <small>
+                        {% set supplier_html = '<a href="{0}" title="{1}">{1}'.format(
+                            url(lang, 'organization', supplier.name), supplier.display_name
+                        ) %}
+                        {% if supplier.image_url %}
+                        {% set supplier_html = supplier_html + ' <img src="{0}" alt="{1}" height="16px"/>'.format(
+                            supplier.image_url, supplier.display_name
+                        ) %}
+                        {% endif %}
+                        {% set supplier_html = supplier_html + '</a>' %}
+                        {% trans provider=supplier_html %}Provided by {{ provider }}{% endtrans %}
+                    </small>
+                </p>
+                {% endif %}
+            </div>
 
             <div class="list-group resources-list">
                 {% for resource in dataset.resources %}
