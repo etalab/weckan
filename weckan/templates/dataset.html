@@ -45,23 +45,25 @@
 
             <div class="list-group resources-list">
                 {% for resource in dataset.resources %}
-                <a class="list-group-item" href="{{ resource.url }}"
-                    {% if resource.format.lower() == 'html' %}target="_blank"{% endif %}
-                    >
-                    <span class="format-label pull-left" property="dc:format" data-format="{{ resource.format.lower() or 'data' }}">{{ resource.format }}</span>
-                    <h4 class="list-group-item-heading ellipsis {% if not resource.description.strip() %}dual{% endif %}">
-                        {% if resource.name or resource.description %}
-                        {{ resource.name or resource.description }}
-                        {% else %}
-                        {% trans %}Nameless resource{% endtrans %}
+                    {% if resource.state == "active" %}
+                    <a class="list-group-item" href="{{ resource.url }}"
+                        {% if resource.format.lower() == 'html' %}target="_blank"{% endif %}
+                        >
+                        <span class="format-label pull-left" property="dc:format" data-format="{{ resource.format.lower() or 'data' }}">{{ resource.format }}</span>
+                        <h4 class="list-group-item-heading ellipsis {% if not resource.description.strip() %}dual{% endif %}">
+                            {% if resource.name or resource.description %}
+                            {{ resource.name or resource.description }}
+                            {% else %}
+                            {% trans %}Nameless resource{% endtrans %}
+                            {% endif %}
+                        </h4>
+                        {% if resource.description.strip() %}
+                        <p class="list-group-item-text">
+                        {{ markdown_extract(resource.description, 80) }}
+                        </p>
                         {% endif %}
-                    </h4>
-                    {% if resource.description.strip() %}
-                    <p class="list-group-item-text">
-                    {{ markdown_extract(resource.description, 80) }}
-                    </p>
-                    {% endif %}
-                </a>
+                    </a>
+                    {% if resource.state == "active" %}
                 {% endfor %}
             </div>
 
