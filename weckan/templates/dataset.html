@@ -44,8 +44,7 @@
             </div>
 
             <div class="list-group resources-list">
-                {% for resource in dataset.resources %}
-                    {% if resource.state == "active" %}
+                {% for resource in dataset.active_resources %}
                     <a class="list-group-item" href="{{ resource.url }}"
                         {% if resource.format.lower() == 'html' %}target="_blank"{% endif %}
                         >
@@ -63,7 +62,6 @@
                         </p>
                         {% endif %}
                     </a>
-                    {% endif %}
                 {% endfor %}
             </div>
 

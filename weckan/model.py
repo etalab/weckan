@@ -40,6 +40,19 @@ class Package(CkanPackage):
     def get_url(self, ctx, *path, **query):
         return urls.get_url(ctx, 'dataset', self.name, *path, **query)
 
+    @property
+    def active_resources(self):
+        if len(self.resource_groups_all) == 0:
+            return []
+
+        assert len(self.resource_groups_all) == 1, "can only use resources on packages if there is only one resource_group"
+        resource_group_id = self.resource_groups_all[0].id
+
+        return meta.Session.query(ResourceRevision)\
+                .filter_by(resource_group_id=resource_group_id)\
+                .filter_by(state='active').filter_by(current=True)\
+                .order_by(ResourceRevision.position)
+
 meta.mapper(Package, inherits = CkanPackage)
 
 
