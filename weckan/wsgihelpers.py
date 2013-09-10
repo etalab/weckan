@@ -82,7 +82,7 @@ def error(ctx, code, **kw):
     if code != 204:  # No content
         body = kw.pop('body', None)
         if body is None:
-            template_path = kw.pop('template_path', '/http-error.mako')
+            template_name = kw.pop('template_name', 'http-error.html')
             explanation = kw.pop('explanation', None)
             if explanation is None:
                 explanation = errors_explanation.get(code)
@@ -96,7 +96,7 @@ def error(ctx, code, **kw):
             if title is None:
                 title = errors_title.get(code)
                 title = ctx._(title) if title is not None else response.status
-            body = templates.render(ctx, template_path,
+            body = templates.render_site(template_name, ctx,
                 comment = kw.pop('comment', None),
                 explanation = explanation,
                 message = message,

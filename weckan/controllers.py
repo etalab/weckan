@@ -32,27 +32,12 @@ from datetime import datetime
 
 from sqlalchemy.sql import func, desc
 
-from . import contexts, templates, urls, wsgihelpers, auth
-
+from . import templates, urls, wsgihelpers
 from .model import Activity, meta, Package, RelatedDataset, Group
 
 
 log = logging.getLogger(__name__)
 router = None
-
-GROUPS = (
-    (u'Culture et communication', 'culture', None),
-    (u'Développement durable', 'wind', 'http://wiki.etalab2.fr/wiki/Le_D%C3%A9veloppement_Durable'),
-    (u'Éducation et recherche', 'education', None),
-    (u'État et collectivités', 'france', None),
-    (u'Europe', 'europe', None),
-    (u'Justice', 'justice', None),
-    (u'Monde', 'world', None),
-    (u'Santé et solidarité', 'hearth', None),
-    (u'Sécurité et défense', 'shield', None),
-    (u'Société', 'people', None),
-    (u'Travail, économie, emploi', 'case', None),
-)
 
 EXCLUDED_PATTERNS = (
     'activity',
@@ -63,40 +48,6 @@ EXCLUDED_PATTERNS = (
     'new_metadata',
     'new_resource',
 )
-
-
-def render_site_template(name, request, **kwargs):
-    '''
-    Render a template with a common site behavior.
-
-    - handle language choice and fallback
-    - inject user
-    - inject sidebar items
-    '''
-    from .jinja import render_template, LANGUAGES, DEFAULT_LANG
-
-    context = contexts.Ctx(request)
-    lang = request.urlvars.get('lang', None)
-
-    # Locale-less location
-    base_location = request.uscript_name.replace('/{0}'.format(lang), '')
-
-    # Override browser language
-    if lang in LANGUAGES:
-        context.lang = lang
-    elif lang is None:
-        lang = DEFAULT_LANG
-    else:
-        return wsgihelpers.redirect(context, location=base_location)
-
-    return render_template(context, name,
-        current_location = request.uscript_name,
-        current_base_location = base_location,
-        user = auth.get_user_from_request(request),
-        lang = lang,
-        sidebar_groups = GROUPS,
-        **kwargs
-    )
 
 
 def last_datasets(num=8):
@@ -134,7 +85,7 @@ def popular_datasets(num=8):
 
 @wsgihelpers.wsgify
 def home(request):
-    return render_site_template('home.html', request,
+    return templates.render_site('home.html', request,
         last_datasets = last_datasets(),
         popular_datasets = popular_datasets()
     )
@@ -174,7 +125,7 @@ def display_dataset(request):
     supplier_id = dataset.extras.get('supplier_id', None)
     supplier = meta.Session.query(Group).filter(Group.id == supplier_id).first() if supplier_id else None
 
-    return render_site_template('dataset.html', request,
+    return templates.render_site('dataset.html', request,
         dataset = dataset,
         organization = organization,
         supplier = supplier,
@@ -184,7 +135,7 @@ def display_dataset(request):
         groups = dataset.get_groups('group'),
         territory = {
             'full_name': territory.get('full_name', ''),
-            'full_name_slug': territory.get('full_name_slug',''),
+            'full_name_slug': territory.get('full_name_slug', ''),
             'depcom': territory.get('code', '')
         }
     )

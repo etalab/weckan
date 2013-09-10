@@ -1,10 +1,9 @@
 # -*- coding: utf-8 -*-
 
-
 # Weckan -- Web application using CKAN model
-# By: Emmanuel Raviart <emmanuel@raviart.com>
+# By: Axel Haustant <axel@haustant.fr>
 #
-# Copyright (C) 2013 Emmanuel Raviart
+# Copyright (C) 2013 Axel Haustant
 # http://github.com/etalab/weckan
 #
 # This file is part of Weckan.
@@ -21,94 +20,173 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
+import urllib
+
+from pkg_resources import resource_stream
+
+from jinja2 import Environment, PackageLoader
+from webassets import Environment as AssetsEnvironment
+from webassets.ext.jinja2 import AssetsExtension
+from webassets.loaders import YAMLLoader
+
+from babel import dates
+
+from .. import conf, contexts, auth
+
+env = None
+
+# Langugages definitions: language code => (Display name, flag)
+LANGUAGES = {
+    'fr': (u'Français', 'fr'),
+    'en': (u'English', 'us'),
+}
+DEFAULT_LANG = 'fr'
+
+GRAVATAR_DEFAULTS = ('404', 'mm', 'identicon', 'monsterid', 'wavatar', 'retro')
+
+GROUPS = (
+    (u'Culture et communication', 'culture', None),
+    (u'Développement durable', 'wind', 'http://wiki.etalab2.fr/wiki/Le_D%C3%A9veloppement_Durable'),
+    (u'Éducation et recherche', 'education', None),
+    (u'État et collectivités', 'france', None),
+    (u'Europe', 'europe', None),
+    (u'Justice', 'justice', None),
+    (u'Monde', 'world', None),
+    (u'Santé et solidarité', 'hearth', None),
+    (u'Sécurité et défense', 'shield', None),
+    (u'Société', 'people', None),
+    (u'Travail, économie, emploi', 'case', None),
+)
 
 
-"""Mako templates rendering"""
+def url(*args, **kwargs):
+    '''Get an URL from parts'''
+    from .. import urls
+    return urls.get_url(None, *args, **kwargs)
 
 
-import email.header
-import json
-import os
-
-import mako.lookup
-import markupsafe
-
-from .. import conf
+def static(*args, **kwargs):
+    '''Get a static asset path'''
+    return url(*args, **kwargs)
 
 
-custom_lookups = {}  # custom TemplateLookups, inited by function load_environment
-default_lookup = None  # default TemplateLookup, inited by function load_environment
-dirs = None  # Sequence of templates directories, inited by function load_environment
-js = lambda x: json.dumps(x, encoding = 'utf-8', ensure_ascii = False)
+def format_datetime(value, format='short', locale='fr'):
+    '''Format a datetime given a locale'''
+    try:
+        return dates.format_datetime(value, format, locale=locale)
+    except:
+        return value
 
 
-def get_default_lookup():
-    global default_lookup
-    if default_lookup is None:
-        default_lookup = mako.lookup.TemplateLookup(
-            default_filters = ['h'],
-            directories = dirs,
-#            error_handler = handle_mako_error,
-            input_encoding = 'utf-8',
-            module_directory = os.path.join(conf['cache_dir'], 'templates'),
-            strict_undefined = False,
+def format_date(value, format='short', locale='fr'):
+    '''Format a date given a locale'''
+    try:
+        return dates.format_date(value, format, locale=locale)
+    except:
+        return value
+
+
+def gravatar(email_hash, size=100, default=None):
+    '''Display a gravatar from an email'''
+    if default is None:
+        default = conf.get('ckan.gravatar_default', 'identicon')
+
+    if not default in GRAVATAR_DEFAULTS:
+        # treat the default as a url
+        default = urllib.quote(default, safe='')
+
+    return (
+        '<img src="//gravatar.com/avatar/{hash}?s={size}&amp;d={default}"'
+        'class="gravatar" width="{size}" height="{size}" />'
+        ).format(hash=email_hash, size=size, default=default)
+
+
+def get_jinja_env():
+    '''
+    Get a preconfigured jinja environment including:
+
+     - WebAssets
+     - i18n
+     - global functions
+     - filters
+    '''
+    global env
+
+    if not env:
+        from biryani1 import strings
+        from ckan.lib.helpers import markdown, markdown_extract
+
+        # Configure webassets
+        assets_environment = AssetsEnvironment(conf['static_files_dir'], '/')
+        assets_environment.debug = conf['debug']
+        assets_environment.auto_build = True  # conf['debug']
+
+        # Load bundle from yaml file
+        loader = YAMLLoader(resource_stream(__name__, '../assets.yaml'))
+        bundles = loader.load_bundles()
+        for name, bundle in bundles.items():
+            assets_environment.register(name, bundle)
+
+        # Configure Jinja Environment with webassets
+        env = Environment(
+            loader = PackageLoader('weckan', 'templates'),
+            extensions = (AssetsExtension, 'jinja2.ext.i18n')
             )
-    return default_lookup
+        env.assets_environment = assets_environment
+
+        # Custom global functions
+        env.globals['url'] = url
+        env.globals['static'] = static
+        env.globals['slugify'] = strings.slugify
+        env.globals['ifelse'] = lambda condition, first, second: first if condition else second
+        env.globals['gravatar'] = gravatar
+        env.globals['markdown'] = markdown
+        env.globals['markdown_extract'] = markdown_extract
+
+        # Custom filters
+        env.filters['datetime'] = format_datetime
+        env.filters['date'] = format_date
+
+    return env
 
 
-def get_lookup(custom_name):
-    if custom_name is None or conf['customs_dir'] is None:
-        return get_default_lookup()
-    custom_templates_dir = os.path.join(conf['customs_dir'], custom_name, 'templates')
-    if os.path.exists(custom_templates_dir):
-        if custom_name not in custom_lookups:
-            custom_lookups[custom_name] = mako.lookup.TemplateLookup(
-                default_filters = ['h'],
-                directories = [custom_templates_dir] + dirs,
-#                error_handler = handle_mako_error,
-                input_encoding = 'utf-8',
-                module_directory = os.path.join(conf['cache_dir'], 'templates-{}'.format(custom_name)),
-                strict_undefined = False,
-                )
-        return custom_lookups[custom_name]
-    if custom_name in custom_lookups:
-        del custom_lookups[custom_name]
-    return get_default_lookup()
+def render(context, name, **kwargs):
+    '''Render a localized template using Jinja'''
+    env = get_jinja_env()
+    env.install_gettext_translations(context.translator)
+    template = env.get_template(name)
+    lang = kwargs.pop('lang', DEFAULT_LANG)
+    return template.render(lang=lang, flag=LANGUAGES[lang][1], languages=LANGUAGES, **kwargs)
 
 
-def qp(s, encoding = 'utf-8'):
-    assert isinstance(s, unicode)
-    quoted_words = []
-    for word in s.split(' '):
-        try:
-            word = str(word)
-        except UnicodeEncodeError:
-            word = str(email.header.Header(word.encode(encoding), encoding))
-        quoted_words.append(word)
-    return u' '.join(quoted_words)
+def render_site(name, request_or_context, **kwargs):
+    '''
+    Render a template with a common site behavior.
 
+    - handle language choice and fallback
+    - inject user
+    - inject sidebar items
+    '''
+    context = request_or_context if isinstance(request_or_context, contexts.Ctx) else contexts.Ctx(request_or_context)
+    lang = context.req.urlvars.get('lang', None)
 
-def render(ctx, template_path, custom_name = None, **kw):
-    assert template_path.startswith('/')
-    return get_lookup(custom_name).get_template(template_path).render_unicode(
-        _ = ctx.translator.ugettext,
-        ctx = ctx,
-        js = js,
-        markupsafe = markupsafe,
-        N_ = lambda message: message,
-        qp = qp,
-        req = ctx.req,
-        **kw).strip()
+    # Locale-less location
+    current_location = context.req.uscript_name
+    base_location = current_location.replace('/{0}'.format(lang), '')
 
+    # Override browser language
+    if lang in LANGUAGES:
+        context.lang = lang
+    elif lang is None:
+        lang = DEFAULT_LANG
+    else:
+        return wsgihelpers.redirect(context, location=base_location)
 
-def render_def(ctx, template_path, def_name, custom_name = None, **kw):
-    assert template_path.startswith('/')
-    return get_lookup(custom_name).get_template(template_path).get_def(def_name).render_unicode(
-        _ = ctx.translator.ugettext,
-        ctx = ctx,
-        js = js,
-        markupsafe = markupsafe,
-        N_ = lambda message: message,
-        qp = qp,
-        req = ctx.req,
-        **kw).strip()
+    return render(context, name,
+        current_location = current_location,
+        current_base_location = base_location,
+        user = auth.get_user_from_request(context.req),
+        lang = lang,
+        sidebar_groups = GROUPS,
+        **kwargs
+    )
