@@ -12,7 +12,6 @@
      */
     var handle_panel_height = function() {
         if ($(window).width() >= MIN_WIDTH_FOR_EQUAL_HEIGHT) {
-            console.log('Equal height', $(window).width());
             $('.marketing .panel').equalHeights();
         } else {
             $('.marketing .panel').css({ height: 'auto' });
