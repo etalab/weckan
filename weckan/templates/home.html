@@ -157,3 +157,9 @@
     </div>
 </div>
 {% endblock %}
+
+{% block javascript %}
+{% assets "home-js" %}
+<script src="{{ ASSET_URL}}"></script>
+{% endassets %}
+{% endblock %}

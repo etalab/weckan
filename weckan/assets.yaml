@@ -44,3 +44,9 @@ dataset-css:
     output: css/dataset.min.css
     contents: less/dataset.less
     depends: less/*.less
+
+home-js:
+    filters: uglifyjs
+    output: js/home.min.js
+    contents:
+        - js/home.js

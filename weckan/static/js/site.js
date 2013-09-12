@@ -110,9 +110,6 @@
             }
             set_territory.apply(null, cookie.split('|'));
         }
-
-        // Equal height for marketing panels
-        $('.marketing .panel').equalHeights();
     });
 
 
