@@ -12,8 +12,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: weckan\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2013-09-09 18:43+0200\n"
-"PO-Revision-Date: 2013-09-09 16:45+0000\n"
+"POT-Creation-Date: 2013-09-12 15:26+0200\n"
+"PO-Revision-Date: 2013-09-12 13:37+0000\n"
 "Last-Translator: noirbizarre <noirbizarre@gmail.com>\n"
 "Language-Team: French (http://www.transifex.com/projects/p/weckan/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -31,7 +31,7 @@ msgstr "Site web introuvable."
 msgid "External URL"
 msgstr "URL externe"
 
-#: weckan/model.py:57
+#: weckan/model.py:70
 msgid "Keyword doesn't exist"
 msgstr "Le mot-clef n'existe pas"
 
@@ -152,9 +152,17 @@ msgstr "Récents"
 msgid "Popular"
 msgstr "Populaires"
 
-#: weckan/templates/home.html:104
-msgid "Featured"
-msgstr "En vedette"
+#: weckan/templates/home.html:108
+msgid "Citizens"
+msgstr "Citoyens"
+
+#: weckan/templates/home.html:126
+msgid "Public services"
+msgstr "Services publics"
+
+#: weckan/templates/home.html:144
+msgid "Businesses"
+msgstr "Entreprises"
 
 #: weckan/templates/navbar.html:13
 msgid "The open platform for french public data"

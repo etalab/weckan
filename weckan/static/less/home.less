@@ -1,6 +1,7 @@
 @import "site.less";
 
 #claim {
+    font-family: 'Permanent Marker', cursive;
     font-size: 34px;
     font-style: italic;
 }
@@ -14,6 +15,37 @@
 
         overflow: hidden;
         text-overflow: ellipsis;
+    }
+
+}
+
+.marketing .panel {
+    .img-responsive {
+        width: 100%;
+    }
+
+    .panel-title {
+        font-size: 1.55em;
+        font-family: 'Permanent Marker', cursive;
+        &:hover {
+            color: @highlight;
+        }
+    }
+
+    .panel-body {
+        color: black;
+    }
+
+    &:hover {
+        border: 1px solid @highlight;
+
+        .panel-body {
+            color: @highlight;
+        }
+
+        .panel-title {
+            color: @highlight;
+        }
     }
 }
 

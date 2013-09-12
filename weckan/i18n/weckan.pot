@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Weckan 0.1dev\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2013-09-09 18:43+0200\n"
+"POT-Creation-Date: 2013-09-12 15:26+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -25,7 +25,7 @@ msgstr ""
 msgid "External URL"
 msgstr ""
 
-#: weckan/model.py:57
+#: weckan/model.py:70
 msgid "Keyword doesn't exist"
 msgstr ""
 
@@ -146,8 +146,16 @@ msgstr ""
 msgid "Popular"
 msgstr ""
 
-#: weckan/templates/home.html:104
-msgid "Featured"
+#: weckan/templates/home.html:108
+msgid "Citizens"
+msgstr ""
+
+#: weckan/templates/home.html:126
+msgid "Public services"
+msgstr ""
+
+#: weckan/templates/home.html:144
+msgid "Businesses"
 msgstr ""
 
 #: weckan/templates/navbar.html:13

@@ -10,6 +10,7 @@ site-common:
         - bower/bootstrap/dist/js/bootstrap.js
         - bower/typeahead.js/dist/typeahead.js
         - bower/jquery.cookie/jquery.cookie.js
+        - bower/jquery.equalheights/jquery.equalheights.js
         - js/site.js
 
 site-js:
