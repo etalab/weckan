@@ -13,7 +13,7 @@
     </div>
 </div>
 
-<div class="row">
+<div class="row first-row">
     <div class="col-md-6">
 
         {# Home carousel #}
@@ -72,7 +72,9 @@
                         {% for dataset in last_datasets %}
                         <tr>
                             <td class="ellipsis">
-                                <a href="{{ url(lang, 'dataset', dataset.name) }}">{{ dataset.title }}</a>
+                                <a href="{{ url(lang, 'dataset', dataset.name) }}" title="{{ dataset.title }}">
+                                    {{ dataset.title }}
+                                </a>
                             </td>
                         </tr>
                         {% endfor %}
@@ -85,7 +87,9 @@
                         {% for dataset in popular_datasets %}
                         <tr>
                             <td class="ellipsis">
-                                <a href="{{ url(lang, 'dataset', dataset.name) }}">{{ dataset.title }}</a>
+                                <a href="{{ url(lang, 'dataset', dataset.name) }}" title="{{ dataset.title }}">
+                                    {{ dataset.title }}
+                                </a>
                             </td>
                         </tr>
                         {% endfor %}

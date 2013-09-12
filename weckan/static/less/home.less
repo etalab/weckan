@@ -74,17 +74,43 @@
 }
 
 // Fix carsoussel
-.carousel-inner > .item > img { margin: 0 auto; }
+#home-carousel {
 
-.carousel-caption {
-    color: white;
-    background-color: fadeout(@bg-light, 20%);
-    border-radius: 5px;
-    padding: 5px;
-    margin: 20px 0 30px;
+    @media (min-width: @screen-sm) {
+        height: 340px;
+        overflow: hidden;
+    }
 
-    &:hover {
+    .carousel-inner > .item {
+
+        img {
+            margin: 0 auto;
+        }
+
+        @media (min-width: @screen-sm) {
+            height: 340px;
+
+            img {
+                min-height: 340px;
+                position: absolute;
+                top: 0;
+                left: 0;
+                min-width: 100%;
+            }
+        }
+    }
+
+    .carousel-caption {
+        z-index: 10;
         color: white;
-        background-color: fadeout(@bg-light, 10%);
+        background-color: fadeout(@bg-light, 20%);
+        border-radius: 5px;
+        padding: 5px;
+        margin: 20px 0 30px;
+
+        &:hover {
+            color: white;
+            background-color: fadeout(@bg-light, 10%);
+        }
     }
 }
