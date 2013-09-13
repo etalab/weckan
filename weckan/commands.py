@@ -1,11 +1,27 @@
 # -*- coding: utf-8 -*-
 import logging
+import shutil
 
-from os.path import dirname, join
+from glob import iglob
+from os import makedirs
+from os.path import dirname, join, exists
 
 from setuptools import Command
 from webassets.script import CommandLineEnvironment
 from weckan.templates import get_webassets_env
+
+STATIC = join(dirname(__file__), 'static')
+
+TO_COPY = {
+    'bower/bootstrap/fonts/*': 'fonts/',
+    'bower/etalab-assets/fonts/*': 'fonts/',
+    'bower/etalab-assets/img/*': 'images/',
+    'bower/flags/flags/flags-iso/shiny/16/*.png': 'images/flags',
+}
+
+log = logging.getLogger('webassets')
+log.addHandler(logging.StreamHandler())
+log.setLevel(logging.DEBUG)
 
 
 class BuildAssets(Command):
@@ -21,14 +37,22 @@ class BuildAssets(Command):
         pass
 
     def run(self):
-        log = logging.getLogger('webassets')
-        log.addHandler(logging.StreamHandler())
-        log.setLevel(logging.DEBUG)
-
         assets_env = get_webassets_env({
             'debug': False,
-            'static_files_dir': join(dirname(__file__), 'static'),
+            'static_files_dir': STATIC,
         })
 
         cmdenv = CommandLineEnvironment(assets_env, log)
         cmdenv.build()
+
+        self.copy_assets()
+
+    def copy_assets(self):
+        '''Copy static assets unhandled by WebAssets'''
+        for source, destination in TO_COPY.items():
+            log.info('Copying %s to %s', source, destination)
+            destination_path = join(STATIC, destination)
+            if not exists(destination_path):
+                makedirs(destination_path)
+            for filename in iglob(join(STATIC, source)):
+                shutil.copy(filename, destination_path)
