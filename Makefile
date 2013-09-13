@@ -1,4 +1,4 @@
-.PHONY: check pep8 pyflakes dist i18n
+.PHONY: check pep8 pyflakes dist i18n assets
 
 all: check
 
@@ -18,3 +18,6 @@ i18n:
 dist:
 	@python setup.py clean
 	@python setup.py compile_catalog build_assets sdist
+
+assets:
+	@python setup.py build_assets
