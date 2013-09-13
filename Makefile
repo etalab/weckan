@@ -1,4 +1,4 @@
-.PHONY: check pep8 pyflakes
+.PHONY: check pep8 pyflakes dist i18n
 
 all: check
 
@@ -14,3 +14,7 @@ pyflakes:
 i18n:
 	@python setup.py extract_messages
 	@python setup.py update_catalog
+
+dist:
+	@python setup.py clean
+	@python setup.py compile_catalog build_assets sdist
