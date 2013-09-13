@@ -20,7 +20,10 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
+import os
 import urllib
+
+from os.path import join, dirname, abspath
 
 from pkg_resources import resource_stream
 
@@ -120,6 +123,9 @@ def get_jinja_env():
         assets_environment = AssetsEnvironment(conf['static_files_dir'], '/')
         assets_environment.debug = conf['debug']
         assets_environment.auto_build = True  # conf['debug']
+        less_paths = [abspath(join(conf['static_files_dir'], 'bower', path, 'less'))
+            for path in ('bootstrap', 'etalab-assets')]
+        assets_environment.config['less_extra_args'] = ['--include-path={0}'.format(os.pathsep.join(less_paths))]
 
         # Load bundle from yaml file
         loader = YAMLLoader(resource_stream(__name__, '../assets.yaml'))
