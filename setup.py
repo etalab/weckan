@@ -69,6 +69,7 @@ setup(
     entry_points = {
 #        'paste.app_factory': 'main = weckan.application:make_app',
         'paste.filter_app_factory': 'main = weckan.application:make_filter_app',
+        'distutils.commands': 'build_assets = weckan.commands:BuildAssets',
         },
     include_package_data = True,
     install_requires = [
