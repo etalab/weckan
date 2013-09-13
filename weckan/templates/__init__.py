@@ -123,9 +123,7 @@ def get_jinja_env():
         assets_environment = AssetsEnvironment(conf['static_files_dir'], '/')
         assets_environment.debug = conf['debug']
         assets_environment.auto_build = True  # conf['debug']
-        less_paths = [abspath(join(conf['static_files_dir'], 'bower', path, 'less'))
-            for path in ('bootstrap', 'etalab-assets')]
-        assets_environment.config['less_extra_args'] = ['--include-path={0}'.format(os.pathsep.join(less_paths))]
+        assets_environment.config['less_paths'] = ('bower/bootstrap/less', 'bower/etalab-assets/less')
 
         # Load bundle from yaml file
         loader = YAMLLoader(resource_stream(__name__, '../assets.yaml'))
