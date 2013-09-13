@@ -77,7 +77,7 @@ setup(
 #        'WebOb >= 1.1',
         'WebOb >= 1.0.8',
         'Jinja2 >= 2.6',
-        'webassets >= 0.8',
+        'webassets == 0.9.dev',
         'PyYAML',
         'cssmin',
         ],
