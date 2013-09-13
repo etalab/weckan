@@ -10,3 +10,6 @@ projects-*.ini
 *~
 
 .webassets-cache
+weckan/static/fonts
+weckan/static/bower
+weckan/static/css

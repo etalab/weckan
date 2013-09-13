@@ -12,6 +12,7 @@ site-common:
         - bower/jquery.cookie/jquery.cookie.js
         - bower/jquery.equalheights/jquery.equalheights.js
         - bower/etalab-assets/js/etalab-site.js
+    output: js/site.js
 
 site-js:
     filters: uglifyjs
