@@ -104,6 +104,24 @@ def gravatar(email_hash, size=100, default=None):
         ).format(hash=email_hash, size=size, default=default)
 
 
+def get_webassets_env(conf):
+    '''Get a preconfigured WebAssets environment'''
+    # Configure webassets
+    default_static = abspath(join(dirname(__file__), '..', 'static'))
+    assets_environment = AssetsEnvironment(conf.get('static_files_dir', default_static), '/')
+    assets_environment.debug = conf.get('debug', False)
+    assets_environment.auto_build = conf.get('debug', False)
+    assets_environment.config['less_paths'] = ('bower/bootstrap/less', 'bower/etalab-assets/less')
+
+    # Load bundle from yaml file
+    loader = YAMLLoader(resource_stream(__name__, '../assets.yaml'))
+    bundles = loader.load_bundles()
+    for name, bundle in bundles.items():
+        assets_environment.register(name, bundle)
+
+    return assets_environment
+
+
 def get_jinja_env():
     '''
     Get a preconfigured jinja environment including:
@@ -119,24 +137,12 @@ def get_jinja_env():
         from biryani1 import strings
         from ckan.lib.helpers import markdown, markdown_extract
 
-        # Configure webassets
-        assets_environment = AssetsEnvironment(conf['static_files_dir'], '/')
-        assets_environment.debug = conf['debug']
-        assets_environment.auto_build = True  # conf['debug']
-        assets_environment.config['less_paths'] = ('bower/bootstrap/less', 'bower/etalab-assets/less')
-
-        # Load bundle from yaml file
-        loader = YAMLLoader(resource_stream(__name__, '../assets.yaml'))
-        bundles = loader.load_bundles()
-        for name, bundle in bundles.items():
-            assets_environment.register(name, bundle)
-
         # Configure Jinja Environment with webassets
         env = Environment(
             loader = PackageLoader('weckan', 'templates'),
             extensions = (AssetsExtension, 'jinja2.ext.i18n')
             )
-        env.assets_environment = assets_environment
+        env.assets_environment = get_webassets_env(conf)
 
         # Custom global functions
         env.globals['url'] = url
