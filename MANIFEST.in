@@ -6,6 +6,4 @@ prune weckan/static/.webassets-cache
 prune weckan/static/bower
 prune weckan/static/hetic
 
-include weckan/static/bower/flags/flags/flags-iso/shiny/16/*.png
-
 global-exclude *~ *.egg *.pyc .DS_Store .gitignore
