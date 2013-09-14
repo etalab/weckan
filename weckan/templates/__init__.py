@@ -49,7 +49,7 @@ GRAVATAR_DEFAULTS = ('404', 'mm', 'identicon', 'monsterid', 'wavatar', 'retro')
 
 GROUPS = (
     (u'Culture et communication', 'culture', None),
-    (u'Développement durable', 'wind', 'http://wiki.etalab2.fr/wiki/Le_D%C3%A9veloppement_Durable'),
+    (u'Développement durable', 'wind', '{wiki}/Le_D%C3%A9veloppement_Durable'),
     (u'Éducation et recherche', 'education', None),
     (u'État et collectivités', 'france', None),
     (u'Europe', 'europe', None),
@@ -60,6 +60,13 @@ GROUPS = (
     (u'Société', 'people', None),
     (u'Travail, économie, emploi', 'case', None),
 )
+
+
+def format_group_url(row):
+    url = row[2].format(
+        home=conf['home_url'], wiki=conf['wiki_url'], questions=conf['questions_url']
+    ) if row[2] else None
+    return (row[0], row[1], url)
 
 
 def url(*args, **kwargs):
@@ -197,6 +204,9 @@ def render_site(name, request_or_context, **kwargs):
         current_base_location = base_location,
         user = auth.get_user_from_request(context.req),
         lang = lang,
-        sidebar_groups = GROUPS,
+        sidebar_groups = map(format_group_url, GROUPS),
+        HOME_URL = conf['home_url'],
+        WIKI_URL = conf['wiki_url'],
+        QUESTIONS_URL = conf['questions_url'],
         **kwargs
     )
