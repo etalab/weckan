@@ -2,9 +2,9 @@
 
     {# Public data presentation #}
     <div class="panel-heading">
-        <a href data-toggle="collapse" data-target="#sidebar">{% trans %}Public data{% endtrans %}</a>
+        <a href data-toggle="collapse" data-target="#public-data-panel">{% trans %}Public data{% endtrans %}</a>
     </div>
-    <div class="panel-body collapse">
+    <div id="public-data-panel" class="panel-body collapse">
         <ul class="list-unstyled">
             <li><a href="#">{% trans %}Definition{% endtrans %}</a></li>
             <li><a href="{{ url(lang, 'organization') }}">{% trans %}Publishers{% endtrans %}</a></li>
