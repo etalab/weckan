@@ -15,6 +15,11 @@
     <title>{% block title %}{% endblock %} - Etalab2.fr</title>
     <link rel="shortcut icon" href="{{ static('/images/favicon.png') }}">
 
+    {# Reference to other Etalab sites #}
+    <link rel="home" href="{{ HOME_URL }}" />
+    <link rel="wiki" href="{{ WIKI_URL }}" />
+    <link rel="questions" href="{{ QUESTIONS_URL }}" />
+
     {# Default style to site, overridden by child templates #}
     {% set style = style|default('site') -%}
     {% assets '{0}-css'.format(style) %}
