@@ -120,7 +120,10 @@ def display_dataset(request):
 
     periodicity = dataset.extras.get('"dct:accrualPeriodicity"', None)
 
-    territory = json.loads(request.cookies.get('territory', '{}'))
+    try:
+        territory = json.loads(request.cookies.get('territory', '{}'))
+    except ValueError:  # No JSON object could be decoded
+        territory = {}
 
     supplier_id = dataset.extras.get('supplier_id', None)
     supplier = meta.Session.query(Group).filter(Group.id == supplier_id).first() if supplier_id else None
