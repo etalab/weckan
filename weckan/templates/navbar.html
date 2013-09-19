@@ -74,13 +74,13 @@
             </li>
             <li class="dropdown">
                 <button class="btn btn-dark navbar-btn dropdown-toggle" data-toggle="dropdown">
-                    <img src="/bower/flags/flags/flags-iso/shiny/16/{{flag|upper}}.png" />
+                    <img src="/bower/flags/flags/flags-iso/shiny/16/{{flag|upper}}.png" alt="Current locale flag" />
                 </button>
                 <ul class="dropdown-menu">
                     {% for locale, (name, flag) in languages.items() %}
                     <li>
                         <a href="{{ url(locale, current_base_location) }}">
-                            <img src="/bower/flags/flags/flags-iso/shiny/16/{{flag|upper}}.png" />
+                            <img src="/bower/flags/flags/flags-iso/shiny/16/{{flag|upper}}.png" alt="{{locale}} flag"/>
                             {{name}}
                         </a>
                     </li>
