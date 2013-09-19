@@ -109,6 +109,13 @@
             {# Optionnal organization panel #}
             {% if organization %}
             <div class="thumbnail">
+                {% if organization.certified_public_service %}
+                <img src="{{static('/images/certified-stamp.png')}}" alt="certified"
+                    class="certified" rel="popover"
+                    data-title="{% trans %}Certified organization{% endtrans %}"
+                    data-content="{% trans %}This organization and its datasets are certified by Etalab{% endtrans %}"
+                    data-container="body" data-placement="left" data-trigger="hover"/>
+                {% endif %}
                 <img src="{{ organization.image_url or static('/base/images/placeholder-organization.png') }}" alt="{{ organization.name }}" />
                 <div class="caption">
                     <h3>{{ organization.display_name }}</h3>

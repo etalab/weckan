@@ -12,8 +12,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: weckan\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2013-09-19 11:30+0200\n"
-"PO-Revision-Date: 2013-09-19 09:34+0000\n"
+"POT-Creation-Date: 2013-09-19 14:35+0200\n"
+"PO-Revision-Date: 2013-09-19 12:37+0000\n"
 "Last-Translator: noirbizarre <noirbizarre@gmail.com>\n"
 "Language-Team: French (http://www.transifex.com/projects/p/weckan/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -103,36 +103,44 @@ msgstr "Interprétations"
 msgid "Publish an interpretation !"
 msgstr "Publiez une interprétation !"
 
-#: weckan/templates/dataset.html:122
+#: weckan/templates/dataset.html:115
+msgid "Certified organization"
+msgstr "Organisation certifiée"
+
+#: weckan/templates/dataset.html:116
+msgid "This organization and its datasets are certified by Etalab"
+msgstr "Cette organisation et ses jeux de données sont certifiés par Etalab"
+
+#: weckan/templates/dataset.html:129
 msgid "more"
 msgstr "plus"
 
-#: weckan/templates/dataset.html:133
+#: weckan/templates/dataset.html:140
 msgid "Informations"
 msgstr "Informations"
 
-#: weckan/templates/dataset.html:142
+#: weckan/templates/dataset.html:149
 msgid "License"
 msgstr "License"
 
-#: weckan/templates/dataset.html:153
+#: weckan/templates/dataset.html:160
 msgid "Temporal coverage"
 msgstr "Couverture temporelle"
 
-#: weckan/templates/dataset.html:156
+#: weckan/templates/dataset.html:163
 #, python-format
 msgid "%(from)s to %(to)s"
 msgstr "%(from)s à %(to)s"
 
-#: weckan/templates/dataset.html:166
+#: weckan/templates/dataset.html:173
 msgid "Periodicity"
 msgstr "Périodicité"
 
-#: weckan/templates/dataset.html:177
+#: weckan/templates/dataset.html:184
 msgid "Territorial coverage"
 msgstr "Couverture territoriale"
 
-#: weckan/templates/dataset.html:188
+#: weckan/templates/dataset.html:195
 msgid "Territorial coverage granularity"
 msgstr "Granularité de la couverture territoriale"
 

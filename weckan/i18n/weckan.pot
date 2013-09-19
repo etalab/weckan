@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Weckan 0.1dev\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2013-09-19 11:30+0200\n"
+"POT-Creation-Date: 2013-09-19 14:35+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -97,36 +97,44 @@ msgstr ""
 msgid "Publish an interpretation !"
 msgstr ""
 
-#: weckan/templates/dataset.html:122
+#: weckan/templates/dataset.html:115
+msgid "Certified organization"
+msgstr ""
+
+#: weckan/templates/dataset.html:116
+msgid "This organization and its datasets are certified by Etalab"
+msgstr ""
+
+#: weckan/templates/dataset.html:129
 msgid "more"
 msgstr ""
 
-#: weckan/templates/dataset.html:133
+#: weckan/templates/dataset.html:140
 msgid "Informations"
 msgstr ""
 
-#: weckan/templates/dataset.html:142
+#: weckan/templates/dataset.html:149
 msgid "License"
 msgstr ""
 
-#: weckan/templates/dataset.html:153
+#: weckan/templates/dataset.html:160
 msgid "Temporal coverage"
 msgstr ""
 
-#: weckan/templates/dataset.html:156
+#: weckan/templates/dataset.html:163
 #, python-format
 msgid "%(from)s to %(to)s"
 msgstr ""
 
-#: weckan/templates/dataset.html:166
+#: weckan/templates/dataset.html:173
 msgid "Periodicity"
 msgstr ""
 
-#: weckan/templates/dataset.html:177
+#: weckan/templates/dataset.html:184
 msgid "Territorial coverage"
 msgstr ""
 
-#: weckan/templates/dataset.html:188
+#: weckan/templates/dataset.html:195
 msgid "Territorial coverage granularity"
 msgstr ""
 
