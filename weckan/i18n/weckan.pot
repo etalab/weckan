@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Weckan 0.1dev\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2013-09-12 15:26+0200\n"
+"POT-Creation-Date: 2013-09-19 11:30+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -146,20 +146,20 @@ msgstr ""
 msgid "Popular"
 msgstr ""
 
-#: weckan/templates/home.html:108
+#: weckan/templates/home.html:112
 msgid "Citizens"
 msgstr ""
 
-#: weckan/templates/home.html:126
+#: weckan/templates/home.html:130
 msgid "Public services"
 msgstr ""
 
-#: weckan/templates/home.html:144
+#: weckan/templates/home.html:148
 msgid "Businesses"
 msgstr ""
 
 #: weckan/templates/navbar.html:13
-msgid "The open platform for french public data"
+msgid "Open platform for french public data"
 msgstr ""
 
 #: weckan/templates/navbar.html:20
