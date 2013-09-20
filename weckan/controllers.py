@@ -95,10 +95,13 @@ def home(request):
 def display_dataset(request):
     dataset_name = request.urlvars.get('name')
 
-    dataset, organization = meta.Session.query(Package, Group)\
+    dataset_and_organization = meta.Session.query(Package, Group)\
         .outerjoin(Group, Group.id == Package.owner_org)\
         .filter(Package.name == dataset_name)\
         .first()
+    if dataset_and_organization is None:
+        return wsgihelpers.not_found(ctx)
+    dataset, organization = dataset_and_organization
 
     territorial_coverage = {
         'name': dataset.extras.get('territorial_coverage', None),
