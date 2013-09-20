@@ -41,6 +41,10 @@ class Package(CkanPackage):
         return urls.get_url(ctx, 'dataset', self.name, *path, **query)
 
     @property
+    def display_name(self):
+        return self.title or self.name
+
+    @property
     def active_resources(self):
         if len(self.resource_groups_all) == 0:
             return []
