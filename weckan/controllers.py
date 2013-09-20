@@ -22,17 +22,20 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-
 """Root controllers"""
 
-import logging
+from __future__ import unicode_literals
+
+import futures
 import json
+import logging
+import requests
 
 from datetime import datetime
 
 from sqlalchemy.sql import func, desc
 
-from . import templates, urls, wsgihelpers
+from . import templates, urls, wsgihelpers, conf
 from .model import Activity, meta, Package, RelatedDataset, Group
 
 
@@ -48,6 +51,10 @@ EXCLUDED_PATTERNS = (
     'new_metadata',
     'new_resource',
 )
+
+SEARCH_MAX_ORGANIZATIONS = 2
+SEARCH_MAX_TOPICS = 2
+SEARCH_MAX_QUESTIONS = 2
 
 
 def last_datasets(num=8):
@@ -81,6 +88,57 @@ def popular_datasets(num=8):
         })
 
     return datasets
+
+
+def search_datasets(query):
+    '''Perform a Dataset search given a ``query``'''
+    from ckan.lib import search
+    dataset_params = {
+        'sort': 'score desc, metadata_modified desc',
+        'fq': '+dataset_type:dataset',
+        'rows': 20,
+        'facet.field': ['organization', 'groups', 'tags', 'res_format', 'license_id'],
+        'q': query,
+        'start': 0,
+        'extras': {}
+    }
+    dataset_query = search.query_for(Package)
+    dataset_query.run(dataset_params)
+
+    return 'datasets', meta.Session.query(Package).filter(Package.name.in_(dataset_query.results)).all()
+
+
+def search_organizations(query):
+    '''Perform an organization search given a ``query``'''
+    organizations = meta.Session.query(Group).filter(Group.type == 'organization')\
+        .filter(Group.name.like('%{0}%'.format(query)))\
+        .limit(SEARCH_MAX_ORGANIZATIONS).all()
+    return 'organizations', organizations
+
+
+def search_topics(query):
+    '''Perform a topic search given a ``query``'''
+    topics_params = {
+        'format': 'json',
+        'action': 'query',
+        'list': 'search',
+        'srsearch': query,
+        'srprop': 'timestamp',
+        'limit': SEARCH_MAX_TOPICS,
+    }
+    topics_response = requests.get('{0}/api.php'.format(conf['wiki_url']), params=topics_params)
+    return 'topics', topics_response.json().get('query', {}).get('search', [])
+
+
+def search_questions(query):
+    '''Perform a question search given a ``query``'''
+    questions_url = '{0}/api/v1/questions'.format(conf['questions_url'])
+    questions_params = {
+        'query': query,
+        'sort': 'vote-desc',
+    }
+    questions_response = requests.get(questions_url, params=questions_params)
+    return 'questions', questions_response.json().get('questions', [])[:SEARCH_MAX_QUESTIONS]
 
 
 @wsgihelpers.wsgify
@@ -144,11 +202,29 @@ def display_dataset(request):
     )
 
 
+@wsgihelpers.wsgify
+def search_results(request):
+    query = request.params.get('q', '')
+
+    with futures.ThreadPoolExecutor(max_workers=4) as executor:
+        workers = [
+            executor.submit(search_datasets, query),
+            executor.submit(search_organizations, query),
+            executor.submit(search_topics, query),
+            executor.submit(search_questions, query),
+        ]
+
+    results = dict(worker.result() for worker in futures.as_completed(workers))
+
+    return templates.render_site('search.html', request, search_query=query, **results)
+
+
 def make_router(app):
     """Return a WSGI application that searches requests to controllers """
     global router
     router = urls.make_router(app,
         ('GET', r'^(/(?P<lang>\w{2}))?/?$', home),
+        ('GET', r'^(/(?P<lang>\w{2}))?/dataset/?$', search_results),
         ('GET', r'^(/(?P<lang>\w{{2}}))?/dataset/(?!{0}(/|$))(?P<name>[\w_-]+)/?$'.format('|'.join(EXCLUDED_PATTERNS)), display_dataset),
         )
 

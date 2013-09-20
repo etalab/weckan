@@ -1,0 +1,84 @@
+{% extends "site.html" %}
+
+{% set style = 'search' %}
+
+{% block title %}{% trans %}Search for a Dataset{% endtrans %}{% endblock %}
+
+{% block content %}
+<div class="container">
+
+    {% if organizations %}
+    <h2>Organizations</h2>
+    <ul class="search-results">
+        {% for organization in organizations %}
+        <li class="search-result organization-result">
+            <a class="pull-left" href="{{ url(lang, 'organization', organization.name) }}">
+                <img class="result-logo" alt="{{ organization.display_name }}"
+                    src="{{ organization.image_url or static('/base/images/placeholder-organization.png') }}">
+            </a>
+            <h4>
+                <a href="{{ url(lang, 'organization', organization.name) }}" title="{{organization.display_name}}">
+                {{ organization.display_name }}
+                </a>
+            </h4>
+            {{ markdown_extract(organization.description, 180) }}
+        </li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+
+    {% if datasets %}
+    <h2>Datasets</h2>
+    <ul class="search-results">
+        {% for dataset in datasets %}
+        <li class="search-result dataset-result">
+            <a class="pull-left" href="{{ url(lang, 'dataset', dataset.name) }}">
+                <img class="result-logo" alt="{{ dataset.display_name }}"
+                    src="{{ static('/images/photo-placeholder.png') }}">
+            </a>
+            <h4>
+                <a href="{{ url(lang, 'dataset', dataset.name) }}" title="{{dataset.display_name}}">
+                {{ dataset.display_name }}
+                </a>
+            </h4>
+            {{ markdown_extract(dataset.notes, 180) }}
+        </li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+
+    {% if topics %}
+    <h2>Topics</h2>
+    <ul class="search-results">
+        {% for topic in topics %}
+        <li class="search-result topic-result">
+            <span class="glyphicon glyphicon-info-sign"></span>
+            <h4>
+                <a href="{{ WIKI_URL }}/{{ topic.title }}" title="{{ topic.title }}">
+                    {{ topic.title }}
+                </a>
+            </h4>
+        </li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+
+    {% if questions %}
+    <h2>Questions</h2>
+    <ul class="search-results">
+        {% for question in questions %}
+        <li class="search-result question-result">
+            <span class="glyphicon glyphicon-question-sign"></span>
+            <h4>
+                <a href="{{question.url}}" title="{{question.title}}">
+                    {{ question.title }}
+                </a>
+            </h4>
+        </li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+
+    <h2>
+</div>
+{% endblock %}

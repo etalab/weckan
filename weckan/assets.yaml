@@ -40,6 +40,12 @@ home-css:
     contents: less/home.less
     depends: less/*.less
 
+search-css:
+    filters: less,cssrewrite,cssmin
+    output: css/search.min.css
+    contents: less/search.less
+    depends: less/*.less
+
 dataset-css:
     filters: less,cssrewrite,cssmin
     output: css/dataset.min.css
