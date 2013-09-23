@@ -105,7 +105,21 @@ def search_datasets(query):
     dataset_query = search.query_for(Package)
     dataset_query.run(dataset_params)
 
-    return 'datasets', meta.Session.query(Package).filter(Package.name.in_(dataset_query.results)).all()
+    datasets = []
+
+    for dataset, organization in meta.Session.query(Package, Group)\
+        .outerjoin(Group, Group.id == Package.owner_org)\
+        .filter(Package.name.in_(dataset_query.results))\
+        .all():
+        datasets.append({
+                'name': dataset.name,
+                'title': dataset.title,
+                'display_name': dataset.display_name,
+                'notes': dataset.notes,
+                'organization': organization
+            })
+
+    return 'datasets', datasets
 
 
 def search_organizations(query):
@@ -118,7 +132,8 @@ def search_organizations(query):
 
 def search_topics(query):
     '''Perform a topic search given a ``query``'''
-    topics_params = {
+    url = '{0}/api.php'.format(conf['wiki_url'])
+    params = {
         'format': 'json',
         'action': 'query',
         'list': 'search',
@@ -126,19 +141,29 @@ def search_topics(query):
         'srprop': 'timestamp',
         'limit': SEARCH_MAX_TOPICS,
     }
-    topics_response = requests.get('{0}/api.php'.format(conf['wiki_url']), params=topics_params)
-    return 'topics', topics_response.json().get('query', {}).get('search', [])
+    try:
+        response = requests.get(url, params=params)
+        response.raise_for_status()
+    except requests.exceptions.RequestException:
+        log.exception('Unable to fetch topics')
+        return 'topics', []
+    return 'topics', response.json().get('query', {}).get('search', [])
 
 
 def search_questions(query):
     '''Perform a question search given a ``query``'''
-    questions_url = '{0}/api/v1/questions'.format(conf['questions_url'])
-    questions_params = {
+    url = '{0}/api/v1/questions'.format(conf['questions_url'])
+    params = {
         'query': query,
         'sort': 'vote-desc',
     }
-    questions_response = requests.get(questions_url, params=questions_params)
-    return 'questions', questions_response.json().get('questions', [])[:SEARCH_MAX_QUESTIONS]
+    try:
+        response = requests.get(url, params=params)
+        response.raise_for_status()
+    except requests.exceptions.RequestException:
+        log.exception('Unable to fetch questions')
+        return 'questions', []
+    return 'questions', response.json().get('questions', [])[:SEARCH_MAX_QUESTIONS]
 
 
 @wsgihelpers.wsgify
