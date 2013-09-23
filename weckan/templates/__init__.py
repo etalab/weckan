@@ -207,6 +207,7 @@ def render_site(name, request_or_context, **kwargs):
         sidebar_groups = map(format_group_url, GROUPS),
         HOME_URL = conf['home_url'],
         WIKI_URL = conf['wiki_url'],
+        WIKI_API_URL = conf['wiki_api_url'],
         QUESTIONS_URL = conf['questions_url'],
         CKAN_URL = conf['ckan_url'],
         **kwargs
