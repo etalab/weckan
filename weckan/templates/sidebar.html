@@ -19,23 +19,6 @@
         </ul>
     </div>
 
-    {# Search #}
-    <form id="search-form" action="{{ url(lang, 'dataset') }}">
-        <div id="search-group" class="input-group input-group-lg">
-            <input id="search-input" name="q" type="search" class="form-control" autocomplete="off"
-                placeholder="{% trans %}Search{% endtrans %}" value="{{search_query}}">
-            <span class="input-group-btn">
-                <button class="btn btn-highlight" type="submit"><span class="glyphicon glyphicon-search"></span></button>
-            </span>
-        </div>
-        <div id="where-group" class="input-group">
-            <input id="where-input" type="search" class="form-control" autocomplete="off"
-                placeholder="{% trans %}Where{% endtrans %}">
-            <span class="input-group-addon"><span class="glyphicon glyphicon-globe"></span></span>
-        </div>
-        <input id="ext_territory" name="ext_territory" type="hidden" />
-    </form>
-
     {# Groups #}
     <div class="list-group">
         {% for title, icon, link in sidebar_groups %}
