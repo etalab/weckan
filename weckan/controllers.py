@@ -55,6 +55,7 @@ EXCLUDED_PATTERNS = (
 SEARCH_MAX_ORGANIZATIONS = 2
 SEARCH_MAX_TOPICS = 2
 SEARCH_MAX_QUESTIONS = 2
+SEARCH_MAX_DATASETS = 20
 
 
 def last_datasets(num=8):
@@ -63,6 +64,8 @@ def last_datasets(num=8):
     for package, timestamp in meta.Session.query(Package, func.max(Activity.timestamp).label('timestamp'))\
             .filter(Activity.object_id == Package.id)\
             .filter(Activity.activity_type == 'new package')\
+            .filter(~Package.private)\
+            .filter(Package.state == 'active')\
             .group_by(Package).order_by(desc('timestamp')).limit(num):
 
         datasets.append({
@@ -78,6 +81,8 @@ def popular_datasets(num=8):
     '''Get the ``num`` most popular (ie. with the most related) datasets'''
     datasets = []
     for package in meta.Session.query(Package).join(RelatedDataset)\
+            .filter(~Package.private)\
+            .filter(Package.state == 'active')\
             .filter(RelatedDataset.status == 'active').group_by(Package)\
             .order_by(desc(func.count(RelatedDataset.related_id))).limit(num):
 
@@ -96,7 +101,7 @@ def search_datasets(query):
     dataset_params = {
         'sort': 'score desc, metadata_modified desc',
         'fq': '+dataset_type:dataset',
-        'rows': 20,
+        'rows': SEARCH_MAX_DATASETS,
         'facet.field': ['organization', 'groups', 'tags', 'res_format', 'license_id'],
         'q': query,
         'start': 0,
@@ -108,9 +113,11 @@ def search_datasets(query):
     datasets = []
 
     for dataset, organization in meta.Session.query(Package, Group)\
-        .outerjoin(Group, Group.id == Package.owner_org)\
-        .filter(Package.name.in_(dataset_query.results))\
-        .all():
+            .outerjoin(Group, Group.id == Package.owner_org)\
+            .filter(Package.name.in_(dataset_query.results))\
+            .filter(~Package.private)\
+            .filter(Package.state == 'active')\
+            .all():
         datasets.append({
                 'name': dataset.name,
                 'title': dataset.title,
