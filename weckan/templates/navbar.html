@@ -72,6 +72,14 @@
                     {% endif %}
                 </ul>
             </li>
+            {% if user %}
+            <li>
+                <a id="advanced-button" class="btn btn-dark navbar-btn" title="{% trans %}Advanced mode{% endtrans %}"
+                    href="{{ url(CKAN_URL, current_location) }}">
+                    <span class="icon icon-shop"></span>
+                </a>
+            </li>
+            {% endif %}
             <li class="dropdown">
                 <button class="btn btn-dark navbar-btn dropdown-toggle" data-toggle="dropdown">
                     <img src="/images/flags/{{flag|upper}}.png" alt="Current locale flag" />

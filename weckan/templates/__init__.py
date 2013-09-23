@@ -208,5 +208,6 @@ def render_site(name, request_or_context, **kwargs):
         HOME_URL = conf['home_url'],
         WIKI_URL = conf['wiki_url'],
         QUESTIONS_URL = conf['questions_url'],
+        CKAN_URL = conf['ckan_url'],
         **kwargs
     )

@@ -96,6 +96,7 @@ def load_environment(global_conf, app_conf):
             'home_url': conv.default('http://data.gouv.fr'),
             'wiki_url': conv.default('http://wiki.data.gouv.fr'),
             'questions_url': conv.default('http://questions.data.gouv.fr'),
+            'ckan_url': conv.default('http://ckan.data.gouv.fr'),
             },
         default = 'drop',
         ))(conf))

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Weckan 0.1dev\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2013-09-23 15:30+0200\n"
+"POT-Creation-Date: 2013-09-23 18:26+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -117,24 +117,24 @@ msgstr ""
 msgid "License"
 msgstr ""
 
-#: weckan/templates/dataset.html:161
+#: weckan/templates/dataset.html:161 weckan/templates/search.html:54
 msgid "Temporal coverage"
 msgstr ""
 
-#: weckan/templates/dataset.html:164
+#: weckan/templates/dataset.html:164 weckan/templates/search.html:57
 #, python-format
 msgid "%(from)s to %(to)s"
 msgstr ""
 
-#: weckan/templates/dataset.html:174
+#: weckan/templates/dataset.html:174 weckan/templates/search.html:67
 msgid "Periodicity"
 msgstr ""
 
-#: weckan/templates/dataset.html:185
+#: weckan/templates/dataset.html:185 weckan/templates/search.html:78
 msgid "Territorial coverage"
 msgstr ""
 
-#: weckan/templates/dataset.html:196
+#: weckan/templates/dataset.html:196 weckan/templates/search.html:89
 msgid "Territorial coverage granularity"
 msgstr ""
 
@@ -202,23 +202,31 @@ msgstr ""
 msgid "Register"
 msgstr ""
 
-#: weckan/templates/search.html:5 weckan/templates/sidebar.html:26
+#: weckan/templates/navbar.html:77
+msgid "Advanced mode"
+msgstr ""
+
+#: weckan/templates/navbar.html:109 weckan/templates/search.html:5
 msgid "Search"
+msgstr ""
+
+#: weckan/templates/navbar.html:117
+msgid "Where"
 msgstr ""
 
 #: weckan/templates/search.html:11
 msgid "Organizations"
 msgstr ""
 
-#: weckan/templates/search.html:31
+#: weckan/templates/search.html:33
 msgid "Datasets"
 msgstr ""
 
-#: weckan/templates/search.html:51
+#: weckan/templates/search.html:104
 msgid "Topics"
 msgstr ""
 
-#: weckan/templates/search.html:67
+#: weckan/templates/search.html:120
 msgid "Questions"
 msgstr ""
 
@@ -240,10 +248,6 @@ msgstr ""
 
 #: weckan/templates/sidebar.html:17
 msgid "Which data ?"
-msgstr ""
-
-#: weckan/templates/sidebar.html:33
-msgid "Where"
 msgstr ""
 
 #: weckan/templates/site.html:51
