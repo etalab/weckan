@@ -75,7 +75,7 @@
             {% if user %}
             <li>
                 <a id="advanced-button" class="btn btn-dark navbar-btn" title="{% trans %}Advanced mode{% endtrans %}"
-                    href="{{ url(CKAN_URL, current_location) }}">
+                    href="{{ CKAN_URL }}{{ current_location }}">
                     <span class="icon icon-shop"></span>
                 </a>
             </li>
