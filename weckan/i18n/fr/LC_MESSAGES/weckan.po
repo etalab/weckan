@@ -12,8 +12,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: weckan\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2013-09-19 15:37+0200\n"
-"PO-Revision-Date: 2013-09-19 13:51+0000\n"
+"POT-Creation-Date: 2013-09-23 15:30+0200\n"
+"PO-Revision-Date: 2013-09-23 13:32+0000\n"
 "Last-Translator: noirbizarre <noirbizarre@gmail.com>\n"
 "Language-Team: French (http://www.transifex.com/projects/p/weckan/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -31,7 +31,7 @@ msgstr "Site web introuvable."
 msgid "External URL"
 msgstr "URL externe"
 
-#: weckan/model.py:70
+#: weckan/model.py:74
 msgid "Keyword doesn't exist"
 msgstr "Le mot-clef n'existe pas"
 
@@ -111,36 +111,36 @@ msgstr "Service public certifié"
 msgid "This organization and its datasets are certified by data.gouv.fr"
 msgstr "Cette organisation et ses jeux de données sont certifiés par data.gouv.fr"
 
-#: weckan/templates/dataset.html:129
+#: weckan/templates/dataset.html:130
 msgid "more"
 msgstr "plus"
 
-#: weckan/templates/dataset.html:140
+#: weckan/templates/dataset.html:141
 msgid "Informations"
 msgstr "Informations"
 
-#: weckan/templates/dataset.html:149
+#: weckan/templates/dataset.html:150
 msgid "License"
 msgstr "License"
 
-#: weckan/templates/dataset.html:160
+#: weckan/templates/dataset.html:161
 msgid "Temporal coverage"
 msgstr "Couverture temporelle"
 
-#: weckan/templates/dataset.html:163
+#: weckan/templates/dataset.html:164
 #, python-format
 msgid "%(from)s to %(to)s"
 msgstr "%(from)s à %(to)s"
 
-#: weckan/templates/dataset.html:173
+#: weckan/templates/dataset.html:174
 msgid "Periodicity"
 msgstr "Périodicité"
 
-#: weckan/templates/dataset.html:184
+#: weckan/templates/dataset.html:185
 msgid "Territorial coverage"
 msgstr "Couverture territoriale"
 
-#: weckan/templates/dataset.html:195
+#: weckan/templates/dataset.html:196
 msgid "Territorial coverage granularity"
 msgstr "Granularité de la couverture territoriale"
 
@@ -208,42 +208,58 @@ msgstr "Connexion"
 msgid "Register"
 msgstr "Créer un compte"
 
+#: weckan/templates/search.html:5 weckan/templates/sidebar.html:26
+msgid "Search"
+msgstr "Recherche"
+
+#: weckan/templates/search.html:11
+msgid "Organizations"
+msgstr "Organisations"
+
+#: weckan/templates/search.html:31
+msgid "Datasets"
+msgstr "Jeux de données"
+
+#: weckan/templates/search.html:51
+msgid "Topics"
+msgstr "Thématiques"
+
+#: weckan/templates/search.html:67
+msgid "Questions"
+msgstr "Questions"
+
 #: weckan/templates/sidebar.html:5
 msgid "Public data"
 msgstr "Données publiques"
 
-#: weckan/templates/sidebar.html:9
+#: weckan/templates/sidebar.html:10
 msgid "Definition"
 msgstr "Définition"
 
-#: weckan/templates/sidebar.html:10
+#: weckan/templates/sidebar.html:11
 msgid "Publishers"
 msgstr "Producteurs"
 
-#: weckan/templates/sidebar.html:13
+#: weckan/templates/sidebar.html:14
 msgid "Open license"
 msgstr "Licence Ouverte"
 
-#: weckan/templates/sidebar.html:16
+#: weckan/templates/sidebar.html:17
 msgid "Which data ?"
 msgstr "Quelles données ?"
 
-#: weckan/templates/sidebar.html:25
-msgid "Search"
-msgstr "Recherche"
-
-#: weckan/templates/sidebar.html:32
+#: weckan/templates/sidebar.html:33
 msgid "Where"
 msgstr "Où"
 
-#: weckan/templates/site.html:46
+#: weckan/templates/site.html:51
 msgid "Back to top"
 msgstr "Haut de page"
 
-#: weckan/templates/site.html:49
+#: weckan/templates/site.html:54
 msgid "Privacy"
 msgstr "Vie privée"
 
-#: weckan/templates/site.html:50
+#: weckan/templates/site.html:55
 msgid "Terms"
 msgstr "Conditions légales"

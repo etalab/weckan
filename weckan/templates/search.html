@@ -2,13 +2,13 @@
 
 {% set style = 'search' %}
 
-{% block title %}{% trans %}Search for a Dataset{% endtrans %}{% endblock %}
+{% block title %}{% trans %}Search{% endtrans %}{% endblock %}
 
 {% block content %}
 <div class="container">
 
     {% if organizations %}
-    <h2>Organizations</h2>
+    <h2>{% trans %}Organizations{% endtrans %}</h2>
     <ul class="search-results">
         {% for organization in organizations %}
         <li class="search-result organization-result">
@@ -28,7 +28,7 @@
     {% endif %}
 
     {% if datasets %}
-    <h2>Datasets</h2>
+    <h2>{% trans %}Datasets{% endtrans %}</h2>
     <ul class="search-results">
         {% for dataset in datasets %}
         <li class="search-result dataset-result">
@@ -48,7 +48,7 @@
     {% endif %}
 
     {% if topics %}
-    <h2>Topics</h2>
+    <h2>{% trans %}Topics{% endtrans %}</h2>
     <ul class="search-results">
         {% for topic in topics %}
         <li class="search-result topic-result">
@@ -64,7 +64,7 @@
     {% endif %}
 
     {% if questions %}
-    <h2>Questions</h2>
+    <h2>{% trans %}Questions{% endtrans %}</h2>
     <ul class="search-results">
         {% for question in questions %}
         <li class="search-result question-result">
@@ -79,6 +79,5 @@
     </ul>
     {% endif %}
 
-    <h2>
 </div>
 {% endblock %}
