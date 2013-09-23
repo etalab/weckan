@@ -33,8 +33,8 @@
         {% for dataset in datasets %}
         <li class="search-result dataset-result">
             <a class="pull-left" href="{{ url(lang, 'dataset', dataset.name) }}">
-                <img class="result-logo" alt="{{ dataset.display_name }}"
-                    src="{{ static('/images/photo-placeholder.png') }}">
+                <img class="result-logo" alt="{{ dataset.organization.display_name }}"
+                    src="{{ dataset.organization.image_url or static('/base/images/placeholder-organization.png') }}">
             </a>
             <h4>
                 <a href="{{ url(lang, 'dataset', dataset.name) }}" title="{{dataset.display_name}}">
