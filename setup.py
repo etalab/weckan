@@ -82,6 +82,7 @@ setup(
         'requests',
         'PyYAML',
         'cssmin',
+        'futures',
         ],
     message_extractors = {'weckan': [
         ('**.py', 'python', None),
