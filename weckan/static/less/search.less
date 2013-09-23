@@ -19,19 +19,37 @@ ul.search-results {
             margin-right: 10px;
         }
 
+        .result-body {
+            padding-left: 90px;
+
+            .result-infos {
+                margin-top: 5px;
+            }
+        }
+
         h4 {
             margin: 0 0 5px;
         }
 
-        &.topic-result h4, &.question-result h4 {
-            display: inline-block;
-            vertical-align: top;
-            margin: 7px 0 0 5px;
+        &.topic-result, &.question-result {
+            .glyphicon {
+                font-size: 2em;
+                top: -2px;
+                margin-right: 7px;
+            }
+
+            h4 {
+                vertical-align: top;
+                margin: 4px 0 0 5px;
+            }
+
+            .result-body {
+                padding-left: 0;
+                display: inline;
+
+            }
         }
 
-        .glyphicon {
-            font-size: 2em;
-        }
     }
 
 }

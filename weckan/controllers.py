@@ -118,12 +118,32 @@ def search_datasets(query):
             .filter(~Package.private)\
             .filter(Package.state == 'active')\
             .all():
+
+        temporal_coverage = {
+            'from': dataset.extras.get('temporal_coverage_from', None),
+            'to': dataset.extras.get('temporal_coverage_to', None),
+        }
+        try:
+            temporal_coverage['from'] = datetime.strptime(temporal_coverage['from'], '%Y-%m-%d')
+        except:
+            pass
+        try:
+            temporal_coverage['to'] = datetime.strptime(temporal_coverage['to'], '%Y-%m-%d')
+        except:
+            pass
+
         datasets.append({
                 'name': dataset.name,
                 'title': dataset.title,
                 'display_name': dataset.display_name,
                 'notes': dataset.notes,
-                'organization': organization
+                'organization': organization,
+                'temporal_coverage': temporal_coverage,
+                'territorial_coverage' : {
+                    'name': dataset.extras.get('territorial_coverage', None),
+                    'granularity': dataset.extras.get('territorial_coverage_granularity', None),
+                },
+                'periodicity': dataset.extras.get('"dct:accrualPeriodicity"', None),
             })
 
     return 'datasets', datasets
