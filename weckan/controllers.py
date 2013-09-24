@@ -98,7 +98,7 @@ def popular_datasets(num=8):
 def search_datasets(query):
     '''Perform a Dataset search given a ``query``'''
     from ckan.lib import search
-    dataset_params = {
+    params = {
         'sort': 'score desc, metadata_modified desc',
         'fq': '+dataset_type:dataset',
         'rows': SEARCH_MAX_DATASETS,
@@ -107,14 +107,14 @@ def search_datasets(query):
         'start': 0,
         'extras': {}
     }
-    dataset_query = search.query_for(Package)
-    dataset_query.run(dataset_params)
+    query = search.query_for(Package)
+    query.run(params)
 
     datasets = []
 
     for dataset, organization in meta.Session.query(Package, Group)\
             .outerjoin(Group, Group.id == Package.owner_org)\
-            .filter(Package.name.in_(dataset_query.results))\
+            .filter(Package.name.in_(query.results))\
             .filter(~Package.private)\
             .filter(Package.state == 'active')\
             .all():
@@ -159,7 +159,6 @@ def search_organizations(query):
 
 def search_topics(query):
     '''Perform a topic search given a ``query``'''
-    url = '{0}/api.php'.format(conf['wiki_url'])
     params = {
         'format': 'json',
         'action': 'query',
@@ -169,9 +168,9 @@ def search_topics(query):
         'limit': SEARCH_MAX_TOPICS,
     }
     try:
-        response = requests.get(url, params=params)
+        response = requests.get(conf['wiki_api_url'], params=params)
         response.raise_for_status()
-    except requests.exceptions.RequestException:
+    except requests.RequestException:
         log.exception('Unable to fetch topics')
         return 'topics', []
     return 'topics', response.json().get('query', {}).get('search', [])
@@ -187,7 +186,7 @@ def search_questions(query):
     try:
         response = requests.get(url, params=params)
         response.raise_for_status()
-    except requests.exceptions.RequestException:
+    except requests.RequestException:
         log.exception('Unable to fetch questions')
         return 'questions', []
     return 'questions', response.json().get('questions', [])[:SEARCH_MAX_QUESTIONS]
