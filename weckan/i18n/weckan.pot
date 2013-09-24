@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Weckan 0.1dev\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2013-09-23 18:26+0200\n"
+"POT-Creation-Date: 2013-09-24 10:21+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -235,7 +235,7 @@ msgid "Public data"
 msgstr ""
 
 #: weckan/templates/sidebar.html:10
-msgid "Definition"
+msgid "How it works ?"
 msgstr ""
 
 #: weckan/templates/sidebar.html:11
@@ -246,19 +246,15 @@ msgstr ""
 msgid "Open license"
 msgstr ""
 
-#: weckan/templates/sidebar.html:17
-msgid "Which data ?"
-msgstr ""
-
-#: weckan/templates/site.html:51
+#: weckan/templates/site.html:52
 msgid "Back to top"
 msgstr ""
 
-#: weckan/templates/site.html:54
+#: weckan/templates/site.html:55
 msgid "Privacy"
 msgstr ""
 
-#: weckan/templates/site.html:55
+#: weckan/templates/site.html:56
 msgid "Terms"
 msgstr ""
 
