@@ -55,7 +55,7 @@ GROUPS = (
     (u'Europe', 'europe', None),
     (u'Justice', 'justice', None),
     (u'Monde', 'world', None),
-    (u'Santé et solidarité', 'hearth', None),
+    (u'Santé et solidarité', 'heart', None),
     (u'Sécurité et défense', 'shield', None),
     (u'Société', 'people', None),
     (u'Travail, économie, emploi', 'case', None),
