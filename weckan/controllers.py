@@ -27,17 +27,17 @@
 from __future__ import unicode_literals
 
 import futures
-import json
 import logging
 import requests
 
 from datetime import datetime
 
+from biryani1 import strings
+from ckanext.etalab.model import CertifiedPublicService
 from sqlalchemy.sql import func, desc, or_
 
 from . import templates, urls, wsgihelpers, conf
 from .model import Activity, meta, Package, RelatedDataset, Group, GroupRevision
-from ckanext.etalab.model import CertifiedPublicService
 
 
 log = logging.getLogger(__name__)
@@ -96,18 +96,29 @@ def popular_datasets(num=8):
     return datasets
 
 
-def search_datasets(query):
+def search_datasets(query, request):
     '''Perform a Dataset search given a ``query``'''
     from ckan.lib import search
+
     params = {
         'sort': 'score desc, metadata_modified desc',
         'fq': '+dataset_type:dataset',
         'rows': SEARCH_MAX_DATASETS,
-        'facet.field': ['organization', 'groups', 'tags', 'res_format', 'license_id'],
-        'q': query,
+        'q': '{0} +_val_:"weight"'.format(query),
         'start': 0,
-        'extras': {}
     }
+
+    # Territory search if specified
+    territory_key, _ = request.cookies.get('territory-infos', '|').split('|')
+    territory = get_territory(*territory_key.split('/')) if territory_key else {}
+    ancestors_kind_code = territory.get('ancestors_kind_code')
+    if ancestors_kind_code:
+        territories = [
+            '{}/{}'.format(ancestor_kind_code['kind'], ancestor_kind_code['code'])
+            for ancestor_kind_code in ancestors_kind_code
+            ]
+        params['fq'] = '{} +covered_territories:({})'.format(params['fq'], ' OR '.join(territories))
+
     query = search.query_for(Package)
     query.run(params)
 
@@ -213,6 +224,22 @@ def search_questions(query):
     return 'questions', response.json().get('questions', [])[:SEARCH_MAX_QUESTIONS]
 
 
+def get_territory(kind, code):
+    '''Perform a Territory API Call'''
+    url = '{0}/territory'.format(conf['territory_api_url'])
+    params = {
+        'kind': kind,
+        'code': code,
+    }
+    try:
+        response = requests.get(url, params=params)
+        response.raise_for_status()
+    except requests.RequestException:
+        log.exception('Unable to fetch territory')
+        return {}
+    return response.json().get('data', {})
+
+
 @wsgihelpers.wsgify
 def home(request):
     return templates.render_site('home.html', request,
@@ -253,10 +280,8 @@ def display_dataset(request):
 
     periodicity = dataset.extras.get('"dct:accrualPeriodicity"', None)
 
-    try:
-        territory = json.loads(request.cookies.get('territory', '{}'))
-    except ValueError:  # No JSON object could be decoded
-        territory = {}
+    territory_key, _ = request.cookies.get('territory-infos', '|').split('|')
+    territory = get_territory(*territory_key.split('/')) if territory_key else {}
 
     supplier_id = dataset.extras.get('supplier_id', None)
     supplier = meta.Session.query(Group).filter(Group.id == supplier_id).first() if supplier_id else None
@@ -271,7 +296,7 @@ def display_dataset(request):
         groups = dataset.get_groups('group'),
         territory = {
             'full_name': territory.get('full_name', ''),
-            'full_name_slug': territory.get('full_name_slug', ''),
+            'full_name_slug': strings.slugify(territory.get('full_name', '')),
             'depcom': territory.get('code', '')
         }
     )
@@ -283,7 +308,7 @@ def search_results(request):
 
     with futures.ThreadPoolExecutor(max_workers=4) as executor:
         workers = [
-            executor.submit(search_datasets, query),
+            executor.submit(search_datasets, query, request),
             executor.submit(search_organizations, query),
             executor.submit(search_topics, query),
             executor.submit(search_questions, query),
