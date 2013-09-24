@@ -33,10 +33,11 @@ import requests
 
 from datetime import datetime
 
-from sqlalchemy.sql import func, desc
+from sqlalchemy.sql import func, desc, or_
 
 from . import templates, urls, wsgihelpers, conf
-from .model import Activity, meta, Package, RelatedDataset, Group
+from .model import Activity, meta, Package, RelatedDataset, Group, GroupRevision
+from ckanext.etalab.model import CertifiedPublicService
 
 
 log = logging.getLogger(__name__)
@@ -112,12 +113,13 @@ def search_datasets(query):
 
     datasets = []
 
-    for dataset, organization in meta.Session.query(Package, Group)\
-            .outerjoin(Group, Group.id == Package.owner_org)\
-            .filter(Package.name.in_(query.results))\
-            .filter(~Package.private)\
-            .filter(Package.state == 'active')\
-            .all():
+    datasets_query = meta.Session.query(Package, Group)
+    datasets_query = datasets_query.outerjoin(Group, Group.id == Package.owner_org)
+    datasets_query = datasets_query.filter(Package.name.in_(query.results))
+    datasets_query = datasets_query.filter(~Package.private)
+    datasets_query = datasets_query.filter(Package.state == 'active')
+
+    for dataset, organization in datasets_query.all():
 
         temporal_coverage = {
             'from': dataset.extras.get('temporal_coverage_from', None),
@@ -151,10 +153,21 @@ def search_datasets(query):
 
 def search_organizations(query):
     '''Perform an organization search given a ``query``'''
-    organizations = meta.Session.query(Group).filter(Group.type == 'organization')\
-        .filter(Group.name.like('%{0}%'.format(query)))\
-        .limit(SEARCH_MAX_ORGANIZATIONS).all()
-    return 'organizations', organizations
+    like = '%{0}%'.format(query)
+
+    organizations = meta.Session.query(Group).join(GroupRevision)
+    organizations = organizations.outerjoin(CertifiedPublicService)
+    organizations = organizations.filter(GroupRevision.state=='active')
+    organizations = organizations.filter(GroupRevision.current==True)
+    organizations = organizations.filter(or_(
+        GroupRevision.name.ilike(like),
+        GroupRevision.title.ilike(like),
+        # GroupRevision.description.ilike(like),
+    ))
+    organizations = organizations.filter(GroupRevision.is_organization==True)
+    organizations = organizations.order_by(CertifiedPublicService.organization_id.nullslast(), Group.title)
+
+    return 'organizations', organizations.limit(SEARCH_MAX_ORGANIZATIONS).all()
 
 
 def search_topics(query):
