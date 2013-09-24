@@ -2,7 +2,6 @@ include setup.py COPYING MANIFEST.in
 
 recursive-include weckan *
 
-prune weckan/static/.webassets-cache
 prune weckan/static/bower
 prune weckan/static/hetic
 

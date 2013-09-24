@@ -118,7 +118,6 @@ def get_webassets_env(conf):
     assets_environment = AssetsEnvironment(conf.get('static_files_dir', default_static), '/')
     assets_environment.debug = conf.get('debug', False)
     assets_environment.auto_build = conf.get('debug', False)
-    assets_environment.cache = conf.get('debug', False)
     assets_environment.config['less_paths'] = ('bower/bootstrap/less', 'bower/etalab-assets/less')
 
     # Load bundle from yaml file
