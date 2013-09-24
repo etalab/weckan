@@ -141,7 +141,7 @@ def search_datasets(query):
                 'notes': dataset.notes,
                 'organization': organization,
                 'temporal_coverage': temporal_coverage,
-                'territorial_coverage' : {
+                'territorial_coverage': {
                     'name': dataset.extras.get('territorial_coverage', None),
                     'granularity': dataset.extras.get('territorial_coverage_granularity', None),
                 },
@@ -156,16 +156,24 @@ def search_organizations(query):
     like = '%{0}%'.format(query)
 
     organizations = meta.Session.query(Group).join(GroupRevision)
+    organizations = organizations.outerjoin(Package, Group.id == Package.owner_org)
     organizations = organizations.outerjoin(CertifiedPublicService)
-    organizations = organizations.filter(GroupRevision.state=='active')
-    organizations = organizations.filter(GroupRevision.current==True)
+    organizations = organizations.group_by(Group.id, CertifiedPublicService.organization_id)
+    organizations = organizations.filter(GroupRevision.state == 'active')
+    organizations = organizations.filter(GroupRevision.current == True)
     organizations = organizations.filter(or_(
         GroupRevision.name.ilike(like),
         GroupRevision.title.ilike(like),
         # GroupRevision.description.ilike(like),
     ))
-    organizations = organizations.filter(GroupRevision.is_organization==True)
-    organizations = organizations.order_by(CertifiedPublicService.organization_id.nullslast(), Group.title)
+    organizations = organizations.filter(GroupRevision.is_organization == True)
+    organizations = organizations.filter(~Package.private)
+    organizations = organizations.filter(Package.state == 'active')
+    organizations = organizations.order_by(
+        CertifiedPublicService.organization_id.nullslast(),
+        desc(func.count(Package.owner_org)),
+        Group.title
+    )
 
     return 'organizations', organizations.limit(SEARCH_MAX_ORGANIZATIONS).all()
 
