@@ -159,7 +159,7 @@ def search_datasets(query, request):
                 'periodicity': dataset.extras.get('"dct:accrualPeriodicity"', None),
             })
 
-    return 'datasets', datasets
+    return 'datasets', sorted(datasets, key=lambda d: query.results.index(d['name']))
 
 
 def search_organizations(query):
