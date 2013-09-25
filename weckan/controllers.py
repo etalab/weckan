@@ -216,7 +216,7 @@ def search_topics(query):
         'list': 'search',
         'srsearch': query,
         'srprop': 'timestamp',
-        'limit': SEARCH_MAX_TOPICS,
+        'srlimit': SEARCH_MAX_TOPICS,
     }
     try:
         response = requests.get(conf['wiki_api_url'], params=params)
