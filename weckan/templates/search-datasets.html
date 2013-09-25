@@ -3,7 +3,7 @@
 
 {% set style = 'search' %}
 
-{% block title %}{% trans %}Search datasets{% endtrans %}{% endblock %}
+{% block title %}{% trans %}Datasets search{% endtrans %}{% endblock %}
 
 {% block content %}
 <div class="container">
@@ -13,8 +13,8 @@
     {% set end = start - 1 + datasets.results|length %}
     <div class="page-header">
         <h1>
-            {% trans %}Search datasets{% endtrans %}
-            <small>{% trans total=datasets.total %}{{start}} to {{end}} of {{total}}{% endtrans %}
+            {% trans %}Datasets search{% endtrans %}
+            <small>{% trans total=datasets.total %}results {{start}} to {{end}} of {{total}}{% endtrans %}
         </h1>
     </div>
     <ul class="search-results">

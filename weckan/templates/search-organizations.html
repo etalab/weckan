@@ -3,7 +3,7 @@
 
 {% set style = 'search' %}
 
-{% block title %}{% trans %}Search organizations{% endtrans %}{% endblock %}
+{% block title %}{% trans %}Organizations search{% endtrans %}{% endblock %}
 
 {% block content %}
 <div class="container">
@@ -13,8 +13,8 @@
     {% set end = start - 1 + organizations.results|length %}
     <div class="page-header">
         <h1>
-            {% trans %}Search organizations{% endtrans %}
-            <small>{% trans total=organizations.total %}{{start}} to {{end}} of {{total}}{% endtrans %}
+            {% trans %}Organizations search{% endtrans %}
+            <small>{% trans total=organizations.total %}results {{start}} to {{end}} of {{total}}{% endtrans %}
         </h1>
     </div>
     <ul class="search-results">

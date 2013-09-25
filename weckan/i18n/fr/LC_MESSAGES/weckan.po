@@ -12,8 +12,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: weckan\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2013-09-24 10:21+0200\n"
-"PO-Revision-Date: 2013-09-24 08:22+0000\n"
+"POT-Creation-Date: 2013-09-25 14:30+0200\n"
+"PO-Revision-Date: 2013-09-25 12:31+0000\n"
 "Last-Translator: noirbizarre <noirbizarre@gmail.com>\n"
 "Language-Team: French (http://www.transifex.com/projects/p/weckan/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -96,12 +96,12 @@ msgid "Community resources"
 msgstr "Ressources de la communauté"
 
 #: weckan/templates/dataset.html:74
-msgid "Interpretations"
-msgstr "Interprétations"
+msgid "Reuse"
+msgstr "Réutilisations"
 
 #: weckan/templates/dataset.html:99
-msgid "Publish an interpretation !"
-msgstr "Publiez une interprétation !"
+msgid "Publish a reuse case !"
+msgstr "Publiez une réutilisation !"
 
 #: weckan/templates/dataset.html:115
 msgid "Certified public service"
@@ -123,24 +123,29 @@ msgstr "Informations"
 msgid "License"
 msgstr "License"
 
-#: weckan/templates/dataset.html:161 weckan/templates/search.html:54
+#: weckan/templates/dataset.html:161
+#: weckan/templates/widgets/dataset-search-result.html:19
 msgid "Temporal coverage"
 msgstr "Couverture temporelle"
 
-#: weckan/templates/dataset.html:164 weckan/templates/search.html:57
+#: weckan/templates/dataset.html:164
+#: weckan/templates/widgets/dataset-search-result.html:22
 #, python-format
 msgid "%(from)s to %(to)s"
 msgstr "%(from)s à %(to)s"
 
-#: weckan/templates/dataset.html:174 weckan/templates/search.html:67
+#: weckan/templates/dataset.html:174
+#: weckan/templates/widgets/dataset-search-result.html:32
 msgid "Periodicity"
 msgstr "Périodicité"
 
-#: weckan/templates/dataset.html:185 weckan/templates/search.html:78
+#: weckan/templates/dataset.html:185
+#: weckan/templates/widgets/dataset-search-result.html:43
 msgid "Territorial coverage"
 msgstr "Couverture territoriale"
 
-#: weckan/templates/dataset.html:196 weckan/templates/search.html:89
+#: weckan/templates/dataset.html:196
+#: weckan/templates/widgets/dataset-search-result.html:54
 msgid "Territorial coverage granularity"
 msgstr "Granularité de la couverture territoriale"
 
@@ -208,31 +213,57 @@ msgstr "Connexion"
 msgid "Register"
 msgstr "Créer un compte"
 
-#: weckan/templates/navbar.html:77
+#: weckan/templates/navbar.html:78
 msgid "Advanced mode"
 msgstr "Mode avancé"
 
-#: weckan/templates/navbar.html:109 weckan/templates/search.html:5
+#: weckan/templates/navbar.html:110 weckan/templates/search.html:6
 msgid "Search"
 msgstr "Recherche"
 
-#: weckan/templates/navbar.html:117
+#: weckan/templates/navbar.html:118
 msgid "Where"
 msgstr "Où"
 
-#: weckan/templates/search.html:11
+#: weckan/templates/search-datasets.html:6
+#: weckan/templates/search-datasets.html:16
+msgid "Datasets search"
+msgstr "Recherche de jeux de données"
+
+#: weckan/templates/search-datasets.html:17
+#: weckan/templates/search-organizations.html:17
+#, python-format
+msgid "results %(start)s to %(end)s of %(total)s"
+msgstr "résultats %(start)s à %(end)s sur %(total)s"
+
+#: weckan/templates/search-organizations.html:6
+#: weckan/templates/search-organizations.html:16
+msgid "Organizations search"
+msgstr "Recherche d'organisations"
+
+#: weckan/templates/search.html:12
 msgid "Organizations"
 msgstr "Organisations"
 
-#: weckan/templates/search.html:33
+#: weckan/templates/search.html:23 weckan/templates/search.html:41
+#: weckan/templates/search.html:89
+#, python-format
+msgid "See the %(total)s results"
+msgstr "Voir les %(total)s résultats"
+
+#: weckan/templates/search.html:30
 msgid "Datasets"
 msgstr "Jeux de données"
 
-#: weckan/templates/search.html:104
+#: weckan/templates/search.html:48
 msgid "Topics"
 msgstr "Thématiques"
 
-#: weckan/templates/search.html:120
+#: weckan/templates/search.html:65
+msgid "See all the results"
+msgstr "Voir tous les résultats"
+
+#: weckan/templates/search.html:72
 msgid "Questions"
 msgstr "Questions"
 
@@ -263,3 +294,19 @@ msgstr "Vie privée"
 #: weckan/templates/site.html:56
 msgid "Terms"
 msgstr "Conditions légales"
+
+#: weckan/templates/macros/paginator.html:8
+msgid "First page"
+msgstr "Première page"
+
+#: weckan/templates/macros/paginator.html:13
+msgid "Previous page"
+msgstr "Page précédante"
+
+#: weckan/templates/macros/paginator.html:23
+msgid "Next page"
+msgstr "Page suivante"
+
+#: weckan/templates/macros/paginator.html:28
+msgid "Last page"
+msgstr "Dernière page"

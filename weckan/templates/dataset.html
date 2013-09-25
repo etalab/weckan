@@ -71,7 +71,7 @@
 
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    <h3 class="panel-title">{% trans %}Interpretations{% endtrans %}</h3>
+                    <h3 class="panel-title">{% trans %}Reuse{% endtrans %}</h3>
                 </div>
                 <div class="panel-body">
                     {% if dataset.related %}
@@ -96,7 +96,7 @@
                     <p class="text-center">
                         <a class="btn btn-success btn-punch" href="{{ url(lang, 'dataset', dataset.name, 'related', 'new') }}">
                             <span class="glyphicon glyphicon-signal"></span>&nbsp;
-                            {% trans %}Publish an interpretation !{% endtrans %}
+                            {% trans %}Publish a reuse case !{% endtrans %}
                         </a>
                     </p>
                 </div>
