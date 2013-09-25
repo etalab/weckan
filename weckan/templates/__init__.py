@@ -205,6 +205,7 @@ def render_site(name, request_or_context, **kwargs):
         user = auth.get_user_from_request(context.req),
         lang = lang,
         sidebar_groups = map(format_group_url, GROUPS),
+        DOMAIN = conf['domain'],
         HOME_URL = conf['home_url'],
         WIKI_URL = conf['wiki_url'],
         WIKI_API_URL = conf['wiki_api_url'],

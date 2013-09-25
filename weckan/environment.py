@@ -93,7 +93,8 @@ def load_environment(global_conf, app_conf):
             # Whether this application serves its own static files.
             'static_files': conv.pipe(conv.guess_bool, conv.default(True)),
             'static_files_dir': conv.default(os.path.join(app_dir, 'static')),
-            'home_url': conv.default('http://data.gouv.fr'),
+            'domain': conv.default('data.gouv.fr'),
+            'home_url': conv.default('http://www.data.gouv.fr'),
             'wiki_url': conv.default('http://wiki.data.gouv.fr/wiki'),
             'wiki_api_url': conv.default('http://wiki.data.gouv.fr/api.php'),
             'questions_url': conv.default('http://questions.data.gouv.fr'),
