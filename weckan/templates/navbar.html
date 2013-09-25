@@ -75,7 +75,7 @@
             {% if user %}
             <li>
                 <a id="advanced-button" class="btn btn-dark navbar-btn" title="{% trans %}Advanced mode{% endtrans %}"
-                    href="{{ CKAN_URL }}{{ current_location }}">
+                    href="{{ CKAN_URL|safe }}{{ current_location|safe }}">
                     <span class="icon icon-shop"></span>
                 </a>
             </li>
@@ -87,7 +87,7 @@
                 <ul class="dropdown-menu">
                     {% for locale, (name, flag) in languages.items() %}
                     <li>
-                        <a href="{{ url(locale, current_base_location) }}">
+                        <a href="{{ url(locale) }}{{ current_base_location|safe }}">
                             <img src="/images/flags/{{flag|upper}}.png" alt="{{locale}} flag" />
                             {{name}}
                         </a>

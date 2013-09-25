@@ -188,7 +188,7 @@ def render_site(name, request_or_context, **kwargs):
     lang = context.req.urlvars.get('lang', None)
 
     # Locale-less location
-    current_location = context.req.uscript_name
+    current_location = context.req.path_qs
     base_location = current_location.replace('/{0}'.format(lang), '')
 
     # Override browser language
