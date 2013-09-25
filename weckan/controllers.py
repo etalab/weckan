@@ -28,9 +28,11 @@ from __future__ import unicode_literals
 
 import futures
 import logging
+import math
 import requests
 
 from datetime import datetime
+from urllib import urlencode
 
 from biryani1 import strings
 from ckanext.etalab.model import CertifiedPublicService
@@ -56,7 +58,8 @@ EXCLUDED_PATTERNS = (
 SEARCH_MAX_ORGANIZATIONS = 2
 SEARCH_MAX_TOPICS = 2
 SEARCH_MAX_QUESTIONS = 2
-SEARCH_MAX_DATASETS = 20
+SEARCH_MAX_DATASETS = 10
+SEARCH_PAGE_SIZE = 20
 
 
 def last_datasets(num=8):
@@ -96,16 +99,17 @@ def popular_datasets(num=8):
     return datasets
 
 
-def search_datasets(query, request):
+def search_datasets(query, request, page=1, page_size=SEARCH_MAX_DATASETS):
     '''Perform a Dataset search given a ``query``'''
     from ckan.lib import search
 
+    page_zero = page - 1
     params = {
         'sort': 'score desc, metadata_modified desc',
         'fq': '+dataset_type:dataset',
-        'rows': SEARCH_MAX_DATASETS,
+        'rows': page_size,
         'q': '{0} +_val_:"weight"'.format(query),
-        'start': 0,
+        'start': page_zero * page_size,
     }
 
     # Territory search if specified
@@ -159,10 +163,16 @@ def search_datasets(query, request):
                 'periodicity': dataset.extras.get('"dct:accrualPeriodicity"', None),
             })
 
-    return 'datasets', sorted(datasets, key=lambda d: query.results.index(d['name']))
+    return 'datasets', {
+        'results': sorted(datasets, key=lambda d: query.results.index(d['name'])),
+        'total': query.count,
+        'page': page,
+        'page_size': page_size,
+        'total_pages': int(math.ceil(query.count / float(page_size))),
+    }
 
 
-def search_organizations(query):
+def search_organizations(query, page=1, page_size=SEARCH_MAX_ORGANIZATIONS):
     '''Perform an organization search given a ``query``'''
     like = '%{0}%'.format(query)
 
@@ -186,7 +196,16 @@ def search_organizations(query):
         Group.title
     )
 
-    return 'organizations', organizations.limit(SEARCH_MAX_ORGANIZATIONS).all()
+    total = organizations.count()
+    start = (page - 1) * page_size
+    end = start + page_size
+    return 'organizations', {
+        'results': organizations[start:end],
+        'total': total,
+        'page': page,
+        'page_size': page_size,
+        'total_pages': int(math.ceil(total / float(page_size))),
+    }
 
 
 def search_topics(query):
@@ -204,8 +223,12 @@ def search_topics(query):
         response.raise_for_status()
     except requests.RequestException:
         log.exception('Unable to fetch topics')
-        return 'topics', []
-    return 'topics', response.json().get('query', {}).get('search', [])
+        return 'topics', {'results': [], 'more': False}
+    json_response = response.json()
+    return 'topics', {
+        'results': json_response.get('query', {}).get('search', []),
+        'more': 'query-continue' in json_response,
+    }
 
 
 def search_questions(query):
@@ -220,8 +243,12 @@ def search_questions(query):
         response.raise_for_status()
     except requests.RequestException:
         log.exception('Unable to fetch questions')
-        return 'questions', []
-    return 'questions', response.json().get('questions', [])[:SEARCH_MAX_QUESTIONS]
+        return 'questions', {'results': [], 'total': 0}
+    json_response = response.json()
+    return 'questions', {
+        'results': json_response.get('questions', [])[:SEARCH_MAX_QUESTIONS],
+        'total': json_response.get('count', 0),
+    }
 
 
 def get_territory(kind, code):
@@ -238,6 +265,15 @@ def get_territory(kind, code):
         log.exception('Unable to fetch territory')
         return {}
     return response.json().get('data', {})
+
+
+def get_page_url_pattern(request):
+    '''Get a formattable page url pattern from incoming request URL'''
+    url_pattern_params = {}
+    for key, value in request.params.iteritems():
+        if key != 'page':
+            url_pattern_params[key] = unicode(value).encode('utf-8')
+    return '?'.join([request.path, urlencode(url_pattern_params)]) + '&page={page}'
 
 
 @wsgihelpers.wsgify
@@ -316,7 +352,31 @@ def search_results(request):
 
     results = dict(worker.result() for worker in futures.as_completed(workers))
 
-    return templates.render_site('search.html', request, search_query=query, **results)
+    return templates.render_site('search.html', request, search_query=query, has_ckan=False, **results)
+
+
+@wsgihelpers.wsgify
+def search_more_datasets(request):
+    query = request.params.get('q', '')
+    page = int(request.params.get('page', 1))
+    _, results = search_datasets(query, request, page, SEARCH_PAGE_SIZE)
+    return templates.render_site('search-datasets.html', request,
+        search_query=query,
+        url_pattern=get_page_url_pattern(request),
+        datasets=results
+        )
+
+
+@wsgihelpers.wsgify
+def search_more_organizations(request):
+    query = request.params.get('q', '')
+    page = int(request.params.get('page', 1))
+    _, results = search_organizations(query, page, SEARCH_PAGE_SIZE)
+    return templates.render_site('search-organizations.html', request,
+        search_query=query,
+        url_pattern=get_page_url_pattern(request),
+        organizations=results
+        )
 
 
 def make_router(app):
@@ -324,8 +384,10 @@ def make_router(app):
     global router
     router = urls.make_router(app,
         ('GET', r'^(/(?P<lang>\w{2}))?/?$', home),
-        ('GET', r'^(/(?P<lang>\w{2}))?/dataset/?$', search_results),
+        ('GET', r'^(/(?P<lang>\w{2}))?/search/?$', search_results),
+        ('GET', r'^(/(?P<lang>\w{2}))?/dataset/?$', search_more_datasets),
         ('GET', r'^(/(?P<lang>\w{{2}}))?/dataset/(?!{0}(/|$))(?P<name>[\w_-]+)/?$'.format('|'.join(EXCLUDED_PATTERNS)), display_dataset),
+        ('GET', r'^(/(?P<lang>\w{2}))?/organization/?$', search_more_organizations),
         )
 
     return router

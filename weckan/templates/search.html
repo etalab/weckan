@@ -1,109 +1,53 @@
 {% extends "site.html" %}
 
 {% set style = 'search' %}
+{% set has_ckan = False %}
 
 {% block title %}{% trans %}Search{% endtrans %}{% endblock %}
 
 {% block content %}
 <div class="container">
 
-    {% if organizations %}
+    {% if organizations.results %}
     <h2>{% trans %}Organizations{% endtrans %}</h2>
     <ul class="search-results">
-        {% for organization in organizations %}
-        <li class="search-result organization-result">
-            <a class="pull-left" href="{{ url(lang, 'organization', organization.name) }}">
-                <img class="result-logo" alt="{{ organization.display_name }}"
-                    src="{{ organization.image_url or static('/base/images/placeholder-organization.png') }}">
-            </a>
-            <div class="result-body">
-                <h4>
-                    <a href="{{ url(lang, 'organization', organization.name) }}" title="{{organization.display_name}}">
-                    {{ organization.display_name }}
-                    </a>
-                </h4>
-                {{ markdown_extract(organization.description, 180) }}
-            </div>
-        </li>
+        {% for organization in organizations.results %}
+        {% include "widgets/organization-search-result.html" %}
         {% endfor %}
     </ul>
+
+        {% if organizations.total > organizations.results|length %}
+        <p class="text-center">
+            <a class="btn btn-default" href="{{ url(lang, 'organization') }}?{{ query_string }}">
+                <span class="glyphicon glyphicon-list"></span>
+                {% trans total=organizations.total %}See the {{ total }} results{% endtrans %}
+            </a>
+        </p>
+        {% endif %}
     {% endif %}
 
-    {% if datasets %}
+    {% if datasets.results %}
     <h2>{% trans %}Datasets{% endtrans %}</h2>
     <ul class="search-results">
-        {% for dataset in datasets %}
-        <li class="search-result dataset-result">
-            <a class="pull-left" href="{{ url(lang, 'dataset', dataset.name) }}">
-                <img class="result-logo" alt="{{ dataset.organization.display_name }}"
-                    src="{{ dataset.organization.image_url or static('/base/images/placeholder-organization.png') }}">
-            </a>
-            <div class="result-body">
-                <h4>
-                    <a href="{{ url(lang, 'dataset', dataset.name) }}" title="{{dataset.display_name}}">
-                    {{ dataset.display_name }}
-                    </a>
-                </h4>
-                {{ markdown_extract(dataset.notes, 180) }}
-                <ul class="list-inline result-infos">
-
-                    {# Temporal coverage #}
-                    {% if dataset.temporal_coverage.from and dataset.temporal_coverage.to %}
-                    <li>
-                        <a href class="btn btn-xs btn-default" rel="tooltip" data-placement="left"
-                            title="{% trans %}Temporal coverage{% endtrans %}">
-                            <span class="glyphicon glyphicon-calendar"></span>
-                        </a>
-                        {% trans from=dataset.temporal_coverage.from|date(locale=lang), to=dataset.temporal_coverage.to|date(locale=lang) -%}
-                        {{ from }} to {{ to }}
-                        {%- endtrans %}
-                    </li>
-                    {% endif %}
-
-                    {# Periodicity #}
-                    {% if dataset.periodicity %}
-                    <li>
-                        <a href class="btn btn-xs" rel="tooltip" data-placement="left"
-                            title="{% trans %}Periodicity{% endtrans %}">
-                            <span class="glyphicon glyphicon-time"></span>
-                        </a>
-                        {{ dataset.periodicity }}
-                    </li>
-                    {% endif %}
-
-                    {# Territorial coverage #}
-                    {% if dataset.territorial_coverage.name %}
-                    <li>
-                        <a href class="btn btn-xs btn-default" rel="tooltip" data-placement="left"
-                            title="{% trans %}Territorial coverage{% endtrans %}">
-                            <span class="glyphicon glyphicon-globe"></span>
-                        </a>
-                        {% set ellipsis = '<a href title="{0}">...</a>'.format(dataset.territorial_coverage.name) %}
-                        {{ dataset.territorial_coverage.name|truncate(15, True, ellipsis) }}
-                    </li>
-                    {% endif %}
-
-                    {% if dataset.territorial_coverage.granularity %}
-                    <li>
-                        <a href class="btn btn-xs btn-default" rel="tooltip" data-placement="left"
-                            title="{% trans %}Territorial coverage granularity{% endtrans %}">
-                            <span class="glyphicon glyphicon-screenshot"></span>
-                        </a>
-                        {{ dataset.territorial_coverage.granularity }}
-                    </li>
-                    {% endif %}
-
-                </ul>
-            </div>
-        </li>
+        {% for dataset in datasets.results %}
+        {% include "widgets/dataset-search-result.html" %}
         {% endfor %}
     </ul>
+
+        {% if datasets.total > datasets.results|length %}
+        <p class="text-center">
+            <a class="btn btn-default"  href="{{ url(lang, 'dataset') }}?{{ query_string }}">
+            <span class="glyphicon glyphicon-list"></span>
+            {% trans total=datasets.total %}See the {{ total }} results{% endtrans %}
+            </a>
+        </p>
+        {% endif %}
     {% endif %}
 
-    {% if topics %}
+    {% if topics.results %}
     <h2>{% trans %}Topics{% endtrans %}</h2>
     <ul class="search-results">
-        {% for topic in topics %}
+        {% for topic in topics.results %}
         <li class="search-result topic-result">
             <span class="glyphicon glyphicon-info-sign pull-left"></span>
             <h4>
@@ -114,12 +58,20 @@
         </li>
         {% endfor %}
     </ul>
+        {% if topics.more %}
+        <p class="text-center">
+            <a class="btn btn-default" href="{{ WIKI_URL }}?search={{search_query}}">
+            <span class="glyphicon glyphicon-list"></span>
+            {% trans %}See all the results{% endtrans %}
+            </a>
+        </p>
+        {% endif %}
     {% endif %}
 
-    {% if questions %}
+    {% if questions.results %}
     <h2>{% trans %}Questions{% endtrans %}</h2>
     <ul class="search-results">
-        {% for question in questions %}
+        {% for question in questions.results %}
         <li class="search-result question-result">
             <span class="glyphicon glyphicon-question-sign pull-left"></span>
             <h4>
@@ -130,6 +82,14 @@
         </li>
         {% endfor %}
     </ul>
+        {% if questions.total > questions.results|length %}
+        <p class="text-center">
+            <a class="btn btn-default" href="{{ QUESTIONS_URL }}/questions/query:{{search_query}}/">
+            <span class="glyphicon glyphicon-list"></span>
+            {% trans total=questions.total %}See the {{ total }} results{% endtrans %}
+            </a>
+        </p>
+        {% endif %}
     {% endif %}
 
 </div>

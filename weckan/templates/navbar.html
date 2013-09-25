@@ -72,7 +72,8 @@
                     {% endif %}
                 </ul>
             </li>
-            {% if user %}
+            {%- set has_ckan = has_ckan|default(True) -%}
+            {% if user and has_ckan %}
             <li>
                 <a id="advanced-button" class="btn btn-dark navbar-btn" title="{% trans %}Advanced mode{% endtrans %}"
                     href="{{ CKAN_URL|safe }}{{ current_location|safe }}">
@@ -100,7 +101,7 @@
 </nav>
 
 <nav class="navbar navbar-static-top navbar-subnav">
-    <form class="navbar-form navbar-left form-inline" role="search" action="{{ url(lang, 'dataset') }}">
+    <form class="navbar-form navbar-left form-inline" role="search" action="{{ url(lang, 'search') }}">
         <div class="input-group col-sm-5 col-sm-offset-2 col-xs-12">
             <div class="input-group-btn">
                 <button class="btn" type="submit"><i class="glyphicon glyphicon-search"></i></button>

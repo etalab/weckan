@@ -1,0 +1,14 @@
+<li class="search-result organization-result">
+    <a class="pull-left" href="{{ url(lang, 'organization', organization.name) }}">
+        <img class="result-logo" alt="{{ organization.display_name }}"
+            src="{{ organization.image_url or static('/base/images/placeholder-organization.png') }}">
+    </a>
+    <div class="result-body">
+        <h4>
+            <a href="{{ url(lang, 'organization', organization.name) }}" title="{{organization.display_name}}">
+            {{ organization.display_name }}
+            </a>
+        </h4>
+        {{ markdown_extract(organization.description, 180) }}
+    </div>
+</li>

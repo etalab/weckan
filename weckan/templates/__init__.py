@@ -20,7 +20,6 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
-import os
 import urllib
 
 from os.path import join, dirname, abspath
@@ -202,6 +201,7 @@ def render_site(name, request_or_context, **kwargs):
     return render(context, name,
         current_location = current_location,
         current_base_location = base_location,
+        query_string = context.req.query_string,
         user = auth.get_user_from_request(context.req),
         lang = lang,
         sidebar_groups = map(format_group_url, GROUPS),
