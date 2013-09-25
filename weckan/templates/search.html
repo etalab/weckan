@@ -36,7 +36,7 @@
 
         {% if datasets.total > datasets.results|length %}
         <p class="text-center">
-            <a class="btn btn-default"  href="{{ url(lang, 'dataset') }}?{{ query_string }}">
+            <a class="btn btn-default"  href="{{ url(lang, 'dataset') }}?{{ query_string }}&page=2">
             <span class="glyphicon glyphicon-list"></span>
             {% trans total=datasets.total %}See the {{ total }} results{% endtrans %}
             </a>

@@ -58,7 +58,6 @@ EXCLUDED_PATTERNS = (
 SEARCH_MAX_ORGANIZATIONS = 2
 SEARCH_MAX_TOPICS = 2
 SEARCH_MAX_QUESTIONS = 2
-SEARCH_MAX_DATASETS = 10
 SEARCH_PAGE_SIZE = 20
 
 
@@ -99,7 +98,7 @@ def popular_datasets(num=8):
     return datasets
 
 
-def search_datasets(query, request, page=1, page_size=SEARCH_MAX_DATASETS):
+def search_datasets(query, request, page=1, page_size=SEARCH_PAGE_SIZE):
     '''Perform a Dataset search given a ``query``'''
     from ckan.lib import search
 
