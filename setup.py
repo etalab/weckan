@@ -5,7 +5,7 @@
 # Weckan -- Web application using CKAN model
 # By: Emmanuel Raviart <emmanuel@raviart.com>
 #
-# Copyright (C) 2013 Emmanuel Raviart
+# Copyright (C) 2013 Etalab
 # http://github.com/etalab/weckan
 #
 # This file is part of Weckan.
