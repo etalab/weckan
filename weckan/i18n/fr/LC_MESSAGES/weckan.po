@@ -12,8 +12,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: weckan\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2013-09-25 14:30+0200\n"
-"PO-Revision-Date: 2013-09-25 12:31+0000\n"
+"POT-Creation-Date: 2013-09-26 11:43+0200\n"
+"PO-Revision-Date: 2013-09-26 09:45+0000\n"
 "Last-Translator: noirbizarre <noirbizarre@gmail.com>\n"
 "Language-Team: French (http://www.transifex.com/projects/p/weckan/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -177,51 +177,55 @@ msgstr "Services publics"
 msgid "Businesses"
 msgstr "Entreprises"
 
-#: weckan/templates/navbar.html:13
+#: weckan/templates/navbar.html:14
 msgid "Open platform for french public data"
 msgstr "Plate-forme ouverte des données publiques françaises"
 
-#: weckan/templates/navbar.html:20
+#: weckan/templates/navbar.html:21
 msgid "Sign In / Register"
 msgstr "Connexion / Inscription"
 
-#: weckan/templates/navbar.html:28 weckan/templates/navbar.html:30
+#: weckan/templates/navbar.html:29 weckan/templates/navbar.html:31
 msgid "Sysadmin settings"
 msgstr "Réglages sysadmin"
 
-#: weckan/templates/navbar.html:35 weckan/templates/navbar.html:37
+#: weckan/templates/navbar.html:36 weckan/templates/navbar.html:38
 msgid "Profile"
 msgstr "Profil"
 
-#: weckan/templates/navbar.html:41 weckan/templates/navbar.html:43
+#: weckan/templates/navbar.html:42 weckan/templates/navbar.html:44
 msgid "Dashboard"
 msgstr "Tableau de bord"
 
-#: weckan/templates/navbar.html:47 weckan/templates/navbar.html:49
+#: weckan/templates/navbar.html:48 weckan/templates/navbar.html:50
 msgid "Settings"
 msgstr "Paramètres"
 
-#: weckan/templates/navbar.html:54 weckan/templates/navbar.html:56
+#: weckan/templates/navbar.html:55 weckan/templates/navbar.html:57
 msgid "Log out"
 msgstr "Déconnexion"
 
-#: weckan/templates/navbar.html:61 weckan/templates/navbar.html:63
+#: weckan/templates/navbar.html:62 weckan/templates/navbar.html:64
 msgid "Sign In"
 msgstr "Connexion"
 
-#: weckan/templates/navbar.html:67 weckan/templates/navbar.html:69
+#: weckan/templates/navbar.html:68 weckan/templates/navbar.html:70
 msgid "Register"
 msgstr "Créer un compte"
 
-#: weckan/templates/navbar.html:78
+#: weckan/templates/navbar.html:79
 msgid "Advanced mode"
 msgstr "Mode avancé"
 
-#: weckan/templates/navbar.html:110 weckan/templates/search.html:6
+#: weckan/templates/navbar.html:107 weckan/templates/navbar.html:110
+msgid "Publish a dataset !"
+msgstr "Publiez une série de données !"
+
+#: weckan/templates/navbar.html:120 weckan/templates/search.html:6
 msgid "Search"
 msgstr "Recherche"
 
-#: weckan/templates/navbar.html:118
+#: weckan/templates/navbar.html:128
 msgid "Where"
 msgstr "Où"
 
@@ -283,15 +287,15 @@ msgstr "Producteurs"
 msgid "Open license"
 msgstr "Licence Ouverte"
 
-#: weckan/templates/site.html:52
+#: weckan/templates/site.html:53
 msgid "Back to top"
 msgstr "Haut de page"
 
-#: weckan/templates/site.html:55
+#: weckan/templates/site.html:56
 msgid "Privacy"
 msgstr "Vie privée"
 
-#: weckan/templates/site.html:56
+#: weckan/templates/site.html:57
 msgid "Terms"
 msgstr "Conditions légales"
 
