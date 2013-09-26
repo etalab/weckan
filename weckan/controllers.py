@@ -315,8 +315,11 @@ def display_dataset(request):
 
     periodicity = dataset.extras.get('"dct:accrualPeriodicity"', None)
 
-    territory_key, _ = request.cookies.get('territory-infos', '|').split('|')
-    territory = get_territory(*territory_key.split('/')) if territory_key else {}
+    if request.cookies.get('territory-infos', '').count('|') == 1:
+        territory_key, _ = request.cookies.get('territory-infos').split('|')
+        territory = get_territory(*territory_key.split('/')) if territory_key else {}
+    else:
+        territory = {}
 
     supplier_id = dataset.extras.get('supplier_id', None)
     supplier = meta.Session.query(Group).filter(Group.id == supplier_id).first() if supplier_id else None
