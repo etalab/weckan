@@ -69,7 +69,7 @@
                 <h2>{% trans %}Community resources{% endtrans %}</h2>
             </div>
 
-            <div class="panel panel-default">
+            <div class="panel panel-default related-panel">
                 <div class="panel-heading">
                     <h3 class="panel-title">{% trans %}Reuse{% endtrans %}</h3>
                 </div>
@@ -77,18 +77,24 @@
                     {% if dataset.related %}
                     <div class="row">
                         {% for related in dataset.related %}
-                        <a class="col-sm-6 col-md-4 thumbnail-link" href="{{ related.url.format(**territory) }}" target="_blank">
+                        <div class="col-sm-6 col-md-4">
                             <div class="thumbnail">
-                                <img class="media-object"  alt="{{ related.title.format(**territory) }}"
-                                    src="{{ related.image_url or static('/base/images/placeholder-image.png') }}">
+                                <a href="{{ related.url.format(**territory) }}" target="_blank">
+                                    <img class="media-object img-responsive" alt="{{ related.title.format(**territory) }}"
+                                        src="{{ related.image_url or static('/base/images/placeholder-image.png') }}">
+                                </a>
                                 <div class="caption">
-                                    <h4>{{ related.title.format(**territory) }}</h3>
+                                    <h4>
+                                        <a href="{{ related.url.format(**territory) }}" target="_blank">
+                                        {{ related.title.format(**territory) }}
+                                        </a>
+                                    </h4>
                                     {% if related.description %}
-                                    <p>{{ markdown(related.description) }}</p>
+                                    <div>{{ markdown(related.description) }}</div>
                                     {% endif %}
                                 </div>
                             </div>
-                        </a>
+                        </div>
                         {% endfor %}
                     </div>
                     <br/>
