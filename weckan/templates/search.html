@@ -9,7 +9,14 @@
 <div class="container">
 
     {% if organizations.results %}
-    <h2>{% trans %}Organizations{% endtrans %}</h2>
+    <h2>
+        {% trans %}Organizations{% endtrans %}
+        {% if organizations.total <= organizations.results|length %}
+        <small>
+            {% trans count=organizations.total %}{{count}} result{% pluralize %}{{count}} results{% endtrans %}
+        </small>
+        {% endif %}
+    </h2>
     <ul class="search-results">
         {% for organization in organizations.results %}
         {% include "widgets/organization-search-result.html" %}
@@ -27,7 +34,14 @@
     {% endif %}
 
     {% if datasets.results %}
-    <h2>{% trans %}Datasets{% endtrans %}</h2>
+    <h2>
+        {% trans %}Datasets{% endtrans %}
+        {% if datasets.total <= datasets.results|length %}
+        <small>
+            {% trans count=datasets.total %}{{count}} result{% pluralize %}{{count}} results{% endtrans %}
+        </small>
+        {% endif %}
+    </h2>
     <ul class="search-results">
         {% for dataset in datasets.results %}
         {% include "widgets/dataset-search-result.html" %}
