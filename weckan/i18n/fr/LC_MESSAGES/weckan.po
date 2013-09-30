@@ -12,8 +12,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: weckan\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2013-09-30 15:01+0200\n"
-"PO-Revision-Date: 2013-09-30 13:02+0000\n"
+"POT-Creation-Date: 2013-09-30 15:07+0200\n"
+"PO-Revision-Date: 2013-09-30 13:08+0000\n"
 "Last-Translator: noirbizarre <noirbizarre@gmail.com>\n"
 "Language-Team: French (http://www.transifex.com/projects/p/weckan/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -245,36 +245,40 @@ msgstr "résultats %(start)s à %(end)s sur %(total)s"
 msgid "Organizations search"
 msgstr "Recherche d'organisations"
 
-#: weckan/templates/search.html:13
+#: weckan/templates/search.html:12
+msgid "No results found"
+msgstr "Aucun résultat n'a été trouvé"
+
+#: weckan/templates/search.html:17
 msgid "Organizations"
 msgstr "Organisations"
 
-#: weckan/templates/search.html:16 weckan/templates/search.html:41
+#: weckan/templates/search.html:20 weckan/templates/search.html:45
 #, python-format
 msgid "%(count)s result"
 msgid_plural "%(count)s results"
 msgstr[0] "%(count)s résultat"
 msgstr[1] "%(count)s résultats"
 
-#: weckan/templates/search.html:30 weckan/templates/search.html:55
-#: weckan/templates/search.html:103
+#: weckan/templates/search.html:34 weckan/templates/search.html:59
+#: weckan/templates/search.html:107
 #, python-format
 msgid "See the %(total)s results"
 msgstr "Voir les %(total)s résultats"
 
-#: weckan/templates/search.html:38
+#: weckan/templates/search.html:42
 msgid "Datasets"
 msgstr "Jeux de données"
 
-#: weckan/templates/search.html:62
+#: weckan/templates/search.html:66
 msgid "Topics"
 msgstr "Thématiques"
 
-#: weckan/templates/search.html:79
+#: weckan/templates/search.html:83
 msgid "See all the results"
 msgstr "Voir tous les résultats"
 
-#: weckan/templates/search.html:86
+#: weckan/templates/search.html:90
 msgid "Questions"
 msgstr "Questions"
 
