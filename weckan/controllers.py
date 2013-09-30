@@ -107,7 +107,7 @@ def search_datasets(query, request, page=1, page_size=SEARCH_PAGE_SIZE):
         'sort': 'score desc, metadata_modified desc',
         'fq': '+dataset_type:dataset',
         'rows': page_size,
-        'q': '{0} +_val_:"weight"'.format(query),
+        'q': '{0} +_val_:"weight"^8'.format(query),
         'start': page_zero * page_size,
     }
 
