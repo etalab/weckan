@@ -102,18 +102,29 @@ def search_datasets(query, request, page=1, page_size=SEARCH_PAGE_SIZE):
     '''Perform a Dataset search given a ``query``'''
     from ckan.lib import search
 
+    territory_key, _ = request.cookies.get('territory-infos', '|').split('|')
+    territory = get_territory(*territory_key.split('/')) if territory_key else {}
+
     page_zero = page - 1
     params = {
         'sort': 'score desc, metadata_modified desc',
         'fq': '+dataset_type:dataset',
         'rows': page_size,
-        'q': '{0} +_val_:"weight"^8'.format(query),
+        'q': u'{0} +_val_:"{1}"^2'.format(
+            query,
+            dict(
+                ArrondissementOfCommuneOfFrance = 'weight_commune',
+                CommuneOfFrance = 'weight_commune',
+                Country = 'weight',
+                DepartmentOfFrance = 'weight_department',
+                OverseasCollectivityOfFrance = 'weight_department',
+                RegionOfFrance = 'weight_region',
+            ).get(territory.get('kind'), 'weight'),
+        ),
         'start': page_zero * page_size,
     }
 
     # Territory search if specified
-    territory_key, _ = request.cookies.get('territory-infos', '|').split('|')
-    territory = get_territory(*territory_key.split('/')) if territory_key else {}
     ancestors_kind_code = territory.get('ancestors_kind_code')
     if ancestors_kind_code:
         territories = [
