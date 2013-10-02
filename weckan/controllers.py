@@ -27,6 +27,7 @@
 from __future__ import unicode_literals
 
 import futures
+import json
 import logging
 import math
 import requests
@@ -135,6 +136,9 @@ def search_datasets(query, request, page=1, page_size=SEARCH_PAGE_SIZE):
 
     query = search.query_for(Package)
     query.run(params)
+
+    if not query.results:
+        return 'datasets', {'results': [], 'total': 0}
 
     datasets = []
 
@@ -381,6 +385,24 @@ def search_more_datasets(request):
 
 
 @wsgihelpers.wsgify
+def autocomplete_datasets(request):
+    from . import contexts
+    query = request.params.get('q', '')
+    num = int(request.params.get('num', 8))
+    _, results = search_datasets(query, request, 1, num)
+
+    context = contexts.Ctx(request)
+    headers = wsgihelpers.handle_cross_origin_resource_sharing(context)
+    data = [{
+            'name': dataset['name'],
+            'title': dataset['display_name'],
+            'image_url': dataset['organization'].image_url if dataset['organization'] else None,
+        } for dataset in results['results']]
+
+    return wsgihelpers.respond_json(context, data, headers=headers)
+
+
+@wsgihelpers.wsgify
 def search_more_organizations(request):
     query = request.params.get('q', '')
     page = int(request.params.get('page', 1))
@@ -399,6 +421,7 @@ def make_router(app):
         ('GET', r'^(/(?P<lang>\w{2}))?/?$', home),
         ('GET', r'^(/(?P<lang>\w{2}))?/search/?$', search_results),
         ('GET', r'^(/(?P<lang>\w{2}))?/dataset/?$', search_more_datasets),
+        ('GET', r'^(/(?P<lang>\w{2}))?/dataset/autocomplete/?$', autocomplete_datasets),
         ('GET', r'^(/(?P<lang>\w{{2}}))?/dataset/(?!{0}(/|$))(?P<name>[\w_-]+)/?$'.format('|'.join(EXCLUDED_PATTERNS)), display_dataset),
         ('GET', r'^(/(?P<lang>\w{2}))?/organization/?$', search_more_organizations),
         )
