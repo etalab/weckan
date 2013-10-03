@@ -10,5 +10,9 @@
             </a>
         </h4>
         {{ markdown_extract(organization.description, 180) }}
+        <p><strong>{%
+            trans %}{{ nb_datasets }} dataset{%
+            pluralize %}{{ nb_datasets }} datasets{%
+            endtrans %}</strong></p>
     </div>
 </li>

@@ -12,8 +12,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: weckan\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2013-09-30 15:07+0200\n"
-"PO-Revision-Date: 2013-09-30 15:37+0000\n"
+"POT-Creation-Date: 2013-10-03 18:14+0200\n"
+"PO-Revision-Date: 2013-10-03 16:16+0000\n"
 "Last-Translator: noirbizarre <noirbizarre@gmail.com>\n"
 "Language-Team: French (http://www.transifex.com/projects/p/weckan/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -99,52 +99,52 @@ msgstr "Ressources de la communauté"
 msgid "Reuse"
 msgstr "Réutilisations"
 
-#: weckan/templates/dataset.html:99
+#: weckan/templates/dataset.html:105
 msgid "Publish a reuse case !"
 msgstr "Publiez une réutilisation !"
 
-#: weckan/templates/dataset.html:115
+#: weckan/templates/dataset.html:121
 msgid "Certified public service"
 msgstr "Service public certifié"
 
-#: weckan/templates/dataset.html:116
+#: weckan/templates/dataset.html:122
 msgid "This organization and its datasets are certified by data.gouv.fr"
 msgstr "Cette organisation et ses séries de données sont certifiés par data.gouv.fr"
 
-#: weckan/templates/dataset.html:130
+#: weckan/templates/dataset.html:136
 msgid "more"
 msgstr "plus"
 
-#: weckan/templates/dataset.html:141
+#: weckan/templates/dataset.html:147
 msgid "Informations"
 msgstr "Informations"
 
-#: weckan/templates/dataset.html:150
+#: weckan/templates/dataset.html:156
 msgid "License"
 msgstr "License"
 
-#: weckan/templates/dataset.html:161
+#: weckan/templates/dataset.html:167
 #: weckan/templates/widgets/dataset-search-result.html:19
 msgid "Temporal coverage"
 msgstr "Couverture temporelle"
 
-#: weckan/templates/dataset.html:164
+#: weckan/templates/dataset.html:170
 #: weckan/templates/widgets/dataset-search-result.html:22
 #, python-format
 msgid "%(from)s to %(to)s"
 msgstr "%(from)s à %(to)s"
 
-#: weckan/templates/dataset.html:174
+#: weckan/templates/dataset.html:180
 #: weckan/templates/widgets/dataset-search-result.html:32
 msgid "Periodicity"
 msgstr "Périodicité"
 
-#: weckan/templates/dataset.html:185
+#: weckan/templates/dataset.html:191
 #: weckan/templates/widgets/dataset-search-result.html:43
 msgid "Territorial coverage"
 msgstr "Couverture territoriale"
 
-#: weckan/templates/dataset.html:196
+#: weckan/templates/dataset.html:202
 #: weckan/templates/widgets/dataset-search-result.html:54
 msgid "Territorial coverage granularity"
 msgstr "Granularité de la couverture territoriale"
@@ -325,3 +325,10 @@ msgstr "Page suivante"
 #: weckan/templates/macros/paginator.html:28
 msgid "Last page"
 msgstr "Dernière page"
+
+#: weckan/templates/widgets/organization-search-result.html:14
+#, python-format
+msgid "%(nb_datasets)s dataset"
+msgid_plural "%(nb_datasets)s datasets"
+msgstr[0] "%(nb_datasets)s série de données"
+msgstr[1] "%(nb_datasets)s séries de données"

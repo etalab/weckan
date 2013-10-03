@@ -18,7 +18,7 @@
         </h1>
     </div>
     <ul class="search-results">
-        {% for organization in organizations.results %}
+        {% for organization, nb_datasets in organizations.results %}
         {% include "widgets/organization-search-result.html" %}
         {% endfor %}
     </ul>

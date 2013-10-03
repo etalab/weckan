@@ -27,7 +27,6 @@
 from __future__ import unicode_literals
 
 import futures
-import json
 import logging
 import math
 import requests
@@ -37,7 +36,7 @@ from urllib import urlencode
 
 from biryani1 import strings
 from ckanext.etalab.model import CertifiedPublicService
-from sqlalchemy.sql import func, desc, or_
+from sqlalchemy.sql import func, desc, or_, null
 
 from . import templates, urls, wsgihelpers, conf
 from .model import Activity, meta, Package, RelatedDataset, Group, GroupRevision
@@ -164,18 +163,18 @@ def search_datasets(query, request, page=1, page_size=SEARCH_PAGE_SIZE):
             pass
 
         datasets.append({
-                'name': dataset.name,
-                'title': dataset.title,
-                'display_name': dataset.display_name,
-                'notes': dataset.notes,
-                'organization': organization,
-                'temporal_coverage': temporal_coverage,
-                'territorial_coverage': {
-                    'name': dataset.extras.get('territorial_coverage', None),
-                    'granularity': dataset.extras.get('territorial_coverage_granularity', None),
-                },
-                'periodicity': dataset.extras.get('"dct:accrualPeriodicity"', None),
-            })
+            'name': dataset.name,
+            'title': dataset.title,
+            'display_name': dataset.display_name,
+            'notes': dataset.notes,
+            'organization': organization,
+            'temporal_coverage': temporal_coverage,
+            'territorial_coverage': {
+                'name': dataset.extras.get('territorial_coverage', None),
+                'granularity': dataset.extras.get('territorial_coverage_granularity', None),
+            },
+            'periodicity': dataset.extras.get('"dct:accrualPeriodicity"', None),
+        })
 
     return 'datasets', {
         'results': sorted(datasets, key=lambda d: query.results.index(d['name'])),
@@ -190,7 +189,8 @@ def search_organizations(query, page=1, page_size=SEARCH_MAX_ORGANIZATIONS):
     '''Perform an organization search given a ``query``'''
     like = '%{0}%'.format(query)
 
-    organizations = meta.Session.query(Group).join(GroupRevision)
+    organizations = meta.Session.query(Group, func.count(Package.owner_org).label('nb_datasets'))
+    organizations = organizations.join(GroupRevision)
     organizations = organizations.outerjoin(Package, Group.id == Package.owner_org)
     organizations = organizations.outerjoin(CertifiedPublicService)
     organizations = organizations.group_by(Group.id, CertifiedPublicService.organization_id)
@@ -205,8 +205,8 @@ def search_organizations(query, page=1, page_size=SEARCH_MAX_ORGANIZATIONS):
     organizations = organizations.filter(~Package.private)
     organizations = organizations.filter(Package.state == 'active')
     organizations = organizations.order_by(
-        CertifiedPublicService.organization_id.nullslast(),
-        desc(func.count(Package.owner_org)),
+        CertifiedPublicService.organization_id == null(),
+        desc('nb_datasets'),
         Group.title
     )
 
