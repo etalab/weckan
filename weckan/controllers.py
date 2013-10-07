@@ -102,8 +102,11 @@ def search_datasets(query, request, page=1, page_size=SEARCH_PAGE_SIZE):
     '''Perform a Dataset search given a ``query``'''
     from ckan.lib import search
 
-    territory_key, _ = request.cookies.get('territory-infos', '|').split('|')
-    territory = get_territory(*territory_key.split('/')) if territory_key else {}
+    if request.cookies.get('territory-infos', '').count('|') == 1:
+        territory_key, _ = request.cookies.get('territory-infos').split('|')
+        territory = get_territory(*territory_key.split('/')) if territory_key else {}
+    else:
+        territory = {}
 
     page_zero = page - 1
     params = {
