@@ -99,6 +99,7 @@ def load_environment(global_conf, app_conf):
             'wiki_api_url': conv.default('http://wiki.data.gouv.fr/api.php'),
             'questions_url': conv.default('http://questions.data.gouv.fr'),
             'ckan_url': conv.default('http://ckan.data.gouv.fr'),
+            'cow_url': conv.default('http://cow.data.gouv.fr'),
             'territory_api_url': conv.default('http://ou.comarquage.fr/api/v1'),
             },
         default = 'drop',

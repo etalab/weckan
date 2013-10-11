@@ -4,13 +4,17 @@
 
 {% block title %}{{ dataset.title }}{% endblock %}
 
+{% block extra_head %}
+<meta name="dataset-name" content="{{ dataset.name }}" />
+{% endblock %}
+
 {% block content %}
 <div class="container dataset-container">
     <div class="row">
 
         <div class="col-md-9 col-sm-9">
             <div class="page-header">
-                <h1>{{ dataset.title or dataset.name }}</h1>
+                <h1 data-name="{{ dataset.name }}">{{ dataset.title or dataset.name }}</h1>
             </div>
 
             <p>{{ markdown(dataset.notes) }}</p>
@@ -147,7 +151,7 @@
                     <h3 class="panel-title">{% trans %}Informations{% endtrans %}</h3>
                 </div>
                 <div class="panel-body">
-                    <ul class="list-unstyled">
+                    <ul id="infos-list" class="list-unstyled">
 
                         {# License #}
                         {% if dataset.license %}
@@ -238,4 +242,21 @@
         </aside>
     </div>
 </div>
+
+<script id="quality-template" type="text/x-swig-template">
+    <li>
+        <a href class="btn btn-xs btn-default" rel="tooltip" data-placement="right auto"
+            title="{% trans %}Quality{% endtrans %}">
+            <span class="glyphicon glyphicon-signal"></span>
+        </a>
+        {% raw %}{{ weight }}{% endraw %}
+    </li>
+</script>
+{% endblock %}
+
+
+{% block javascript %}
+{% assets "dataset-js" %}
+<script src="{{ ASSET_URL}}"></script>
+{% endassets %}
 {% endblock %}

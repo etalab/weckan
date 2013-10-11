@@ -20,6 +20,7 @@
     <link rel="home" href="{{ HOME_URL }}" />
     <link rel="wiki" href="{{ WIKI_URL }}" />
     <link rel="wiki-api" href="{{ WIKI_API_URL }}" />
+    <link rel="cow" href="{{ COW_URL }}" />
     <link rel="questions" href="{{ QUESTIONS_URL }}" />
 
     {# Default style to site, overridden by child templates #}
@@ -31,6 +32,8 @@
     {% assets "modernizr" %}
     <script src="{{ ASSET_URL}}"></script>
     {% endassets %}
+
+    {% block extra_head %}{% endblock %}
 
 </head>
 <body>

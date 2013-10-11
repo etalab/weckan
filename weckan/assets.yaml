@@ -58,3 +58,9 @@ home-js:
     output: js/home.min.js
     contents:
         - js/home.js
+
+dataset-js:
+    filters: uglifyjs
+    output: js/dataset.min.js
+    contents:
+        - js/dataset.js

@@ -211,5 +211,6 @@ def render_site(name, request_or_context, **kwargs):
         WIKI_API_URL = conf['wiki_api_url'],
         QUESTIONS_URL = conf['questions_url'],
         CKAN_URL = conf['ckan_url'],
+        COW_URL = conf['cow_url'],
         **kwargs
     )
