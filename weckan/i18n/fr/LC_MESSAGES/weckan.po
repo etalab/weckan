@@ -12,8 +12,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: weckan\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2013-10-03 18:14+0200\n"
-"PO-Revision-Date: 2013-10-03 16:16+0000\n"
+"POT-Creation-Date: 2013-10-11 16:14+0200\n"
+"PO-Revision-Date: 2013-10-11 14:15+0000\n"
 "Last-Translator: noirbizarre <noirbizarre@gmail.com>\n"
 "Language-Team: French (http://www.transifex.com/projects/p/weckan/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -79,75 +79,79 @@ msgstr "Vous allez être redirigé vers la page <a href=\"{0}\">{0}</a>."
 msgid "Redirection in progress..."
 msgstr "Redirection en cours..."
 
-#: weckan/templates/dataset.html:22
+#: weckan/templates/dataset.html:26
 msgid "Published by"
 msgstr "Publié par"
 
-#: weckan/templates/dataset.html:34
+#: weckan/templates/dataset.html:38
 msgid "Provided by"
 msgstr "Fourni par"
 
-#: weckan/templates/dataset.html:56
+#: weckan/templates/dataset.html:60
 msgid "Nameless resource"
 msgstr "Ressource sans nom"
 
-#: weckan/templates/dataset.html:69
+#: weckan/templates/dataset.html:73
 msgid "Community resources"
 msgstr "Ressources de la communauté"
 
-#: weckan/templates/dataset.html:74
+#: weckan/templates/dataset.html:78
 msgid "Reuse"
 msgstr "Réutilisations"
 
-#: weckan/templates/dataset.html:105
+#: weckan/templates/dataset.html:109
 msgid "Publish a reuse case !"
 msgstr "Publiez une réutilisation !"
 
-#: weckan/templates/dataset.html:121
+#: weckan/templates/dataset.html:125
 msgid "Certified public service"
 msgstr "Service public certifié"
 
-#: weckan/templates/dataset.html:122
+#: weckan/templates/dataset.html:126
 msgid "This organization and its datasets are certified by data.gouv.fr"
 msgstr "Cette organisation et ses séries de données sont certifiés par data.gouv.fr"
 
-#: weckan/templates/dataset.html:136
+#: weckan/templates/dataset.html:140
 msgid "more"
 msgstr "plus"
 
-#: weckan/templates/dataset.html:147
+#: weckan/templates/dataset.html:151
 msgid "Informations"
 msgstr "Informations"
 
-#: weckan/templates/dataset.html:156
+#: weckan/templates/dataset.html:160
 msgid "License"
 msgstr "License"
 
-#: weckan/templates/dataset.html:167
+#: weckan/templates/dataset.html:171
 #: weckan/templates/widgets/dataset-search-result.html:19
 msgid "Temporal coverage"
 msgstr "Couverture temporelle"
 
-#: weckan/templates/dataset.html:170
+#: weckan/templates/dataset.html:174
 #: weckan/templates/widgets/dataset-search-result.html:22
 #, python-format
 msgid "%(from)s to %(to)s"
 msgstr "%(from)s à %(to)s"
 
-#: weckan/templates/dataset.html:180
+#: weckan/templates/dataset.html:184
 #: weckan/templates/widgets/dataset-search-result.html:32
 msgid "Periodicity"
 msgstr "Périodicité"
 
-#: weckan/templates/dataset.html:191
+#: weckan/templates/dataset.html:195
 #: weckan/templates/widgets/dataset-search-result.html:43
 msgid "Territorial coverage"
 msgstr "Couverture territoriale"
 
-#: weckan/templates/dataset.html:202
+#: weckan/templates/dataset.html:206
 #: weckan/templates/widgets/dataset-search-result.html:54
 msgid "Territorial coverage granularity"
 msgstr "Granularité de la couverture territoriale"
+
+#: weckan/templates/dataset.html:249
+msgid "Quality"
+msgstr "Qualité"
 
 #: weckan/templates/home.html:5
 msgid "Home"
@@ -298,15 +302,15 @@ msgstr "Producteurs"
 msgid "Open license"
 msgstr "Licence Ouverte"
 
-#: weckan/templates/site.html:53
+#: weckan/templates/site.html:56
 msgid "Back to top"
 msgstr "Haut de page"
 
-#: weckan/templates/site.html:56
+#: weckan/templates/site.html:59
 msgid "Privacy"
 msgstr "Vie privée"
 
-#: weckan/templates/site.html:57
+#: weckan/templates/site.html:60
 msgid "Terms"
 msgstr "Conditions légales"
 
