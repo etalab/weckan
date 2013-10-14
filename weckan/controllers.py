@@ -60,6 +60,8 @@ SEARCH_MAX_TOPICS = 2
 SEARCH_MAX_QUESTIONS = 2
 SEARCH_PAGE_SIZE = 20
 
+SEARCH_TIMEOUT = 2
+
 
 def last_datasets(num=8):
     '''Get the ``num`` latest created datasets'''
@@ -236,7 +238,7 @@ def search_topics(query):
         'srlimit': SEARCH_MAX_TOPICS,
     }
     try:
-        response = requests.get(conf['wiki_api_url'], params=params)
+        response = requests.get(conf['wiki_api_url'], params=params, timeout=SEARCH_TIMEOUT)
         response.raise_for_status()
     except requests.RequestException:
         log.exception('Unable to fetch topics')
@@ -256,7 +258,7 @@ def search_questions(query):
         'sort': 'vote-desc',
     }
     try:
-        response = requests.get(url, params=params)
+        response = requests.get(url, params=params, timeout=SEARCH_TIMEOUT)
         response.raise_for_status()
     except requests.RequestException:
         log.exception('Unable to fetch questions')
