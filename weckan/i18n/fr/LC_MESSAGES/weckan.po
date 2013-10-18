@@ -12,8 +12,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: weckan\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2013-10-11 16:14+0200\n"
-"PO-Revision-Date: 2013-10-11 14:15+0000\n"
+"POT-Creation-Date: 2013-10-18 15:24+0200\n"
+"PO-Revision-Date: 2013-10-18 13:26+0000\n"
 "Last-Translator: noirbizarre <noirbizarre@gmail.com>\n"
 "Language-Team: French (http://www.transifex.com/projects/p/weckan/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -152,6 +152,22 @@ msgstr "Granularité de la couverture territoriale"
 #: weckan/templates/dataset.html:249
 msgid "Quality"
 msgstr "Qualité"
+
+#: weckan/templates/dataset.html:252
+msgid "Go to the report page"
+msgstr "Aller sur la page du rapport"
+
+#: weckan/templates/dataset.html:253
+msgid "score"
+msgstr "score"
+
+#: weckan/templates/dataset.html:254
+msgid "warnings"
+msgstr "avertissements"
+
+#: weckan/templates/dataset.html:255
+msgid "errors"
+msgstr "erreurs"
 
 #: weckan/templates/home.html:5
 msgid "Home"

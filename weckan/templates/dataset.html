@@ -244,12 +244,16 @@
 </div>
 
 <script id="quality-template" type="text/x-swig-template">
-    <li>
+    <li class="quality-report">
         <a href class="btn btn-xs btn-default" rel="tooltip" data-placement="right auto"
             title="{% trans %}Quality{% endtrans %}">
             <span class="glyphicon glyphicon-signal"></span>
         </a>
-        {% raw %}{{ weight }}{% endraw %}
+        <a href="{{ 'url'|swig }}" title="{{ _("Go to the report page") }}" class="no-decoration">
+            <span class="label label-default" title="{{ _("score") }}" rel="tooltip">{{ 'weight'|swig }}</span>
+            <span class="label label-warning" title="{{ _("warnings") }}" rel="tooltip">{{ 'warnings'|swig }}</span>
+            <span class="label label-danger" title="{{ _("errors") }}" rel="tooltip">{{ 'errors'|swig }}</span>
+        </a>
     </li>
 </script>
 {% endblock %}

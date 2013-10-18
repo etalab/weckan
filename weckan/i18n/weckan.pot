@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Weckan 0.1dev\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2013-10-11 16:14+0200\n"
+"POT-Creation-Date: 2013-10-18 15:24+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -145,6 +145,22 @@ msgstr ""
 
 #: weckan/templates/dataset.html:249
 msgid "Quality"
+msgstr ""
+
+#: weckan/templates/dataset.html:252
+msgid "Go to the report page"
+msgstr ""
+
+#: weckan/templates/dataset.html:253
+msgid "score"
+msgstr ""
+
+#: weckan/templates/dataset.html:254
+msgid "warnings"
+msgstr ""
+
+#: weckan/templates/dataset.html:255
+msgid "errors"
 msgstr ""
 
 #: weckan/templates/home.html:5

@@ -20,8 +20,12 @@
 
             if (weight) {
                 $('#infos-list').append(tpl({
-                    weight: weight.toFixed(QUALITY_PRECISION)
-                }));
+                    weight: weight.toFixed(QUALITY_PRECISION),
+                    url: data.value.url,
+                    errors: data.value.error || 0,
+                    warnings: data.value.warning || 0
+                }))
+                .find('.quality-report [rel=tooltip]').tooltip();
             }
         });
     });

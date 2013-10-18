@@ -110,6 +110,11 @@ def gravatar(email_hash, size=100, default=None):
         ).format(hash=email_hash, size=size, default=default)
 
 
+def swig(value):
+    '''Transform a string into a swig variable'''
+    return ''.join(['{{', value, '}}'])
+
+
 def get_webassets_env(conf):
     '''Get a preconfigured WebAssets environment'''
     # Configure webassets
@@ -162,6 +167,7 @@ def get_jinja_env():
         # Custom filters
         env.filters['datetime'] = format_datetime
         env.filters['date'] = format_date
+        env.filters['swig'] = swig
 
     return env
 
