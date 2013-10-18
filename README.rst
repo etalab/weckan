@@ -20,8 +20,10 @@ To install you need to build the package before (until its released on PyPI)
     $ git clone https://github.com/etalab/weckan.git
     $ cd weckan
     $ make dist
-    $ pip install git+https://github.com/noirbizarre/webassets.git#for-weckan@egg=webassets
+    $ pip install git+https://github.com/noirbizarre/webassets.git@for-weckan#egg=webassets
     $ pip install dist/Weckan*.tar.gz
+    $ pip install ckan==2.1
+    $ pip install -r https://raw.github.com/okfn/ckan/ckan-2.1/requirements.txt
 
 
 Development
