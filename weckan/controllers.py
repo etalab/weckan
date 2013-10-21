@@ -38,7 +38,7 @@ from biryani1 import strings
 from ckanext.etalab.model import CertifiedPublicService
 from sqlalchemy.sql import func, desc, or_, null
 
-from . import templates, urls, wsgihelpers, conf
+from . import templates, urls, wsgihelpers, conf, contexts
 from .model import Activity, meta, Package, RelatedDataset, Group, GroupRevision
 
 
@@ -312,7 +312,7 @@ def display_dataset(request):
         .filter(Package.name == dataset_name)\
         .first()
     if dataset_and_organization is None:
-        return wsgihelpers.not_found(ctx)
+        return wsgihelpers.not_found(contexts.Ctx(request))
     dataset, organization = dataset_and_organization
 
     territorial_coverage = {
@@ -391,7 +391,6 @@ def search_more_datasets(request):
 
 @wsgihelpers.wsgify
 def autocomplete_datasets(request):
-    from . import contexts
     query = request.params.get('q', '')
     num = int(request.params.get('num', 8))
     _, results = search_datasets(query, request, 1, num)
