@@ -265,8 +265,50 @@
             <span class="label label-warning" title="{{ _("warnings") }}" rel="tooltip">{{ 'warnings'|swig }}</span>
             <span class="label label-danger" title="{{ _("errors") }}" rel="tooltip">{{ 'errors'|swig }}</span>
         </a>
+        {% if can_edit %}
+        <a href="{{ 'url'|swig }}" title="{{ _("Improve quality") }}" class="btn btn-success btn-block">
+            <span class="glyphicon glyphicon-tasks"></span>
+            {{ _("Improve") }}
+        </a>
+        {% elif user %}
+        <a title="{{ _("Fork") }}" class="btn btn-success btn-block"
+            data-toggle="modal" href="#fork-modal"
+            rel="popover" data-placement="left" data-trigger="hover" data-container="body"
+            data-content="{{ _("Duplicate this dataset and improve it !") }}" >
+            <span class="glyphicon glyphicon-random"></span>
+            {{ _("Fork") }}
+        </a>
+        {% endif %}
     </li>
 </script>
+
+{# Fork confirmation modal #}
+<div class="modal fade" id="fork-modal" tabindex="-1" role="dialog" aria-labelledby="fork-modal-title" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 id="fork-modal-title" class="modal-title">{{ _("Fork") }}</h4>
+            </div>
+            <div class="modal-body">
+                <p>{% trans %}You are about to make a copy of this dataset.
+                You'll become the owner and you will have the ability to edit it and improve it.
+                The original dataset will keep a reference of your work.{% endtrans %}</p>
+                <p>{% trans %}Continue?{% endtrans %}</p>
+            </div>
+            <div class="modal-footer">
+                <a class="btn btn-primary" href="{{ url(lang, 'dataset', dataset.name, 'fork') }}">
+                    <span class="glyphicon glyphicon-random"></span>
+                    {{ _("Fork") }}
+                </a>
+                <button type="button" class="btn btn-warning" data-dismiss="modal">
+                    <span class="glyphicon glyphicon-remove"></span>
+                    {{ _("Cancel") }}
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}
 
 

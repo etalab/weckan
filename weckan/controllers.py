@@ -27,19 +27,21 @@
 from __future__ import unicode_literals
 
 import futures
+import json
 import logging
 import math
 import requests
 
 from datetime import datetime
 from urllib import urlencode
+from uuid import uuid1
 
 from biryani1 import strings
 from ckanext.etalab.model import CertifiedPublicService
 from sqlalchemy.sql import func, desc, or_, null
 
 from . import templates, urls, wsgihelpers, conf, contexts, auth
-from .model import Activity, meta, Package, RelatedDataset, Group, GroupRevision, Member
+from .model import Activity, meta, Package, RelatedDataset, Group, GroupRevision, Member, Role, PackageRole
 
 
 log = logging.getLogger(__name__)
@@ -61,6 +63,7 @@ SEARCH_MAX_QUESTIONS = 2
 SEARCH_PAGE_SIZE = 20
 
 SEARCH_TIMEOUT = 2
+POST_TIMEOUT = 3
 
 
 def last_datasets(num=8):
@@ -311,6 +314,91 @@ def can_edit(user, dataset):
     return query.count() > 0
 
 
+def fork(dataset, user):
+    '''
+    Fork this package by duplicating it.
+
+    The new owner will be the user parameter.
+    The new package is created and the original will have a new related reference to the fork.
+    '''
+    if not user:
+        raise ValueError('Fark requires an user')
+
+    orgs = user.get_groups('organization')
+    resources = [{
+            'url': r.url,
+            'description': r.description,
+            'format': r.format,
+            'name': r.name,
+            'resource_type': r.resource_type,
+            'mimetype': r.mimetype,
+        }
+        for r in dataset.resources
+    ]
+    groups = [{'id': g.id} for g in dataset.get_groups()]
+    tags = [{'name': t.name, 'vocabulary_id': t.vocabulary_id} for t in dataset.get_tags()]
+    extras = [{'key': key, 'value': value} for key, value in dataset.extras.items()]
+
+    url = '{0}/api/3/action/package_create'.format(conf['ckan_url'])
+    headers = {
+        'content-type': 'application/json',
+        'Authorization': user.apikey,
+    }
+    data = {
+        'name': '{0}-fork-{1}'.format(dataset.name, str(uuid1())[:6]),
+        'title': dataset.title,
+        'maintainer': user.fullname,
+        'maintainer_email': user.email,
+        'license_id': dataset.license_id,
+        'notes': dataset.notes,
+        'url': dataset.url,
+        'version': dataset.version,
+        'type': dataset.type,
+        'owner_org': orgs[0].id if len(orgs) else None,
+        'resources': resources,
+        'groups': groups,
+        'tags': tags,
+        'extras': extras,
+    }
+
+    try:
+        response = requests.post(url, data=json.dumps(data), headers=headers, timeout=POST_TIMEOUT)
+        response.raise_for_status()
+    except requests.RequestException:
+        log.exception('Unable to create dataset')
+        raise
+    json_response = response.json()
+
+    if not json_response['success']:
+        raise Exception('Unable to create package: {0}'.format(json_response['error']['message']))
+
+    # Add the user as administrator
+    forked = meta.Session.query(Package).get(json_response['result']['id'])
+    PackageRole.add_user_to_role(user, Role.ADMIN, forked)
+    meta.Session.commit()
+
+    # Create the fork relationship
+    url = url = '{0}/api/3/action/package_relationship_create'.format(conf['ckan_url'])
+    data = {
+        'type': 'has_derivation',
+        'subject': dataset.id,
+        'object': forked.id,
+        'comment': 'Fork',
+    }
+    try:
+        response = requests.post(url, data=json.dumps(data), headers=headers, timeout=POST_TIMEOUT)
+        response.raise_for_status()
+    except requests.RequestException:
+        log.exception('Unable to create relationship')
+        return forked
+
+    json_response = response.json()
+    if not json_response['success']:
+        log.error('Unable to create relationship: {0}'.format(json_response['error']['message']))
+
+    return forked
+
+
 @wsgihelpers.wsgify
 def home(request):
     return templates.render_site('home.html', request,
@@ -435,6 +523,21 @@ def search_more_organizations(request):
         )
 
 
+@wsgihelpers.wsgify
+def fork_dataset(request):
+    user = auth.get_user_from_request(request)
+    if not user:
+        return wsgihelpers.unauthorized(contexts.Ctx(request))  # redirect to login/register ?
+
+    dataset_name = request.urlvars.get('name')
+
+    original = meta.Session.query(Package).filter(Package.name == dataset_name).one()
+    forked = fork(original, user)
+
+    edit_url = urls.get_url(request.urlvars.get('name', templates.DEFAULT_LANG), 'dataset/edit', forked.name)
+    return wsgihelpers.redirect(contexts.Ctx(request), location=edit_url)
+
+
 def make_router(app):
     """Return a WSGI application that searches requests to controllers """
     global router
@@ -443,6 +546,7 @@ def make_router(app):
         ('GET', r'^(/(?P<lang>\w{2}))?/search/?$', search_results),
         ('GET', r'^(/(?P<lang>\w{2}))?/dataset/?$', search_more_datasets),
         ('GET', r'^(/(?P<lang>\w{2}))?/dataset/autocomplete/?$', autocomplete_datasets),
+        ('GET', r'^(/(?P<lang>\w{2}))?/dataset/(?P<name>[\w_-]+)/fork?$', fork_dataset),
         ('GET', r'^(/(?P<lang>\w{{2}}))?/dataset/(?!{0}(/|$))(?P<name>[\w_-]+)/?$'.format('|'.join(EXCLUDED_PATTERNS)), display_dataset),
         ('GET', r'^(/(?P<lang>\w{2}))?/organization/?$', search_more_organizations),
         )
