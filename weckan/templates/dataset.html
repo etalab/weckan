@@ -14,7 +14,18 @@
 
         <div class="col-md-9 col-sm-9">
             <div class="page-header">
-                <h1 data-name="{{ dataset.name }}">{{ dataset.title or dataset.name }}</h1>
+                <h1 data-name="{{ dataset.name }}">
+                    {{ dataset.title or dataset.name }}
+                    {% if can_edit %}
+                    <small>
+                        <a class="btn btn-xs btn-default"
+                            href="{{ url(lang, 'dataset/edit', dataset.name) }}">
+                            <span class="glyphicon glyphicon-edit" ></span>
+                            {% trans %}Edit{% endtrans %}
+                        </a>
+                    </small>
+                    {% endif %}
+                </h1>
             </div>
 
             <p>{{ markdown(dataset.notes) }}</p>

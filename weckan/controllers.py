@@ -38,8 +38,8 @@ from biryani1 import strings
 from ckanext.etalab.model import CertifiedPublicService
 from sqlalchemy.sql import func, desc, or_, null
 
-from . import templates, urls, wsgihelpers, conf, contexts
-from .model import Activity, meta, Package, RelatedDataset, Group, GroupRevision
+from . import templates, urls, wsgihelpers, conf, contexts, auth
+from .model import Activity, meta, Package, RelatedDataset, Group, GroupRevision, Member
 
 
 log = logging.getLogger(__name__)
@@ -295,6 +295,22 @@ def get_page_url_pattern(request):
     return '?'.join([request.path, urlencode(url_pattern_params)]) + '&page={page}'
 
 
+def can_edit(user, dataset):
+    if user is None:
+        return False
+    if user.sysadmin or dataset.owner_org is None:
+        return True
+
+    query = meta.Session.query(Member).filter(
+        Member.capacity.in_(['admin', 'editor']),
+        Member.group_id == dataset.owner_org,
+        Member.state == 'active',
+        Member.table_id == user.id,
+        Member.table_name == 'user',
+    )
+    return query.count() > 0
+
+
 @wsgihelpers.wsgify
 def home(request):
     return templates.render_site('home.html', request,
@@ -352,6 +368,7 @@ def display_dataset(request):
         temporal_coverage = temporal_coverage,
         periodicity = periodicity,
         groups = dataset.get_groups('group'),
+        can_edit = can_edit(auth.get_user_from_request(request), dataset),
         territory = {
             'full_name': territory.get('full_name', ''),
             'full_name_slug': strings.slugify(territory.get('full_name', '')),

@@ -3,14 +3,16 @@
 # This file is distributed under the same license as the Weckan project.
 # 
 # Translators:
+# noirbizarre, 2013
+# schwefel, 2013
 # schwefel, 2013
 msgid ""
 msgstr ""
 "Project-Id-Version: weckan\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2013-10-18 15:24+0200\n"
-"PO-Revision-Date: 2013-10-19 21:40+0000\n"
-"Last-Translator: schwefel\n"
+"POT-Creation-Date: 2013-10-22 11:57+0200\n"
+"PO-Revision-Date: 2013-10-22 10:00+0000\n"
+"Last-Translator: noirbizarre\n"
 "Language-Team: German (http://www.transifex.com/projects/p/weckan/language/de/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -75,93 +77,97 @@ msgstr "Sie werden auf die Seite <a href=\"{0}\">{0}</a> weitergeleitet."
 msgid "Redirection in progress..."
 msgstr "Weiterleitung läuft..."
 
-#: weckan/templates/dataset.html:26
+#: weckan/templates/dataset.html:23
+msgid "Edit"
+msgstr "Bearbeiten"
+
+#: weckan/templates/dataset.html:35
 msgid "Published by"
 msgstr "Veröffentlicht von"
 
-#: weckan/templates/dataset.html:38
+#: weckan/templates/dataset.html:47
 msgid "Provided by"
 msgstr "Bereitgestellt von"
 
-#: weckan/templates/dataset.html:60
+#: weckan/templates/dataset.html:69
 msgid "Nameless resource"
 msgstr "Namenlose Quelle"
 
-#: weckan/templates/dataset.html:73
+#: weckan/templates/dataset.html:82
 msgid "Community resources"
 msgstr "Öffentliche Quellen"
 
-#: weckan/templates/dataset.html:78
+#: weckan/templates/dataset.html:87
 msgid "Reuse"
 msgstr "Wiederverwenden"
 
-#: weckan/templates/dataset.html:109
+#: weckan/templates/dataset.html:118
 msgid "Publish a reuse case !"
 msgstr "Wiederverwendung veröffentlichen!"
 
-#: weckan/templates/dataset.html:125
+#: weckan/templates/dataset.html:134
 msgid "Certified public service"
 msgstr "Zertifiziertes öffentliches Angebot"
 
-#: weckan/templates/dataset.html:126
+#: weckan/templates/dataset.html:135
 msgid "This organization and its datasets are certified by data.gouv.fr"
 msgstr "Diese Organisation und ihre Datensätze sind zertifiziert von data.gouv.fr"
 
-#: weckan/templates/dataset.html:140
+#: weckan/templates/dataset.html:149
 msgid "more"
 msgstr "mehr"
 
-#: weckan/templates/dataset.html:151
+#: weckan/templates/dataset.html:160
 msgid "Informations"
 msgstr "Informationen"
 
-#: weckan/templates/dataset.html:160
+#: weckan/templates/dataset.html:169
 msgid "License"
 msgstr "Lizenz"
 
-#: weckan/templates/dataset.html:171
+#: weckan/templates/dataset.html:180
 #: weckan/templates/widgets/dataset-search-result.html:19
 msgid "Temporal coverage"
 msgstr "Zeitumfang"
 
-#: weckan/templates/dataset.html:174
+#: weckan/templates/dataset.html:183
 #: weckan/templates/widgets/dataset-search-result.html:22
 #, python-format
 msgid "%(from)s to %(to)s"
 msgstr "%(from)s bis %(to)s"
 
-#: weckan/templates/dataset.html:184
+#: weckan/templates/dataset.html:193
 #: weckan/templates/widgets/dataset-search-result.html:32
 msgid "Periodicity"
 msgstr "Häufigkeit"
 
-#: weckan/templates/dataset.html:195
+#: weckan/templates/dataset.html:204
 #: weckan/templates/widgets/dataset-search-result.html:43
 msgid "Territorial coverage"
 msgstr "Regionale Abdeckung"
 
-#: weckan/templates/dataset.html:206
+#: weckan/templates/dataset.html:215
 #: weckan/templates/widgets/dataset-search-result.html:54
 msgid "Territorial coverage granularity"
 msgstr "Detailgenauigkeit der regionalen Abdeckung"
 
-#: weckan/templates/dataset.html:249
+#: weckan/templates/dataset.html:258
 msgid "Quality"
 msgstr "Qualität"
 
-#: weckan/templates/dataset.html:252
+#: weckan/templates/dataset.html:261
 msgid "Go to the report page"
 msgstr "Zur Benachrichtungsseite"
 
-#: weckan/templates/dataset.html:253
+#: weckan/templates/dataset.html:262
 msgid "score"
 msgstr "Score"
 
-#: weckan/templates/dataset.html:254
+#: weckan/templates/dataset.html:263
 msgid "warnings"
 msgstr "Warnmeldungen"
 
-#: weckan/templates/dataset.html:255
+#: weckan/templates/dataset.html:264
 msgid "errors"
 msgstr "Fehler"
 
