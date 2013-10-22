@@ -23,7 +23,6 @@
 import urllib
 
 from os.path import join, dirname, abspath
-
 from pkg_resources import resource_stream
 
 from jinja2 import Environment, PackageLoader
@@ -88,8 +87,12 @@ def format_datetime(value, format='short', locale='fr'):
         return value
 
 
-def format_date(value, format='short', locale='fr'):
+def format_date(value, format='display', locale='fr'):
     '''Format a date given a locale'''
+    if format == 'display':
+        _ = contexts.Ctx().translator.gettext
+        # TRANSLATORS: Short date format with full year (4-digits)
+        format = _('MM-dd-yyyy')
     try:
         return dates.format_date(value, format, locale=locale)
     except:

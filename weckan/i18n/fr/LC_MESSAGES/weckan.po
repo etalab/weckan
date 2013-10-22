@@ -13,8 +13,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: weckan\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2013-10-22 17:31+0200\n"
-"PO-Revision-Date: 2013-10-22 15:34+0000\n"
+"POT-Creation-Date: 2013-10-22 18:38+0200\n"
+"PO-Revision-Date: 2013-10-22 16:34+0000\n"
 "Last-Translator: noirbizarre\n"
 "Language-Team: French (http://www.transifex.com/projects/p/weckan/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -80,6 +80,11 @@ msgstr "Vous allez être redirigé vers la page <a href=\"{0}\">{0}</a>."
 msgid "Redirection in progress..."
 msgstr "Redirection en cours..."
 
+#. TRANSLATORS: Short date format with full year (4-digits)
+#: weckan/templates/__init__.py:95
+msgid "MM-dd-yyyy"
+msgstr "dd/MM/yyyy"
+
 #: weckan/templates/dataset.html:24
 msgid "Edit"
 msgstr "Éditer"
@@ -139,70 +144,70 @@ msgstr "Couverture temporelle"
 msgid "%(from)s to %(to)s"
 msgstr "%(from)s à %(to)s"
 
-#: weckan/templates/dataset.html:195
+#: weckan/templates/dataset.html:197
 #: weckan/templates/widgets/dataset-search-result.html:32
 msgid "Periodicity"
 msgstr "Périodicité"
 
-#: weckan/templates/dataset.html:206
+#: weckan/templates/dataset.html:208
 #: weckan/templates/widgets/dataset-search-result.html:43
 msgid "Territorial coverage"
 msgstr "Couverture territoriale"
 
-#: weckan/templates/dataset.html:217
+#: weckan/templates/dataset.html:219
 #: weckan/templates/widgets/dataset-search-result.html:54
 msgid "Territorial coverage granularity"
 msgstr "Granularité de la couverture territoriale"
 
-#: weckan/templates/dataset.html:260
+#: weckan/templates/dataset.html:262
 msgid "Quality"
 msgstr "Qualité"
 
-#: weckan/templates/dataset.html:263
+#: weckan/templates/dataset.html:265
 msgid "Go to the report page"
 msgstr "Aller sur la page du rapport"
 
-#: weckan/templates/dataset.html:264
+#: weckan/templates/dataset.html:266
 msgid "score"
 msgstr "score"
 
-#: weckan/templates/dataset.html:265
+#: weckan/templates/dataset.html:267
 msgid "warnings"
 msgstr "avertissements"
 
-#: weckan/templates/dataset.html:266
+#: weckan/templates/dataset.html:268
 msgid "errors"
 msgstr "erreurs"
 
-#: weckan/templates/dataset.html:269
+#: weckan/templates/dataset.html:271
 msgid "Improve quality"
 msgstr "Améliorer la qualité"
 
-#: weckan/templates/dataset.html:271
+#: weckan/templates/dataset.html:273
 msgid "Improve"
 msgstr "Améliorer"
 
-#: weckan/templates/dataset.html:274 weckan/templates/dataset.html:279
-#: weckan/templates/dataset.html:291 weckan/templates/dataset.html:302
+#: weckan/templates/dataset.html:276 weckan/templates/dataset.html:281
+#: weckan/templates/dataset.html:293 weckan/templates/dataset.html:304
 msgid "Fork"
 msgstr "Dupliquer"
 
-#: weckan/templates/dataset.html:277
+#: weckan/templates/dataset.html:279
 msgid "Duplicate this dataset and improve it !"
 msgstr "Dupliquer et améliorer cette série de données !"
 
-#: weckan/templates/dataset.html:294
+#: weckan/templates/dataset.html:296
 msgid ""
 "You are about to make a copy of this dataset.\n"
 "                You'll become the owner and you will have the ability to edit it and improve it.\n"
 "                The original dataset will keep a reference of your work."
 msgstr "Cette série de données sera dupliquée, vous en deviendrez le propriétaire et pourrez l'éditer pour l'améliorer.\nUne référence à cette nouvelle série sera conservée dans la série d'origine. "
 
-#: weckan/templates/dataset.html:297
+#: weckan/templates/dataset.html:299
 msgid "Continue?"
 msgstr "Voulez-vous continuer ?"
 
-#: weckan/templates/dataset.html:306
+#: weckan/templates/dataset.html:308
 msgid "Cancel"
 msgstr "Annuler"
 
