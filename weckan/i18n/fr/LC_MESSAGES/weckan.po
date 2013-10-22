@@ -6,14 +6,15 @@
 # noirbizarre, 2013
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2013
 # noirbizarre, 2013
+# noirbizarre, 2013
 # ppezziardi <pierre@pezziardi.net>, 2013
 # ppezziardi <pierre@pezziardi.net>, 2013
 msgid ""
 msgstr ""
 "Project-Id-Version: weckan\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2013-10-22 11:57+0200\n"
-"PO-Revision-Date: 2013-10-22 10:00+0000\n"
+"POT-Creation-Date: 2013-10-22 17:31+0200\n"
+"PO-Revision-Date: 2013-10-22 15:34+0000\n"
 "Last-Translator: noirbizarre\n"
 "Language-Team: French (http://www.transifex.com/projects/p/weckan/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -79,99 +80,131 @@ msgstr "Vous allez être redirigé vers la page <a href=\"{0}\">{0}</a>."
 msgid "Redirection in progress..."
 msgstr "Redirection en cours..."
 
-#: weckan/templates/dataset.html:23
+#: weckan/templates/dataset.html:24
 msgid "Edit"
 msgstr "Éditer"
 
-#: weckan/templates/dataset.html:35
+#: weckan/templates/dataset.html:37
 msgid "Published by"
 msgstr "Publié par"
 
-#: weckan/templates/dataset.html:47
+#: weckan/templates/dataset.html:49
 msgid "Provided by"
 msgstr "Fourni par"
 
-#: weckan/templates/dataset.html:69
+#: weckan/templates/dataset.html:71
 msgid "Nameless resource"
 msgstr "Ressource sans nom"
 
-#: weckan/templates/dataset.html:82
+#: weckan/templates/dataset.html:84
 msgid "Community resources"
 msgstr "Ressources de la communauté"
 
-#: weckan/templates/dataset.html:87
+#: weckan/templates/dataset.html:89
 msgid "Reuse"
 msgstr "Réutilisations"
 
-#: weckan/templates/dataset.html:118
+#: weckan/templates/dataset.html:120
 msgid "Publish a reuse case !"
 msgstr "Publiez une réutilisation !"
 
-#: weckan/templates/dataset.html:134
+#: weckan/templates/dataset.html:136
 msgid "Certified public service"
 msgstr "Service public certifié"
 
-#: weckan/templates/dataset.html:135
+#: weckan/templates/dataset.html:137
 msgid "This organization and its datasets are certified by data.gouv.fr"
 msgstr "Cette organisation et ses séries de données sont certifiés par data.gouv.fr"
 
-#: weckan/templates/dataset.html:149
+#: weckan/templates/dataset.html:151
 msgid "more"
 msgstr "plus"
 
-#: weckan/templates/dataset.html:160
+#: weckan/templates/dataset.html:162
 msgid "Informations"
 msgstr "Informations"
 
-#: weckan/templates/dataset.html:169
+#: weckan/templates/dataset.html:171
 msgid "License"
 msgstr "License"
 
-#: weckan/templates/dataset.html:180
+#: weckan/templates/dataset.html:182
 #: weckan/templates/widgets/dataset-search-result.html:19
 msgid "Temporal coverage"
 msgstr "Couverture temporelle"
 
-#: weckan/templates/dataset.html:183
+#: weckan/templates/dataset.html:185
 #: weckan/templates/widgets/dataset-search-result.html:22
 #, python-format
 msgid "%(from)s to %(to)s"
 msgstr "%(from)s à %(to)s"
 
-#: weckan/templates/dataset.html:193
+#: weckan/templates/dataset.html:195
 #: weckan/templates/widgets/dataset-search-result.html:32
 msgid "Periodicity"
 msgstr "Périodicité"
 
-#: weckan/templates/dataset.html:204
+#: weckan/templates/dataset.html:206
 #: weckan/templates/widgets/dataset-search-result.html:43
 msgid "Territorial coverage"
 msgstr "Couverture territoriale"
 
-#: weckan/templates/dataset.html:215
+#: weckan/templates/dataset.html:217
 #: weckan/templates/widgets/dataset-search-result.html:54
 msgid "Territorial coverage granularity"
 msgstr "Granularité de la couverture territoriale"
 
-#: weckan/templates/dataset.html:258
+#: weckan/templates/dataset.html:260
 msgid "Quality"
 msgstr "Qualité"
 
-#: weckan/templates/dataset.html:261
+#: weckan/templates/dataset.html:263
 msgid "Go to the report page"
 msgstr "Aller sur la page du rapport"
 
-#: weckan/templates/dataset.html:262
+#: weckan/templates/dataset.html:264
 msgid "score"
 msgstr "score"
 
-#: weckan/templates/dataset.html:263
+#: weckan/templates/dataset.html:265
 msgid "warnings"
 msgstr "avertissements"
 
-#: weckan/templates/dataset.html:264
+#: weckan/templates/dataset.html:266
 msgid "errors"
 msgstr "erreurs"
+
+#: weckan/templates/dataset.html:269
+msgid "Improve quality"
+msgstr "Améliorer la qualité"
+
+#: weckan/templates/dataset.html:271
+msgid "Improve"
+msgstr "Améliorer"
+
+#: weckan/templates/dataset.html:274 weckan/templates/dataset.html:279
+#: weckan/templates/dataset.html:291 weckan/templates/dataset.html:302
+msgid "Fork"
+msgstr "Dupliquer"
+
+#: weckan/templates/dataset.html:277
+msgid "Duplicate this dataset and improve it !"
+msgstr "Dupliquer et améliorer cette série de données !"
+
+#: weckan/templates/dataset.html:294
+msgid ""
+"You are about to make a copy of this dataset.\n"
+"                You'll become the owner and you will have the ability to edit it and improve it.\n"
+"                The original dataset will keep a reference of your work."
+msgstr "Cette série de données sera dupliquée, vous en deviendrez le propriétaire et pourrez l'éditer pour l'améliorer.\nUne référence à cette nouvelle série sera conservée dans la série d'origine. "
+
+#: weckan/templates/dataset.html:297
+msgid "Continue?"
+msgstr "Voulez-vous continuer ?"
+
+#: weckan/templates/dataset.html:306
+msgid "Cancel"
+msgstr "Annuler"
 
 #: weckan/templates/home.html:5
 msgid "Home"
