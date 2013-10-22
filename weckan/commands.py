@@ -4,7 +4,7 @@ import shutil
 
 from glob import iglob
 from os import makedirs
-from os.path import dirname, join, exists
+from os.path import dirname, join, exists, isdir
 
 from setuptools import Command
 from webassets.script import CommandLineEnvironment
@@ -16,7 +16,7 @@ TO_COPY = {
     'bower/bootstrap/fonts/*': 'fonts/',
     'bower/etalab-assets/fonts/*': 'fonts/',
     'bower/etalab-assets/img/*': 'images/',
-    'bower/flags/flags/flags-iso/shiny/16/*.png': 'images/flags',
+    'bower/etalab-assets/img/flags/*': 'images/flags/',
 }
 
 log = logging.getLogger('webassets')
@@ -55,4 +55,6 @@ class BuildAssets(Command):
             if not exists(destination_path):
                 makedirs(destination_path)
             for filename in iglob(join(STATIC, source)):
+                if isdir(filename):
+                    continue
                 shutil.copy(filename, destination_path)

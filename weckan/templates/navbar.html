@@ -84,13 +84,13 @@
             {% endif %}
             <li class="dropdown">
                 <button class="btn btn-dark navbar-btn dropdown-toggle" data-toggle="dropdown">
-                    <img src="/images/flags/{{flag|upper}}.png" alt="Current locale flag" />
+                    <img src="/images/flags/{{lang}}.png" alt="Current locale flag" />
                 </button>
                 <ul class="dropdown-menu">
-                    {% for locale, (name, flag) in languages.items() %}
+                    {% for code, name in languages.items() %}
                     <li>
-                        <a href="{{ url(locale) }}{{ current_base_location|safe }}">
-                            <img src="/images/flags/{{flag|upper}}.png" alt="{{locale}} flag" />
+                        <a href="{{ url(code) }}{{ current_base_location|safe }}">
+                            <img src="/images/flags/{{code}}.png" alt="{{name}} flag" />
                             {{name}}
                         </a>
                     </li>

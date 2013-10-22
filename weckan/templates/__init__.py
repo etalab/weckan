@@ -39,8 +39,9 @@ env = None
 
 # Langugages definitions: language code => (Display name, flag)
 LANGUAGES = {
-    'fr': (u'Français', 'fr'),
-    'en': (u'English', 'us'),
+    'fr': u'Français',
+    'en': u'English',
+    'de': u'Deutsch',
 }
 DEFAULT_LANG = 'fr'
 
@@ -178,7 +179,7 @@ def render(context, name, **kwargs):
     env.install_gettext_translations(context.translator)
     template = env.get_template(name)
     lang = kwargs.pop('lang', DEFAULT_LANG)
-    return template.render(lang=lang, flag=LANGUAGES[lang][1], languages=LANGUAGES, **kwargs)
+    return template.render(lang=lang, languages=LANGUAGES, **kwargs)
 
 
 def render_site(name, request_or_context, **kwargs):
@@ -202,6 +203,7 @@ def render_site(name, request_or_context, **kwargs):
     elif lang is None:
         lang = DEFAULT_LANG
     else:
+        from weckan import wsgihelpers
         return wsgihelpers.redirect(context, location=base_location)
 
     return render(context, name,
