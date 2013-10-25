@@ -25,66 +25,57 @@
 
         <div class="collapse navbar-collapse">
             <ul class="nav navbar-nav navbar-right">
+                {% if user %}
                 <li class="dropdown user">
                     <button class="btn-link dropdown-toggle" data-toggle="dropdown">
-                        {% if user %}
-                            {{gravatar(user.email_hash, 20)}} {{ user.display_name }}
-                        {% else %}
-                            {% trans %}Sign In / Register{% endtrans %}
-                        {% endif %}
+                        {{gravatar(user.email_hash, 20)}} {{ user.display_name }}
                         <b class="caret"></b>
                     </button>
                     <ul class="dropdown-menu">
-                        {% if user %}
-                            {% if user.sysadmin %}
-                            <li>
-                                <a href="{{ url(lang, 'ckan-admin') }}" title="{% trans %}Sysadmin settings{% endtrans %}">
-                                    <span class="glyphicon glyphicon-wrench"></span>
-                                    {% trans %}Sysadmin settings{% endtrans %}
-                                </a>
-                            </li>
-                            {% endif %}
-                            <li>
-                                <a href="{{ url(lang, 'user', user.name) }}", title="{% trans %}Profile{% endtrans %}">
-                                    <span class="glyphicon glyphicon-user"></span>
-                                    {% trans %}Profile{% endtrans %}
-                                </a>
-                            </li>
-                            <li>
-                                <a href="{{ url(lang, 'dashboard') }}", title="{% trans %}Dashboard{% endtrans %}">
-                                    <span class="glyphicon glyphicon-dashboard"></span>
-                                    {% trans %}Dashboard{% endtrans %}
-                                </a>
-                            </li>
-                            <li>
-                                <a href="{{ url(lang, 'user', 'edit', user.name) }}" title="{% trans %}Settings{% endtrans %}">
-                                    <span class="glyphicon glyphicon-cog"></span>
-                                    {% trans %}Settings{% endtrans %}
-                                </a>
-                            </li>
-                            <li class="divider"></li>
-                            <li>
-                                <a href="{{ url(lang, 'user', 'logout') }}" title="{% trans %}Log out{% endtrans %}">
-                                    <span class="glyphicon glyphicon-log-out"></span>
-                                    {% trans %}Log out{% endtrans %}
-                                </a>
-                            </li>
-                        {% else %}
-                            <li>
-                                <a href="{{ url(lang, 'user', 'login') }}" title="{% trans %}Sign In{% endtrans %}">
-                                    <span class="glyphicon glyphicon-log-in"></span>
-                                    {% trans %}Sign In{% endtrans %}
-                                </a>
-                            </li>
-                            <li>
-                                <a href="{{ url(lang, 'user', 'register') }}" title="{% trans %}Register{% endtrans %}">
-                                    <span class="glyphicon glyphicon-edit"></span>
-                                    {% trans %}Register{% endtrans %}
-                                </a>
-                            </li>
+                        {% if user.sysadmin %}
+                        <li>
+                            <a href="{{ url(lang, 'ckan-admin') }}" title="{% trans %}Sysadmin settings{% endtrans %}">
+                                <span class="glyphicon glyphicon-wrench"></span>
+                                {% trans %}Sysadmin settings{% endtrans %}
+                            </a>
+                        </li>
                         {% endif %}
+                        <li>
+                            <a href="{{ url(lang, 'user', user.name) }}", title="{% trans %}Profile{% endtrans %}">
+                                <span class="glyphicon glyphicon-user"></span>
+                                {% trans %}Profile{% endtrans %}
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ url(lang, 'dashboard') }}", title="{% trans %}Dashboard{% endtrans %}">
+                                <span class="glyphicon glyphicon-dashboard"></span>
+                                {% trans %}Dashboard{% endtrans %}
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ url(lang, 'user', 'edit', user.name) }}" title="{% trans %}Settings{% endtrans %}">
+                                <span class="glyphicon glyphicon-cog"></span>
+                                {% trans %}Settings{% endtrans %}
+                            </a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <a href="{{ url(lang, 'user', 'logout') }}" title="{% trans %}Log out{% endtrans %}">
+                                <span class="glyphicon glyphicon-log-out"></span>
+                                {% trans %}Log out{% endtrans %}
+                            </a>
+                        </li>
                     </ul>
                 </li>
+                {% else %}
+                <li>
+                    <a title="{% trans %}Sign In / Register{% endtrans %}"
+                        href="{{ url(lang, 'user', 'login') }}">
+                        <span class="glyphicon glyphicon-log-in"></span>
+                        {% trans %}Sign In / Register{% endtrans %}
+                    </a>
+                </li>
+                {% endif %}
                 {%- set has_ckan = has_ckan|default(True) -%}
                 {# {% if user and has_ckan %}
                 <li>
