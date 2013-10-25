@@ -14,16 +14,12 @@
         <p class="navbar-text">{% trans %}Open platform for french public data{% endtrans %}</p>
         <ul class="nav navbar-nav navbar-right">
             <li class="dropdown">
-                <button class="btn btn-dark navbar-btn dropdown-toggle" data-toggle="dropdown">
-                    {% if user %}
+                {% if user %}
+                    <button class="btn btn-dark navbar-btn dropdown-toggle" data-toggle="dropdown">
                         {{gravatar(user.email_hash, 20)}} {{ user.display_name }}
-                    {% else %}
-                        {% trans %}Sign In / Register{% endtrans %}
-                    {% endif %}
-                    <b class="caret"></b>
-                </button>
-                <ul class="dropdown-menu">
-                    {% if user %}
+                        <b class="caret"></b>
+                    </button>
+                    <ul class="dropdown-menu">
                         {% if user.sysadmin %}
                         <li>
                             <a href="{{ url(lang, 'ckan-admin') }}" title="{% trans %}Sysadmin settings{% endtrans %}">
@@ -57,22 +53,18 @@
                                 {% trans %}Log out{% endtrans %}
                             </a>
                         </li>
-                    {% else %}
-                        <li>
-                            <a href="{{ url(lang, 'user', 'login') }}" title="{% trans %}Sign In{% endtrans %}">
-                                <span class="glyphicon glyphicon-log-in"></span>
-                                {% trans %}Sign In{% endtrans %}
-                            </a>
-                        </li>
-                        <li>
-                            <a href="{{ url(lang, 'user', 'register') }}" title="{% trans %}Register{% endtrans %}">
-                                <span class="glyphicon glyphicon-edit"></span>
-                                {% trans %}Register{% endtrans %}
-                            </a>
-                        </li>
-                    {% endif %}
-                </ul>
-            </li>
+                    </ul>
+                </li>
+            {% else %}
+                <li>
+                    <a class="btn btn-dark navbar-btn" title="{% trans %}Sign In / Register{% endtrans %}"
+                        href="{{ url(lang, 'user', 'login') }}">
+                        <span class="glyphicon glyphicon-log-in"></span>
+                        {% trans %}Sign In / Register{% endtrans %}
+                    </a>
+                </li>
+            {% endif %}
+
             {%- set has_ckan = has_ckan|default(True) -%}
             {% if user and has_ckan %}
             <li>
