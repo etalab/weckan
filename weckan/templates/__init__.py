@@ -223,5 +223,6 @@ def render_site(name, request_or_context, **kwargs):
         QUESTIONS_URL = conf['questions_url'],
         CKAN_URL = conf['ckan_url'],
         COW_URL = conf['cow_url'],
+        SSO_URL = conf['sso_url'],
         **kwargs
     )
