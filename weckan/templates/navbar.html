@@ -53,14 +53,14 @@
                             </a>
                         </li>
                         <li>
-                            <a href="{{ url(lang, 'user', 'edit', user.name) }}" title="{% trans %}Settings{% endtrans %}">
+                            <a href="{{ SSO_URL }}/my/profile" title="{% trans %}Settings{% endtrans %}">
                                 <span class="glyphicon glyphicon-cog"></span>
                                 {% trans %}Settings{% endtrans %}
                             </a>
                         </li>
                         <li class="divider"></li>
                         <li>
-                            <a href="{{ url(lang, 'user', 'logout') }}" title="{% trans %}Log out{% endtrans %}">
+                            <a href="{{ url(lang, 'user/_logout') }}" title="{% trans %}Log out{% endtrans %}">
                                 <span class="glyphicon glyphicon-log-out"></span>
                                 {% trans %}Log out{% endtrans %}
                             </a>
@@ -70,7 +70,7 @@
                 {% else %}
                 <li>
                     <a title="{% trans %}Sign In / Register{% endtrans %}"
-                        href="{{ url(lang, 'user', 'login') }}">
+                        href="{{ url(lang, 'user', 'login') }}?came_from={{ current_location|safe }}">
                         <span class="glyphicon glyphicon-log-in"></span>
                         {% trans %}Sign In / Register{% endtrans %}
                     </a>
