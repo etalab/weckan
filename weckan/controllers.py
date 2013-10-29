@@ -66,41 +66,66 @@ SEARCH_TIMEOUT = 2
 POST_TIMEOUT = 3
 
 
-def last_datasets(num=8):
-    '''Get the ``num`` latest created datasets'''
+def get_dataset_and_org_query():
+    ''' Query dataset with their organization'''
+    datasets_query = meta.Session.query(Package, Group)
+    datasets_query = datasets_query.outerjoin(Group, Group.id == Package.owner_org)
+    datasets_query = datasets_query.filter(~Package.private)
+    datasets_query = datasets_query.filter(Package.state == 'active')
+    return datasets_query
+
+
+def build_datasets(query):
+    '''Build datasets for display from a queryset'''
     datasets = []
-    for package, timestamp in meta.Session.query(Package, func.max(Activity.timestamp).label('timestamp'))\
-            .filter(Activity.object_id == Package.id)\
-            .filter(Activity.activity_type == 'new package')\
-            .filter(~Package.private)\
-            .filter(Package.state == 'active')\
-            .group_by(Package).order_by(desc('timestamp')).limit(num):
+
+    for dataset, organization in query:
+
+        temporal_coverage = {
+            'from': dataset.extras.get('temporal_coverage_from', None),
+            'to': dataset.extras.get('temporal_coverage_to', None),
+        }
+        try:
+            temporal_coverage['from'] = datetime.strptime(temporal_coverage['from'], '%Y-%m-%d')
+        except:
+            pass
+        try:
+            temporal_coverage['to'] = datetime.strptime(temporal_coverage['to'], '%Y-%m-%d')
+        except:
+            pass
 
         datasets.append({
-            'name': package.name,
-            'title': package.title,
-            'timestamp': timestamp,
+            'name': dataset.name,
+            'title': dataset.title,
+            'display_name': dataset.display_name,
+            'notes': dataset.notes,
+            'organization': organization,
+            'temporal_coverage': temporal_coverage,
+            'territorial_coverage': {
+                'name': dataset.extras.get('territorial_coverage', None),
+                'granularity': dataset.extras.get('territorial_coverage_granularity', None),
+            },
+            'periodicity': dataset.extras.get('"dct:accrualPeriodicity"', None),
         })
 
     return datasets
+
+
+def last_datasets(num=8):
+    '''Get the ``num`` latest created datasets'''
+    query = get_dataset_and_org_query()
+    query = query.filter(Activity.object_id == Package.id)
+    query = query.filter(Activity.activity_type == 'new package')
+    query = query.group_by(Package, Group).order_by(desc(func.max(Activity.timestamp))).limit(num)
+    return build_datasets(query)
 
 
 def popular_datasets(num=8):
     '''Get the ``num`` most popular (ie. with the most related) datasets'''
-    datasets = []
-    for package in meta.Session.query(Package).join(RelatedDataset)\
-            .filter(~Package.private)\
-            .filter(Package.state == 'active')\
-            .filter(RelatedDataset.status == 'active').group_by(Package)\
-            .order_by(desc(func.count(RelatedDataset.related_id))).limit(num):
-
-        datasets.append({
-            'name': package.name,
-            'title': package.title,
-            'timestamp': package.metadata_modified,
-        })
-
-    return datasets
+    query = get_dataset_and_org_query()
+    query = query.join(RelatedDataset)
+    query = query.group_by(Package, Group).order_by(desc(func.count(RelatedDataset.related_id))).limit(num)
+    return build_datasets(query)
 
 
 def search_datasets(query, request, page=1, page_size=SEARCH_PAGE_SIZE):
@@ -147,42 +172,9 @@ def search_datasets(query, request, page=1, page_size=SEARCH_PAGE_SIZE):
     if not query.results:
         return 'datasets', {'results': [], 'total': 0}
 
-    datasets = []
-
-    datasets_query = meta.Session.query(Package, Group)
-    datasets_query = datasets_query.outerjoin(Group, Group.id == Package.owner_org)
+    datasets_query = get_dataset_and_org_query()
     datasets_query = datasets_query.filter(Package.name.in_(query.results))
-    datasets_query = datasets_query.filter(~Package.private)
-    datasets_query = datasets_query.filter(Package.state == 'active')
-
-    for dataset, organization in datasets_query.all():
-
-        temporal_coverage = {
-            'from': dataset.extras.get('temporal_coverage_from', None),
-            'to': dataset.extras.get('temporal_coverage_to', None),
-        }
-        try:
-            temporal_coverage['from'] = datetime.strptime(temporal_coverage['from'], '%Y-%m-%d')
-        except:
-            pass
-        try:
-            temporal_coverage['to'] = datetime.strptime(temporal_coverage['to'], '%Y-%m-%d')
-        except:
-            pass
-
-        datasets.append({
-            'name': dataset.name,
-            'title': dataset.title,
-            'display_name': dataset.display_name,
-            'notes': dataset.notes,
-            'organization': organization,
-            'temporal_coverage': temporal_coverage,
-            'territorial_coverage': {
-                'name': dataset.extras.get('territorial_coverage', None),
-                'granularity': dataset.extras.get('territorial_coverage_granularity', None),
-            },
-            'periodicity': dataset.extras.get('"dct:accrualPeriodicity"', None),
-        })
+    datasets = build_datasets(datasets_query.all())
 
     return 'datasets', {
         'results': sorted(datasets, key=lambda d: query.results.index(d['name'])),
@@ -296,6 +288,19 @@ def get_page_url_pattern(request):
         if key != 'page':
             url_pattern_params[key] = unicode(value).encode('utf-8')
     return '?'.join([request.path, urlencode(url_pattern_params)]) + '&page={page}'
+
+
+def get_dataset_quality(dataset_name):
+    '''Fetch the dataset quality scores from COW'''
+    url = '{0}/api/1/datasets/{1}/ranking'.format(conf['cow_url'], dataset_name)
+    try:
+        response = requests.get(url)
+        response.raise_for_status()
+    except requests.RequestException:
+        log.exception('Unable to fetch quality scores for %s', dataset_name)
+        return None
+    data = response.json().get('value', {})
+    return data
 
 
 def can_edit(user, dataset):
@@ -457,6 +462,7 @@ def display_dataset(request):
         periodicity = periodicity,
         groups = dataset.get_groups('group'),
         can_edit = can_edit(auth.get_user_from_request(request), dataset),
+        quality = get_dataset_quality(dataset.name),
         territory = {
             'full_name': territory.get('full_name', ''),
             'full_name_slug': strings.slugify(territory.get('full_name', '')),

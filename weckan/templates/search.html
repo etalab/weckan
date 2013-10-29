@@ -6,6 +6,7 @@
 {% block title %}{% trans %}Search{% endtrans %}{% endblock %}
 
 {% block content %}
+{% include 'subnav-s.html' %}
 <div class="container">
 
     {% if not organizations.results and not datasets.results and not topics.results and not questions.results %}

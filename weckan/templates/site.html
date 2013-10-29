@@ -40,28 +40,20 @@
 
     {% include "navbar.html" %}
 
-    <div class="full-container">
-        <div class="row">
-            <div class="col-sm-3 col-md-3">
-                {% include "sidebar.html" %}
-            </div>
+    {% block content %}{% endblock %}
 
-            <div class="col-sm-9 col-md-9">
-            {% block content %}{% endblock %}
-            </div>
+    <section class="footer">
+        <div class="container">
+            <footer>
+                <p class="pull-right"><a href="#">{% trans %}Back to top{% endtrans %}</a></p>
+                <p>
+                    &copy; 2013 ETALAB, Inc. &middot;
+                    <a href="#">{% trans %}Privacy{% endtrans %}</a> &middot;
+                    <a href="#">{% trans %}Terms{% endtrans %}</a>
+                </p>
+            </footer>
         </div>
-
-        <hr/>
-        <footer>
-            <p class="pull-right"><a href="#">{% trans %}Back to top{% endtrans %}</a></p>
-            <p>
-                &copy; 2013 ETALAB, Inc. &middot;
-                <a href="#">{% trans %}Privacy{% endtrans %}</a> &middot;
-                <a href="#">{% trans %}Terms{% endtrans %}</a>
-            </p>
-        </footer>
-
-    </div>
+    </section>
 
 
     {# Load scripts after for faster page loading #}

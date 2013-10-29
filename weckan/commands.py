@@ -15,8 +15,8 @@ STATIC = join(dirname(__file__), 'static')
 TO_COPY = {
     'bower/bootstrap/fonts/*': 'fonts/',
     'bower/etalab-assets/fonts/*': 'fonts/',
-    'bower/etalab-assets/img/*': 'images/',
-    'bower/etalab-assets/img/flags/*': 'images/flags/',
+    'bower/etalab-assets/img/*': 'img/',
+    'bower/etalab-assets/img/flags/*': 'img/flags/',
 }
 
 log = logging.getLogger('webassets')

@@ -5,160 +5,219 @@
 {% block title %}{% trans %}Home{% endtrans %}{% endblock %}
 
 {% block content %}
-<div class="row">
-    <div class="col-md-12">
-        <p id="claim" class="lead text-center">
-        <strong>{% trans %}Let's debate facts to make them undebatable{% endtrans %}</strong>
-        </p>
-    </div>
-</div>
+{% include 'subnav.html' %}
 
-<div class="row first-row">
-    <div class="col-md-6">
+<div class="container">
 
-        {# Home carousel #}
-        <div class="panel panel-default">
-            <div id="home-carousel" class="carousel slide">
+    {# First row #}
+    <div class="row first-row">
 
-                <ol class="carousel-indicators">
-                    <li data-target="#home-caroussel" data-slide-to="0" class="active"></li>
-                </ol>
-
+        {# News highlight #}
+        <div class="col-md-4">
+            <h3>{{ _('Actualités') }}</h3>
+            <div id="news-carousel" class="carousel slide">
+                <!-- Wrapper for slides -->
                 <div class="carousel-inner">
-
                     <div class="item active">
-                        <img src="http://i-cms.journaldesfemmes.com/image_cms/original/1167773.jpg" alt="First slide">
-                        <div class="container">
-                            <a class="carousel-caption no-decoration" href="http://wiki.etalab2.fr/wiki/L%27%C3%A9galit%C3%A9_Femmes_Hommes">
-                            Projet de loi pour l’égalité entre les femmes et les hommes
-                            </a>
+                        <img class="slide" src="{{ static('images/homepage/hommes-femmes.jpg') }}"
+                            alt="Projet de loi pour l’égalité entre les femmes et les hommes">
+
+                        <div class="carousel-caption">
+                            <label>{{ _('Discussion topic') }}</label>
+                            <h4 class="title">
+                                <a href="http://wiki.etalab2.fr/wiki/L%27%C3%A9galit%C3%A9_Femmes_Hommes"
+                                    title="Projet de loi pour l’égalité entre les femmes et les hommes">
+                                    Projet de loi pour l’égalité entre les femmes et les hommes
+                                </a>
+                            </h4>
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
+        {# end News highlight #}
 
-                <a class="left carousel-control" href="#home-caroussel" data-slide="prev">
-                    <span class="glyphicon glyphicon-chevron-left"></span>
+        {# Carousel #}
+        {# TODO: extract and dynamize #}
+        <div class="col-md-8">
+            <h3>{{ _('Best reuse cases') }}</h3>
+            <div id="home-carousel" class="carousel slide">
+              <!-- Indicators -->
+                <ol class="carousel-indicators">
+                    <li data-target="#home-carousel" data-slide-to="0" class="active"></li>
+                    <li data-target="#home-carousel" data-slide-to="1"></li>
+                    <li data-target="#home-carousel" data-slide-to="2"></li>
+                </ol>
+
+                <!-- Wrapper for slides -->
+                <div class="carousel-inner">
+
+                    <div class="item active">
+                        <img class="slide" src="{{ static('images/homepage/dataviz-le-monde.png') }}" alt="Les aides aux entreprises">
+                        <div class="carousel-caption">
+                            {# <a class="slide-logo pull-left"
+                                href="http://www.lemonde.fr/politique/visuel/2013/07/17/l-impossible-simplification-des-aides-aux-entreprises_3448359_823448.html">
+                                <img alt="{{ dataset.organization.title }}"
+                                    src="{{ dataset.organization.image_url }}">
+                            </a> #}
+                            <label>{% trans %}Citizens{% endtrans %}</label>
+                            <h4 class="title">
+                                <a href="" title="Les aides aux entreprises">
+                                Les aides aux entreprises
+                                </a>
+                            </h4>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <img class="slide" src="{{ static('images/homepage/logo_lacub.jpg') }}"
+                            alt="Communauté Urbaine de Bordeaux">
+                        <div class="carousel-caption">
+                            {# <a class="slide-logo pull-left" href="">
+                                <img alt="{{ dataset.organization.title }}"
+                                    src="{{ dataset.organization.image_url }}">
+                            </a> #}
+                            <label>{% trans %}Public services{% endtrans %}</label>
+                            <h4 class="title">
+                                <a href="{{ url(lang, 'dataset/comptage-du-trafic-cub-rdl') }}"
+                                    title="Communauté Urbaine de Bordeaux">
+                                    Communauté Urbaine de Bordeaux
+                                </a>
+                            </h4>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <img class="slide" src="{{ static('images/homepage/handistrict.png') }}"
+                            alt="Handistrict, la cartographie de l'accessibilité en France">
+                        <div class="carousel-caption">
+                            {# <a class="slide-logo pull-left" href="">
+                                <img alt="{{ dataset.organization.title }}"
+                                    src="{{ dataset.organization.image_url }}">
+                            </a> #}
+                            <label>{% trans %}Businesses{% endtrans %}</label>
+                            <h4 class="title">
+                                <a href="http://handistrict.com/" title="Handistrict, la cartographie de l'accessibilité en France">
+                                Handistrict, la cartographie de l'accessibilité en France
+                                </a>
+                            </h4>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Controls -->
+                <a class="left carousel-control" href="#home-carousel" data-slide="prev">
+                    <span class="icon-prev"></span>
                 </a>
-                <a class="right carousel-control" href="#home-caroussel" data-slide="next">
-                    <span class="glyphicon glyphicon-chevron-right"></span>
+                <a class="right carousel-control" href="#home-carousel" data-slide="next">
+                    <span class="icon-next"></span>
                 </a>
             </div>
         </div>
+        {# end carousel #}
 
     </div>
-    <div class="col-md-6">
+    {# end first row #}
 
-        {# Feeds tabs #}
-        <div class="feeds panel panel-default">
-            <ul class="nav nav-tabs nav-justified">
-                <li class="active">
-                    <a href="#last-datasets" data-toggle="tab">
-                        <span class="glyphicon glyphicon-time"></span>
-                        {% trans %}Last{% endtrans %}
-                    </a>
-                </li>
-                <li>
-                    <a href="#popular-datasets" data-toggle="tab">
-                        <span class="glyphicon glyphicon-fire"></span>
-                        {% trans %}Popular{% endtrans %}
-                    </a>
-                </li>
+
+    {# Tabbar #}
+    <div class="row">
+        <div class="col-xs-12">
+            <ul id="tabs" class="nav nav-pills" data-tabs="tabs">
+                <li class="active"><a href="#recent" data-toggle="tab">Les plus récentes</a></li>
+                <li><a href="#popular" data-toggle="tab">Les plus populaires</a></li>
             </ul>
-            <div class="tab-content tab-datasets">
+        </div>
+    </div>
+    {# end Tabbar #}
 
-                {# Last datasets #}
-                <div class="tab-pane active" id="last-datasets">
-                    <table class="table table-striped table-hover">
-                        {% for dataset in last_datasets %}
-                        <tr>
-                            <td class="ellipsis">
-                                <a href="{{ url(lang, 'dataset', dataset.name) }}" title="{{ dataset.title }}">
-                                    {{ dataset.title }}
-                                </a>
-                            </td>
-                        </tr>
-                        {% endfor %}
-                    </table>
-                </div>
+    <div class="row">
+        <div id="my-tab-content" class="tab-content">
 
-                {# Popular datasets #}
-                <div class="tab-pane" id="popular-datasets">
-                    <table class="table table-striped table-hover">
-                        {% for dataset in popular_datasets %}
-                        <tr>
-                            <td class="ellipsis">
-                                <a href="{{ url(lang, 'dataset', dataset.name) }}" title="{{ dataset.title }}">
-                                    {{ dataset.title }}
-                                </a>
-                            </td>
-                        </tr>
-                        {% endfor %}
-                    </table>
-                </div>
+            {% for dataset_id, datasets in (('recent', last_datasets), ('popular', popular_datasets))  %}
+            <div class="tab-pane {% if loop.first %}active{% endif %}" id="{{dataset_id}}">
+                <ul class="search-results">
 
+                    {% for dataset in datasets %}
+                    <div class="col-md-4 col-sm-8">
+                        <li class="search-result dataset-result">
+                            {% if dataset.organization %}
+                            <a class="result-logo pull-left" href="">
+                                <img alt="{{ dataset.organization.title }}"
+                                    src="{{ dataset.organization.image_url or static('/base/images/placeholder-organization.png') }}">
+                            </a>
+                            {% endif %}
+                            <div class="result-body">
+                                <h4>
+                                    <a href="{{ url(lang, 'dataset', dataset.name) }}" title="{{dataset.display_name}}">
+                                        {{ dataset.display_name }}
+                                    </a>
+                                </h4>
+                                {{ markdown_extract(dataset.notes, 180) }}
+
+                                <ul class="list-inline result-infos">
+                                    {# Temporal coverage #}
+                                    {% if dataset.temporal_coverage.from and dataset.temporal_coverage.to %}
+                                    <li>
+                                        <a href class="btn btn-xs btn-default" rel="tooltip"
+                                            data-placement="top" data-container="body"
+                                            title="{% trans %}Temporal coverage{% endtrans %}">
+                                            <span class="glyphicon glyphicon-calendar"></span>
+                                        </a>
+                                        {% trans from=dataset.temporal_coverage.from|date(locale=lang), to=dataset.temporal_coverage.to|date(locale=lang) -%}
+                                        {{ from }} to {{ to }}
+                                        {%- endtrans %}
+                                    </li>
+                                    {% endif %}
+
+                                    {# Periodicity #}
+                                    {% if dataset.periodicity %}
+                                    <li>
+                                        <a href class="btn btn-xs" rel="tooltip"
+                                            data-placement="top" data-container="body"
+                                            title="{% trans %}Periodicity{% endtrans %}">
+                                            <span class="glyphicon glyphicon-time"></span>
+                                        </a>
+                                        {{ dataset.periodicity }}
+                                    </li>
+                                    {% endif %}
+
+                                    {# Territorial coverage #}
+                                    {% if dataset.territorial_coverage.name %}
+                                    <li>
+                                        <a href class="btn btn-xs btn-default" rel="tooltip"
+                                            data-placement="top" data-container="body"
+                                            title="{% trans %}Territorial coverage{% endtrans %}">
+                                            <span class="glyphicon glyphicon-globe"></span>
+                                        </a>
+                                        {% set ellipsis = '<a href title="{0}">...</a>'.format(dataset.territorial_coverage.name) %}
+                                        {{ dataset.territorial_coverage.name|truncate(15, True, ellipsis) }}
+                                    </li>
+                                    {% endif %}
+
+                                    {% if dataset.territorial_coverage.granularity %}
+                                    <li>
+                                        <a href class="btn btn-xs btn-default" rel="tooltip"
+                                            data-placement="top" data-container="body"
+                                            title="{% trans %}Territorial coverage granularity{% endtrans %}">
+                                            <span class="glyphicon glyphicon-screenshot"></span>
+                                        </a>
+                                        {{ dataset.territorial_coverage.granularity }}
+                                    </li>
+                                    {% endif %}
+                                </ul>
+                                <div class="result-text-mask"></div>
+                            </div>
+                        </li>
+                    </div>
+                    {% endfor %}
+
+                </ul>
             </div>
-        </div>
+            {% endfor %}
 
-    </div>
-</div>
-
-{# Featured projects #}
-<div class="container marketing">
-    <div id="featured" class="row featured">
-        <div class="col-md-4 col-lg-4 col-sm-6">
-            <a href="http://www.lemonde.fr/politique/visuel/2013/07/17/l-impossible-simplification-des-aides-aux-entreprises_3448359_823448.html" class="no-decoration">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h3 class="panel-title">{% trans %}Citizens{% endtrans %}</h3>
-                    </div>
-                    <div class="panel-body">
-                        <img src="{{ static('images/homepage/dataviz-le-monde.png') }}" class="img-responsive"
-                            alt="Les aides aux entreprises">
-                            <h3>Les aides aux entreprises</h3>
-                            <p>
-                            Infographie par Le Monde à partir des données brutes ayant fondées le rapport Queyranne-Desmaël-Jürgensen.
-                            </p>
-                    </div>
-                </div>
-            </a>
-        </div>
-
-        <div class="col-md-4 col-lg-4 col-sm-6">
-            <a href="{{ url(lang, 'dataset/comptage-du-trafic-cub-rdl') }}" class="no-decoration">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h3 class="panel-title">{% trans %}Public services{% endtrans %}</h3>
-                    </div>
-                    <div class="panel-body">
-                        <img src="{{ static('images/homepage/logo_lacub.jpg') }}"
-                            alt="Communauté Urbaine de Bordeaux" class="img-responsive">
-                            <h3>Communauté Urbaine de Bordeaux</h3>
-                            <p>
-                            Découvrez les 17 nouveaux jeux de données en provenance de la CUB. Orientés mobilité, ils expliquent par exemple l'évolution du trafic routier.
-                            </p>
-                    </div>
-                </div>
-            </a>
-        </div>
-
-        <div class="col-md-4 col-lg-4 col-sm-6">
-            <a href="http://handistrict.com/" target="_blank" class="no-decoration">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h3 class="panel-title">{% trans %}Businesses{% endtrans %}</h3>
-                    </div>
-                    <div class="panel-body">
-                        <img src="{{ static('images/homepage/handistrict.png') }}"
-                            alt="Handistrict, la cartographie de l'accessibilité en France" class="img-responsive">
-                            <h3>Handistrict, la cartographie de l'accessibilité en France</h3>
-                            <p>
-                            Hôtels, restaurants, musées, établissements publics, salles de spectacles, ...tous les établissements recevant du public sont représentés sur cette plateforme. L'accessibilité est renseignée pour toutes les formes de handicap : moteur, auditif, visuel et mental.
-                            </p>
-                    </div>
-                </div>
-            </a>
         </div>
     </div>
+
 </div>
 {% endblock %}
 
