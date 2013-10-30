@@ -121,7 +121,7 @@
                     data-container="body" data-placement="left" data-trigger="hover"/>
                 {% endif %}
                 <img src="{{ organization.image_url or static('/base/images/placeholder-organization.png') }}"
-                    alt="{{ organization.name }}" class="organization-logo" />
+                    alt="{{ organization.name }}" class="organization-logo producer" />
                 <div class="caption text-left">
                     {% if organization.description %}
                     <p>
@@ -336,8 +336,9 @@
             </div>
 
             <div class="col-md-3 col-sm-3 note">
-                <p>Vestibulum id ligula porta felis euismod semper. Donec sed odio dui. Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Curabitur blandit tempus porttitor. Aenean lacinia bibendum nulla sed consectetur. Donec ullamcorper nulla non metus auctor fringilla. Nullam id dolor id nibh ultricies vehicula ut id elit.
-        Nulla vitae elit libero, a pharetra augue. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa </p>
+                <p>{% trans %}You reused these data and published an article, a computer graphics, or an application?
+                It's time to let you know!
+                Reference your work in just a few clicks and increase your visibility.{% endtrans %}</p>
             </div>
 
         </div>

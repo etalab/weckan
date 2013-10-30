@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: weckan\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2013-10-30 02:56+0100\n"
-"PO-Revision-Date: 2013-10-30 01:56+0000\n"
+"POT-Creation-Date: 2013-10-30 14:45+0100\n"
+"PO-Revision-Date: 2013-10-30 13:45+0000\n"
 "Last-Translator: noirbizarre\n"
 "Language-Team: German (http://www.transifex.com/projects/p/weckan/language/de/)\n"
 "MIME-Version: 1.0\n"
@@ -213,7 +213,7 @@ msgid "Improve"
 msgstr ""
 
 #: weckan/templates/dataset.html:277 weckan/templates/dataset.html:282
-#: weckan/templates/dataset.html:355 weckan/templates/dataset.html:366
+#: weckan/templates/dataset.html:356 weckan/templates/dataset.html:367
 msgid "Fork"
 msgstr ""
 
@@ -233,18 +233,25 @@ msgstr ""
 msgid "Publish a reuse case !"
 msgstr "Wiederverwendung veröffentlichen!"
 
-#: weckan/templates/dataset.html:358
+#: weckan/templates/dataset.html:339
+msgid ""
+"You reused these data and published an article, a computer graphics, or an application?\n"
+"                It's time to let you know!\n"
+"                Reference your work in just a few clicks and increase your visibility."
+msgstr ""
+
+#: weckan/templates/dataset.html:359
 msgid ""
 "You are about to make a copy of this dataset.\n"
 "                You'll become the owner and you will have the ability to edit it and improve it.\n"
 "                The original dataset will keep a reference of your work."
 msgstr ""
 
-#: weckan/templates/dataset.html:361
+#: weckan/templates/dataset.html:362
 msgid "Continue?"
 msgstr ""
 
-#: weckan/templates/dataset.html:370
+#: weckan/templates/dataset.html:371
 msgid "Cancel"
 msgstr ""
 
