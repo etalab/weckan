@@ -86,14 +86,14 @@
                     </ul>
                 </li>
                 {%- set has_ckan = has_ckan|default(True) -%}
-                {% if user and has_ckan %}
+                {# {% if user and has_ckan %}
                 <li>
                     <a class="btn btn-link" title="{% trans %}Advanced mode{% endtrans %}"
                         href="{{ CKAN_URL|safe }}{{ current_location|safe }}">
                         <span class="icon icon-factory"></span>
                     </a>
                 </li>
-                {% endif %}
+                {% endif %} #}
                 <li class="dropdown language">
                     <button class="btn btn-link dropdown-toggle" data-toggle="dropdown">
                         <img src="/img/flags/{{lang}}.png" alt="Current locale flag" />
