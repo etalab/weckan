@@ -14,7 +14,7 @@
 
         {# News highlight #}
         <div class="col-md-4">
-            <h3>{{ _('Actualités') }}</h3>
+            <h3>{{ _('News') }}</h3>
             <div id="news-carousel" class="carousel slide">
                 <!-- Wrapper for slides -->
                 <div class="carousel-inner">
@@ -123,15 +123,15 @@
     <div class="row">
         <div class="col-xs-12">
             <ul id="tabs" class="nav nav-pills" data-tabs="tabs">
-                <li class="active"><a href="#recent" data-toggle="tab">Les plus récentes</a></li>
-                <li><a href="#popular" data-toggle="tab">Les plus populaires</a></li>
+                <li class="active"><a href="#recent" data-toggle="tab">{{ _('Latest')}}</a></li>
+                <li><a href="#popular" data-toggle="tab">{{ _('Most popular') }}</a></li>
             </ul>
         </div>
     </div>
     {# end Tabbar #}
 
     <div class="row">
-        <div id="my-tab-content" class="tab-content">
+        <div class="tab-content">
 
             {% for dataset_id, datasets in (('recent', last_datasets), ('popular', popular_datasets))  %}
             <div class="tab-pane {% if loop.first %}active{% endif %}" id="{{dataset_id}}">
