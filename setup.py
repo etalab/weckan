@@ -52,7 +52,7 @@ doc_lines = __doc__.split('\n')
 
 setup(
     name = 'Weckan',
-    version = '0.1.0',
+    version = '0.2.0.dev',
 
     author = 'Emmanuel Raviart',
     author_email = 'emmanuel@raviart.com',
