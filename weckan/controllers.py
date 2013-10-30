@@ -418,8 +418,8 @@ def display_dataset(request):
 
     query = meta.Session.query(Package, Group, func.min(Activity.timestamp))
     query = query.outerjoin(Group, Group.id == Package.owner_org)
+    query = query.outerjoin(Activity, Activity.object_id == Package.id)
     query = query.filter(Package.name == dataset_name)
-    query = query.filter(Activity.object_id == Package.id)
     query = query.group_by(Package, Group)
 
     if not query.count():
