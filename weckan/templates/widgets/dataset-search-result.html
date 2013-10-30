@@ -1,8 +1,10 @@
 <li class="search-result dataset-result">
-    <a class="pull-left" href="{{ url(lang, 'dataset', dataset.name) }}">
-        <img class="result-logo" alt="{{ dataset.organization.display_name }}"
+    {% if dataset.organization %}
+    <a class="result-logo pull-left" href="{{ url(lang, 'dataset', dataset.name) }}">
+        <img alt="{{ dataset.organization.display_name }}"
             src="{{ dataset.organization.image_url or static('/base/images/placeholder-organization.png') }}">
     </a>
+    {% endif %}
     <div class="result-body">
         <h4>
             <a href="{{ url(lang, 'dataset', dataset.name) }}" title="{{dataset.display_name}}">
@@ -15,7 +17,7 @@
             {# Temporal coverage #}
             {% if dataset.temporal_coverage.from and dataset.temporal_coverage.to %}
             <li>
-                <a href class="btn btn-xs btn-default" rel="tooltip" data-placement="left"
+                <a href class="btn btn-xs btn-default" rel="tooltip" data-placement="top"
                     title="{% trans %}Temporal coverage{% endtrans %}">
                     <span class="glyphicon glyphicon-calendar"></span>
                 </a>
@@ -28,7 +30,7 @@
             {# Periodicity #}
             {% if dataset.periodicity %}
             <li>
-                <a href class="btn btn-xs" rel="tooltip" data-placement="left"
+                <a href class="btn btn-xs" rel="tooltip" data-placement="top"
                     title="{% trans %}Periodicity{% endtrans %}">
                     <span class="glyphicon glyphicon-time"></span>
                 </a>
@@ -39,7 +41,7 @@
             {# Territorial coverage #}
             {% if dataset.territorial_coverage.name %}
             <li>
-                <a href class="btn btn-xs btn-default" rel="tooltip" data-placement="left"
+                <a href class="btn btn-xs btn-default" rel="tooltip" data-placement="top"
                     title="{% trans %}Territorial coverage{% endtrans %}">
                     <span class="glyphicon glyphicon-globe"></span>
                 </a>
@@ -50,7 +52,7 @@
 
             {% if dataset.territorial_coverage.granularity %}
             <li>
-                <a href class="btn btn-xs btn-default" rel="tooltip" data-placement="left"
+                <a href class="btn btn-xs btn-default" rel="tooltip" data-placement="top"
                     title="{% trans %}Territorial coverage granularity{% endtrans %}">
                     <span class="glyphicon glyphicon-screenshot"></span>
                 </a>

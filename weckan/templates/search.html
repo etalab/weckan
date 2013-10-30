@@ -14,7 +14,7 @@
     {% endif %}
 
     {% if organizations.results %}
-    <h2>
+    <h2 class="result-type">
         {% trans %}Organizations{% endtrans %}
         {% if organizations.total <= organizations.results|length %}
         <small>
@@ -30,7 +30,7 @@
 
         {% if organizations.total > organizations.results|length %}
         <p class="text-center">
-            <a class="btn btn-default" href="{{ url(lang, 'organization') }}?{{ query_string }}">
+            <a class="btn btn-grey btn-sm" href="{{ url(lang, 'organization') }}?{{ query_string }}">
                 <span class="glyphicon glyphicon-list"></span>
                 {% trans total=organizations.total %}See the {{ total }} results{% endtrans %}
             </a>
@@ -39,7 +39,7 @@
     {% endif %}
 
     {% if datasets.results %}
-    <h2>
+    <h2 class="result-type">
         {% trans %}Datasets{% endtrans %}
         {% if datasets.total <= datasets.results|length %}
         <small>
@@ -55,7 +55,7 @@
 
         {% if datasets.total > datasets.results|length %}
         <p class="text-center">
-            <a class="btn btn-default"  href="{{ url(lang, 'dataset') }}?{{ query_string }}&page=2">
+            <a class="btn btn-grey btn-sm"  href="{{ url(lang, 'dataset') }}?{{ query_string }}&page=2">
             <span class="glyphicon glyphicon-list"></span>
             {% trans total=datasets.total %}See the {{ total }} results{% endtrans %}
             </a>
@@ -64,7 +64,7 @@
     {% endif %}
 
     {% if topics.results %}
-    <h2>{% trans %}Topics{% endtrans %}</h2>
+    <h2 class="result-type">{% trans %}Topics{% endtrans %}</h2>
     <ul class="search-results">
         {% for topic in topics.results %}
         <li class="search-result topic-result">
@@ -79,7 +79,7 @@
     </ul>
         {% if topics.more %}
         <p class="text-center">
-            <a class="btn btn-default" href="{{ WIKI_URL }}?search={{search_query}}">
+            <a class="btn btn-grey btn-sm" href="{{ WIKI_URL }}?search={{search_query}}">
             <span class="glyphicon glyphicon-list"></span>
             {% trans %}See all the results{% endtrans %}
             </a>
@@ -88,7 +88,7 @@
     {% endif %}
 
     {% if questions.results %}
-    <h2>{% trans %}Questions{% endtrans %}</h2>
+    <h2 class="result-type">{% trans %}Questions{% endtrans %}</h2>
     <ul class="search-results">
         {% for question in questions.results %}
         <li class="search-result question-result">
@@ -103,7 +103,7 @@
     </ul>
         {% if questions.total > questions.results|length %}
         <p class="text-center">
-            <a class="btn btn-default" href="{{ QUESTIONS_URL }}/questions/query:{{search_query}}/">
+            <a class="btn btn-grey btn-sm" href="{{ QUESTIONS_URL }}/questions/query:{{search_query}}/">
             <span class="glyphicon glyphicon-list"></span>
             {% trans total=questions.total %}See the {{ total }} results{% endtrans %}
             </a>
