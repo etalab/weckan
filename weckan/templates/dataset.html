@@ -29,20 +29,27 @@
                     {% endif %}
                 </h1>
 
-                {% if dataset.author %}
                 <div class="row">
-                    <p class="col-md-6">
+                    <p class="col-md-12">
                         <small>
-                            Publié le 25 octobre 2013 par
                             {% if dataset.author_email %}
-                            <a href="mailto:{{ dataset.author_email }}" title="{{ dataset.author }}">{{ dataset.author }}</a>
+                            {% trans
+                                date=publication_date|date(format='long', locale=lang),
+                                author=dataset.author,
+                                email=dataset.author_email
+                            %}Published on {{date}} by <a href="mailto:{{email}}" title="{{author}}">{{author}}</a>{% endtrans %}
+                            {% elif dataset.author %}
+                            {% trans
+                                date=publication_date|date(format='long', locale=lang),
+                                author=dataset.author
+                            %}Published on {{date}} by {{ author }}{% endtrans %}
                             {% else %}
-                            {{ dataset.author}}
+                            {% trans date=publication_date|date(format='long', locale=lang)
+                            %}Published on {{date}}{% endtrans %}
                             {% endif %}
                         </small>
                     </p>
                 </div>
-                {% endif %}
             </div>
 
             {% if dataset.supplier %}

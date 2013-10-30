@@ -416,13 +416,16 @@ def home(request):
 def display_dataset(request):
     dataset_name = request.urlvars.get('name')
 
-    dataset_and_organization = meta.Session.query(Package, Group)\
-        .outerjoin(Group, Group.id == Package.owner_org)\
-        .filter(Package.name == dataset_name)\
-        .first()
-    if dataset_and_organization is None:
+    query = meta.Session.query(Package, Group, func.min(Activity.timestamp))
+    query = query.outerjoin(Group, Group.id == Package.owner_org)
+    query = query.filter(Package.name == dataset_name)
+    query = query.filter(Activity.object_id == Package.id)
+    query = query.group_by(Package, Group)
+
+    if not query.count():
         return wsgihelpers.not_found(contexts.Ctx(request))
-    dataset, organization = dataset_and_organization
+
+    dataset, organization, timestamp = query.first()
 
     territorial_coverage = {
         'name': dataset.extras.get('territorial_coverage', None),
@@ -455,6 +458,7 @@ def display_dataset(request):
 
     return templates.render_site('dataset.html', request,
         dataset = dataset,
+        publication_date = timestamp,
         organization = organization,
         supplier = supplier,
         territorial_coverage = territorial_coverage,
