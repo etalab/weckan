@@ -313,14 +313,14 @@
                     {% for related in dataset.related %}
                     <div class="col-sm-6 col-md-4">
                         <div class="thumbnail">
-                            <a href="{{ related.url|format(**territory) }}" target="_blank">
-                                <img class="media-object img-responsive" alt="{{ related.title|format(**territory) }}"
+                            <a href="{{ related.url.format(**territory) }}" target="_blank">
+                                <img class="media-object img-responsive" alt="{{ related.title.format(**territory) }}"
                                     src="{{ related.image_url or static('/base/images/placeholder-image.png') }}">
                             </a>
                             <div class="caption">
                                 <h4>
-                                    <a href="{{ related.url|format(**territory) }}" target="_blank">
-                                    {{ related.title|format(**territory) }}
+                                    <a href="{{ related.url.format(**territory) }}" target="_blank">
+                                    {{ related.title.format(**territory) }}
                                     </a>
                                 </h4>
                                 {% if related.description %}
