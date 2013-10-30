@@ -223,7 +223,7 @@
             <div class="card">
                 <h3>{% trans %}Performance{% endtrans %}</h3>
 
-                {% if quality %}
+                {% if quality.weight %}
                 <a href="{{ quality.url }}" title="{{ _('Go to the report page')}}">
                     <span class="big_number" title="{{ _('score') }}" rel="tooltip">{{ quality.weight|round(2) }}</span>
                 </a>
