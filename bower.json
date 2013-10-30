@@ -12,8 +12,7 @@
     "tests"
   ],
   "dependencies": {
-    "etalab-assets": "*",
-    "jquery.equalheights": "~1.5.0"
+    "etalab-assets": "0.2.0"
   },
   "resolutions": {
     "jquery": "~2.0.3"
