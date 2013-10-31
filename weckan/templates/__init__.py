@@ -116,6 +116,12 @@ def swig(value):
     return ''.join(['{{', value, '}}'])
 
 
+def user_by_id(user_id):
+    '''Get a user from its id'''
+    from weckan.model import User
+    return User.get(user_id)
+
+
 def get_webassets_env(conf):
     '''Get a preconfigured WebAssets environment'''
     # Configure webassets
@@ -164,6 +170,7 @@ def get_jinja_env():
         env.globals['gravatar'] = gravatar
         env.globals['markdown'] = markdown
         env.globals['markdown_extract'] = markdown_extract
+        env.globals['user_by_id'] = user_by_id
 
         # Custom filters
         env.filters['datetime'] = format_datetime

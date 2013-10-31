@@ -304,6 +304,7 @@
 <section class="community_container">
     <div class="page-header">
         <div class="container">
+            <div class="cover-communaute"></div>
             <h2>{% trans %}Explore with Datagouv{% endtrans %}</h2>
             <small>{% trans %}Community contributions{% endtrans %}</small>
             <a class="btn btn-primary btn-punch publish-reuse"
@@ -324,9 +325,10 @@
                 {% if dataset.related %}
                 <div class="row">
                     {% for related in dataset.related %}
+                    {% set owner = user_by_id(related.owner_id) %}
                     <div class="col-sm-6 col-md-4">
-                        <div class="thumbnail">
-                            <a href="{{ related.url.format(**territory) }}" target="_blank">
+                        <div class="thumbnail reuse">
+                            <a class="preview" href="{{ related.url.format(**territory) }}" target="_blank">
                                 <img class="media-object img-responsive" alt="{{ related.title.format(**territory) }}"
                                     src="{{ related.image_url or static('/base/images/placeholder-image.png') }}">
                             </a>
@@ -336,9 +338,11 @@
                                     {{ related.title.format(**territory) }}
                                     </a>
                                 </h4>
-                                {% if related.description %}
-                                <div>{{ markdown(related.description) }}</div>
-                                {% endif %}
+                                <div class="author">
+                                    {{ gravatar(owner.email_hash, 25) }}
+                                    <span class="user">{{ owner.display_name }}</span>
+                                    <span class="date">{{ related.created|date(format='long', locale=lang) }}</span>
+                                </div>
                             </div>
                         </div>
                     </div>
