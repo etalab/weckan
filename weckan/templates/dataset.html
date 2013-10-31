@@ -256,10 +256,23 @@
                     <li class="quality-report">
                     {% if quality %}
                         <a href="{{ quality.url }}" title="{{ _("Go to the report page") }}">
-                            <span class="label label-warning" title="{{_("warnings")}}"
-                                rel="tooltip">{{ quality.warning|default(0) }}</span>
-                            <span class="label label-danger" title="{{ _("errors") }}"
-                                rel="tooltip">{{ quality.error|default(0) }}</span>
+                            <div class="row">
+                                <div class="col-md-3 col-sm-3">
+                                    <span class="medium_number warning" title="{{_("warnings")}}" rel="tooltip">
+                                        {{ quality.warning|default(0) }}<label>{{_("Warnings")}}</label>
+                                    </span>
+                                </div>
+                                <div class="col-md-3 col-sm-3">
+                                    <span class="medium_number error" title="{{ _("errors") }}" rel="tooltip">
+                                        {{ quality.error|default(0) }}<label>{{_("Errors")}}</label>
+                                    </span>
+                                 </div>
+                                 <div class="col-md-3 col-sm-3">
+                                    <span class="medium_number critical" title="{{_("criticals")}}" rel="tooltip">
+                                        {{ quality.criticals|default(0) }}<label>{{_("Criticals")}}</label>
+                                    </span>
+                                </div>
+                            </div>
                         </a>
                     {% else %}
                     {% trans %}No report available{% endtrans %}
