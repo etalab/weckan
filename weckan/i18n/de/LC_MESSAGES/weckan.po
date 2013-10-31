@@ -5,13 +5,14 @@
 # Translators:
 # noirbizarre, 2013
 # schwefel, 2013
+# schwefel, 2013
 msgid ""
 msgstr ""
 "Project-Id-Version: weckan\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
 "POT-Creation-Date: 2013-10-30 14:45+0100\n"
-"PO-Revision-Date: 2013-10-30 13:45+0000\n"
-"Last-Translator: noirbizarre\n"
+"PO-Revision-Date: 2013-10-30 18:17+0000\n"
+"Last-Translator: schwefel\n"
 "Language-Team: German (http://www.transifex.com/projects/p/weckan/language/de/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -79,7 +80,7 @@ msgstr "Weiterleitung läuft..."
 #. TRANSLATORS: Short date format with full year (4-digits)
 #: weckan/templates/__init__.py:92
 msgid "MM-dd-yyyy"
-msgstr ""
+msgstr "MM-dd-jjjj"
 
 #: weckan/templates/dataset.html:26
 msgid "Edit"
@@ -90,17 +91,17 @@ msgstr "Bearbeiten"
 msgid ""
 "Published on %(date)s by <a href=\"mailto:%(email)s\" "
 "title=\"%(author)s\">%(author)s</a>"
-msgstr ""
+msgstr "Veröffentlicht am %(date)s von <a href=\"mailto:%(email)s\" title=\"%(author)s\">%(author)s</a>"
 
 #: weckan/templates/dataset.html:42
 #, python-format
 msgid "Published on %(date)s by %(author)s"
-msgstr ""
+msgstr "Veröffentlicht am %(date)s von %(author)s"
 
 #: weckan/templates/dataset.html:47
 #, python-format
 msgid "Published on %(date)s"
-msgstr ""
+msgstr "Veröffentlicht am %(date)s"
 
 #: weckan/templates/dataset.html:57
 msgid "Provided by"
@@ -108,11 +109,11 @@ msgstr "Bereitgestellt von"
 
 #: weckan/templates/dataset.html:70
 msgid "See the original website"
-msgstr ""
+msgstr "ursprüngliche Webseite ansehen"
 
 #: weckan/templates/dataset.html:81
 msgid "Resources"
-msgstr ""
+msgstr "Quellen"
 
 #: weckan/templates/dataset.html:94
 msgid "Nameless resource"
@@ -120,7 +121,7 @@ msgstr "Namenlose Quelle"
 
 #: weckan/templates/dataset.html:115
 msgid "Producer"
-msgstr ""
+msgstr "Ersteller"
 
 #: weckan/templates/dataset.html:119
 msgid "Certified public service"
@@ -136,7 +137,7 @@ msgstr "mehr"
 
 #: weckan/templates/dataset.html:136 weckan/templates/dataset.html:139
 msgid "Follow"
-msgstr ""
+msgstr "Folge"
 
 #: weckan/templates/dataset.html:147
 msgid "Informations"
@@ -174,7 +175,7 @@ msgstr "Detailgenauigkeit der regionalen Abdeckung"
 
 #: weckan/templates/dataset.html:224
 msgid "Performance"
-msgstr ""
+msgstr "Leistung"
 
 #: weckan/templates/dataset.html:227 weckan/templates/dataset.html:258
 msgid "Go to the report page"
@@ -186,11 +187,11 @@ msgstr "Score"
 
 #: weckan/templates/dataset.html:235 weckan/templates/dataset.html:238
 msgid "Usefull"
-msgstr ""
+msgstr "Nützlich"
 
 #: weckan/templates/dataset.html:243
 msgid "Report"
-msgstr ""
+msgstr "Bericht"
 
 #: weckan/templates/dataset.html:259
 msgid "warnings"
@@ -202,32 +203,32 @@ msgstr "Fehler"
 
 #: weckan/templates/dataset.html:265
 msgid "No report available"
-msgstr ""
+msgstr "Kein Bericht verfügbar"
 
 #: weckan/templates/dataset.html:271
 msgid "Improve quality"
-msgstr ""
+msgstr "Qualität Verbessern"
 
 #: weckan/templates/dataset.html:274
 msgid "Improve"
-msgstr ""
+msgstr "Verbessern"
 
 #: weckan/templates/dataset.html:277 weckan/templates/dataset.html:282
 #: weckan/templates/dataset.html:356 weckan/templates/dataset.html:367
 msgid "Fork"
-msgstr ""
+msgstr "Fork"
 
 #: weckan/templates/dataset.html:280
 msgid "Duplicate this dataset and improve it !"
-msgstr ""
+msgstr "Diesen Datensatz verdoppeln und verbessern!"
 
 #: weckan/templates/dataset.html:294
 msgid "Explore with Datagouv"
-msgstr ""
+msgstr "Mit Datagouv untersuchen"
 
 #: weckan/templates/dataset.html:295
 msgid "Community contributions"
-msgstr ""
+msgstr "Öffentliche Beiträge"
 
 #: weckan/templates/dataset.html:299
 msgid "Publish a reuse case !"
@@ -238,22 +239,22 @@ msgid ""
 "You reused these data and published an article, a computer graphics, or an application?\n"
 "                It's time to let you know!\n"
 "                Reference your work in just a few clicks and increase your visibility."
-msgstr ""
+msgstr "Du hast diese Daten genutzt und einen Artikel, eine Computergrfaik oder eine Anwendung veröffentlicht?\nlass es uns wissen!\nReferenziere deine Arbeit mit nur ein paar Klicks und steigere deine Nutzerzahlen."
 
 #: weckan/templates/dataset.html:359
 msgid ""
 "You are about to make a copy of this dataset.\n"
 "                You'll become the owner and you will have the ability to edit it and improve it.\n"
 "                The original dataset will keep a reference of your work."
-msgstr ""
+msgstr "Sie erstellen eine Kopie des Datensatzes.\nSie sind dann Eigentümer der neuen Datei und können sie bearbeiten und verbessern.\nDer ursprüngliche Datensatz enthält einen Verweis auf ihre Version. "
 
 #: weckan/templates/dataset.html:362
 msgid "Continue?"
-msgstr ""
+msgstr "Weiter?"
 
 #: weckan/templates/dataset.html:371
 msgid "Cancel"
-msgstr ""
+msgstr "Abbrechen"
 
 #: weckan/templates/home.html:5
 msgid "Home"
@@ -261,15 +262,15 @@ msgstr "Startseite"
 
 #: weckan/templates/home.html:17
 msgid "News"
-msgstr ""
+msgstr "Nachrichten"
 
 #: weckan/templates/home.html:26
 msgid "Discussion topic"
-msgstr ""
+msgstr "Diskussionsthema"
 
 #: weckan/templates/home.html:43
 msgid "Best reuse cases"
-msgstr ""
+msgstr "Beste Wiederverwendungsmöglichkeiten"
 
 #: weckan/templates/home.html:63
 msgid "Citizens"
@@ -285,11 +286,11 @@ msgstr "Unternehmen"
 
 #: weckan/templates/home.html:126
 msgid "Latest"
-msgstr ""
+msgstr "Neueste"
 
 #: weckan/templates/home.html:127
 msgid "Most popular"
-msgstr ""
+msgstr "Beliebteste"
 
 #: weckan/templates/navbar.html:12
 msgid "Open platform for french public data"
@@ -428,7 +429,7 @@ msgstr "Datensatz veröffentlichen !"
 
 #: weckan/templates/subnav.html:51
 msgid "Share, improve and valorize <br/> the public data "
-msgstr ""
+msgstr "Teile öffentliche Daten, verbessere sie und<br/> mache sie wertvoller"
 
 #: weckan/templates/macros/paginator.html:8
 msgid "First page"
