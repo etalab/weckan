@@ -41,7 +41,7 @@ from ckanext.etalab.model import CertifiedPublicService
 from sqlalchemy.sql import func, desc, or_, null
 
 from . import templates, urls, wsgihelpers, conf, contexts, auth
-from .model import Activity, meta, Package, RelatedDataset, Group, GroupRevision, Member, Role, PackageRole
+from .model import Activity, meta, Package, RelatedDataset, Group, GroupRevision, Member, Role, PackageRole, UserFollowingDataset
 
 
 log = logging.getLogger(__name__)
@@ -461,6 +461,7 @@ def display_dataset(request):
         publication_date = timestamp,
         organization = organization,
         supplier = supplier,
+        nb_followers = UserFollowingDataset.follower_count(dataset.id),
         territorial_coverage = territorial_coverage,
         temporal_coverage = temporal_coverage,
         periodicity = periodicity,

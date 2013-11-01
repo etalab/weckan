@@ -233,9 +233,10 @@
                 <div class="row">
                     <div class="col-md-10 col-sm-12">
                         <a title="{{ _('Usefull') }}" class="btn btn-success btn-sm btn-block icon-left"
+                            href="{{ url(lang, 'dataset/follow', dataset.name) }}"
                             rel="tooltip" data-placement="top" data-trigger="hover" data-container="body">
                             <span class="glyphicon glyphicon-star"></span>
-                            {{ _('Usefull') }} <span class="counter"></span>
+                            {{ _('Usefull') }} <span class="counter">({{nb_followers}})</span>
                         </a>
 
                     </div>
