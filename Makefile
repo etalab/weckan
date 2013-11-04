@@ -20,7 +20,7 @@ dist:
 	@python setup.py compile_catalog build_assets sdist
 
 update:
-	rm -fr weckan/static/bower/etalab-assets && bower install
+	bower install
 	@python setup.py compile_catalog build_assets
 
 assets:
