@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: weckan\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2013-11-04 15:58+0100\n"
-"PO-Revision-Date: 2013-11-04 15:00+0000\n"
+"POT-Creation-Date: 2013-11-04 16:22+0100\n"
+"PO-Revision-Date: 2013-11-04 15:23+0000\n"
 "Last-Translator: noirbizarre\n"
 "Language-Team: French (http://www.transifex.com/projects/p/weckan/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -260,8 +260,12 @@ msgid "Community contributions"
 msgstr "Contributions de la communauté"
 
 #: weckan/templates/dataset.html:331
-msgid "Publish a reuse case !"
-msgstr "Publiez une réutilisation !"
+msgid "Publish a valorization !"
+msgstr "Publiez une valorisation !"
+
+#: weckan/templates/dataset.html:339
+msgid "Valorizations"
+msgstr "Valorisations"
 
 #: weckan/templates/dataset.html:374
 msgid ""
@@ -314,12 +318,12 @@ msgid "Businesses"
 msgstr "Entreprises"
 
 #: weckan/templates/home.html:126
-msgid "Latest"
-msgstr "Les plus récentes"
-
-#: weckan/templates/home.html:127
 msgid "Most popular"
 msgstr "Les plus populaires"
+
+#: weckan/templates/home.html:127
+msgid "Latest"
+msgstr "Les plus récentes"
 
 #: weckan/templates/navbar.html:12
 msgid "Open platform for french public data"

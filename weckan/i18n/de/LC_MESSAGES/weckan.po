@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version:  weckan\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2013-11-04 15:58+0100\n"
+"POT-Creation-Date: 2013-11-04 16:22+0100\n"
 "PO-Revision-Date: 2013-10-30 18:17+0000\n"
 "Last-Translator: schwefel\n"
 "Language-Team: German "
@@ -138,7 +138,6 @@ msgstr "mehr"
 
 #: weckan/templates/dataset.html:138 weckan/templates/dataset.html:141
 #, fuzzy
-#| msgid "Follow"
 msgid "Unfollow"
 msgstr "Folge"
 
@@ -202,7 +201,6 @@ msgstr ""
 
 #: weckan/templates/dataset.html:256
 #, fuzzy
-#| msgid "Usefull"
 msgid "Useful"
 msgstr "Nützlich"
 
@@ -216,7 +214,6 @@ msgstr "Warnmeldungen"
 
 #: weckan/templates/dataset.html:280
 #, fuzzy
-#| msgid "warnings"
 msgid "Warnings"
 msgstr "Warnmeldungen"
 
@@ -226,7 +223,6 @@ msgstr "Fehler"
 
 #: weckan/templates/dataset.html:285
 #, fuzzy
-#| msgid "errors"
 msgid "Errors"
 msgstr "Fehler"
 
@@ -268,8 +264,16 @@ msgid "Community contributions"
 msgstr "Öffentliche Beiträge"
 
 #: weckan/templates/dataset.html:331
-msgid "Publish a reuse case !"
-msgstr "Wiederverwendung veröffentlichen!"
+#, fuzzy
+#| msgid "Publish a dataset !"
+msgid "Publish a valorization !"
+msgstr "Datensatz veröffentlichen !"
+
+#: weckan/templates/dataset.html:339
+#, fuzzy
+#| msgid "Organizations"
+msgid "Valorizations"
+msgstr "Organisationen"
 
 #: weckan/templates/dataset.html:374
 msgid ""
@@ -334,12 +338,12 @@ msgid "Businesses"
 msgstr "Unternehmen"
 
 #: weckan/templates/home.html:126
-msgid "Latest"
-msgstr "Neueste"
-
-#: weckan/templates/home.html:127
 msgid "Most popular"
 msgstr "Beliebteste"
+
+#: weckan/templates/home.html:127
+msgid "Latest"
+msgstr "Neueste"
 
 #: weckan/templates/navbar.html:12
 msgid "Open platform for french public data"
@@ -499,6 +503,6 @@ msgid_plural "%(nb_datasets)s datasets"
 msgstr[0] "%(nb_datasets)s Datensatz"
 msgstr[1] "%(nb_datasets)s Datensätze"
 
-#~ msgid "Advanced mode"
-#~ msgstr "Fortgeschrittener Modus"
+#~ msgid "Publish a reuse case !"
+#~ msgstr "Wiederverwendung veröffentlichen!"
 

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Weckan 0.2.0.dev\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2013-11-04 15:58+0100\n"
+"POT-Creation-Date: 2013-11-04 16:22+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -255,7 +255,11 @@ msgid "Community contributions"
 msgstr ""
 
 #: weckan/templates/dataset.html:331
-msgid "Publish a reuse case !"
+msgid "Publish a valorization !"
+msgstr ""
+
+#: weckan/templates/dataset.html:339
+msgid "Valorizations"
 msgstr ""
 
 #: weckan/templates/dataset.html:374
@@ -312,11 +316,11 @@ msgid "Businesses"
 msgstr ""
 
 #: weckan/templates/home.html:126
-msgid "Latest"
+msgid "Most popular"
 msgstr ""
 
 #: weckan/templates/home.html:127
-msgid "Most popular"
+msgid "Latest"
 msgstr ""
 
 #: weckan/templates/navbar.html:12
