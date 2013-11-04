@@ -16,7 +16,6 @@ i18n:
 	@python setup.py update_catalog
 
 dist:
-	rm -fr weckan/static/.webassets-cache
 	@python setup.py clean
 	@python setup.py compile_catalog build_assets sdist
 
