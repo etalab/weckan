@@ -133,11 +133,21 @@
                     {% else %}
                     <br/>
                     {% endif %}
-                    <a href="{{ url(lang, 'group/follow', organization.id) }}" title="{% trans %}Follow{% endtrans %}"
-                        class="btn btn-primary btn-block btn-sm icon-left">
-                        <span class="glyphicon glyphicon-eye-open"></span>
-                        {% trans %}Follow{% endtrans %}
-                    </a>
+                    {% if is_following_org %}
+                        <a href="{{ url(lang, 'group/unfollow', organization.id) }}"
+                            title="{% trans %}Unfollow{% endtrans %}"
+                            class="btn btn-primary btn-block btn-sm icon-left">
+                            <span class="glyphicon glyphicon-eye-close"></span>
+                            {% trans %}Unfollow{% endtrans %}
+                        </a>
+                    {% else %}
+                        <a href="{{ url(lang, 'group/follow', organization.id) }}"
+                            title="{% trans %}Follow{% endtrans %}"
+                            class="btn btn-primary btn-block btn-sm icon-left">
+                            <span class="glyphicon glyphicon-eye-open"></span>
+                            {% trans %}Follow{% endtrans %}
+                        </a>
+                    {% endif %}
                 </div>
             </div>
             {% endif %}

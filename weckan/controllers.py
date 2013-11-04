@@ -41,7 +41,8 @@ from ckanext.etalab.model import CertifiedPublicService
 from sqlalchemy.sql import func, desc, or_, null
 
 from . import templates, urls, wsgihelpers, conf, contexts, auth
-from .model import Activity, meta, Package, RelatedDataset, Group, GroupRevision, Member, Role, PackageRole, UserFollowingDataset
+from .model import Activity, meta, Package, RelatedDataset, Group, GroupRevision, Member
+from .model import Role, PackageRole, UserFollowingDataset, UserFollowingGroup
 
 
 log = logging.getLogger(__name__)
@@ -459,19 +460,20 @@ def display_dataset(request):
     supplier = meta.Session.query(Group).filter(Group.id == supplier_id).first() if supplier_id else None
 
     return templates.render_site('dataset.html', request,
-        dataset = dataset,
-        publication_date = timestamp,
-        organization = organization,
-        supplier = supplier,
-        nb_followers = UserFollowingDataset.follower_count(dataset.id),
-        is_following = UserFollowingDataset.is_following(user.id, dataset.id) if user else False,
-        territorial_coverage = territorial_coverage,
-        temporal_coverage = temporal_coverage,
-        periodicity = periodicity,
-        groups = dataset.get_groups('group'),
-        can_edit = can_edit(auth.get_user_from_request(request), dataset),
-        quality = get_dataset_quality(dataset.name),
-        territory = {
+        dataset=dataset,
+        publication_date=timestamp,
+        organization=organization,
+        is_following_org=UserFollowingGroup.is_following(user.id, organization.id) if organization and user else False,
+        supplier=supplier,
+        nb_followers=UserFollowingDataset.follower_count(dataset.id),
+        is_following=UserFollowingDataset.is_following(user.id, dataset.id) if user else False,
+        territorial_coverage=territorial_coverage,
+        temporal_coverage=temporal_coverage,
+        periodicity=periodicity,
+        groups=dataset.get_groups('group'),
+        can_edit=can_edit(auth.get_user_from_request(request), dataset),
+        quality=get_dataset_quality(dataset.name),
+        territory={
             'full_name': territory.get('full_name', ''),
             'full_name_slug': strings.slugify(territory.get('full_name', '')),
             'depcom': territory.get('code', '')
