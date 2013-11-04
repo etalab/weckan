@@ -222,7 +222,8 @@
 
                 <div class="tags">
                     {% for package_tag in dataset.package_tag_all %}
-                    <a href="{{ url(lang, 'dataset', tags=package_tag.tag.name) }}" class="btn btn-primary btn-xs"
+                    <a href="{{ url(lang, 'dataset', tags=package_tag.tag.name) }}"
+                        class="btn btn-primary btn-grey btn-xs"
                         title="{{ package_tag.tag.name }}">
                         {{ package_tag.tag.name|truncate(14, True) }}
                     </a>
