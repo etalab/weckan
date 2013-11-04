@@ -66,6 +66,8 @@ SEARCH_PAGE_SIZE = 20
 SEARCH_TIMEOUT = 2
 POST_TIMEOUT = 3
 
+NB_DATASETS = 9
+
 
 def get_dataset_and_org_query():
     ''' Query dataset with their organization'''
@@ -408,8 +410,8 @@ def fork(dataset, user):
 @wsgihelpers.wsgify
 def home(request):
     return templates.render_site('home.html', request,
-        last_datasets = last_datasets(),
-        popular_datasets = popular_datasets()
+        last_datasets = last_datasets(NB_DATASETS),
+        popular_datasets = popular_datasets(NB_DATASETS)
     )
 
 
