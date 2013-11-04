@@ -132,8 +132,6 @@ def tooltip_ellipsis(source, length=0):
         return source  # Fail silently.
     ellipsis = '<a href rel="tooltip" data-container="body" title="{0}">...</a>'.format(source)
     return (source[:length] + ellipsis) if len(source) > length and length > 0 else source
-    # truncated = Truncator(source).chars(length + 2, truncate='{...}')
-    # return mark_safe(truncated.replace('{...}', ellipsis))
 
 
 def get_webassets_env(conf):
