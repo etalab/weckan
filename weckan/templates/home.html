@@ -123,8 +123,8 @@
     <div class="row">
         <div class="col-xs-12">
             <ul id="tabs" class="nav nav-pills" data-tabs="tabs">
-                <li class="active"><a href="#recent" data-toggle="tab">{{ _('Latest')}}</a></li>
-                <li><a href="#popular" data-toggle="tab">{{ _('Most popular') }}</a></li>
+                <li class="active"><a href="#popular" data-toggle="tab">{{ _('Most popular') }}</a></li>
+                <li><a href="#recent" data-toggle="tab">{{ _('Latest')}}</a></li>
             </ul>
         </div>
     </div>
@@ -133,7 +133,7 @@
     <div class="row">
         <div class="tab-content">
 
-            {% for dataset_id, datasets in (('recent', last_datasets), ('popular', popular_datasets))  %}
+            {% for dataset_id, datasets in (('popular', popular_datasets), ('recent', last_datasets))  %}
             <div class="tab-pane {% if loop.first %}active{% endif %}" id="{{dataset_id}}">
                 <ul class="search-results">
 
