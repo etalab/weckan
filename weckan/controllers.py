@@ -414,6 +414,8 @@ def home(request):
 
 @wsgihelpers.wsgify
 def display_dataset(request):
+    user = auth.get_user_from_request(request)
+
     dataset_name = request.urlvars.get('name')
 
     query = meta.Session.query(Package, Group, func.min(Activity.timestamp))
@@ -462,6 +464,7 @@ def display_dataset(request):
         organization = organization,
         supplier = supplier,
         nb_followers = UserFollowingDataset.follower_count(dataset.id),
+        is_following = UserFollowingDataset.is_following(user.id, dataset.id) if user else False,
         territorial_coverage = territorial_coverage,
         temporal_coverage = temporal_coverage,
         periodicity = periodicity,

@@ -232,11 +232,18 @@
 
                 <div class="row">
                     <div class="col-md-10 col-sm-12">
-                        <a title="{{ _('Usefull') }}" class="btn btn-success btn-sm btn-block icon-left"
+                        {% if is_following %}
+                        <a title="{{ _('Unmark this dataset as useful') }}" class="btn btn-success btn-sm btn-block icon-left"
+                            href="{{ url(lang, 'dataset/unfollow', dataset.name) }}"
+                            rel="tooltip" data-placement="top" data-trigger="hover" data-container="body">
+                            <span class="glyphicon glyphicon-star starred"></span>
+                        {% else %}
+                        <a title="{{ _('Mark this dataset as useful') }}" class="btn btn-success btn-sm btn-block icon-left"
                             href="{{ url(lang, 'dataset/follow', dataset.name) }}"
                             rel="tooltip" data-placement="top" data-trigger="hover" data-container="body">
                             <span class="glyphicon glyphicon-star"></span>
-                            {{ _('Usefull') }} <span class="counter">({{nb_followers}})</span>
+                        {% endif %}
+                            {{ _('Useful') }} <span class="counter">({{nb_followers}})</span>
                         </a>
 
                     </div>
