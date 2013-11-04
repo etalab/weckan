@@ -135,18 +135,18 @@
 
             {% for dataset_id, datasets in (('popular', popular_datasets), ('recent', last_datasets))  %}
             <div class="tab-pane {% if loop.first %}active{% endif %}" id="{{dataset_id}}">
-                <ul class="search-results">
+                <ul class="card-list">
 
                     {% for dataset in datasets %}
                     <div class="col-md-4 col-sm-8">
-                        <li class="search-result dataset-result">
+                        <li class="card dataset-result">
                             {% if dataset.organization %}
-                            <a class="result-logo pull-left" href="">
+                            <a class="card-logo" href="">
                                 <img alt="{{ dataset.organization.title }}"
                                     src="{{ dataset.organization.image_url or static('/base/images/placeholder-organization.png') }}">
                             </a>
                             {% endif %}
-                            <div class="result-body">
+                            <div class="card-body">
                                 <h4>
                                     <a href="{{ url(lang, 'dataset', dataset.name) }}" title="{{dataset.display_name}}">
                                         {{ dataset.display_name }}
@@ -154,7 +154,7 @@
                                 </h4>
                                 {{ markdown_extract(dataset.notes, 180) }}
 
-                                <ul class="list-inline result-infos">
+                                <ul class="card-footer">
                                     {# Temporal coverage #}
                                     {% if dataset.temporal_coverage.from and dataset.temporal_coverage.to %}
                                     <li>
@@ -189,8 +189,8 @@
                                             title="{% trans %}Territorial coverage{% endtrans %}">
                                             <span class="glyphicon glyphicon-globe"></span>
                                         </a>
-                                        {% set ellipsis = '<a href title="{0}">...</a>'.format(dataset.territorial_coverage.name) %}
-                                        {{ dataset.territorial_coverage.name|truncate(15, True, ellipsis) }}
+                                        {# {% set ellipsis = '<a href title="{0}">...</a>'.format(dataset.territorial_coverage.name) %} #}
+                                        {{ dataset.territorial_coverage.name|tooltip_ellipsis(15) }}
                                     </li>
                                     {% endif %}
 
@@ -205,7 +205,7 @@
                                     </li>
                                     {% endif %}
                                 </ul>
-                                <div class="result-text-mask"></div>
+                                <div class="card-text-mask"></div>
                             </div>
                         </li>
                     </div>

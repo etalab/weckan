@@ -122,6 +122,20 @@ def user_by_id(user_id):
     return User.get(user_id)
 
 
+def tooltip_ellipsis(source, length=0):
+    ''' return the plain text representation of markdown encoded text.  That
+    is the texted without any html tags.  If ``length`` is 0 then it
+    will not be truncated.'''
+    try:
+        length = int(length)
+    except ValueError:  # invalid literal for int()
+        return source  # Fail silently.
+    ellipsis = '<a href rel="tooltip" data-container="body" title="{0}">...</a>'.format(source)
+    return (source[:length] + ellipsis) if len(source) > length and length > 0 else source
+    # truncated = Truncator(source).chars(length + 2, truncate='{...}')
+    # return mark_safe(truncated.replace('{...}', ellipsis))
+
+
 def get_webassets_env(conf):
     '''Get a preconfigured WebAssets environment'''
     # Configure webassets
@@ -176,6 +190,7 @@ def get_jinja_env():
         env.filters['datetime'] = format_datetime
         env.filters['date'] = format_date
         env.filters['swig'] = swig
+        env.filters['tooltip_ellipsis'] = tooltip_ellipsis
 
     return env
 
