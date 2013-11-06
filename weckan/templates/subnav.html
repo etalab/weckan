@@ -37,9 +37,10 @@
         <nav class="sidebar panel">
             <!-- Groups -->
             <div class="list-group">
-                {% for title, icon, link in sidebar_groups %}
-                <a class="list-group-item" href="{{ link or url(lang, 'group', slugify(title)) }}">
-                    {{ title }}
+                {% for topic in main_topics %}
+                <a class="list-group-item" href="{{ topic.url.format(lang=lang) }}">
+                {# link or url(lang, 'group', slugify(title)) }}"> #}
+                    {{ topic.title }}
                 </a>
                 {% endfor %}
             </div>

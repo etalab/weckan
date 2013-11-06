@@ -21,6 +21,7 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 import urllib
+import json
 
 from os.path import join, dirname, abspath
 from pkg_resources import resource_stream
@@ -44,6 +45,8 @@ LANGUAGES = {
 }
 DEFAULT_LANG = 'fr'
 
+DEFAULT_STATIC = abspath(join(dirname(__file__), '..', 'static'))
+
 GRAVATAR_DEFAULTS = ('404', 'mm', 'identicon', 'monsterid', 'wavatar', 'retro')
 
 GROUPS = (
@@ -56,6 +59,8 @@ GROUPS = (
     (u'Société', 'people', None),
     (u'Travail, économie, emploi', 'case', None),
 )
+
+MAIN_TOPICS = None
 
 
 def format_group_url(row):
@@ -137,8 +142,7 @@ def tooltip_ellipsis(source, length=0):
 def get_webassets_env(conf):
     '''Get a preconfigured WebAssets environment'''
     # Configure webassets
-    default_static = abspath(join(dirname(__file__), '..', 'static'))
-    assets_environment = AssetsEnvironment(conf.get('static_files_dir', default_static), '/')
+    assets_environment = AssetsEnvironment(conf.get('static_files_dir', DEFAULT_STATIC), '/')
     assets_environment.debug = conf.get('debug', False)
     assets_environment.auto_build = conf.get('debug', False)
     assets_environment.config['less_paths'] = ('bower/bootstrap/less', 'bower/etalab-assets/less')
@@ -193,6 +197,24 @@ def get_jinja_env():
     return env
 
 
+def format_topic(topic):
+    url = topic['url'].format(
+        group='{0}/{{lang}}/groups'.format(conf['home_url']),
+        wiki=conf['wiki_url']
+    )
+    return {'title': topic['title'], 'url': url}
+
+
+def main_topics():
+    global MAIN_TOPICS
+    if not MAIN_TOPICS:
+        static_root = conf.get('static_files_dir', DEFAULT_STATIC)
+        topics_file = join(static_root, 'bower', 'etalab-assets', 'data', 'main_topics.json')
+        with open(topics_file) as f:
+            MAIN_TOPICS = map(format_topic, json.load(f))
+    return MAIN_TOPICS
+
+
 def render(context, name, **kwargs):
     '''Render a localized template using Jinja'''
     env = get_jinja_env()
@@ -232,7 +254,7 @@ def render_site(name, request_or_context, **kwargs):
         query_string = context.req.query_string,
         user = auth.get_user_from_request(context.req),
         lang = lang,
-        sidebar_groups = map(format_group_url, GROUPS),
+        main_topics = main_topics(),
         DOMAIN = conf['domain'],
         HOME_URL = conf['home_url'],
         WIKI_URL = conf['wiki_url'],

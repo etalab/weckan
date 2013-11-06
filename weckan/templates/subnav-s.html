@@ -39,11 +39,11 @@
                     <span class="glyphicon glyphicon-chevron-down pull-right hidden-sm"></span>
                 </button>
                 <ul class="dropdown-menu" role="menu" aria-labelledby="topics">
-                    {% for title, icon, link in sidebar_groups %}
+                    {% for topic in main_topics %}
                     <li role="presentation">
-                        <a role="menuitem" tabindex="-1" href="{{ link or url(lang, 'group', slugify(title)) }}">
-                            <span class="icon icon-{{icon}}"></span>
-                            {{ title }}
+                        <a role="menuitem" tabindex="-1" href="{{ topic.url.format(lang=lang) }}">
+                        {# link or url(lang, 'group', slugify(title)) }}"> #}
+                            {{ topic.title }}
                         </a>
                     </li>
                     {% endfor %}
