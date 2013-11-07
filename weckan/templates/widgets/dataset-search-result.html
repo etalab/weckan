@@ -45,8 +45,7 @@
                     title="{% trans %}Territorial coverage{% endtrans %}">
                     <span class="glyphicon glyphicon-globe"></span>
                 </a>
-                {% set ellipsis = '<a href title="{0}">...</a>'.format(dataset.territorial_coverage.name) %}
-                {{ dataset.territorial_coverage.name|truncate(15, True, ellipsis) }}
+                {{ dataset.territorial_coverage.name|tooltip_ellipsis(15) }}
             </li>
             {% endif %}
 
