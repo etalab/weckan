@@ -202,8 +202,7 @@
                             title="{% trans %}Territorial coverage{% endtrans %}">
                             <span class="glyphicon glyphicon-globe"></span>
                         </a>
-                        {% set ellipsis = '<a href title="{0}">...</a>'.format(territorial_coverage.name) %}
-                        {{ territorial_coverage.name|truncate(15, True, ellipsis) }}
+                        {{ territorial_coverage.name|tooltip_ellipsis(15) }}
                     </li>
                     {% endif %}
 
