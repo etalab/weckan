@@ -41,8 +41,8 @@ from ckanext.etalab.model import CertifiedPublicService
 from sqlalchemy.sql import func, desc, or_, null
 
 from . import templates, urls, wsgihelpers, conf, contexts, auth
-from .model import Activity, meta, Package, RelatedDataset, Group, GroupRevision, Member
-from .model import Role, PackageRole, UserFollowingDataset, UserFollowingGroup
+from .model import Activity, meta, Package, Related, RelatedDataset, Group, GroupRevision, Member
+from .model import Role, PackageRole, UserFollowingDataset, UserFollowingGroup, User
 
 
 log = logging.getLogger(__name__)
@@ -129,6 +129,13 @@ def popular_datasets(num=8):
     query = query.join(RelatedDataset)
     query = query.group_by(Package, Group).order_by(desc(func.count(RelatedDataset.related_id))).limit(num)
     return build_datasets(query)
+
+
+def featured_reuses(num=8):
+    query = meta.Session.query(Related, User)
+    query = query.join(User, Related.owner_id == User.id)
+    query = query.filter(Related.featured > 0)
+    return query.order_by(desc(Related.created)).limit(num)
 
 
 def search_datasets(query, request, page=1, page_size=SEARCH_PAGE_SIZE):
@@ -411,7 +418,8 @@ def fork(dataset, user):
 def home(request):
     return templates.render_site('home.html', request,
         last_datasets = last_datasets(NB_DATASETS),
-        popular_datasets = popular_datasets(NB_DATASETS)
+        popular_datasets = popular_datasets(NB_DATASETS),
+        featured_reuses = featured_reuses(NB_DATASETS),
     )
 
 
