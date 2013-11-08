@@ -359,8 +359,8 @@
                                     </a>
                                 </h4>
                                 <div class="author">
-                                    {{ gravatar(owner.email_hash, 25) }}
-                                    <span class="user">{{ owner.display_name }}</span>
+                                    <a href="{{ url(lang, 'user', owner.name) }}">{{ gravatar(owner.email_hash, 25) }}</a>
+                                    <a class="user" href="{{ url(lang, 'user', owner.name) }}">{{ owner.display_name }}</a>
                                     <span class="date">{{ related.created|date(format='long', locale=lang) }}</span>
                                 </div>
                             </div>
