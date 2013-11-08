@@ -251,6 +251,7 @@ def render_site(name, request_or_context, **kwargs):
         return wsgihelpers.redirect(context, location=base_location)
 
     return render(context, name,
+        full_url = context.req.url,
         current_location = current_location,
         current_base_location = base_location,
         query_string = context.req.query_string,

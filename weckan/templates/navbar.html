@@ -70,7 +70,7 @@
                 {% else %}
                 <li>
                     <a title="{% trans %}Sign In / Register{% endtrans %}"
-                        href="{{ url(lang, 'user', 'login') }}?came_from={{ current_location|safe }}">
+                        href="{{ url(lang, 'user', 'login') }}?came_from={{ full_url|safe }}">
                         <span class="glyphicon glyphicon-log-in"></span>
                         {% trans %}Sign In / Register{% endtrans %}
                     </a>
