@@ -560,8 +560,26 @@ def fork_dataset(request):
     original = meta.Session.query(Package).filter(Package.name == dataset_name).one()
     forked = fork(original, user)
 
-    edit_url = urls.get_url(request.urlvars.get('name', templates.DEFAULT_LANG), 'dataset/edit', forked.name)
+    edit_url = urls.get_url(request.urlvars.get('lang', templates.DEFAULT_LANG), 'dataset/edit', forked.name)
     return wsgihelpers.redirect(contexts.Ctx(request), location=edit_url)
+
+
+@wsgihelpers.wsgify
+def toggle_featured(request):
+    user = auth.get_user_from_request(request)
+    context = contexts.Ctx(request)
+    if not user or not user.sysadmin:
+        return wsgihelpers.unauthorized(context)  # redirect to login/register ?
+
+    dataset_name = request.urlvars.get('name')
+    reuse_id = request.urlvars.get('reuse')
+
+    reuse = Related.get(reuse_id)
+    reuse.featured = 0 if reuse.featured else 1
+    meta.Session.commit()
+
+    url = urls.get_url(request.urlvars.get('lang', templates.DEFAULT_LANG), 'dataset', dataset_name)
+    return wsgihelpers.redirect(context, location=url)
 
 
 def make_router(app):
@@ -573,6 +591,7 @@ def make_router(app):
         ('GET', r'^(/(?P<lang>\w{2}))?/dataset/?$', search_more_datasets),
         ('GET', r'^(/(?P<lang>\w{2}))?/dataset/autocomplete/?$', autocomplete_datasets),
         ('GET', r'^(/(?P<lang>\w{2}))?/dataset/(?P<name>[\w_-]+)/fork?$', fork_dataset),
+        ('GET', r'^(/(?P<lang>\w{2}))?/dataset/(?P<name>[\w_-]+)/reuse/(?P<reuse>[\w_-]+)/featured?$', toggle_featured),
         ('GET', r'^(/(?P<lang>\w{{2}}))?/dataset/(?!{0}(/|$))(?P<name>[\w_-]+)/?$'.format('|'.join(EXCLUDED_PATTERNS)), display_dataset),
         ('GET', r'^(/(?P<lang>\w{2}))?/organization/?$', search_more_organizations),
         )

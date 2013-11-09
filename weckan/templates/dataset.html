@@ -376,8 +376,14 @@
                                 {{ markdown_extract(related.description, 180) }}
                             </a>
                             {% if user.sysadmin %}
-                            <a class="btn btn-xs btn-default featured"
-                                rel="tooltip" title="{{ _('Mark as featured') }}">
+                            {% set btn_class = 'success' if related.featured > 0 else 'default' %}
+                            <a class="btn btn-xs btn-{{ btn_class }} featured" rel="tooltip"
+                                href="{{ url(lang, 'dataset', dataset.name, 'reuse', related.id, 'featured') }}"
+                                {% if related.featured > 0 %}
+                                title="{{ _('Unmark as featured') }}"
+                                {% else %}
+                                title="{{ _('Mark as featured') }}"
+                                {% endif %}>
                                 <span class="glyphicon glyphicon-pushpin"></span>
                             </a>
                             {% endif %}
