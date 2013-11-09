@@ -38,79 +38,33 @@
         {# end News highlight #}
 
         {# Carousel #}
-        {# TODO: extract and dynamize #}
         <div class="col-md-8">
             <h3>{{ _('Best reuse cases') }}</h3>
-            <div id="home-carousel" class="carousel slide">
-              <!-- Indicators -->
-                <ol class="carousel-indicators">
-                    <li data-target="#home-carousel" data-slide-to="0" class="active"></li>
-                    <li data-target="#home-carousel" data-slide-to="1"></li>
-                    <li data-target="#home-carousel" data-slide-to="2"></li>
-                </ol>
-
+            <div id="home-carousel" class="carousel slide" data-ride="carousel" data-interval="4000">
                 <!-- Wrapper for slides -->
                 <div class="carousel-inner">
 
-                    <div class="item active">
-                        <img class="slide" src="{{ static('images/homepage/dataviz-le-monde.png') }}" alt="Les aides aux entreprises">
+                    {% for reuse, owner in featured_reuses %}
+                    <div class="item {% if loop.first %}active{% endif %}">
+                        <img class="slide" src="{{ reuse.image_url }}" alt="{{ reuse.title }}">
                         <div class="carousel-caption">
-                            {# <a class="slide-logo pull-left"
-                                href="http://www.lemonde.fr/politique/visuel/2013/07/17/l-impossible-simplification-des-aides-aux-entreprises_3448359_823448.html">
-                                <img alt="{{ dataset.organization.title }}"
-                                    src="{{ dataset.organization.image_url }}">
-                            </a> #}
-                            <label>{% trans %}Citizens{% endtrans %}</label>
+                            <a class="slide-logo pull-left" title="{{ owner.display_name }}"
+                                href="{{ url(lang, 'user', owner.name) }}">
+                                {# <img alt="{{ organization.title }}"
+                                    src="{{ organization.image_url }}"> #}
+                                {{ gravatar(owner.email_hash, 80) }}
+                            </a>
                             <h4 class="title">
-                                <a href="" title="Les aides aux entreprises">
-                                Les aides aux entreprises
+                                <a href="{{ reuse.url }}" title="{{ reuse.title }}">
+                                {{ reuse.title }}
                                 </a>
                             </h4>
+                            <label>{{ markdown_extract(reuse.description, 180) }}</label>
                         </div>
                     </div>
-                    <div class="item">
-                        <img class="slide" src="{{ static('images/homepage/logo_lacub.jpg') }}"
-                            alt="Communauté Urbaine de Bordeaux">
-                        <div class="carousel-caption">
-                            {# <a class="slide-logo pull-left" href="">
-                                <img alt="{{ dataset.organization.title }}"
-                                    src="{{ dataset.organization.image_url }}">
-                            </a> #}
-                            <label>{% trans %}Public services{% endtrans %}</label>
-                            <h4 class="title">
-                                <a href="{{ url(lang, 'dataset/comptage-du-trafic-cub-rdl') }}"
-                                    title="Communauté Urbaine de Bordeaux">
-                                    Communauté Urbaine de Bordeaux
-                                </a>
-                            </h4>
-                        </div>
-                    </div>
-                    <div class="item">
-                        <img class="slide" src="{{ static('images/homepage/handistrict.png') }}"
-                            alt="Handistrict, la cartographie de l'accessibilité en France">
-                        <div class="carousel-caption">
-                            {# <a class="slide-logo pull-left" href="">
-                                <img alt="{{ dataset.organization.title }}"
-                                    src="{{ dataset.organization.image_url }}">
-                            </a> #}
-                            <label>{% trans %}Businesses{% endtrans %}</label>
-                            <h4 class="title">
-                                <a href="http://handistrict.com/" title="Handistrict, la cartographie de l'accessibilité en France">
-                                Handistrict, la cartographie de l'accessibilité en France
-                                </a>
-                            </h4>
-                        </div>
-                    </div>
+                    {% endfor %}
 
                 </div>
-
-                <!-- Controls -->
-                <a class="left carousel-control" href="#home-carousel" data-slide="prev">
-                    <span class="icon-prev"></span>
-                </a>
-                <a class="right carousel-control" href="#home-carousel" data-slide="next">
-                    <span class="icon-next"></span>
-                </a>
             </div>
         </div>
         {# end carousel #}
@@ -189,7 +143,6 @@
                                             title="{% trans %}Territorial coverage{% endtrans %}">
                                             <span class="glyphicon glyphicon-globe"></span>
                                         </a>
-                                        {# {% set ellipsis = '<a href title="{0}">...</a>'.format(dataset.territorial_coverage.name) %} #}
                                         {{ dataset.territorial_coverage.name|tooltip_ellipsis(15) }}
                                     </li>
                                     {% endif %}

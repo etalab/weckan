@@ -52,7 +52,7 @@
                 </div>
             </div>
 
-            {% if dataset.supplier %}
+            {% if supplier %}
             <div class="row provider">
                 <h3>{% trans %}Provided by{% endtrans %}</h3>
                 <p>
@@ -354,16 +354,39 @@
                             </a>
                             <div class="caption">
                                 <h4>
-                                    <a href="{{ related.url.format(**territory) }}" target="_blank">
-                                    {{ related.title.format(**territory) }}
+                                    <a href="{{ related.url.format(**territory) }}" target="_blank"
+                                        title="{{ related.title.format(**territory) }}">
+                                        {{ related.title.format(**territory) }}
                                     </a>
                                 </h4>
                                 <div class="author">
-                                    {{ gravatar(owner.email_hash, 25) }}
-                                    <span class="user">{{ owner.display_name }}</span>
+                                    <a href="{{ url(lang, 'user', owner.name) }}"
+                                        title="{{ owner.display_name }}">
+                                        {{ gravatar(owner.email_hash, 25) }}
+                                    </a>
+                                    <a class="user" href="{{ url(lang, 'user', owner.name) }}"
+                                        title="{{ owner.display_name }}">
+                                        {{ owner.display_name }}
+                                    </a>
                                     <span class="date">{{ related.created|date(format='long', locale=lang) }}</span>
                                 </div>
                             </div>
+                            <a class="rollover fade in" href="{{related.url}}" target="_blank"
+                                title="{{ related.title }}">
+                                {{ markdown_extract(related.description, 180) }}
+                            </a>
+                            {% if user.sysadmin %}
+                            {% set btn_class = 'success' if related.featured > 0 else 'default' %}
+                            <a class="btn btn-xs btn-{{ btn_class }} featured" rel="tooltip"
+                                href="{{ url(lang, 'dataset', dataset.name, 'reuse', related.id, 'featured') }}"
+                                {% if related.featured > 0 %}
+                                title="{{ _('Unmark as featured') }}"
+                                {% else %}
+                                title="{{ _('Mark as featured') }}"
+                                {% endif %}>
+                                <span class="glyphicon glyphicon-pushpin"></span>
+                            </a>
+                            {% endif %}
                         </div>
                     </div>
                     {% endfor %}

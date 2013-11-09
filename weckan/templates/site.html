@@ -42,18 +42,7 @@
 
     {% block content %}{% endblock %}
 
-    <section class="footer">
-        <div class="container">
-            <footer>
-                <p class="pull-right"><a href="#">{% trans %}Back to top{% endtrans %}</a></p>
-                <p>
-                    &copy; 2013 ETALAB, Inc. &middot;
-                    <a href="#">{% trans %}Privacy{% endtrans %}</a> &middot;
-                    <a href="#">{% trans %}Terms{% endtrans %}</a>
-                </p>
-            </footer>
-        </div>
-    </section>
+    {% include "footer.html" %}
 
 
     {# Load scripts after for faster page loading #}

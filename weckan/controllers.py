@@ -41,8 +41,8 @@ from ckanext.etalab.model import CertifiedPublicService
 from sqlalchemy.sql import func, desc, or_, null
 
 from . import templates, urls, wsgihelpers, conf, contexts, auth
-from .model import Activity, meta, Package, RelatedDataset, Group, GroupRevision, Member
-from .model import Role, PackageRole, UserFollowingDataset, UserFollowingGroup
+from .model import Activity, meta, Package, Related, RelatedDataset, Group, GroupRevision, Member
+from .model import Role, PackageRole, UserFollowingDataset, UserFollowingGroup, User
 
 
 log = logging.getLogger(__name__)
@@ -129,6 +129,13 @@ def popular_datasets(num=8):
     query = query.join(RelatedDataset)
     query = query.group_by(Package, Group).order_by(desc(func.count(RelatedDataset.related_id))).limit(num)
     return build_datasets(query)
+
+
+def featured_reuses(num=8):
+    query = meta.Session.query(Related, User)
+    query = query.join(User, Related.owner_id == User.id)
+    query = query.filter(Related.featured > 0)
+    return query.order_by(desc(Related.created)).limit(num)
 
 
 def search_datasets(query, request, page=1, page_size=SEARCH_PAGE_SIZE):
@@ -411,7 +418,8 @@ def fork(dataset, user):
 def home(request):
     return templates.render_site('home.html', request,
         last_datasets = last_datasets(NB_DATASETS),
-        popular_datasets = popular_datasets(NB_DATASETS)
+        popular_datasets = popular_datasets(NB_DATASETS),
+        featured_reuses = featured_reuses(NB_DATASETS),
     )
 
 
@@ -552,8 +560,26 @@ def fork_dataset(request):
     original = meta.Session.query(Package).filter(Package.name == dataset_name).one()
     forked = fork(original, user)
 
-    edit_url = urls.get_url(request.urlvars.get('name', templates.DEFAULT_LANG), 'dataset/edit', forked.name)
+    edit_url = urls.get_url(request.urlvars.get('lang', templates.DEFAULT_LANG), 'dataset/edit', forked.name)
     return wsgihelpers.redirect(contexts.Ctx(request), location=edit_url)
+
+
+@wsgihelpers.wsgify
+def toggle_featured(request):
+    user = auth.get_user_from_request(request)
+    context = contexts.Ctx(request)
+    if not user or not user.sysadmin:
+        return wsgihelpers.unauthorized(context)  # redirect to login/register ?
+
+    dataset_name = request.urlvars.get('name')
+    reuse_id = request.urlvars.get('reuse')
+
+    reuse = Related.get(reuse_id)
+    reuse.featured = 0 if reuse.featured else 1
+    meta.Session.commit()
+
+    url = urls.get_url(request.urlvars.get('lang', templates.DEFAULT_LANG), 'dataset', dataset_name)
+    return wsgihelpers.redirect(context, location=url)
 
 
 def make_router(app):
@@ -565,6 +591,7 @@ def make_router(app):
         ('GET', r'^(/(?P<lang>\w{2}))?/dataset/?$', search_more_datasets),
         ('GET', r'^(/(?P<lang>\w{2}))?/dataset/autocomplete/?$', autocomplete_datasets),
         ('GET', r'^(/(?P<lang>\w{2}))?/dataset/(?P<name>[\w_-]+)/fork?$', fork_dataset),
+        ('GET', r'^(/(?P<lang>\w{2}))?/dataset/(?P<name>[\w_-]+)/reuse/(?P<reuse>[\w_-]+)/featured?$', toggle_featured),
         ('GET', r'^(/(?P<lang>\w{{2}}))?/dataset/(?!{0}(/|$))(?P<name>[\w_-]+)/?$'.format('|'.join(EXCLUDED_PATTERNS)), display_dataset),
         ('GET', r'^(/(?P<lang>\w{2}))?/organization/?$', search_more_organizations),
         )

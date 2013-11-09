@@ -1,0 +1,60 @@
+<section class="footer">
+    <div class="container">
+        <footer class="row">
+
+            <div class="col-sm-3 col-md-2 col-lg-2">
+                <h5>L'Open Data</h5>
+                <ul>
+                    <li><a href="http://wiki.etalab2.fr/wiki/FAQ">{% trans %}How it works ?{% endtrans %}</a></li>
+                    <li><a href="{{ url(lang, 'organization') }}">{% trans %}Publishers{% endtrans %}</a></li>
+                    <li>
+                        <a href="http://www.etalab.gouv.fr/pages/licence-ouverte-open-licence-5899923.html">
+                            {% trans %}Open license{% endtrans %}
+                        </a>
+                    </li>
+                    <li><a href="http://www.etalab.gouv.fr/">Etalab</a></li>
+                    <li><a href="http://wiki.etalab2.fr/wiki/Cr%C3%A9dits">{% trans %}Credits{% endtrans %}</a></li>
+                </ul>
+            </div>
+            <div class="col-sm-3 col-md-2 col-lg-2">
+                <h5>{% trans %}Topics{% endtrans %}</h5>
+                <ul>
+                    {% for topic in main_topics %}
+                    <li>
+                        <a href="{{ topic.url.format(lang=lang) }}">
+                        {{ topic.title }}
+                        </a>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+
+            <div class="col-sm-3 col-md-2 col-lg-2">
+                <h5>{% trans %}Network{% endtrans %}</h5>
+                <ul>
+                    <li><a href="http://www.gouvernement.fr/">Gouvernement.fr </a></li>
+                    <li><a href="http://www.france.fr/">France.fr</a></li>
+                    <li><a href="http://www.legifrance.gouv.fr/">Legifrance.gouv.fr </a></li>
+                    <li><a href="http://www.service-public.fr/">Service-public.fr</a></li>
+                    <li><a href="http://opendatafrance.net/">Opendata France</a></li>
+                </ul>
+            </div>
+
+            <div class="col-sm-3 col-md-4 col-lg-4">
+                <h5>{% trans %}Contact{% endtrans %}</h5>
+                <ul>
+                    <li><a href="https://twitter.com/Etalab">Twitter</a></li>
+                    <li><a href="mailto:info@data.gouv.fr">info@data.gouv.fr</a></li>
+                </ul>
+            </div>
+
+            <div class="col-sm-2 col-md-2 col-lg-2">
+                <img class="logo" src="{{ static('img/etalab-logo.png') }}"></img>
+                <p>&copy; 2013 ETALAB, Inc.</p>
+            </div>
+
+            <p class="bottom-right"><a href="#">Back to top</a></p>
+
+        </footer>
+    </div>
+</section>
