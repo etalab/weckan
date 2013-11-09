@@ -150,7 +150,6 @@ def not_found(ctx, **kw):
 
 
 def redirect(ctx, code = 302, location = None, **kw):
-    from .jinja import render_template
     assert location is not None
     location_str = location.encode('utf-8') if isinstance(location, unicode) else location
     response = webob.exc.status_map[code](headers = kw.pop('headers', None), location = location_str)
@@ -168,7 +167,7 @@ def redirect(ctx, code = 302, location = None, **kw):
         title = kw.pop('title', None)
         if title is None:
             title = ctx._("Redirection in progress...")
-        body =  render_template(ctx, template,
+        body =  templates.render_site(template, ctx,
             comment = kw.pop('comment', None),
             explanation = explanation,
             message = message,
