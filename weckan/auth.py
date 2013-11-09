@@ -26,11 +26,11 @@ from ckan.model import User
 
 def get_user_from_request(request):
     '''Simple user fetching from request'''
-    auth_tkt = request.cookies.get('auth_tkt', None)
+    oauth2 = request.cookies.get('oauth2', None)
 
-    if not auth_tkt:
+    if not oauth2:
         return None
 
-    end = auth_tkt.index('!') if '!' in auth_tkt else len(auth_tkt)
-    username = auth_tkt[40:end].decode('utf8')
+    end = oauth2.index('!') if '!' in oauth2 else len(oauth2)
+    username = oauth2[40:end].decode('utf8')
     return User.by_name(username)
