@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Weckan 0.2.0.dev\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2013-11-10 14:07+0100\n"
+"POT-Creation-Date: 2013-11-10 14:42+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -148,28 +148,28 @@ msgid "License"
 msgstr ""
 
 #: weckan/templates/dataset.html:178 weckan/templates/home.html:119
-#: weckan/templates/widgets/dataset-search-result.html:21
+#: weckan/templates/widgets/dataset-search-result.html:24
 msgid "Temporal coverage"
 msgstr ""
 
 #: weckan/templates/dataset.html:181 weckan/templates/home.html:122
-#: weckan/templates/widgets/dataset-search-result.html:24
+#: weckan/templates/widgets/dataset-search-result.html:27
 #, python-format
 msgid "%(from)s to %(to)s"
 msgstr ""
 
 #: weckan/templates/dataset.html:193 weckan/templates/home.html:133
-#: weckan/templates/widgets/dataset-search-result.html:34
+#: weckan/templates/widgets/dataset-search-result.html:37
 msgid "Periodicity"
 msgstr ""
 
 #: weckan/templates/dataset.html:204 weckan/templates/home.html:145
-#: weckan/templates/widgets/dataset-search-result.html:45
+#: weckan/templates/widgets/dataset-search-result.html:48
 msgid "Territorial coverage"
 msgstr ""
 
 #: weckan/templates/dataset.html:214 weckan/templates/home.html:156
-#: weckan/templates/widgets/dataset-search-result.html:55
+#: weckan/templates/widgets/dataset-search-result.html:58
 msgid "Territorial coverage granularity"
 msgstr ""
 
@@ -481,7 +481,11 @@ msgstr ""
 msgid "Last page"
 msgstr ""
 
-#: weckan/templates/widgets/organization-search-result.html:14
+#: weckan/templates/widgets/organization-search-result.html:17
+msgid "Number of dataset"
+msgstr ""
+
+#: weckan/templates/widgets/organization-search-result.html:20
 #, python-format
 msgid "%(nb_datasets)s dataset"
 msgid_plural "%(nb_datasets)s datasets"

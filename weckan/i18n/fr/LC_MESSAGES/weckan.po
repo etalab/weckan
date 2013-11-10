@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: weckan\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2013-11-10 14:07+0100\n"
-"PO-Revision-Date: 2013-11-10 13:08+0000\n"
+"POT-Creation-Date: 2013-11-10 14:42+0100\n"
+"PO-Revision-Date: 2013-11-10 13:42+0000\n"
 "Last-Translator: noirbizarre\n"
 "Language-Team: French (http://www.transifex.com/projects/p/weckan/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -153,28 +153,28 @@ msgid "License"
 msgstr "License"
 
 #: weckan/templates/dataset.html:178 weckan/templates/home.html:119
-#: weckan/templates/widgets/dataset-search-result.html:21
+#: weckan/templates/widgets/dataset-search-result.html:24
 msgid "Temporal coverage"
 msgstr "Couverture temporelle"
 
 #: weckan/templates/dataset.html:181 weckan/templates/home.html:122
-#: weckan/templates/widgets/dataset-search-result.html:24
+#: weckan/templates/widgets/dataset-search-result.html:27
 #, python-format
 msgid "%(from)s to %(to)s"
 msgstr "%(from)s à %(to)s"
 
 #: weckan/templates/dataset.html:193 weckan/templates/home.html:133
-#: weckan/templates/widgets/dataset-search-result.html:34
+#: weckan/templates/widgets/dataset-search-result.html:37
 msgid "Periodicity"
 msgstr "Périodicité"
 
 #: weckan/templates/dataset.html:204 weckan/templates/home.html:145
-#: weckan/templates/widgets/dataset-search-result.html:45
+#: weckan/templates/widgets/dataset-search-result.html:48
 msgid "Territorial coverage"
 msgstr "Couverture territoriale"
 
 #: weckan/templates/dataset.html:214 weckan/templates/home.html:156
-#: weckan/templates/widgets/dataset-search-result.html:55
+#: weckan/templates/widgets/dataset-search-result.html:58
 msgid "Territorial coverage granularity"
 msgstr "Granularité de la couverture territoriale"
 
@@ -484,7 +484,11 @@ msgstr "Page suivante"
 msgid "Last page"
 msgstr "Dernière page"
 
-#: weckan/templates/widgets/organization-search-result.html:14
+#: weckan/templates/widgets/organization-search-result.html:17
+msgid "Number of dataset"
+msgstr "Nombre de séries de données"
+
+#: weckan/templates/widgets/organization-search-result.html:20
 #, python-format
 msgid "%(nb_datasets)s dataset"
 msgid_plural "%(nb_datasets)s datasets"
