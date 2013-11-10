@@ -1,24 +1,26 @@
-# German translations for Weckan.
+# Translations template for Weckan.
 # Copyright (C) 2013 ORGANIZATION
 # This file is distributed under the same license as the Weckan project.
-#
+# 
 # Translators:
 # noirbizarre, 2013
+# noirbizarre, 2013
+# schwefel, 2013
 # schwefel, 2013
 msgid ""
 msgstr ""
-"Project-Id-Version:  weckan\n"
+"Project-Id-Version: weckan\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2013-11-09 13:22+0100\n"
-"PO-Revision-Date: 2013-10-30 18:17+0000\n"
-"Last-Translator: schwefel\n"
-"Language-Team: German "
-"(http://www.transifex.com/projects/p/weckan/language/de/)\n"
-"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+"POT-Creation-Date: 2013-11-10 14:07+0100\n"
+"PO-Revision-Date: 2013-11-10 13:10+0000\n"
+"Last-Translator: noirbizarre\n"
+"Language-Team: German (http://www.transifex.com/projects/p/weckan/language/de/)\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 0.9.6\n"
+"Language: de\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: weckan/application.py:55
 msgid "Web site not found."
@@ -68,11 +70,11 @@ msgstr "Zugriff nicht möglich"
 msgid "Access Denied"
 msgstr "Zurgiff nicht erlaubt"
 
-#: weckan/wsgihelpers.py:162
+#: weckan/wsgihelpers.py:161
 msgid "You'll be redirected to page <a href=\"{0}\">{0}</a>."
 msgstr "Sie werden auf die Seite <a href=\"{0}\">{0}</a> weitergeleitet."
 
-#: weckan/wsgihelpers.py:170
+#: weckan/wsgihelpers.py:169
 msgid "Redirection in progress..."
 msgstr "Weiterleitung läuft..."
 
@@ -90,9 +92,7 @@ msgstr "Bearbeiten"
 msgid ""
 "Published on %(date)s by <a href=\"mailto:%(email)s\" "
 "title=\"%(author)s\">%(author)s</a>"
-msgstr ""
-"Veröffentlicht am %(date)s von <a href=\"mailto:%(email)s\" "
-"title=\"%(author)s\">%(author)s</a>"
+msgstr "Veröffentlicht am %(date)s von <a href=\"mailto:%(email)s\" title=\"%(author)s\">%(author)s</a>"
 
 #: weckan/templates/dataset.html:42
 #, python-format
@@ -137,7 +137,6 @@ msgid "more"
 msgstr "mehr"
 
 #: weckan/templates/dataset.html:140 weckan/templates/dataset.html:143
-#, fuzzy
 msgid "Unfollow"
 msgstr "Folge"
 
@@ -153,28 +152,28 @@ msgstr "Informationen"
 msgid "License"
 msgstr "Lizenz"
 
-#: weckan/templates/dataset.html:178 weckan/templates/home.html:117
+#: weckan/templates/dataset.html:178 weckan/templates/home.html:119
 #: weckan/templates/widgets/dataset-search-result.html:21
 msgid "Temporal coverage"
 msgstr "Zeitumfang"
 
-#: weckan/templates/dataset.html:181 weckan/templates/home.html:120
+#: weckan/templates/dataset.html:181 weckan/templates/home.html:122
 #: weckan/templates/widgets/dataset-search-result.html:24
 #, python-format
 msgid "%(from)s to %(to)s"
 msgstr "%(from)s bis %(to)s"
 
-#: weckan/templates/dataset.html:193 weckan/templates/home.html:131
+#: weckan/templates/dataset.html:193 weckan/templates/home.html:133
 #: weckan/templates/widgets/dataset-search-result.html:34
 msgid "Periodicity"
 msgstr "Häufigkeit"
 
-#: weckan/templates/dataset.html:204 weckan/templates/home.html:143
+#: weckan/templates/dataset.html:204 weckan/templates/home.html:145
 #: weckan/templates/widgets/dataset-search-result.html:45
 msgid "Territorial coverage"
 msgstr "Regionale Abdeckung"
 
-#: weckan/templates/dataset.html:214 weckan/templates/home.html:154
+#: weckan/templates/dataset.html:214 weckan/templates/home.html:156
 #: weckan/templates/widgets/dataset-search-result.html:55
 msgid "Territorial coverage granularity"
 msgstr "Detailgenauigkeit der regionalen Abdeckung"
@@ -200,7 +199,6 @@ msgid "Mark this dataset as useful"
 msgstr ""
 
 #: weckan/templates/dataset.html:258
-#, fuzzy
 msgid "Useful"
 msgstr "Nützlich"
 
@@ -213,7 +211,6 @@ msgid "warnings"
 msgstr "Warnmeldungen"
 
 #: weckan/templates/dataset.html:282
-#, fuzzy
 msgid "Warnings"
 msgstr "Warnmeldungen"
 
@@ -222,7 +219,6 @@ msgid "errors"
 msgstr "Fehler"
 
 #: weckan/templates/dataset.html:287
-#, fuzzy
 msgid "Errors"
 msgstr "Fehler"
 
@@ -247,7 +243,7 @@ msgid "Improve"
 msgstr "Verbessern"
 
 #: weckan/templates/dataset.html:310 weckan/templates/dataset.html:315
-#: weckan/templates/dataset.html:415 weckan/templates/dataset.html:426
+#: weckan/templates/dataset.html:416 weckan/templates/dataset.html:427
 msgid "Fork"
 msgstr "Fork"
 
@@ -264,56 +260,46 @@ msgid "Community contributions"
 msgstr "Öffentliche Beiträge"
 
 #: weckan/templates/dataset.html:333
-#, fuzzy
 msgid "Publish a valorization !"
-msgstr "Datensatz veröffentlichen !"
-
-#: weckan/templates/dataset.html:341
-#, fuzzy
-msgid "Valorizations"
-msgstr "Organisationen"
-
-#: weckan/templates/dataset.html:382
-msgid "Mark as featured"
 msgstr ""
 
-#: weckan/templates/dataset.html:384
+#: weckan/templates/dataset.html:341
+msgid "Valorizations"
+msgstr ""
+
+#: weckan/templates/dataset.html:383
 msgid "Unmark as featured"
 msgstr ""
 
-#: weckan/templates/dataset.html:398
-msgid ""
-"You reused these data and published an article, a computer graphics, or "
-"an application?\n"
-"                It's time to let you know!\n"
-"                Reference your work in just a few clicks and increase "
-"your visibility."
+#: weckan/templates/dataset.html:385
+msgid "Mark as featured"
 msgstr ""
-"Du hast diese Daten genutzt und einen Artikel, eine Computergrfaik oder "
-"eine Anwendung veröffentlicht?\n"
-"lass es uns wissen!\n"
-"Referenziere deine Arbeit mit nur ein paar Klicks und steigere deine "
-"Nutzerzahlen."
 
-#: weckan/templates/dataset.html:418
+#: weckan/templates/dataset.html:399
+msgid ""
+"You reused these data and published an article, a computer graphics, or an application?\n"
+"                It's time to let you know!\n"
+"                Reference your work in just a few clicks and increase your visibility."
+msgstr "Du hast diese Daten genutzt und einen Artikel, eine Computergrfaik oder eine Anwendung veröffentlicht?\nlass es uns wissen!\nReferenziere deine Arbeit mit nur ein paar Klicks und steigere deine Nutzerzahlen."
+
+#: weckan/templates/dataset.html:419
 msgid ""
 "You are about to make a copy of this dataset.\n"
-"                You'll become the owner and you will have the ability to "
-"edit it and improve it.\n"
+"                You'll become the owner and you will have the ability to edit it and improve it.\n"
 "                The original dataset will keep a reference of your work."
-msgstr ""
-"Sie erstellen eine Kopie des Datensatzes.\n"
-"Sie sind dann Eigentümer der neuen Datei und können sie bearbeiten und "
-"verbessern.\n"
-"Der ursprüngliche Datensatz enthält einen Verweis auf ihre Version. "
+msgstr "Sie erstellen eine Kopie des Datensatzes.\nSie sind dann Eigentümer der neuen Datei und können sie bearbeiten und verbessern.\nDer ursprüngliche Datensatz enthält einen Verweis auf ihre Version. "
 
-#: weckan/templates/dataset.html:421
+#: weckan/templates/dataset.html:422
 msgid "Continue?"
 msgstr "Weiter?"
 
-#: weckan/templates/dataset.html:430
+#: weckan/templates/dataset.html:431
 msgid "Cancel"
 msgstr "Abbrechen"
+
+#: weckan/templates/footer.html:6
+msgid "The Open Data"
+msgstr ""
 
 #: weckan/templates/footer.html:8 weckan/templates/navbar.html:23
 #: weckan/templates/sidebar.html:10
@@ -347,6 +333,10 @@ msgstr ""
 msgid "Contact"
 msgstr ""
 
+#: weckan/templates/footer.html:56
+msgid "Back to top"
+msgstr "Nach oben"
+
 #: weckan/templates/home.html:5
 msgid "Home"
 msgstr "Startseite"
@@ -363,11 +353,11 @@ msgstr "Diskussionsthema"
 msgid "Best reuse cases"
 msgstr "Beste Wiederverwendungsmöglichkeiten"
 
-#: weckan/templates/home.html:80
+#: weckan/templates/home.html:82
 msgid "Most popular"
 msgstr "Beliebteste"
 
-#: weckan/templates/home.html:81
+#: weckan/templates/home.html:83
 msgid "Latest"
 msgstr "Neueste"
 
@@ -500,4 +490,3 @@ msgid "%(nb_datasets)s dataset"
 msgid_plural "%(nb_datasets)s datasets"
 msgstr[0] "%(nb_datasets)s Datensatz"
 msgstr[1] "%(nb_datasets)s Datensätze"
-

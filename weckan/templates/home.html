@@ -48,18 +48,20 @@
                     <div class="item {% if loop.first %}active{% endif %}">
                         <img class="slide" src="{{ reuse.image_url }}" alt="{{ reuse.title }}">
                         <div class="carousel-caption">
-                            <a class="slide-logo pull-left" title="{{ owner.display_name }}"
-                                href="{{ url(lang, 'user', owner.name) }}">
-                                {# <img alt="{{ organization.title }}"
-                                    src="{{ organization.image_url }}"> #}
-                                {{ gravatar(owner.email_hash, 80) }}
-                            </a>
-                            <h4 class="title">
+                            <div class="slide-logo pull-left">
+                                <a class="slide-logo-big" title="{{ owner.display_name }}"
+                                    href="{{ url(lang, 'user', owner.name) }}">
+                                    {# <img alt="{{ organization.title }}"
+                                        src="{{ organization.image_url }}"> #}
+                                    {{ gravatar(owner.email_hash, 80) }}
+                                </a>
+                            </div>
+                            <h4 class="title ellipsis-dot">
                                 <a href="{{ reuse.url }}" title="{{ reuse.title }}">
                                 {{ reuse.title }}
                                 </a>
+                                <label>{{ markdown_extract(reuse.description, 250) }}</label>
                             </h4>
-                            <label>{{ markdown_extract(reuse.description, 180) }}</label>
                         </div>
                     </div>
                     {% endfor %}
