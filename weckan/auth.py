@@ -26,11 +26,5 @@ from ckan.model import User
 
 def get_user_from_request(request):
     '''Simple user fetching from request'''
-    oauth2 = request.cookies.get('oauth2', None)
-
-    if not oauth2:
-        return None
-
-    end = oauth2.index('!') if '!' in oauth2 else len(oauth2)
-    username = oauth2[40:end].decode('utf8')
-    return User.by_name(username)
+    username = request.environ.get('repoze.who.identity', {}).get('repoze.who.userid')
+    return User.get(username) if username else None
