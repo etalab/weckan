@@ -4,6 +4,7 @@
 # 
 # Translators:
 # noirbizarre, 2013
+# Emmanuel <emmanuel@raviart.com>, 2013
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2013
 # noirbizarre, 2013
 # ppezziardi <pierre@pezziardi.net>, 2013
@@ -11,9 +12,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: weckan\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2013-11-10 14:42+0100\n"
-"PO-Revision-Date: 2013-11-10 13:42+0000\n"
-"Last-Translator: noirbizarre\n"
+"POT-Creation-Date: 2013-11-11 17:49+0100\n"
+"PO-Revision-Date: 2013-11-11 16:55+0000\n"
+"Last-Translator: Emmanuel <emmanuel@raviart.com>\n"
 "Language-Team: French (http://www.transifex.com/projects/p/weckan/language/fr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -130,7 +131,7 @@ msgstr "Service public certifié"
 
 #: weckan/templates/dataset.html:122
 msgid "This organization and its datasets are certified by data.gouv.fr"
-msgstr "Cette organisation et ses séries de données sont certifiés par data.gouv.fr"
+msgstr "Cette organisation et ses jeux de données sont certifiés par data.gouv.fr"
 
 #: weckan/templates/dataset.html:132
 msgid "more"
@@ -192,11 +193,11 @@ msgstr "score"
 
 #: weckan/templates/dataset.html:248
 msgid "Unmark this dataset as useful"
-msgstr "Ne plus marquer cette série de données comme utile"
+msgstr "Ne plus marquer ce jeu de données comme utile"
 
 #: weckan/templates/dataset.html:253
 msgid "Mark this dataset as useful"
-msgstr "Marquer cette série de données comme utile"
+msgstr "Marquer ce jeu de données comme utile"
 
 #: weckan/templates/dataset.html:258
 msgid "Useful"
@@ -249,7 +250,7 @@ msgstr "Dupliquer"
 
 #: weckan/templates/dataset.html:313
 msgid "Duplicate this dataset and improve it !"
-msgstr "Dupliquer et améliorer cette série de données !"
+msgstr "Dupliquer et améliorer ce jeu de données !"
 
 #: weckan/templates/dataset.html:328
 msgid "Explore with Datagouv"
@@ -287,7 +288,7 @@ msgid ""
 "You are about to make a copy of this dataset.\n"
 "                You'll become the owner and you will have the ability to edit it and improve it.\n"
 "                The original dataset will keep a reference of your work."
-msgstr "Cette série de données sera dupliquée, vous en deviendrez le propriétaire et pourrez l'éditer pour l'améliorer.\nUne référence à cette nouvelle série sera conservée dans la série d'origine. "
+msgstr "Ce jeu de données sera dupliqué, vous en deviendrez le propriétaire et pourrez l'éditer pour l'améliorer.\nUne référence à ce nouveau jeu sera conservée dans le jeu d'origine. "
 
 #: weckan/templates/dataset.html:422
 msgid "Continue?"
@@ -400,7 +401,7 @@ msgstr "Créer un compte"
 #: weckan/templates/search-datasets.html:6
 #: weckan/templates/search-datasets.html:17
 msgid "Datasets search"
-msgstr "Recherche de séries de données"
+msgstr "Recherche de jeux de données"
 
 #: weckan/templates/search-datasets.html:18
 #: weckan/templates/search-organizations.html:18
@@ -441,7 +442,7 @@ msgstr "Voir les %(total)s résultats"
 
 #: weckan/templates/search.html:43
 msgid "Datasets"
-msgstr "Séries de données"
+msgstr "Jeux de données"
 
 #: weckan/templates/search.html:84
 msgid "See all the results"
@@ -462,7 +463,7 @@ msgstr "Où"
 #: weckan/templates/subnav-s.html:56 weckan/templates/subnav-s.html:59
 #: weckan/templates/subnav.html:55 weckan/templates/subnav.html:58
 msgid "Publish a dataset !"
-msgstr "Publiez une série de données !"
+msgstr "Publiez un jeu de données !"
 
 #: weckan/templates/subnav.html:52
 msgid "Share, improve and valorize <br/> the public data "
@@ -486,11 +487,11 @@ msgstr "Dernière page"
 
 #: weckan/templates/widgets/organization-search-result.html:17
 msgid "Number of dataset"
-msgstr "Nombre de séries de données"
+msgstr "Nombre de jeux de données"
 
 #: weckan/templates/widgets/organization-search-result.html:20
 #, python-format
 msgid "%(nb_datasets)s dataset"
 msgid_plural "%(nb_datasets)s datasets"
 msgstr[0] "%(nb_datasets)s série de données"
-msgstr[1] "%(nb_datasets)s séries de données"
+msgstr[1] "%(nb_datasets)s jeux de données"
