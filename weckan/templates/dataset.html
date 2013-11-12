@@ -360,11 +360,11 @@
                                     </a>
                                 </h4>
                                 <div class="author">
-                                    <a href="{{ url(lang, 'user', owner.name) }}"
+                                    <a href="{{ SSO_URL }}{{ url('u', owner.name) }}"
                                         title="{{ owner.display_name }}">
                                         {{ gravatar(owner.email_hash, 25) }}
                                     </a>
-                                    <a class="user" href="{{ url(lang, 'user', owner.name) }}"
+                                    <a class="user" href="{{ SSO_URL }}{{ url('u', owner.name) }}"
                                         title="{{ owner.display_name }}">
                                         {{ owner.display_name }}
                                     </a>

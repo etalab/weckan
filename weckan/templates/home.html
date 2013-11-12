@@ -50,7 +50,7 @@
                         <div class="carousel-caption">
                             <div class="slide-logo pull-left">
                                 <a class="slide-logo-big" title="{{ owner.display_name }}"
-                                    href="{{ url(lang, 'user', owner.name) }}">
+                                    href="{{ SSO_URL }}{{ url('u', owner.name) }}">
                                     {# <img alt="{{ organization.title }}"
                                         src="{{ organization.image_url }}"> #}
                                     {{ gravatar(owner.email_hash, 80) }}
