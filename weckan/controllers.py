@@ -39,6 +39,7 @@ from uuid import uuid1
 from biryani1 import strings
 from ckanext.etalab.model import CertifiedPublicService
 from sqlalchemy.sql import func, desc, or_, null
+from sqlalchemy.orm import joinedload
 
 from . import templates, urls, wsgihelpers, conf, contexts, auth
 from .model import Activity, meta, Package, Related, RelatedDataset, Group, GroupRevision, Member
@@ -203,6 +204,7 @@ def search_organizations(query, page=1, page_size=SEARCH_MAX_ORGANIZATIONS):
     organizations = organizations.join(GroupRevision)
     organizations = organizations.outerjoin(Package, Group.id == Package.owner_org)
     organizations = organizations.outerjoin(CertifiedPublicService)
+    organizations = organizations.options(joinedload('certified_public_service'))
     organizations = organizations.group_by(Group.id, CertifiedPublicService.organization_id)
     organizations = organizations.filter(GroupRevision.state == 'active')
     organizations = organizations.filter(GroupRevision.current == True)
@@ -475,12 +477,17 @@ def display_dataset(request):
     supplier_id = dataset.extras.get('supplier_id', None)
     supplier = meta.Session.query(Group).filter(Group.id == supplier_id).first() if supplier_id else None
 
+    owner_query = meta.Session.query(User)
+    owner_query = owner_query.filter(PackageRole.user_id == User.id)
+    owner_query = owner_query.filter(PackageRole.package_id == dataset.id)
+
     return templates.render_site('dataset.html', request,
         dataset=dataset,
         publication_date=timestamp,
         organization=organization,
         is_following_org=UserFollowingGroup.is_following(user.id, organization.id) if organization and user else False,
         supplier=supplier,
+        owner=owner_query.first(),
         nb_followers=UserFollowingDataset.follower_count(dataset.id),
         is_following=UserFollowingDataset.is_following(user.id, dataset.id) if user else False,
         territorial_coverage=territorial_coverage,
