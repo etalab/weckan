@@ -3,16 +3,23 @@
         <img class="result-logo" alt="{{ organization.display_name }}"
             src="{{ organization.image_url or static('/base/images/placeholder-organization.png') }}">
     </a>
-    <div class="result-body">
+    <div class="result-body ellipsis-dot">
         <h4>
             <a href="{{ url(lang, 'organization', organization.name) }}" title="{{organization.display_name}}">
             {{ organization.display_name }}
             </a>
         </h4>
-        {{ markdown_extract(organization.description, 180) }}
-        <p><strong>{%
-            trans %}{{ nb_datasets }} dataset{%
-            pluralize %}{{ nb_datasets }} datasets{%
-            endtrans %}</strong></p>
+        <div class="result-description">{{ markdown_extract(organization.description, 600) }}</div>
     </div>
+    <ul class="list-inline result-infos">
+        <li>
+            <a href class="btn btn-xs btn-default" rel="tooltip" data-placement="top"
+                title="{{ _('Number of dataset') }}">
+                <span class="glyphicon glyphicon-stats"></span>
+            </a>
+            {% trans %}{{ nb_datasets }} dataset{%
+            pluralize %}{{ nb_datasets }} datasets{%
+            endtrans %}
+        </li>
+    </ul>
 </li>

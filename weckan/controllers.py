@@ -339,6 +339,12 @@ def fork(dataset, user):
     if not user:
         raise ValueError('Fark requires an user')
 
+    name_width = min(len(dataset.name), 88)
+    name = '{name}-fork-{hash}'.format(
+        name=dataset.name[:name_width],
+        hash=str(uuid1())[:6],
+    )
+
     orgs = user.get_groups('organization')
     resources = [{
             'url': r.url,
@@ -360,7 +366,7 @@ def fork(dataset, user):
         'Authorization': user.apikey,
     }
     data = {
-        'name': '{0}-fork-{1}'.format(dataset.name, str(uuid1())[:6]),
+        'name': name,
         'title': dataset.title,
         'maintainer': user.fullname,
         'maintainer_email': user.email,

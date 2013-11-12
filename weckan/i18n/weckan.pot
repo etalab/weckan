@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Weckan 0.2.0.dev\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2013-11-09 13:22+0100\n"
+"POT-Creation-Date: 2013-11-10 14:42+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -65,11 +65,11 @@ msgstr ""
 msgid "Access Denied"
 msgstr ""
 
-#: weckan/wsgihelpers.py:162
+#: weckan/wsgihelpers.py:161
 msgid "You'll be redirected to page <a href=\"{0}\">{0}</a>."
 msgstr ""
 
-#: weckan/wsgihelpers.py:170
+#: weckan/wsgihelpers.py:169
 msgid "Redirection in progress..."
 msgstr ""
 
@@ -147,29 +147,29 @@ msgstr ""
 msgid "License"
 msgstr ""
 
-#: weckan/templates/dataset.html:178 weckan/templates/home.html:117
-#: weckan/templates/widgets/dataset-search-result.html:21
+#: weckan/templates/dataset.html:178 weckan/templates/home.html:119
+#: weckan/templates/widgets/dataset-search-result.html:24
 msgid "Temporal coverage"
 msgstr ""
 
-#: weckan/templates/dataset.html:181 weckan/templates/home.html:120
-#: weckan/templates/widgets/dataset-search-result.html:24
+#: weckan/templates/dataset.html:181 weckan/templates/home.html:122
+#: weckan/templates/widgets/dataset-search-result.html:27
 #, python-format
 msgid "%(from)s to %(to)s"
 msgstr ""
 
-#: weckan/templates/dataset.html:193 weckan/templates/home.html:131
-#: weckan/templates/widgets/dataset-search-result.html:34
+#: weckan/templates/dataset.html:193 weckan/templates/home.html:133
+#: weckan/templates/widgets/dataset-search-result.html:37
 msgid "Periodicity"
 msgstr ""
 
-#: weckan/templates/dataset.html:204 weckan/templates/home.html:143
-#: weckan/templates/widgets/dataset-search-result.html:45
+#: weckan/templates/dataset.html:204 weckan/templates/home.html:145
+#: weckan/templates/widgets/dataset-search-result.html:48
 msgid "Territorial coverage"
 msgstr ""
 
-#: weckan/templates/dataset.html:214 weckan/templates/home.html:154
-#: weckan/templates/widgets/dataset-search-result.html:55
+#: weckan/templates/dataset.html:214 weckan/templates/home.html:156
+#: weckan/templates/widgets/dataset-search-result.html:58
 msgid "Territorial coverage granularity"
 msgstr ""
 
@@ -238,7 +238,7 @@ msgid "Improve"
 msgstr ""
 
 #: weckan/templates/dataset.html:310 weckan/templates/dataset.html:315
-#: weckan/templates/dataset.html:415 weckan/templates/dataset.html:426
+#: weckan/templates/dataset.html:416 weckan/templates/dataset.html:427
 msgid "Fork"
 msgstr ""
 
@@ -262,15 +262,15 @@ msgstr ""
 msgid "Valorizations"
 msgstr ""
 
-#: weckan/templates/dataset.html:382
-msgid "Mark as featured"
-msgstr ""
-
-#: weckan/templates/dataset.html:384
+#: weckan/templates/dataset.html:383
 msgid "Unmark as featured"
 msgstr ""
 
-#: weckan/templates/dataset.html:398
+#: weckan/templates/dataset.html:385
+msgid "Mark as featured"
+msgstr ""
+
+#: weckan/templates/dataset.html:399
 msgid ""
 "You reused these data and published an article, a computer graphics, or an "
 "application?\n"
@@ -279,7 +279,7 @@ msgid ""
 "visibility."
 msgstr ""
 
-#: weckan/templates/dataset.html:418
+#: weckan/templates/dataset.html:419
 msgid ""
 "You are about to make a copy of this dataset.\n"
 "                You'll become the owner and you will have the ability to edit"
@@ -287,12 +287,16 @@ msgid ""
 "                The original dataset will keep a reference of your work."
 msgstr ""
 
-#: weckan/templates/dataset.html:421
+#: weckan/templates/dataset.html:422
 msgid "Continue?"
 msgstr ""
 
-#: weckan/templates/dataset.html:430
+#: weckan/templates/dataset.html:431
 msgid "Cancel"
+msgstr ""
+
+#: weckan/templates/footer.html:6
+msgid "The Open Data"
 msgstr ""
 
 #: weckan/templates/footer.html:8 weckan/templates/navbar.html:23
@@ -327,6 +331,10 @@ msgstr ""
 msgid "Contact"
 msgstr ""
 
+#: weckan/templates/footer.html:56
+msgid "Back to top"
+msgstr ""
+
 #: weckan/templates/home.html:5
 msgid "Home"
 msgstr ""
@@ -343,11 +351,11 @@ msgstr ""
 msgid "Best reuse cases"
 msgstr ""
 
-#: weckan/templates/home.html:80
+#: weckan/templates/home.html:82
 msgid "Most popular"
 msgstr ""
 
-#: weckan/templates/home.html:81
+#: weckan/templates/home.html:83
 msgid "Latest"
 msgstr ""
 
@@ -473,7 +481,11 @@ msgstr ""
 msgid "Last page"
 msgstr ""
 
-#: weckan/templates/widgets/organization-search-result.html:14
+#: weckan/templates/widgets/organization-search-result.html:17
+msgid "Number of dataset"
+msgstr ""
+
+#: weckan/templates/widgets/organization-search-result.html:20
 #, python-format
 msgid "%(nb_datasets)s dataset"
 msgid_plural "%(nb_datasets)s datasets"
