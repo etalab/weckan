@@ -4,6 +4,13 @@
         <img alt="{{ dataset.organization.display_name }}"
             src="{{ dataset.organization.image_url or static('/img/placeholder_producer.png') }}">
     </a>
+        {% if dataset.organization.certified_public_service %}
+        <img src="{{static('/img/certified-stamp.png')}}" alt="certified"
+            class="certified" rel="popover"
+            data-title="{% trans %}Certified public service{% endtrans %}"
+            data-content="{% trans %}This organization and its datasets are certified by data.gouv.fr{% endtrans %}"
+            data-container="body" data-placement="left" data-trigger="hover"/>
+        {% endif %}
     {% endif %}
     <div class="result-body ellipsis-dot">
         <h4>

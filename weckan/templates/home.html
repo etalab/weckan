@@ -7,109 +7,118 @@
 {% block content %}
 {% include 'subnav.html' %}
 
-<div class="container">
+<section class="default">
+    <div class="container">
 
-    {# First row #}
-    <div class="row first-row">
+        {# First row #}
+        <div class="row first-row">
 
-        {# News highlight #}
-        <div class="col-md-4">
-            <h3>{{ _('News') }}</h3>
-            <div id="news-carousel" class="carousel slide">
-                <!-- Wrapper for slides -->
-                <div class="carousel-inner">
-                    <div class="item active">
-                        <img class="slide" src="{{ static('images/homepage/hommes-femmes.jpg') }}"
-                            alt="Projet de loi pour l’égalité entre les femmes et les hommes">
+            {# News highlight #}
+            <div class="col-md-4">
+                <h3>{{ _('News') }}</h3>
+                <div id="news-carousel" class="carousel slide">
+                    <!-- Wrapper for slides -->
+                    <div class="carousel-inner">
+                        <div class="item active">
+                            <img class="slide" src="{{ static('images/homepage/hommes-femmes.jpg') }}"
+                                alt="Projet de loi pour l’égalité entre les femmes et les hommes">
 
-                        <div class="carousel-caption">
-                            <label>{{ _('Discussion topic') }}</label>
-                            <h4 class="title">
-                                <a href="http://wiki.etalab2.fr/wiki/L%27%C3%A9galit%C3%A9_Femmes_Hommes"
-                                    title="Projet de loi pour l’égalité entre les femmes et les hommes">
-                                    Projet de loi pour l’égalité entre les femmes et les hommes
-                                </a>
-                            </h4>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        {# end News highlight #}
-
-        {# Carousel #}
-        <div class="col-md-8">
-            <h3>{{ _('Best reuse cases') }}</h3>
-            <div id="home-carousel" class="carousel slide" data-ride="carousel" data-interval="4000">
-                <!-- Wrapper for slides -->
-                <div class="carousel-inner">
-
-                    {% for reuse, owner in featured_reuses %}
-                    <div class="item {% if loop.first %}active{% endif %}">
-                        <img class="slide" src="{{ reuse.image_url }}" alt="{{ reuse.title }}">
-                        <div class="carousel-caption">
-                            <div class="slide-logo pull-left">
-                                <a class="slide-logo-big" title="{{ owner.display_name }}"
-                                    href="{{ SSO_URL }}{{ url('u', owner.name) }}">
-                                    {# <img alt="{{ organization.title }}"
-                                        src="{{ organization.image_url }}"> #}
-                                    {{ gravatar(owner.email_hash, 80) }}
-                                </a>
-                            </div>
-                            <h4 class="title ellipsis-dot">
-                                <a href="{{ reuse.url }}" title="{{ reuse.title }}">
-                                {{ reuse.title }}
-                                </a>
-                                <label>{{ markdown_extract(reuse.description, 250) }}</label>
-                            </h4>
-                        </div>
-                    </div>
-                    {% endfor %}
-
-                </div>
-            </div>
-        </div>
-        {# end carousel #}
-
-    </div>
-    {# end first row #}
-
-
-    {# Tabbar #}
-    <div class="row">
-        <div class="col-xs-12">
-            <ul id="tabs" class="nav nav-pills" data-tabs="tabs">
-                <li class="active"><a href="#popular" data-toggle="tab">{{ _('Most popular') }}</a></li>
-                <li><a href="#recent" data-toggle="tab">{{ _('Latest')}}</a></li>
-            </ul>
-        </div>
-    </div>
-    {# end Tabbar #}
-
-    <div class="row">
-        <div class="tab-content">
-
-            {% for dataset_id, datasets in (('popular', popular_datasets), ('recent', last_datasets))  %}
-            <div class="tab-pane {% if loop.first %}active{% endif %}" id="{{dataset_id}}">
-                <ul class="card-list">
-
-                    {% for dataset in datasets %}
-                    <div class="col-md-4 col-sm-8">
-                        <li class="card dataset-result">
-                            {% if dataset.organization %}
-                            <a class="card-logo" href="">
-                                <img alt="{{ dataset.organization.title }}"
-                                    src="{{ dataset.organization.image_url or static('/img/placeholder_producer.png') }}">
-                            </a>
-                            {% endif %}
-                            <div class="card-body">
-                                <h4>
-                                    <a href="{{ url(lang, 'dataset', dataset.name) }}" title="{{dataset.display_name}}">
-                                        {{ dataset.display_name }}
+                            <div class="carousel-caption">
+                                <label>{{ _('Discussion topic') }}</label>
+                                <h4 class="title">
+                                    <a href="http://wiki.etalab2.fr/wiki/L%27%C3%A9galit%C3%A9_Femmes_Hommes"
+                                        title="Projet de loi pour l’égalité entre les femmes et les hommes">
+                                        Projet de loi pour l’égalité entre les femmes et les hommes
                                     </a>
                                 </h4>
-                                {{ markdown_extract(dataset.notes, 180) }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {# end News highlight #}
 
+            {# Carousel #}
+            <div class="col-md-8">
+                <h3>{{ _('Best reuse cases') }}</h3>
+                <div id="home-carousel" class="carousel slide" data-ride="carousel" data-interval="4000">
+                    <!-- Wrapper for slides -->
+                    <div class="carousel-inner">
+
+                        {% for reuse, owner in featured_reuses %}
+                        <div class="item {% if loop.first %}active{% endif %}">
+                            <img class="slide" src="{{ reuse.image_url }}" alt="{{ reuse.title }}">
+                            <div class="carousel-caption">
+                                <div class="slide-logo pull-left">
+                                    <a class="slide-logo-big" title="{{ owner.display_name }}"
+                                        href="{{ SSO_URL }}{{ url('u', owner.name) }}">
+                                        {# <img alt="{{ organization.title }}"
+                                            src="{{ organization.image_url }}"> #}
+                                        {{ gravatar(owner.email_hash, 80) }}
+                                    </a>
+                                </div>
+                                <h4 class="title ellipsis-dot">
+                                    <a href="{{ reuse.url }}" title="{{ reuse.title }}">
+                                    {{ reuse.title }}
+                                    </a>
+                                    <label>{{ markdown_extract(reuse.description, 250) }}</label>
+                                </h4>
+                            </div>
+                        </div>
+                        {% endfor %}
+
+                    </div>
+                </div>
+            </div>
+            {# end carousel #}
+
+        </div>
+        {# end first row #}
+
+
+        {# Tabbar #}
+        <div class="row">
+            <div class="col-xs-12">
+                <ul id="tabs" class="nav nav-pills" data-tabs="tabs">
+                    <li class="active"><a href="#popular" data-toggle="tab">{{ _('Most popular') }}</a></li>
+                    <li><a href="#recent" data-toggle="tab">{{ _('Latest')}}</a></li>
+                </ul>
+            </div>
+        </div>
+        {# end Tabbar #}
+
+        <div class="row">
+            <div class="tab-content">
+
+                {% for dataset_id, datasets in (('popular', popular_datasets), ('recent', last_datasets))  %}
+                <div class="tab-pane {% if loop.first %}active{% endif %}" id="{{dataset_id}}">
+                    <ul class="card-list">
+
+                        {% for dataset in datasets %}
+                        <div class="col-md-4 col-sm-8">
+                            <li class="card dataset-result">
+                                {% if dataset.organization %}
+                                    <a class="card-logo" href="">
+                                        <img alt="{{ dataset.organization.title }}"
+                                            src="{{ dataset.organization.image_url or static('/img/placeholder_producer.png') }}">
+                                    </a>
+                                    {% if dataset.organization.certified_public_service %}
+                                    <img src="{{static('/img/certified-stamp.png')}}" alt="certified"
+                                        class="certified" rel="popover"
+                                        data-title="{% trans %}Certified public service{% endtrans %}"
+                                        data-content="{% trans %}This organization and its datasets are certified by data.gouv.fr{% endtrans %}"
+                                        data-container="body" data-placement="left" data-trigger="hover"/>
+                                    {% endif %}
+                                {% endif %}
+                                <div class="card-body ellipsis-dot">
+                                    <h4>
+                                        <a href="{{ url(lang, 'dataset', dataset.name) }}" title="{{dataset.display_name}}">
+                                            {{ dataset.display_name }}
+                                        </a>
+                                    </h4>
+                                    <div class="card-description">{{ markdown_extract(dataset.notes, 250) }}</div>
+
+                                </div>
                                 <ul class="card-footer">
                                     {# Temporal coverage #}
                                     {% if dataset.temporal_coverage.from and dataset.temporal_coverage.to %}
@@ -160,20 +169,19 @@
                                     </li>
                                     {% endif %}
                                 </ul>
-                                <div class="card-text-mask"></div>
-                            </div>
-                        </li>
-                    </div>
-                    {% endfor %}
+                            </li>
+                        </div>
+                        {% endfor %}
 
-                </ul>
+                    </ul>
+                </div>
+                {% endfor %}
+
             </div>
-            {% endfor %}
-
         </div>
-    </div>
 
-</div>
+    </div>
+</section>
 {% endblock %}
 
 {% block javascript %}
