@@ -388,11 +388,11 @@
                                         </a>
                                     </h4>
                                     <div class="author">
-                                        <a href="{{ SSO_URL }}{{ url('u', owner.name) }}"
+                                        <a href="{{ sso('user', owner.name) }}"
                                             title="{{ owner.display_name }}">
                                             {{ gravatar(owner.email_hash, 25) }}
                                         </a>
-                                        <a class="user" href="{{ SSO_URL }}{{ url('u', owner.name) }}"
+                                        <a class="user" href="{{ sso('user', owner.name) }}"
                                             title="{{ owner.display_name }}">
                                             {{ owner.display_name }}
                                         </a>

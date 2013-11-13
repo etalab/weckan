@@ -36,6 +36,15 @@ import webob
 from . import conf, contexts, wsgihelpers
 
 
+SSO_URLS = {
+    'user': '/u/{0}/',
+    'users': '/users/',
+    'settings': '/my/profile/',
+    'login': '/login',
+    'logout': '/logout',
+}
+
+
 application_url = None  # Set to req.application_url as soon as Weckan application is called.
 
 
@@ -80,6 +89,12 @@ def get_url(ctx, *path, **query):
         )
     return u'{0}/{1}{2}'.format(get_base_url(ctx), u'/'.join(path),
         ('?' + urllib.urlencode(query, doseq = True)) if query else '')
+
+
+def sso_url(url_name, *args):
+    if not url_name in SSO_URLS:
+        raise ValueError('Unknown URL name')
+    return conf['sso_url'] + SSO_URLS[url_name].format(*args)
 
 
 def iter_full_urls(ctx, *path, **query):

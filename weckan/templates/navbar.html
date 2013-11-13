@@ -48,7 +48,7 @@
                             </li>
                             {% endif %}
                             <li>
-                                <a href="{{ url(lang, 'user', user.name) }}", title="{% trans %}Profile{% endtrans %}">
+                                <a href="{{ sso('user', user.name) }}", title="{% trans %}Profile{% endtrans %}">
                                     <span class="glyphicon glyphicon-user"></span>
                                     {% trans %}Profile{% endtrans %}
                                 </a>
@@ -60,14 +60,14 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="{{ SSO_URL }}/my/profile" title="{% trans %}Settings{% endtrans %}">
+                                <a href="{{ sso('settings') }}" title="{% trans %}Settings{% endtrans %}">
                                     <span class="glyphicon glyphicon-cog"></span>
                                     {% trans %}Settings{% endtrans %}
                                 </a>
                             </li>
                             <li class="divider"></li>
                             <li>
-                                <a href="{{ url(lang, 'user/_logout') }}" title="{% trans %}Log out{% endtrans %}">
+                                <a href="{{ sso('logout') }}" title="{% trans %}Log out{% endtrans %}">
                                     <span class="glyphicon glyphicon-log-out"></span>
                                     {% trans %}Log out{% endtrans %}
                                 </a>
@@ -77,7 +77,7 @@
                     {% else %}
                     <li>
                         <a title="{% trans %}Sign In / Register{% endtrans %}"
-                            href="{{ url(lang, 'user', 'login') }}?came_from={{ full_url|safe }}">
+                            href="{{ sso('login') }}?next={{ full_url|safe }}">
                             <span class="glyphicon glyphicon-log-in"></span>
                             {% trans %}Sign In / Register{% endtrans %}
                         </a>

@@ -172,6 +172,7 @@ def get_jinja_env():
     if not env:
         from biryani1 import strings
         from ckan.lib.helpers import markdown, markdown_extract
+        from weckan.urls import sso_url
 
         # Configure Jinja Environment with webassets
         env = Environment(
@@ -182,6 +183,7 @@ def get_jinja_env():
 
         # Custom global functions
         env.globals['url'] = url
+        env.globals['sso'] = sso_url
         env.globals['static'] = static
         env.globals['slugify'] = strings.slugify
         env.globals['ifelse'] = lambda condition, first, second: first if condition else second
