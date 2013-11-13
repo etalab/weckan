@@ -63,6 +63,13 @@
                                     </a>
                                     <label>{{ markdown_extract(reuse.description, 250) }}</label>
                                 </h4>
+                                {% if user.sysadmin %}
+                                <a class="btn btn-xs btn-warning unfeature" rel="tooltip"
+                                    href="{{ url(lang, 'unfeature', reuse.id) }}"
+                                    title="{{ _('Unmark as featured') }}">
+                                    <span class="glyphicon glyphicon-trash"></span>
+                                </a>
+                                {% endif %}
                             </div>
                         </div>
                         {% endfor %}
