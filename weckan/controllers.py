@@ -477,9 +477,9 @@ def display_dataset(request):
     supplier_id = dataset.extras.get('supplier_id', None)
     supplier = meta.Session.query(Group).filter(Group.id == supplier_id).first() if supplier_id else None
 
-    owner_query = meta.Session.query(User)
-    owner_query = owner_query.filter(PackageRole.user_id == User.id)
+    owner_query = meta.Session.query(User).join(PackageRole)
     owner_query = owner_query.filter(PackageRole.package_id == dataset.id)
+    owner_query = owner_query.filter(PackageRole.role == Role.ADMIN)
 
     return templates.render_site('dataset.html', request,
         dataset=dataset,
