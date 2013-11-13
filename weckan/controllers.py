@@ -578,21 +578,27 @@ def fork_dataset(request):
 
 
 @wsgihelpers.wsgify
-def toggle_featured(request):
+def toggle_featured(request, value=None, url=None):
     user = auth.get_user_from_request(request)
     context = contexts.Ctx(request)
     if not user or not user.sysadmin:
         return wsgihelpers.unauthorized(context)  # redirect to login/register ?
 
-    dataset_name = request.urlvars.get('name')
     reuse_id = request.urlvars.get('reuse')
 
     reuse = Related.get(reuse_id)
-    reuse.featured = 0 if reuse.featured else 1
+    reuse.featured = value if value is not None else (0 if reuse.featured else 1)
     meta.Session.commit()
 
-    url = urls.get_url(request.urlvars.get('lang', templates.DEFAULT_LANG), 'dataset', dataset_name)
+    if not url:
+        dataset_name = request.urlvars.get('name')
+        url = urls.get_url(request.urlvars.get('lang', templates.DEFAULT_LANG), 'dataset', dataset_name)
     return wsgihelpers.redirect(context, location=url)
+
+
+@wsgihelpers.wsgify
+def unfeature_reuse(request):
+    return toggle_featured(request, 0, urls.get_url(request.urlvars.get('lang', templates.DEFAULT_LANG)))
 
 
 def make_router(app):
@@ -603,10 +609,11 @@ def make_router(app):
         ('GET', r'^(/(?P<lang>\w{2}))?/search/?$', search_results),
         ('GET', r'^(/(?P<lang>\w{2}))?/dataset/?$', search_more_datasets),
         ('GET', r'^(/(?P<lang>\w{2}))?/dataset/autocomplete/?$', autocomplete_datasets),
-        ('GET', r'^(/(?P<lang>\w{2}))?/dataset/(?P<name>[\w_-]+)/fork?$', fork_dataset),
-        ('GET', r'^(/(?P<lang>\w{2}))?/dataset/(?P<name>[\w_-]+)/reuse/(?P<reuse>[\w_-]+)/featured?$', toggle_featured),
+        ('GET', r'^(/(?P<lang>\w{2}))?/dataset/(?P<name>[\w_-]+)/fork/?$', fork_dataset),
+        ('GET', r'^(/(?P<lang>\w{2}))?/dataset/(?P<name>[\w_-]+)/reuse/(?P<reuse>[\w_-]+)/featured/?$', toggle_featured),
         ('GET', r'^(/(?P<lang>\w{{2}}))?/dataset/(?!{0}(/|$))(?P<name>[\w_-]+)/?$'.format('|'.join(EXCLUDED_PATTERNS)), display_dataset),
         ('GET', r'^(/(?P<lang>\w{2}))?/organization/?$', search_more_organizations),
+        ('GET', r'^(/(?P<lang>\w{2}))?/unfeature/(?P<reuse>[\w_-]+)/?$', unfeature_reuse),
         )
 
     return router
