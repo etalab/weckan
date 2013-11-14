@@ -39,14 +39,6 @@
                             <b class="caret"></b>
                         </button>
                         <ul class="dropdown-menu">
-                            {% if user.sysadmin %}
-                            <li>
-                                <a href="{{ url(lang, 'ckan-admin') }}" title="{% trans %}Sysadmin settings{% endtrans %}">
-                                    <span class="glyphicon glyphicon-wrench"></span>
-                                    {% trans %}Sysadmin settings{% endtrans %}
-                                </a>
-                            </li>
-                            {% endif %}
                             <li>
                                 <a href="{{ sso('user', user.name) }}", title="{% trans %}Profile{% endtrans %}">
                                     <span class="glyphicon glyphicon-user"></span>

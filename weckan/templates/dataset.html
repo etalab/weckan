@@ -405,13 +405,15 @@
                                 </a>
                                 {% if user.sysadmin %}
                                 {% set btn_class = 'success' if related.featured > 0 else 'default' %}
-                                <a class="btn btn-xs btn-{{ btn_class }} featured" rel="tooltip"
-                                    href="{{ url(lang, 'dataset', dataset.name, 'reuse', related.id, 'featured') }}"
+                                <a class="btn btn-xs btn-{{ btn_class }} featured" rel="tooltip" href
+                                    data-api="{{ url('youckan/reuse', related.id, 'featured') }}"
                                     {% if related.featured > 0 %}
                                     title="{{ _('Unmark as featured') }}"
                                     {% else %}
                                     title="{{ _('Mark as featured') }}"
-                                    {% endif %}>
+                                    {% endif %}
+                                    data-featured-title="{{ _('Unmark as featured') }}"
+                                    data-unfeatured-title="{{ _('Mark as featured') }}">
                                     <span class="glyphicon glyphicon-pushpin"></span>
                                 </a>
                                 {% endif %}
@@ -463,6 +465,20 @@
         </div>
     </div>
 </section>
+
+{% if user.sysadmin %}
+    <meta name="is-featured-translation" content="{{ _('This reuse is now featured') }}">
+    <meta name="is-unfeatured-translation" content="{{ _('This reuse is no more featured') }}">
+    <meta name="featured-error-translation" content="{{ _('Error while toggling featured state') }}">
+    <script id="message-template"  type="text/x-swig-template">
+        {% raw %}
+        <div class="alert alert-{{level}} alert-dismissable">
+          <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+          {{message}}
+        </div>
+        {% endraw %}
+    </script>
+{% endif %}
 {% endblock %}
 
 

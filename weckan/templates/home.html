@@ -64,8 +64,8 @@
                                     <label>{{ markdown_extract(reuse.description, 250) }}</label>
                                 </h4>
                                 {% if user.sysadmin %}
-                                <a class="btn btn-xs btn-warning unfeature" rel="tooltip"
-                                    href="{{ url(lang, 'unfeature', reuse.id) }}"
+                                <a class="btn btn-xs btn-warning unfeature" rel="tooltip" href
+                                    data-api="{{ url('youckan/reuse', reuse.id, 'unfeature') }}"
                                     title="{{ _('Unmark as featured') }}">
                                     <span class="glyphicon glyphicon-trash"></span>
                                 </a>
@@ -189,6 +189,21 @@
 
     </div>
 </section>
+
+{% if user.sysadmin %}
+    <meta name="is-unfeatured-translation"
+        content="{{ _('This reuse is no more featured and will not be visible anymore at page reload') }}">
+    <meta name="featured-error-translation" content="{{ _('Error while removing featured state') }}">
+    <script id="message-template"  type="text/x-swig-template">
+        {% raw %}
+        <div class="alert alert-{{level}} alert-dismissable">
+          <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+          {{message}}
+        </div>
+        {% endraw %}
+    </script>
+{% endif %}
+
 {% endblock %}
 
 {% block javascript %}
