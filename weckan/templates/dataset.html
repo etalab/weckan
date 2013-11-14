@@ -402,10 +402,12 @@
                                         <span class="date">{{ related.created|date(format='long', locale=lang) }}</span>
                                     </div>
                                 </div>
+                                {% if related.description %}
                                 <a class="rollover fade in" href="{{related.url}}" target="_blank"
                                     title="{{ related.title }}">
                                     {{ markdown_extract(related.description, 180) }}
                                 </a>
+                                {% endif %}
                                 {% if user.sysadmin %}
                                 {% set btn_class = 'success' if related.featured > 0 else 'default' %}
                                 <a class="btn btn-xs btn-{{ btn_class }} featured" rel="tooltip" href
