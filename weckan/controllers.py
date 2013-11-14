@@ -67,7 +67,7 @@ SEARCH_PAGE_SIZE = 20
 SEARCH_TIMEOUT = 2
 POST_TIMEOUT = 3
 
-NB_DATASETS = 9
+NB_DATASETS = 12
 
 
 def get_dataset_and_org_query():
