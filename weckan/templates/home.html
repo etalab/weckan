@@ -47,7 +47,7 @@
 
                         {% for reuse, owner in featured_reuses %}
                         <div class="item {% if loop.first %}active{% endif %}">
-                            <img class="slide" src="{{ reuse.image_url }}" alt="{{ reuse.title }}">
+                            <img class="slide" src="{{ reuse.image_url }}" alt="{{ reuse.title.format(**territory) }}">
                             <div class="carousel-caption">
                                 <div class="slide-logo pull-left">
                                     <a class="slide-logo-big" title="{{ owner.display_name }}"
@@ -58,8 +58,8 @@
                                     </a>
                                 </div>
                                 <h4 class="title ellipsis-dot">
-                                    <a href="{{ reuse.url }}" title="{{ reuse.title }}">
-                                    {{ reuse.title }}
+                                    <a href="{{ reuse.url.format(**territory) }}" title="{{ reuse.title.format(**territory) }}">
+                                    {{ reuse.title.format(**territory) }}
                                     </a>
                                     <label>{{ markdown_extract(reuse.description, 250) }}</label>
                                 </h4>

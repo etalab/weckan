@@ -293,6 +293,20 @@ def get_territory(kind, code):
     return response.json().get('data', {})
 
 
+def get_territory_cookie(request):
+    if request.cookies.get('territory-infos', '').count('|') == 1:
+        territory_key, _ = request.cookies.get('territory-infos').split('|')
+        territory = get_territory(*territory_key.split('/')) if territory_key else {}
+    else:
+        territory = {}
+
+    return {
+        'full_name': territory.get('full_name', ''),
+        'full_name_slug': strings.slugify(territory.get('full_name', '')),
+        'depcom': territory.get('code', '')
+    }
+
+
 def get_page_url_pattern(request):
     '''Get a formattable page url pattern from incoming request URL'''
     url_pattern_params = {}
@@ -425,9 +439,10 @@ def fork(dataset, user):
 @wsgihelpers.wsgify
 def home(request):
     return templates.render_site('home.html', request,
-        last_datasets = last_datasets(NB_DATASETS),
-        popular_datasets = popular_datasets(NB_DATASETS),
-        featured_reuses = featured_reuses(NB_DATASETS),
+        last_datasets=last_datasets(NB_DATASETS),
+        popular_datasets=popular_datasets(NB_DATASETS),
+        featured_reuses=featured_reuses(NB_DATASETS),
+        territory=get_territory_cookie(request),
     )
 
 
@@ -468,12 +483,6 @@ def display_dataset(request):
 
     periodicity = dataset.extras.get('"dct:accrualPeriodicity"', None)
 
-    if request.cookies.get('territory-infos', '').count('|') == 1:
-        territory_key, _ = request.cookies.get('territory-infos').split('|')
-        territory = get_territory(*territory_key.split('/')) if territory_key else {}
-    else:
-        territory = {}
-
     supplier_id = dataset.extras.get('supplier_id', None)
     supplier = meta.Session.query(Group).filter(Group.id == supplier_id).first() if supplier_id else None
 
@@ -496,11 +505,7 @@ def display_dataset(request):
         groups=dataset.get_groups('group'),
         can_edit=can_edit(auth.get_user_from_request(request), dataset),
         quality=get_dataset_quality(dataset.name),
-        territory={
-            'full_name': territory.get('full_name', ''),
-            'full_name_slug': strings.slugify(territory.get('full_name', '')),
-            'depcom': territory.get('code', '')
-        }
+        territory=get_territory_cookie(request),
     )
 
 
