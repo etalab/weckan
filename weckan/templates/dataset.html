@@ -76,6 +76,9 @@
                                     {% endif %}
                                 {% endif %}
                             </small>
+                            {% if not organization.certified_public_service %}
+                            <small class="not-certified">{{ _('Not certified') }}</small>
+                            {% endif %}
                         </p>
                     </div>
                 </div>
