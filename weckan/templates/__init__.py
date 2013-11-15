@@ -103,19 +103,9 @@ def format_date(value, format='display', locale='fr'):
         return value
 
 
-def gravatar(email_hash, size=100, default=None):
-    '''Display a gravatar from an email'''
-    if default is None:
-        default = conf.get('ckan.gravatar_default', 'identicon')
-
-    if not default in GRAVATAR_DEFAULTS:
-        # treat the default as a url
-        default = urllib.quote(default, safe='')
-
-    return (
-        '<img src="//gravatar.com/avatar/{hash}?s={size}&amp;d={default}"'
-        'class="gravatar" width="{size}" height="{size}" />'
-        ).format(hash=email_hash, size=size, default=default)
+def avatar(user, size=100):
+    url = '{0}/u/{1}/avatar'.format(conf['sso_url'], user.name)
+    return '<img src="{0}" class="gravatar" width="{1}" height="{1}" />'.format(url, size)
 
 
 def swig(value):
@@ -187,7 +177,7 @@ def get_jinja_env():
         env.globals['static'] = static
         env.globals['slugify'] = strings.slugify
         env.globals['ifelse'] = lambda condition, first, second: first if condition else second
-        env.globals['gravatar'] = gravatar
+        env.globals['avatar'] = avatar
         env.globals['markdown'] = markdown
         env.globals['markdown_extract'] = markdown_extract
         env.globals['user_by_id'] = user_by_id

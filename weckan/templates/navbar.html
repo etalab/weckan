@@ -35,7 +35,7 @@
                     {% if user %}
                     <li class="dropdown user">
                         <button class="btn-link dropdown-toggle" data-toggle="dropdown">
-                            {{gravatar(user.email_hash, 30)}} {{ user.display_name }}
+                            {{ avatar(user, 30)}} {{ user.display_name }}
                             <b class="caret"></b>
                         </button>
                         <ul class="dropdown-menu">
