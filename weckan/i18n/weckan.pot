@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Weckan 0.2.0.dev\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2013-11-14 15:59+0100\n"
+"POT-Creation-Date: 2013-11-18 16:49+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -78,7 +78,7 @@ msgstr ""
 msgid "MM-dd-yyyy"
 msgstr ""
 
-#: weckan/templates/dataset.html:27
+#: weckan/templates/dataset.html:27 weckan/templates/dataset.html:413
 msgid "Edit"
 msgstr ""
 
@@ -265,7 +265,7 @@ msgid "Improve"
 msgstr ""
 
 #: weckan/templates/dataset.html:341 weckan/templates/dataset.html:346
-#: weckan/templates/dataset.html:449 weckan/templates/dataset.html:460
+#: weckan/templates/dataset.html:459 weckan/templates/dataset.html:470
 msgid "Fork"
 msgstr ""
 
@@ -289,16 +289,16 @@ msgstr ""
 msgid "Valorizations"
 msgstr ""
 
-#: weckan/templates/dataset.html:414 weckan/templates/dataset.html:418
+#: weckan/templates/dataset.html:423 weckan/templates/dataset.html:427
 #: weckan/templates/home.html:69
 msgid "Unmark as featured"
 msgstr ""
 
-#: weckan/templates/dataset.html:416 weckan/templates/dataset.html:419
+#: weckan/templates/dataset.html:425 weckan/templates/dataset.html:428
 msgid "Mark as featured"
 msgstr ""
 
-#: weckan/templates/dataset.html:432
+#: weckan/templates/dataset.html:442
 msgid ""
 "You reused these data and published an article, a computer graphics, or an "
 "application?\n"
@@ -307,7 +307,7 @@ msgid ""
 "your visibility."
 msgstr ""
 
-#: weckan/templates/dataset.html:452
+#: weckan/templates/dataset.html:462
 msgid ""
 "You are about to make a copy of this dataset.\n"
 "                    You'll become the owner and you will have the ability to "
@@ -315,23 +315,23 @@ msgid ""
 "                    The original dataset will keep a reference of your work."
 msgstr ""
 
-#: weckan/templates/dataset.html:455
+#: weckan/templates/dataset.html:465
 msgid "Continue?"
 msgstr ""
 
-#: weckan/templates/dataset.html:464
+#: weckan/templates/dataset.html:474
 msgid "Cancel"
 msgstr ""
 
-#: weckan/templates/dataset.html:472
+#: weckan/templates/dataset.html:482
 msgid "This reuse is now featured"
 msgstr ""
 
-#: weckan/templates/dataset.html:473
+#: weckan/templates/dataset.html:483
 msgid "This reuse is no more featured"
 msgstr ""
 
-#: weckan/templates/dataset.html:474
+#: weckan/templates/dataset.html:484
 msgid "Error while toggling featured state"
 msgstr ""
 
