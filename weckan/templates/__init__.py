@@ -23,8 +23,6 @@
 from __future__ import unicode_literals
 
 import json
-import urllib
-import urlparse
 
 from os.path import join, dirname, abspath
 from pkg_resources import resource_stream
@@ -107,7 +105,7 @@ def format_date(value, format='display', locale='fr'):
 
 def avatar(user, size=100):
     url = '{0}/u/{1}/avatar'.format(conf['sso_url'], user.name)
-    return '<img src="{0}" class="gravatar" width="{1}" height="{1}" />'.format(url, size)
+    return Markup('<img src="{0}" class="gravatar" width="{1}" height="{1}" />'.format(url, size))
 
 
 def swig(value):
@@ -130,7 +128,12 @@ def tooltip_ellipsis(source, length=0):
     except ValueError:  # invalid literal for int()
         return source  # Fail silently.
     ellipsis = '<a href rel="tooltip" data-container="body" title="{0}">...</a>'.format(source)
-    return (source[:length] + ellipsis) if len(source) > length and length > 0 else source
+    return Markup((source[:length] + ellipsis) if len(source) > length and length > 0 else source)
+
+
+def markdown_filter(source):
+    from ckan.lib.helpers import markdown
+    return Markup(markdown(source))
 
 
 def get_webassets_env(conf):
@@ -163,14 +166,15 @@ def get_jinja_env():
 
     if not env:
         from biryani1 import strings
-        from ckan.lib.helpers import markdown, markdown_extract
+        from ckan.lib.helpers import markdown_extract
         from weckan.urls import sso_url
 
         # Configure Jinja Environment with webassets
         env = Environment(
-            loader = PackageLoader('weckan', 'templates'),
-            extensions = (AssetsExtension, 'jinja2.ext.i18n', 'jinja2.ext.autoescape')
-            )
+            autoescape=True,
+            loader=PackageLoader('weckan', 'templates'),
+            extensions=(AssetsExtension, 'jinja2.ext.i18n', 'jinja2.ext.autoescape')
+        )
         env.assets_environment = get_webassets_env(conf)
 
         # Custom global functions
@@ -180,7 +184,7 @@ def get_jinja_env():
         env.globals['slugify'] = strings.slugify
         env.globals['ifelse'] = lambda condition, first, second: first if condition else second
         env.globals['avatar'] = avatar
-        env.globals['markdown'] = markdown
+        env.globals['markdown'] = markdown_filter
         env.globals['markdown_extract'] = markdown_extract
         env.globals['user_by_id'] = user_by_id
 
