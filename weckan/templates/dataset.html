@@ -408,20 +408,28 @@
                                     {{ markdown_extract(related.description, 180) }}
                                 </a>
                                 {% endif %}
-                                {% if user.sysadmin %}
-                                {% set btn_class = 'success' if related.featured > 0 else 'default' %}
-                                <a class="btn btn-xs btn-{{ btn_class }} featured" rel="tooltip" href
-                                    data-api="{{ url('youckan/reuse', related.id, 'featured') }}"
-                                    {% if related.featured > 0 %}
-                                    title="{{ _('Unmark as featured') }}"
-                                    {% else %}
-                                    title="{{ _('Mark as featured') }}"
+                                <div class="btn-group btn-group-xs">
+                                    {% if user.sysadmin or related.owner == user %}
+                                    <a class="btn btn-default" rel="tooltip" title="{{ _('Edit') }}"
+                                        href="{{ url(lang, 'dataset', dataset.name, 'related/edit', related.id) }}">
+                                        <span class="glyphicon glyphicon-edit"></span>
+                                    </a>
                                     {% endif %}
-                                    data-featured-title="{{ _('Unmark as featured') }}"
-                                    data-unfeatured-title="{{ _('Mark as featured') }}">
-                                    <span class="glyphicon glyphicon-pushpin"></span>
-                                </a>
-                                {% endif %}
+                                    {% if user.sysadmin %}
+                                    {% set btn_class = 'success' if related.featured > 0 else 'default' %}
+                                    <a class="btn btn-{{ btn_class }} featured" rel="tooltip" href
+                                        data-api="{{ url('youckan/reuse', related.id, 'featured') }}"
+                                        {% if related.featured > 0 %}
+                                        title="{{ _('Unmark as featured') }}"
+                                        {% else %}
+                                        title="{{ _('Mark as featured') }}"
+                                        {% endif %}
+                                        data-featured-title="{{ _('Unmark as featured') }}"
+                                        data-unfeatured-title="{{ _('Mark as featured') }}">
+                                        <span class="glyphicon glyphicon-pushpin"></span>
+                                    </a>
+                                    {% endif %}
+                                </div>
                             </div>
                         </div>
                         {% endfor %}
