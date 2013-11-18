@@ -9,8 +9,6 @@
 {% endblock %}
 
 {% block content %}
-{% include 'subnav-s.html' %}
-
 <section class="content {% if not organization.certified_public_service %}un{% endif %}certified">
     <div class="container dataset-container">
         <div class="row">
@@ -411,7 +409,8 @@
                                 <div class="btn-group btn-group-xs">
                                     {% if user.sysadmin or related.owner == user %}
                                     <a class="btn btn-default" rel="tooltip" title="{{ _('Edit') }}"
-                                        href="{{ url(lang, 'dataset', dataset.name, 'related/edit', related.id) }}">
+                                        href="{{ url(lang, 'dataset', dataset.name, 'related/edit', related.id) }}"
+                                        data-containter="body">
                                         <span class="glyphicon glyphicon-edit"></span>
                                     </a>
                                     {% endif %}
@@ -425,7 +424,8 @@
                                         title="{{ _('Mark as featured') }}"
                                         {% endif %}
                                         data-featured-title="{{ _('Unmark as featured') }}"
-                                        data-unfeatured-title="{{ _('Mark as featured') }}">
+                                        data-unfeatured-title="{{ _('Mark as featured') }}"
+                                        data-containter="body">
                                         <span class="glyphicon glyphicon-pushpin"></span>
                                     </a>
                                     {% endif %}

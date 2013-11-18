@@ -6,26 +6,27 @@
 {% block title %}{% trans %}Datasets search{% endtrans %}{% endblock %}
 
 {% block content %}
-{% include 'subnav-s.html' %}
-<div class="container">
+<section class="default">
+    <div class="container">
 
-    {% if datasets.results %}
-    {% set start = ((datasets.page - 1) * datasets.page_size) + 1 %}
-    {% set end = start - 1 + datasets.results|length %}
-    <div class="page-header">
-        <h1>
-            {% trans %}Datasets search{% endtrans %}
-            <small>{% trans total=datasets.total %}results {{start}} to {{end}} of {{total}}{% endtrans %}
-        </h1>
+        {% if datasets.results %}
+        {% set start = ((datasets.page - 1) * datasets.page_size) + 1 %}
+        {% set end = start - 1 + datasets.results|length %}
+        <div class="page-header">
+            <h1>
+                {% trans %}Datasets search{% endtrans %}
+                <small>{% trans total=datasets.total %}results {{start}} to {{end}} of {{total}}{% endtrans %}</small>
+            </h1>
+        </div>
+        <ul class="search-results">
+            {% for dataset in datasets.results %}
+            {% include "widgets/dataset-search-result.html" %}
+            {% endfor %}
+        </ul>
+
+        {{ paginator(datasets.page, datasets.total_pages, url_pattern) }}
+        {% endif %}
+
     </div>
-    <ul class="search-results">
-        {% for dataset in datasets.results %}
-        {% include "widgets/dataset-search-result.html" %}
-        {% endfor %}
-    </ul>
-
-    {{ paginator(datasets.page, datasets.total_pages, url_pattern) }}
-    {% endif %}
-
-</div>
+</section>
 {% endblock %}

@@ -6,26 +6,27 @@
 {% block title %}{% trans %}Organizations search{% endtrans %}{% endblock %}
 
 {% block content %}
-{% include 'subnav-s.html' %}
-<div class="container">
+<section class="default">
+    <div class="container">
 
-    {% if organizations.results %}
-    {% set start = ((organizations.page - 1) * organizations.page_size) + 1 %}
-    {% set end = start - 1 + organizations.results|length %}
-    <div class="page-header">
-        <h1>
-            {% trans %}Organizations search{% endtrans %}
-            <small>{% trans total=organizations.total %}results {{start}} to {{end}} of {{total}}{% endtrans %}
-        </h1>
+        {% if organizations.results %}
+        {% set start = ((organizations.page - 1) * organizations.page_size) + 1 %}
+        {% set end = start - 1 + organizations.results|length %}
+        <div class="page-header">
+            <h1>
+                {% trans %}Organizations search{% endtrans %}
+                <small>{% trans total=organizations.total %}results {{start}} to {{end}} of {{total}}{% endtrans %}</small>
+            </h1>
+        </div>
+        <ul class="search-results">
+            {% for organization, nb_datasets in organizations.results %}
+            {% include "widgets/organization-search-result.html" %}
+            {% endfor %}
+        </ul>
+
+        {{ paginator(organizations.page, organizations.total_pages, url_pattern) }}
+        {% endif %}
+
     </div>
-    <ul class="search-results">
-        {% for organization, nb_datasets in organizations.results %}
-        {% include "widgets/organization-search-result.html" %}
-        {% endfor %}
-    </ul>
-
-    {{ paginator(organizations.page, organizations.total_pages, url_pattern) }}
-    {% endif %}
-
-</div>
+</section>
 {% endblock %}
