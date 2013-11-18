@@ -403,7 +403,7 @@
                                     </div>
                                 </div>
                                 {% if related.description %}
-                                <a class="rollover fade in" href="{{related.url}}" target="_blank"
+                                <a class="rollover fade in" href="{{related.url.format(**territory)}}" target="_blank"
                                     title="{{ related.title }}">
                                     {{ markdown_extract(related.description, 180) }}
                                 </a>
