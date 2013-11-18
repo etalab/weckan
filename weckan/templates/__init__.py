@@ -121,15 +121,6 @@ def user_by_id(user_id):
     return User.get(user_id)
 
 
-def urlquote_filter(uri):
-    '''Quote url parameters'''
-    if type(uri) == 'Markup':
-        uri = uri.unescape()
-    parts = list(urlparse.urlparse(uri))
-    parts[4] = urllib.quote_plus(parts[4], safe="!*'();:@=+$,/?%#[]")
-    return Markup(urlparse.urlunparse(parts))
-
-
 def tooltip_ellipsis(source, length=0):
     ''' return the plain text representation of markdown encoded text.  That
     is the texted without any html tags.  If ``length`` is 0 then it
@@ -178,7 +169,7 @@ def get_jinja_env():
         # Configure Jinja Environment with webassets
         env = Environment(
             loader = PackageLoader('weckan', 'templates'),
-            extensions = (AssetsExtension, 'jinja2.ext.i18n')
+            extensions = (AssetsExtension, 'jinja2.ext.i18n', 'jinja2.ext.autoescape')
             )
         env.assets_environment = get_webassets_env(conf)
 
@@ -198,7 +189,6 @@ def get_jinja_env():
         env.filters['date'] = format_date
         env.filters['swig'] = swig
         env.filters['tooltip_ellipsis'] = tooltip_ellipsis
-        env.filters['urlquote'] = urlquote_filter
 
     return env
 
