@@ -113,7 +113,7 @@
                 <div class="list-group resources-list">
                     <h3>{% trans %}Resources{% endtrans %}</h3>
                     {% for resource in dataset.active_resources %}
-                        <a class="list-group-item" href="{{ resource.url }}"
+                        <a class="list-group-item" href="{{ resource.url|urlquote }}"
                             {% if resource.format.lower() == 'html' %}target="_blank"{% endif %}
                             >
                             <span class="format-label pull-left" property="dc:format"

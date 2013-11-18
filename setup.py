@@ -77,7 +77,7 @@ setup(
         'WebError >= 0.10',
 #        'WebOb >= 1.1',
         'WebOb >= 1.0.8',
-        'Jinja2 >= 2.6',
+        'Jinja2 >= 2.7',
         'webassets == 0.9.dev',
         'requests',
         'PyYAML',

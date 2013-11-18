@@ -22,13 +22,15 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 from __future__ import unicode_literals
 
-import urllib
 import json
+import urllib
+import urlparse
 
 from os.path import join, dirname, abspath
 from pkg_resources import resource_stream
 
 from jinja2 import Environment, PackageLoader
+from jinja2.utils import Markup
 from webassets import Environment as AssetsEnvironment
 from webassets.ext.jinja2 import AssetsExtension
 from webassets.loaders import YAMLLoader
@@ -119,6 +121,15 @@ def user_by_id(user_id):
     return User.get(user_id)
 
 
+def urlquote_filter(uri):
+    '''Quote url parameters'''
+    if type(uri) == 'Markup':
+        uri = uri.unescape()
+    parts = list(urlparse.urlparse(uri))
+    parts[4] = urllib.quote_plus(parts[4], safe="!*'();:@=+$,/?%#[]")
+    return Markup(urlparse.urlunparse(parts))
+
+
 def tooltip_ellipsis(source, length=0):
     ''' return the plain text representation of markdown encoded text.  That
     is the texted without any html tags.  If ``length`` is 0 then it
@@ -187,6 +198,7 @@ def get_jinja_env():
         env.filters['date'] = format_date
         env.filters['swig'] = swig
         env.filters['tooltip_ellipsis'] = tooltip_ellipsis
+        env.filters['urlquote'] = urlquote_filter
 
     return env
 
