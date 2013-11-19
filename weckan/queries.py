@@ -3,14 +3,10 @@ from __future__ import unicode_literals
 
 import logging
 
-
 from sqlalchemy.orm import joinedload
-from sqlalchemy.sql import func, desc, null
+from sqlalchemy.sql import func, desc, null, and_
 
 from ckanext.etalab.model import CertifiedPublicService
-
-from sqlalchemy.sql import func, desc, or_, null
-from sqlalchemy.orm import joinedload
 
 from weckan import model
 
@@ -32,22 +28,31 @@ def datasets_and_organizations():
 
 def organizations_and_counters():
     '''Query organizations with their counters'''
-    query = DB.query(model.Group, func.count(model.Package.owner_org).label('nb_datasets'))
-    query = query.join(model.GroupRevision)
-    query = query.outerjoin(model.Package, model.Group.id == model.Package.owner_org)
+    query = DB.query(model.Group,
+        func.count(model.Package.owner_org).label('nb_datasets'),
+        func.count(model.Member.id).label('nb_members')
+    )
     query = query.outerjoin(CertifiedPublicService)
+    query = query.outerjoin(model.Package, and_(
+        model.Group.id == model.Package.owner_org,
+        ~model.Package.private,
+        model.Package.state == 'active',
+    ))
+    query = query.outerjoin(model.Member, and_(
+        model.Member.group_id == model.Group.id,
+        model.Member.state == 'active',
+        model.Member.table_name == 'user'
+    ))
+    query = query.filter(model.Group.state == 'active')
+    query = query.filter(model.Group.approval_status == 'approved')
+    query = query.filter(model.Group.is_organization == True)
     query = query.group_by(model.Group.id, CertifiedPublicService.organization_id)
-    query = query.filter(model.GroupRevision.state == 'active')
-    query = query.filter(model.GroupRevision.current == True)
-    query = query.filter(model.GroupRevision.is_organization == True)
-    query = query.filter(~model.Package.private)
-    query = query.filter(model.Package.state == 'active')
     query = query.order_by(
         CertifiedPublicService.organization_id == null(),
         desc('nb_datasets'),
+        desc('nb_members'),
         model.Group.title
     )
-    query = query.options(joinedload('certified_public_service'))
     return query
 
 

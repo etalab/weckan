@@ -53,6 +53,12 @@ dataset-css:
     contents: less/dataset.less
     depends: less/*.less
 
+organization-css:
+    filters: less,cssrewrite,cssmin
+    output: css/organization.min.css
+    contents: less/organization.less
+    depends: less/*.less
+
 home-js:
     filters: uglifyjs
     output: js/home.min.js

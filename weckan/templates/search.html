@@ -23,7 +23,7 @@
             {% endif %}
         </h2>
         <ul class="search-results">
-            {% for organization, nb_datasets in organizations.results %}
+            {% for organization, nb_datasets, nb_members in organizations.results %}
             {% include "widgets/organization-search-result.html" %}
             {% endfor %}
         </ul>

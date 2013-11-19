@@ -1,6 +1,6 @@
 {% extends "site.html" %}
 
-{% set style = 'home' %}
+{% set style = 'organization' %}
 
 {% block title %}{{organization.title}}{% endblock %}
 
@@ -28,18 +28,26 @@
 
             {# Left sidebar with organization aside ( counters, logo, social...) #}
             <aside class="col-sm-3 card">
+                {% if organization.certified_public_service %}
+                    <img src="{{static('/img/certified-stamp.png')}}" alt="certified"
+                        class="certified" rel="popover"
+                        data-title="{% trans %}Certified public service{% endtrans %}"
+                        data-content="{% trans %}This organization and its datasets are certified by data.gouv.fr{% endtrans %}"
+                        data-container="body" data-placement="left" data-trigger="hover"/>
+                {% endif %}
                 <div class="text-center">
-                    <img src="{{organization.image_url}}" alt="{{ organization.title }}" class="scalable" />
+                    <img src="{{organization.image_url or static('/base/images/placeholder-organization.png') }}"
+                        alt="{{ organization.title }}" class="scalable" />
                 </div>
                 <br/>
                 <p class="text-center">
-                    <strong>{% trans %}{{nb_members}} members{% endtrans %}</strong>
+                    <strong>{% trans nb=nb_members %}{{nb}} member{% pluralize %}{{nb}} members{% endtrans %}</strong>
                 </p>
                 <p class="text-center">
-                    <strong>{% trans %}{{nb_followers}} followers{% endtrans %}</strong>
+                    <strong>{% trans nb=nb_followers %}{{nb}} follower{% pluralize %}{{nb}} followers{% endtrans %}</strong>
                 </p>
                 <p class="text-center">
-                    <strong>{% trans %}{{nb_datasets}} datasets{% endtrans %}</strong>
+                    <strong>{% trans nb=nb_datasets %}{{nb}} dataset{% pluralize %}{{nb}} datasets{% endtrans %}</strong>
                 </p>
                 <div class="text-left">
                     {% if is_following %}

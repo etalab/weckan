@@ -37,10 +37,10 @@ from urllib import urlencode
 from uuid import uuid1
 
 from biryani1 import strings
-from sqlalchemy.sql import func, or_, and_
+from sqlalchemy.sql import func, or_
 
 from . import templates, urls, wsgihelpers, conf, contexts, auth, queries
-from .model import Activity, meta, Package, Related, Group, GroupRevision, Member
+from .model import Activity, meta, Package, Related, Group
 from .model import Role, PackageRole, UserFollowingDataset, UserFollowingGroup, User
 
 
@@ -168,8 +168,8 @@ def search_organizations(query, page=1, page_size=SEARCH_MAX_ORGANIZATIONS):
 
     organizations = queries.organizations_and_counters()
     organizations = organizations.filter(or_(
-        GroupRevision.name.ilike(like),
-        GroupRevision.title.ilike(like),
+        Group.name.ilike(like),
+        Group.title.ilike(like),
         # GroupRevision.description.ilike(like),
     ))
 
@@ -280,38 +280,6 @@ def get_dataset_quality(dataset_name):
     return data
 
 
-def can_edit_dataset(user, dataset):
-    if user is None:
-        return False
-    if user.sysadmin or dataset.owner_org is None:
-        return True
-
-    query = DB.query(Member).filter(
-        Member.capacity.in_(['admin', 'editor']),
-        Member.group_id == dataset.owner_org,
-        Member.state == 'active',
-        Member.table_id == user.id,
-        Member.table_name == 'user',
-    )
-    return query.count() > 0
-
-
-def can_edit_org(user, organization):
-    if user is None:
-        return False
-    if user.sysadmin:
-        return True
-
-    query = DB.query(Member).filter(
-        Member.capacity.in_(['admin', 'editor']),
-        Member.group_id == organization.id,
-        Member.state == 'active',
-        Member.table_id == user.id,
-        Member.table_name == 'user',
-    )
-    return query.count() > 0
-
-
 def fork(dataset, user):
     '''
     Fork this package by duplicating it.
@@ -419,20 +387,13 @@ def display_organization(request):
 
     organization_name = request.urlvars.get('name')
 
-    query = DB.query(Group, func.count(Member.id))
-    query = query.outerjoin(Member, and_(
-        Member.group_id == Group.id,
-        Member.state == 'active',
-        Member.table_name == 'user'
-    ))
-    query = query.filter(Group.is_organization == True)
+    query = queries.organizations_and_counters()
     query = query.filter(Group.name == organization_name)
-    query = query.group_by(Group.id)
 
     if not query.count():
         return wsgihelpers.not_found(contexts.Ctx(request))
 
-    organization, nb_members = query.first()
+    organization, nb_datasets, nb_members = query.first()
 
     last_datasets = queries.last_datasets()
     last_datasets = last_datasets.filter(Package.owner_org == organization.id)
@@ -443,10 +404,10 @@ def display_organization(request):
     return templates.render_site('organization.html', request,
         organization=organization,
         nb_members=nb_members,
-        nb_datasets=0,
+        nb_datasets=nb_datasets,
         nb_followers=UserFollowingGroup.follower_count(organization.id),
         is_following=UserFollowingGroup.is_following(user.id, organization.id) if organization and user else False,
-        can_edit=can_edit_org(auth.get_user_from_request(request), organization),
+        can_edit=auth.can_edit_org(user, organization),
         last_datasets=build_datasets(last_datasets.limit(NB_DATASETS)),
         popular_datasets=build_datasets(popular_datasets.limit(NB_DATASETS)),
         territory=get_territory_cookie(request),
@@ -510,7 +471,7 @@ def display_dataset(request):
         temporal_coverage=temporal_coverage,
         periodicity=periodicity,
         groups=dataset.get_groups('group'),
-        can_edit=can_edit_dataset(auth.get_user_from_request(request), dataset),
+        can_edit=auth.can_edit_dataset(user, dataset),
         quality=get_dataset_quality(dataset.name),
         territory=get_territory_cookie(request),
     )

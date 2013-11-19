@@ -24,9 +24,14 @@
                 title="{{ _('Number of dataset') }}">
                 <span class="glyphicon glyphicon-stats"></span>
             </a>
-            {% trans %}{{ nb_datasets }} dataset{%
-            pluralize %}{{ nb_datasets }} datasets{%
-            endtrans %}
+            {% trans nb=nb_datasets %}{{nb}} dataset{% pluralize %}{{nb}} datasets{% endtrans %}
+        </li>
+        <li>
+            <a href class="btn btn-xs btn-default" rel="tooltip" data-placement="top"
+                title="{{ _('Number of members') }}">
+                <span class="glyphicon glyphicon-user"></span>
+            </a>
+            {% trans nb=nb_members %}{{nb}} member{% pluralize %}{{nb}} members{% endtrans %}
         </li>
     </ul>
 </li>

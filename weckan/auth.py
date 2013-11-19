@@ -21,10 +21,46 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-from ckan.model import User
+from weckan.model import User, Member, meta
+
+DB = meta.Session
 
 
 def get_user_from_request(request):
     '''Simple user fetching from request'''
     username = request.environ.get('repoze.who.identity', {}).get('repoze.who.userid')
     return User.get(username) if username else None
+
+
+def can_edit_dataset(user, dataset):
+    '''Returns True if a given user can edit a given dataset'''
+    if user is None:
+        return False
+    if user.sysadmin or dataset.owner_org is None:
+        return True
+
+    query = DB.query(Member).filter(
+        Member.capacity.in_(['admin', 'editor']),
+        Member.group_id == dataset.owner_org,
+        Member.state == 'active',
+        Member.table_id == user.id,
+        Member.table_name == 'user',
+    )
+    return query.count() > 0
+
+
+def can_edit_org(user, organization):
+    '''Returns True if a given user can edit a given organization'''
+    if user is None:
+        return False
+    if user.sysadmin:
+        return True
+
+    query = DB.query(Member).filter(
+        Member.capacity.in_(['admin', 'editor']),
+        Member.group_id == organization.id,
+        Member.state == 'active',
+        Member.table_id == user.id,
+        Member.table_name == 'user',
+    )
+    return query.count() > 0

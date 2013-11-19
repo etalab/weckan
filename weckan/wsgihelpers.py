@@ -36,8 +36,6 @@ from markupsafe import Markup
 import webob.dec
 import webob.exc
 
-from . import templates
-
 
 N_ = lambda message: message
 
@@ -78,6 +76,7 @@ def discard_empty_items(data):
 
 
 def error(ctx, code, **kw):
+    from . import templates
     response = webob.exc.status_map[code](headers = kw.pop('headers', None))
     if code != 204:  # No content
         body = kw.pop('body', None)
@@ -150,6 +149,7 @@ def not_found(ctx, **kw):
 
 
 def redirect(ctx, code = 302, location = None, **kw):
+    from . import templates
     assert location is not None
     location_str = location.encode('utf-8') if isinstance(location, unicode) else location
     response = webob.exc.status_map[code](headers = kw.pop('headers', None), location = location_str)
