@@ -12,7 +12,7 @@
     "tests"
   ],
   "dependencies": {
-    "etalab-assets": "0.2.18"
+    "etalab-assets": "0.2.19"
   },
   "resolutions": {
     "jquery": "~2.0.3"
