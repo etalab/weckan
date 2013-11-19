@@ -59,10 +59,9 @@ def organizations_and_counters():
 def last_datasets():
     '''Get the ``num`` latest created datasets'''
     query = datasets_and_organizations()
-    query = query.outerjoin(model.Activity, model.Activity.object_id == model.Package.id)
-    query = query.filter(model.Activity.activity_type == 'new package')
+    query = query.outerjoin(model.PackageRevision, model.PackageRevision.id == model.Package.id)
     query = query.group_by(model.Package, model.Group)
-    query = query.order_by(desc(func.max(model.Activity.timestamp)))
+    query = query.order_by(desc(func.min(model.PackageRevision.revision_timestamp)))
     return query
 
 
