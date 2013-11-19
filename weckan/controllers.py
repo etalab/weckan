@@ -272,7 +272,7 @@ def get_dataset_quality(dataset_name):
     '''Fetch the dataset quality scores from COW'''
     url = '{0}/api/1/datasets/{1}/ranking'.format(conf['cow_url'], dataset_name)
     try:
-        response = requests.get(url)
+        response = requests.get(url, timeout=SEARCH_TIMEOUT)
         response.raise_for_status()
     except requests.RequestException:
         log.exception('Unable to fetch quality scores for %s', dataset_name)
