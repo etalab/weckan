@@ -37,15 +37,14 @@ from urllib import urlencode
 from uuid import uuid1
 
 from biryani1 import strings
-from ckanext.etalab.model import CertifiedPublicService
-from sqlalchemy.sql import func, desc, or_, null
-from sqlalchemy.orm import joinedload
+from sqlalchemy.sql import func, or_, and_
 
-from . import templates, urls, wsgihelpers, conf, contexts, auth
-from .model import Activity, meta, Package, Related, RelatedDataset, Group, GroupRevision, Member
+from . import templates, urls, wsgihelpers, conf, contexts, auth, queries
+from .model import Activity, meta, Package, Related, Group, GroupRevision, Member
 from .model import Role, PackageRole, UserFollowingDataset, UserFollowingGroup, User
 
 
+DB = meta.Session
 log = logging.getLogger(__name__)
 router = None
 
@@ -68,15 +67,6 @@ SEARCH_TIMEOUT = 2
 POST_TIMEOUT = 3
 
 NB_DATASETS = 12
-
-
-def get_dataset_and_org_query():
-    ''' Query dataset with their organization'''
-    datasets_query = meta.Session.query(Package, Group)
-    datasets_query = datasets_query.outerjoin(Group, Group.id == Package.owner_org)
-    datasets_query = datasets_query.filter(~Package.private)
-    datasets_query = datasets_query.filter(Package.state == 'active')
-    return datasets_query
 
 
 def build_datasets(query):
@@ -113,30 +103,6 @@ def build_datasets(query):
         })
 
     return datasets
-
-
-def last_datasets(num=8):
-    '''Get the ``num`` latest created datasets'''
-    query = get_dataset_and_org_query()
-    query = query.filter(Activity.object_id == Package.id)
-    query = query.filter(Activity.activity_type == 'new package')
-    query = query.group_by(Package, Group).order_by(desc(func.max(Activity.timestamp))).limit(num)
-    return build_datasets(query)
-
-
-def popular_datasets(num=8):
-    '''Get the ``num`` most popular (ie. with the most related) datasets'''
-    query = get_dataset_and_org_query()
-    query = query.join(RelatedDataset)
-    query = query.group_by(Package, Group).order_by(desc(func.count(RelatedDataset.related_id))).limit(num)
-    return build_datasets(query)
-
-
-def featured_reuses(num=8):
-    query = meta.Session.query(Related, User)
-    query = query.join(User, Related.owner_id == User.id)
-    query = query.filter(Related.featured > 0)
-    return query.order_by(desc(Related.created)).limit(num)
 
 
 def search_datasets(query, request, page=1, page_size=SEARCH_PAGE_SIZE):
@@ -183,7 +149,7 @@ def search_datasets(query, request, page=1, page_size=SEARCH_PAGE_SIZE):
     if not query.results:
         return 'datasets', {'results': [], 'total': 0}
 
-    datasets_query = get_dataset_and_org_query()
+    datasets_query = queries.datasets_and_organizations()
     datasets_query = datasets_query.filter(Package.name.in_(query.results))
     datasets = build_datasets(datasets_query.all())
 
@@ -200,27 +166,12 @@ def search_organizations(query, page=1, page_size=SEARCH_MAX_ORGANIZATIONS):
     '''Perform an organization search given a ``query``'''
     like = '%{0}%'.format(query)
 
-    organizations = meta.Session.query(Group, func.count(Package.owner_org).label('nb_datasets'))
-    organizations = organizations.join(GroupRevision)
-    organizations = organizations.outerjoin(Package, Group.id == Package.owner_org)
-    organizations = organizations.outerjoin(CertifiedPublicService)
-    organizations = organizations.options(joinedload('certified_public_service'))
-    organizations = organizations.group_by(Group.id, CertifiedPublicService.organization_id)
-    organizations = organizations.filter(GroupRevision.state == 'active')
-    organizations = organizations.filter(GroupRevision.current == True)
+    organizations = queries.organizations_and_counters()
     organizations = organizations.filter(or_(
         GroupRevision.name.ilike(like),
         GroupRevision.title.ilike(like),
         # GroupRevision.description.ilike(like),
     ))
-    organizations = organizations.filter(GroupRevision.is_organization == True)
-    organizations = organizations.filter(~Package.private)
-    organizations = organizations.filter(Package.state == 'active')
-    organizations = organizations.order_by(
-        CertifiedPublicService.organization_id == null(),
-        desc('nb_datasets'),
-        Group.title
-    )
 
     total = organizations.count()
     start = (page - 1) * page_size
@@ -329,15 +280,31 @@ def get_dataset_quality(dataset_name):
     return data
 
 
-def can_edit(user, dataset):
+def can_edit_dataset(user, dataset):
     if user is None:
         return False
     if user.sysadmin or dataset.owner_org is None:
         return True
 
-    query = meta.Session.query(Member).filter(
+    query = DB.query(Member).filter(
         Member.capacity.in_(['admin', 'editor']),
         Member.group_id == dataset.owner_org,
+        Member.state == 'active',
+        Member.table_id == user.id,
+        Member.table_name == 'user',
+    )
+    return query.count() > 0
+
+
+def can_edit_org(user, organization):
+    if user is None:
+        return False
+    if user.sysadmin:
+        return True
+
+    query = DB.query(Member).filter(
+        Member.capacity.in_(['admin', 'editor']),
+        Member.group_id == organization.id,
         Member.state == 'active',
         Member.table_id == user.id,
         Member.table_name == 'user',
@@ -410,9 +377,9 @@ def fork(dataset, user):
         raise Exception('Unable to create package: {0}'.format(json_response['error']['message']))
 
     # Add the user as administrator
-    forked = meta.Session.query(Package).get(json_response['result']['id'])
+    forked = DB.query(Package).get(json_response['result']['id'])
     PackageRole.add_user_to_role(user, Role.ADMIN, forked)
-    meta.Session.commit()
+    DB.commit()
 
     # Create the fork relationship
     url = url = '{0}/api/3/action/package_relationship_create'.format(conf['ckan_url'])
@@ -439,9 +406,49 @@ def fork(dataset, user):
 @wsgihelpers.wsgify
 def home(request):
     return templates.render_site('home.html', request,
-        last_datasets=last_datasets(NB_DATASETS),
-        popular_datasets=popular_datasets(NB_DATASETS),
-        featured_reuses=featured_reuses(NB_DATASETS),
+        last_datasets=build_datasets(queries.last_datasets().limit(NB_DATASETS)),
+        popular_datasets=build_datasets(queries.popular_datasets().limit(NB_DATASETS)),
+        featured_reuses=queries.featured_reuses().limit(NB_DATASETS),
+        territory=get_territory_cookie(request),
+    )
+
+
+@wsgihelpers.wsgify
+def display_organization(request):
+    user = auth.get_user_from_request(request)
+
+    organization_name = request.urlvars.get('name')
+
+    query = DB.query(Group, func.count(Member.id))
+    query = query.outerjoin(Member, and_(
+        Member.group_id == Group.id,
+        Member.state == 'active',
+        Member.table_name == 'user'
+    ))
+    query = query.filter(Group.is_organization == True)
+    query = query.filter(Group.name == organization_name)
+    query = query.group_by(Group.id)
+
+    if not query.count():
+        return wsgihelpers.not_found(contexts.Ctx(request))
+
+    organization, nb_members = query.first()
+
+    last_datasets = queries.last_datasets()
+    last_datasets = last_datasets.filter(Package.owner_org == organization.id)
+
+    popular_datasets = queries.popular_datasets()
+    popular_datasets = popular_datasets.filter(Package.owner_org == organization.id)
+
+    return templates.render_site('organization.html', request,
+        organization=organization,
+        nb_members=nb_members,
+        nb_datasets=0,
+        nb_followers=UserFollowingGroup.follower_count(organization.id),
+        is_following=UserFollowingGroup.is_following(user.id, organization.id) if organization and user else False,
+        can_edit=can_edit_org(auth.get_user_from_request(request), organization),
+        last_datasets=build_datasets(last_datasets.limit(NB_DATASETS)),
+        popular_datasets=build_datasets(popular_datasets.limit(NB_DATASETS)),
         territory=get_territory_cookie(request),
     )
 
@@ -452,7 +459,7 @@ def display_dataset(request):
 
     dataset_name = request.urlvars.get('name')
 
-    query = meta.Session.query(Package, Group, func.min(Activity.timestamp))
+    query = DB.query(Package, Group, func.min(Activity.timestamp))
     query = query.outerjoin(Group, Group.id == Package.owner_org)
     query = query.outerjoin(Activity, Activity.object_id == Package.id)
     query = query.filter(Package.name == dataset_name)
@@ -484,9 +491,9 @@ def display_dataset(request):
     periodicity = dataset.extras.get('"dct:accrualPeriodicity"', None)
 
     supplier_id = dataset.extras.get('supplier_id', None)
-    supplier = meta.Session.query(Group).filter(Group.id == supplier_id).first() if supplier_id else None
+    supplier = DB.query(Group).filter(Group.id == supplier_id).first() if supplier_id else None
 
-    owner_query = meta.Session.query(User).join(PackageRole)
+    owner_query = DB.query(User).join(PackageRole)
     owner_query = owner_query.filter(PackageRole.package_id == dataset.id)
     owner_query = owner_query.filter(PackageRole.role == Role.ADMIN)
 
@@ -503,7 +510,7 @@ def display_dataset(request):
         temporal_coverage=temporal_coverage,
         periodicity=periodicity,
         groups=dataset.get_groups('group'),
-        can_edit=can_edit(auth.get_user_from_request(request), dataset),
+        can_edit=can_edit_dataset(auth.get_user_from_request(request), dataset),
         quality=get_dataset_quality(dataset.name),
         territory=get_territory_cookie(request),
     )
@@ -575,7 +582,7 @@ def fork_dataset(request):
 
     dataset_name = request.urlvars.get('name')
 
-    original = meta.Session.query(Package).filter(Package.name == dataset_name).one()
+    original = DB.query(Package).filter(Package.name == dataset_name).one()
     forked = fork(original, user)
 
     edit_url = urls.get_url(request.urlvars.get('lang', templates.DEFAULT_LANG), 'dataset/edit', forked.name)
@@ -593,7 +600,7 @@ def toggle_featured(request, value=None, url=None):
 
     reuse = Related.get(reuse_id)
     reuse.featured = value if value is not None else (0 if reuse.featured else 1)
-    meta.Session.commit()
+    DB.commit()
 
     if not url:
         dataset_name = request.urlvars.get('name')
@@ -618,6 +625,7 @@ def make_router(app):
         ('GET', r'^(/(?P<lang>\w{2}))?/dataset/(?P<name>[\w_-]+)/reuse/(?P<reuse>[\w_-]+)/featured/?$', toggle_featured),
         ('GET', r'^(/(?P<lang>\w{{2}}))?/dataset/(?!{0}(/|$))(?P<name>[\w_-]+)/?$'.format('|'.join(EXCLUDED_PATTERNS)), display_dataset),
         ('GET', r'^(/(?P<lang>\w{2}))?/organization/?$', search_more_organizations),
+        ('GET', r'^(/(?P<lang>\w{{2}}))?/organization/(?!{0}(/|$))(?P<name>[\w_-]+)/?$'.format('|'.join(EXCLUDED_PATTERNS)), display_organization),
         ('GET', r'^(/(?P<lang>\w{2}))?/unfeature/(?P<reuse>[\w_-]+)/?$', unfeature_reuse),
         )
 

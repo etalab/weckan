@@ -1,0 +1,112 @@
+{% extends "site.html" %}
+
+{% set style = 'home' %}
+
+{% block title %}{{organization.title}}{% endblock %}
+
+{% block content %}
+<section class="default">
+    <div class="container">
+
+        <div class="row">
+
+            <div class="col-sm-9">
+                <h1>
+                    {{ organization.title }}
+                    {% if can_edit %}
+                    <small>
+                        <a class="btn btn-xs btn-default"
+                            href="{{ url(lang, 'organization/edit', organization.name) }}">
+                            <span class="glyphicon glyphicon-edit" ></span>
+                            {% trans %}Edit{% endtrans %}
+                        </a>
+                    </small>
+                    {% endif %}
+                </h1>
+                <div>{{ markdown(organization.description) }}</div>
+            </div>
+
+            {# Left sidebar with organization aside ( counters, logo, social...) #}
+            <aside class="col-sm-3 card">
+                <div class="text-center">
+                    <img src="{{organization.image_url}}" alt="{{ organization.title }}" class="scalable" />
+                </div>
+                <br/>
+                <p class="text-center">
+                    <strong>{% trans %}{{nb_members}} members{% endtrans %}</strong>
+                </p>
+                <p class="text-center">
+                    <strong>{% trans %}{{nb_followers}} followers{% endtrans %}</strong>
+                </p>
+                <p class="text-center">
+                    <strong>{% trans %}{{nb_datasets}} datasets{% endtrans %}</strong>
+                </p>
+                <div class="text-left">
+                    {% if is_following %}
+                        <a href="{{ url(lang, 'group/unfollow', organization.id) }}"
+                            title="{% trans %}Unfollow{% endtrans %}"
+                            class="btn btn-primary btn-block btn-sm icon-left">
+                            <span class="glyphicon glyphicon-eye-close"></span>
+                            {% trans %}Unfollow{% endtrans %}
+                        </a>
+                    {% else %}
+                        <a href="{{ url(lang, 'group/follow', organization.id) }}"
+                            title="{% trans %}Follow{% endtrans %}"
+                            class="btn btn-primary btn-block btn-sm icon-left">
+                            <span class="glyphicon glyphicon-eye-open"></span>
+                            {% trans %}Follow{% endtrans %}
+                        </a>
+                    {% endif %}
+                    {# {% if is_member %}
+                        <a href="{{ url(lang, 'group/leave', organization.id) }}"
+                            title="{% trans %}Leave this organization{% endtrans %}"
+                            class="btn btn-primary btn-block btn-sm icon-left">
+                            <span class="glyphicon glyphicon-log-out"></span>
+                            {% trans %}Leave{% endtrans %}
+                        </a>
+                    {% else %}
+                        <a href="{{ url(lang, 'group/join', organization.id) }}"
+                            title="{% trans %}Join this organization{% endtrans %}"
+                            class="btn btn-primary btn-block btn-sm icon-left">
+                            <span class="glyphicon glyphicon-log-out"></span>
+                            {% trans %}Join{% endtrans %}
+                        </a>
+                    {% endif %} #}
+                </div>
+            </aside>
+        </div>
+
+        {# Tabbar #}
+        <div class="row">
+            <div class="col-xs-12">
+                <ul id="tabs" class="nav nav-pills" data-tabs="tabs">
+                    <li class="active"><a href="#popular" data-toggle="tab">{{ _('Most popular') }}</a></li>
+                    <li><a href="#recent" data-toggle="tab">{{ _('Latest')}}</a></li>
+                </ul>
+            </div>
+        </div>
+        {# end Tabbar #}
+
+        <div class="row">
+            <div class="tab-content">
+
+                {% for dataset_id, datasets in (('popular', popular_datasets), ('recent', last_datasets))  %}
+                <div class="tab-pane {% if loop.first %}active{% endif %}" id="{{dataset_id}}">
+                    <ul class="card-list">
+
+                        {% for dataset in datasets %}
+                        <div class="col-md-4 col-sm-8">
+                            {% include "cards/dataset-card.html" %}
+                        </div>
+                        {% endfor %}
+
+                    </ul>
+                </div>
+                {% endfor %}
+
+            </div>
+        </div>
+
+    </div>
+</section>
+{% endblock %}
