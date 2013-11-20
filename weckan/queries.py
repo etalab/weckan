@@ -4,7 +4,7 @@ from __future__ import unicode_literals
 import logging
 
 from sqlalchemy.orm import joinedload
-from sqlalchemy.sql import func, desc, null, and_
+from sqlalchemy.sql import func, desc, null, and_, distinct
 
 from ckanext.etalab.model import CertifiedPublicService
 
@@ -29,8 +29,8 @@ def datasets_and_organizations():
 def organizations_and_counters():
     '''Query organizations with their counters'''
     query = DB.query(model.Group,
-        func.count(model.Package.owner_org).label('nb_datasets'),
-        func.count(model.Member.id).label('nb_members')
+        func.count(distinct(model.Package.id)).label('nb_datasets'),
+        func.count(distinct(model.Member.id)).label('nb_members')
     )
     query = query.outerjoin(CertifiedPublicService)
     query = query.outerjoin(model.Package, and_(
