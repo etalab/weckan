@@ -117,11 +117,10 @@ def search_datasets(query, request, page=1, page_size=SEARCH_PAGE_SIZE):
 
     page_zero = page - 1
     params = {
-        'sort': 'score desc, metadata_modified desc',
+        'defType': u'edismax',
         'fq': '+dataset_type:dataset',
-        'rows': page_size,
-        'q': u'{0} +_val_:"{1}"^2'.format(
-            query,
+        'q': query,
+        'qf': u'name title groups^0.5 notes^0.5 tags^0.5 text^0.25 +_val_:"{}"^2'.format(
             dict(
                 ArrondissementOfCommuneOfFrance = 'weight_commune',
                 CommuneOfFrance = 'weight_commune',
@@ -129,10 +128,12 @@ def search_datasets(query, request, page=1, page_size=SEARCH_PAGE_SIZE):
                 DepartmentOfFrance = 'weight_department',
                 OverseasCollectivityOfFrance = 'weight_department',
                 RegionOfFrance = 'weight_region',
-            ).get(territory.get('kind'), 'weight'),
-        ),
+                ).get(territory.get('kind'), 'weight'),
+            ),
+        'rows': page_size,
+        'sort': 'score desc, metadata_modified desc',
         'start': page_zero * page_size,
-    }
+        }
 
     # Territory search if specified
     ancestors_kind_code = territory.get('ancestors_kind_code')
