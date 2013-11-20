@@ -182,8 +182,11 @@
                         data-content="{% trans %}This organization and its datasets are certified by data.gouv.fr{% endtrans %}"
                         data-container="body" data-placement="left" data-trigger="hover"/>
                     {% endif %}
-                    <img src="{{ organization.image_url or static('/base/images/placeholder-organization.png') }}"
-                        alt="{{ organization.name }}" class="organization-logo producer" />
+                    <a href="{{ url(lang, 'organization', organization.name) }}"
+                        title="{{ organization.title }}">
+                        <img src="{{ organization.image_url or static('/base/images/placeholder-organization.png') }}"
+                            alt="{{ organization.title }}" class="organization-logo producer" />
+                    </a>
                     <div class="caption text-left">
                         {% if organization.description %}
                         <p>
