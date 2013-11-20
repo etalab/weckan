@@ -134,6 +134,37 @@
                     {% endfor %}
                 </div>
 
+                <div class="row opinion">
+                    <div class="btn-toolbar">
+
+                        <div class="btn-group">
+                            {% if is_following %}
+                            <a class="btn btn-success btn-sm btn-block icon-left"
+                                title="{{ _('Unmark this dataset as useful') }}"
+                                href="{{ url(lang, 'dataset/unfollow', dataset.name) }}"
+                                rel="tooltip" data-placement="top" data-trigger="hover" data-container="body">
+                                <span class="glyphicon glyphicon-star"></span>
+                            {% else %}
+                            <a class="btn btn-success btn-sm btn-block icon-left"
+                                title="{{ _('Mark this dataset as useful') }}"
+                                href="{{ url(lang, 'dataset/follow', dataset.name) }}"
+                                rel="tooltip" data-placement="top" data-trigger="hover" data-container="body">
+                                <span class="glyphicon glyphicon-star-empty"></span>
+                            {% endif %}
+                                {{ _('Useful') }} <span class="counter">({{nb_followers}})</span>
+                            </a>
+                        </div>
+
+                        <div class="btn-group">
+                            <a class="btn btn-danger btn-sm"
+                                rel="tooltip" data-placement="top" data-trigger="hover"
+                                title="{{ _('Report') }}" data-container="body">
+                                <span class="glyphicon glyphicon-warning-sign"></span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
             </div>
 
 
@@ -261,74 +292,59 @@
                     </div>
                 </div>
 
-                <div class="card">
-                    <h3>{% trans %}Performance{% endtrans %}</h3>
-
-                    {% if quality.weight %}
-                    <a href="{{ quality.url }}" title="{{ _('Go to the report page')}}">
-                        <span class="big_number" title="{{ _('score') }}" rel="tooltip">{{ quality.weight|round(2) }}</span>
-                    </a>
-                    {% endif %}
-
-
-                    <div class="row">
-                        <div class="col-md-10 col-sm-12">
-                            {% if is_following %}
-                            <a title="{{ _('Unmark this dataset as useful') }}" class="btn btn-success btn-sm btn-block icon-left"
-                                href="{{ url(lang, 'dataset/unfollow', dataset.name) }}"
-                                rel="tooltip" data-placement="top" data-trigger="hover" data-container="body">
-                                <span class="glyphicon glyphicon-star starred"></span>
-                            {% else %}
-                            <a title="{{ _('Mark this dataset as useful') }}" class="btn btn-success btn-sm btn-block icon-left"
-                                href="{{ url(lang, 'dataset/follow', dataset.name) }}"
-                                rel="tooltip" data-placement="top" data-trigger="hover" data-container="body">
-                                <span class="glyphicon glyphicon-star"></span>
-                            {% endif %}
-                                {{ _('Useful') }} <span class="counter">({{nb_followers}})</span>
-                            </a>
-
-                        </div>
-                        <div class="col-md-1 col-sm-1">
-                            <a title="{{ _('Report') }}" class="btn btn-danger btn-sm pull-right"
-                                rel="tooltip" data-placement="top" data-trigger="hover" data-container="body">
-                                <span class="glyphicon glyphicon-warning-sign"></span>
-                            </a>
-
-                        </div>
-                    </div>
-                </div>
-
                 {# Quality panel #}
                 <div class="card">
-                    <h3>Qualité des données</h3>
-                    <ul id="infos-list" class="list-unstyled">
-                        <li class="quality-report">
+                    <h3>{{ _('Data quality') }}</h3>
+                    <div class="stats">
+                        <div class="row">
                         {% if quality %}
                             <a href="{{ quality.url }}" title="{{ _("Go to the report page") }}">
-                                <div class="row">
-                                    <div class="col-md-3 col-sm-3">
-                                        <span class="medium_number warning" title="{{_("warnings")}}" rel="tooltip">
-                                            {{ quality.warning|default(0) }}<label>{{_("Warnings")}}</label>
-                                        </span>
+                                <div class="col-md-5 col-sm-8">
+                                    <span class="big_number">{{ quality.weight|round(2) }}</span>
+                                    {% trans %}Performance{% endtrans %}
+                                </div>
+                                <div class="col-lg-3 col-md-4 col-sm-5">
+                                    <ul id="error-list" class="list-unstyled">
+                                        <li>{{ _('Minor') }}</li>
+                                        <li>{{ _('Major') }}</li>
+                                        <li>{{ _('Critical') }}</li>
+                                    </ul>
+                                </div>
+                                <div class="col-lg-4 col-md-3 col-sm-7">
+                                    <div class="progress">
+                                        <div class="progress-bar progress-bar-warning" role="progressbar"
+                                            aria-valuenow="{{ quality.warning|default(0) }}" aria-valuemin="0"
+                                            style="width: {{ quality.warning|percent(ceils.warning) }}%">
+                                            <span class="sr-only">{% trans nb=quality.warning|default(0)
+                                                %}{{nb}} minor error{%
+                                                pluralize %}{{nb}} minor errors{% endtrans %}</span>
+                                        </div>
                                     </div>
-                                    <div class="col-md-3 col-sm-3">
-                                        <span class="medium_number error" title="{{ _("errors") }}" rel="tooltip">
-                                            {{ quality.error|default(0) }}<label>{{_("Errors")}}</label>
-                                        </span>
-                                     </div>
-                                     <div class="col-md-3 col-sm-3">
-                                        <span class="medium_number critical" title="{{_("criticals")}}" rel="tooltip">
-                                            {{ quality.criticals|default(0) }}<label>{{_("Criticals")}}</label>
-                                        </span>
+                                    <div class="progress">
+                                        <div class="progress-bar progress-bar-danger" role="progressbar"
+                                            aria-valuenow="{{ quality.error|default(0) }}" aria-valuemin="0"
+                                            style="width: {{ quality.error|percent(ceils.error) }}%">
+                                            <span class="sr-only">{% trans nb=quality.error|default(0)
+                                                %}{{nb}} major error{%
+                                                pluralize %}{{nb}} major errors{% endtrans %}</span>
+                                        </div>
+                                    </div>
+                                    <div class="progress">
+                                        <div class="progress-bar progress-bar-info" role="progressbar"
+                                            aria-valuenow="{{ quality.criticals|default(0) }}" aria-valuemin="0"
+                                            style="width: {{ quality.criticals|percent(ceils.criticals) }}%">
+                                            <span class="sr-only">{% trans nb=quality.criticals|default(0)
+                                                %}{{nb}} critical error{%
+                                                pluralize %}{{nb}} critical errors{% endtrans %}</span>
+                                        </div>
                                     </div>
                                 </div>
                             </a>
                         {% else %}
                         {% trans %}No report available{% endtrans %}
                         {% endif %}
-                        </li>
-                    </ul>
-
+                        </div>
+                    </div>
                     {% if can_edit %}
                     <a href="{{ quality.url }}" title="{{ _("Improve quality") }}"
                         class="btn btn-primary btn-block btn-sm icon-left">

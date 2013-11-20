@@ -1,5 +1,5 @@
 {% set dataset_url = url(lang, 'dataset', dataset.name) %}
-<li class="card">
+<div class="card">
     {% if dataset.organization %}
         <a class="card-logo" href="{{ dataset_url }}">
             <img alt="{{ dataset.organization.title }}"
@@ -72,4 +72,4 @@
         </li>
         {% endif %}
     </ul>
-</li>
+</div>

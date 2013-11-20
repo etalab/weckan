@@ -136,6 +136,11 @@ def markdown_filter(source):
     return Markup(markdown(source))
 
 
+def percent_filter(value, max_value, over=False):
+    percent = (value or 0) * 100. / max_value
+    return percent if over else min(percent, 100)
+
+
 def get_webassets_env(conf):
     '''Get a preconfigured WebAssets environment'''
     # Configure webassets
@@ -193,6 +198,7 @@ def get_jinja_env():
         env.filters['date'] = format_date
         env.filters['swig'] = swig
         env.filters['tooltip_ellipsis'] = tooltip_ellipsis
+        env.filters['percent'] = percent_filter
 
     return env
 

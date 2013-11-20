@@ -68,6 +68,12 @@ POST_TIMEOUT = 3
 
 NB_DATASETS = 12
 
+QA_CEILS = {
+    'warning': 10,
+    'error': 10,
+    'criticals': 1,
+}
+
 
 def build_datasets(query):
     '''Build datasets for display from a queryset'''
@@ -278,6 +284,9 @@ def get_dataset_quality(dataset_name):
         log.exception('Unable to fetch quality scores for %s', dataset_name)
         return None
     data = response.json().get('value', {})
+    # for level in 'warning', 'error', 'criticals':
+    #     percent = data.get(level, 0) * 100. / QA_CEILS[level]
+    #     data['{0}_percent'.format(level)] = min(percent, 100)
     return data
 
 
@@ -474,6 +483,7 @@ def display_dataset(request):
         groups=dataset.get_groups('group'),
         can_edit=auth.can_edit_dataset(user, dataset),
         quality=get_dataset_quality(dataset.name),
+        ceils=QA_CEILS,
         territory=get_territory_cookie(request),
     )
 
