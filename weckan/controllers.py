@@ -75,36 +75,46 @@ QA_CEILS = {
 }
 
 
+def build_territorial_coverage(dataset):
+    return {
+        'name': ', '.join(
+            territory.strip().rsplit('/', 1)[-1]
+            for territory in dataset.extras.get('territorial_coverage', '').split(',')
+        ),
+        'granularity': dataset.extras.get('territorial_coverage_granularity', None),
+    }
+
+
+def build_temporal_coverage(dataset):
+    temporal_coverage = {
+        'from': dataset.extras.get('temporal_coverage_from', None),
+        'to': dataset.extras.get('temporal_coverage_to', None),
+    }
+    try:
+        temporal_coverage['from'] = datetime.strptime(temporal_coverage['from'], '%Y-%m-%d')
+    except:
+        pass
+    try:
+        temporal_coverage['to'] = datetime.strptime(temporal_coverage['to'], '%Y-%m-%d')
+    except:
+        pass
+
+    return temporal_coverage
+
+
 def build_datasets(query):
     '''Build datasets for display from a queryset'''
     datasets = []
 
     for dataset, organization in query:
-
-        temporal_coverage = {
-            'from': dataset.extras.get('temporal_coverage_from', None),
-            'to': dataset.extras.get('temporal_coverage_to', None),
-        }
-        try:
-            temporal_coverage['from'] = datetime.strptime(temporal_coverage['from'], '%Y-%m-%d')
-        except:
-            pass
-        try:
-            temporal_coverage['to'] = datetime.strptime(temporal_coverage['to'], '%Y-%m-%d')
-        except:
-            pass
-
         datasets.append({
             'name': dataset.name,
             'title': dataset.title,
             'display_name': dataset.display_name,
             'notes': dataset.notes,
             'organization': organization,
-            'temporal_coverage': temporal_coverage,
-            'territorial_coverage': {
-                'name': dataset.extras.get('territorial_coverage', None),
-                'granularity': dataset.extras.get('territorial_coverage_granularity', None),
-            },
+            'temporal_coverage': build_temporal_coverage(dataset),
+            'territorial_coverage': build_territorial_coverage(dataset),
             'periodicity': dataset.extras.get('"dct:accrualPeriodicity"', None),
         })
 
@@ -284,9 +294,6 @@ def get_dataset_quality(dataset_name):
         log.exception('Unable to fetch quality scores for %s', dataset_name)
         return None
     data = response.json().get('value', {})
-    # for level in 'warning', 'error', 'criticals':
-    #     percent = data.get(level, 0) * 100. / QA_CEILS[level]
-    #     data['{0}_percent'.format(level)] = min(percent, 100)
     return data
 
 
@@ -441,24 +448,6 @@ def display_dataset(request):
 
     dataset, organization, timestamp = query.first()
 
-    territorial_coverage = {
-        'name': dataset.extras.get('territorial_coverage', None),
-        'granularity': dataset.extras.get('territorial_coverage_granularity', None),
-    }
-
-    temporal_coverage = {
-        'from': dataset.extras.get('temporal_coverage_from', None),
-        'to': dataset.extras.get('temporal_coverage_to', None),
-    }
-    try:
-        temporal_coverage['from'] = datetime.strptime(temporal_coverage['from'], '%Y-%m-%d')
-    except:
-        pass
-    try:
-        temporal_coverage['to'] = datetime.strptime(temporal_coverage['to'], '%Y-%m-%d')
-    except:
-        pass
-
     periodicity = dataset.extras.get('"dct:accrualPeriodicity"', None)
 
     supplier_id = dataset.extras.get('supplier_id', None)
@@ -477,8 +466,8 @@ def display_dataset(request):
         owner=owner_query.first(),
         nb_followers=UserFollowingDataset.follower_count(dataset.id),
         is_following=UserFollowingDataset.is_following(user.id, dataset.id) if user else False,
-        territorial_coverage=territorial_coverage,
-        temporal_coverage=temporal_coverage,
+        territorial_coverage=build_territorial_coverage(dataset),
+        temporal_coverage=build_temporal_coverage(dataset),
         periodicity=periodicity,
         groups=dataset.get_groups('group'),
         can_edit=auth.can_edit_dataset(user, dataset),
