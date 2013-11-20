@@ -43,7 +43,7 @@ env = None
 LANGUAGES = {
     'fr': u'Français',
     'en': u'English',
-    'de': u'Deutsch',
+    'de': u'German',
 }
 DEFAULT_LANG = 'fr'
 
