@@ -13,6 +13,7 @@ site-common:
         - bower/jquery.dotdotdot/jquery.dotdotdot.js
         - bower/swig/index.js
         - bower/etalab-assets/js/etalab-site.js
+        - js/utils.js
     output: js/site.js
 
 site-js:

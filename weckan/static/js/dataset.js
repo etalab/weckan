@@ -1,24 +1,12 @@
 /**
  * Dataset page specific features
  */
-(function($, swig){
+(function($, Utils) {
 
     "use strict";
 
-    var message_template = swig.compile($('#message-template').html()),
+    var default_container = '.dataset-container',
         community_container = '.community_container > div.container';
-
-    var display_message = function(message, type, container) {
-        container = container || '.dataset-container';
-        $(container).prepend(message_template({
-            level: type == 'error' ? 'danger' : type,
-            message: message
-        }));
-    };
-
-    var translate = function(key) {
-        return $('meta[name="'+key+'-translation"]').attr('content');
-    };
 
     $(function() {
         // Async feature handling
@@ -30,15 +18,15 @@
                 if (data.featured) {
                     $this.removeClass('btn-default').addClass('btn-success');
                     $this.attr('title', $this.data('featured-title'));
-                    display_message(translate('is-featured'), 'success', community_container);
+                    Utils.success(Utils.translate('is-featured'), community_container);
                 } else {
                     $this.removeClass('btn-success').addClass('btn-default');
                     $this.attr('title', $this.data('unfeatured-title'));
-                    display_message(translate('is-unfeatured'), 'success', community_container);
+                    Utils.success(Utils.translate('is-unfeatured'), community_container);
                 }
             }).error(function(e) {
                 console.error(e);
-                display_message(translate('featured-error'), 'error', community_container);
+                Utils.error(Utils.translate('featured-error'), community_container);
             });
 
             return false;
@@ -52,7 +40,7 @@
                 payload = JSON.stringify({id: $this.data('organization-id')});
 
             $.post(api_url, payload, function(data) {
-                var msg = following ? translate('unfollowing-org') : translate('following-org'),
+                var msg = following ? Utils.translate('unfollowing-org') : Utils.translate('following-org'),
                     label = following ? $this.data('follow-label') : $this.data('unfollow-label'),
                     icon = following ? 'eye-open': 'eye-close';
 
@@ -60,14 +48,14 @@
                     .attr('title', label)
                     .html('<span class="glyphicon glyphicon-' + icon + '"></span> ' + label);
 
-                display_message(msg.replace('{org}',$this.data('organization-title')), 'success');
+                Utils.success(msg.replace('{org}',$this.data('organization-title')), default_container);
             }).error(function(e) {
                 console.error(e.responseJSON.error.message);
-                display_message(translate('follow-org-error'), 'error');
+                Utils.error(Utils.translate('follow-org-error'), default_container);
             });
 
             return false;
         });
     });
 
-}(window.jQuery, window.swig));
+}(window.jQuery, window.Utils));

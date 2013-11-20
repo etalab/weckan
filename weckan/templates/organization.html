@@ -120,18 +120,12 @@
 
     </div>
 </section>
+{% endblock %}
 
+{% block hiddens %}
 <meta name="following-org-translation" content="{{ _('You are now following {org}') }}">
 <meta name="unfollowing-org-translation" content="{{ _('You are not following {org} anymore') }}">
 <meta name="follow-org-error-translation" content="{{ _('Error while toggling follower status') }}">
-<script id="message-template"  type="text/x-swig-template">
-    {% raw %}
-    <div class="alert alert-{{level}} alert-dismissable">
-      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-      {{message}}
-    </div>
-    {% endraw %}
-</script>
 {% endblock %}
 
 {% block javascript %}

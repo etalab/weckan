@@ -45,6 +45,15 @@
 
     {% include "footer.html" %}
 
+    <script id="message-template"  type="text/x-swig-template">
+        {% raw %}
+        <div class="alert alert-{{level}} alert-dismissable">
+          <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+          {{message}}
+        </div>
+        {% endraw %}
+    </script>
+    {% block hiddens %}{% endblock %}
 
     {# Load scripts after for faster page loading #}
     <!--[if lt IE 9]>
