@@ -70,3 +70,9 @@ dataset-js:
     output: js/dataset.min.js
     contents:
         - js/dataset.js
+
+organization-js:
+    filters: uglifyjs
+    output: js/organization.min.js
+    contents:
+        - js/organization.js

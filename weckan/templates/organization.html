@@ -6,7 +6,7 @@
 
 {% block content %}
 <section class="default">
-    <div class="container">
+    <div class="container organization-container">
 
         <div class="row">
 
@@ -50,21 +50,24 @@
                     <strong>{% trans nb=nb_datasets %}{{nb}} dataset{% pluralize %}{{nb}} datasets{% endtrans %}</strong>
                 </p>
                 <div class="text-left">
-                    {% if is_following %}
-                        <a href="{{ url(lang, 'group/unfollow', organization.id) }}"
-                            title="{% trans %}Unfollow{% endtrans %}"
-                            class="btn btn-primary btn-block btn-sm icon-left">
-                            <span class="glyphicon glyphicon-eye-close"></span>
-                            {% trans %}Unfollow{% endtrans %}
-                        </a>
-                    {% else %}
-                        <a href="{{ url(lang, 'group/follow', organization.id) }}"
-                            title="{% trans %}Follow{% endtrans %}"
-                            class="btn btn-primary btn-block btn-sm icon-left">
-                            <span class="glyphicon glyphicon-eye-open"></span>
-                            {% trans %}Follow{% endtrans %}
-                        </a>
-                    {% endif %}
+                    <a href class="btn btn-primary btn-block btn-sm icon-left follow"
+                        data-organization-id="{{ organization.id }}"
+                        data-organization-title="{{ organization.title }}"
+                        data-is-following="{% if is_following_org %}true{% else %}false{% endif %}"
+                        data-follow-api="{{ url('api/3/action/follow_group') }}"
+                        data-unfollow-api="{{ url('api/3/action/unfollow_group') }}"
+                        data-follow-label="{% trans %}Follow{% endtrans %}"
+                        data-unfollow-label="{% trans %}Unfollow{% endtrans %}"
+                        {% if is_following_org %}
+                        title="{% trans %}Unfollow{% endtrans %}">
+                        <span class="glyphicon glyphicon-eye-close"></span>
+                        {% trans %}Unfollow{% endtrans %}
+                        {% else %}
+                        title="{% trans %}Follow{% endtrans %}">
+                        <span class="glyphicon glyphicon-eye-open"></span>
+                        {% trans %}Follow{% endtrans %}
+                        {% endif %}
+                    </a>
                     {# {% if is_member %}
                         <a href="{{ url(lang, 'group/leave', organization.id) }}"
                             title="{% trans %}Leave this organization{% endtrans %}"
@@ -117,4 +120,22 @@
 
     </div>
 </section>
+
+<meta name="following-org-translation" content="{{ _('You are now following {org}') }}">
+<meta name="unfollowing-org-translation" content="{{ _('You are not following {org} anymore') }}">
+<meta name="follow-org-error-translation" content="{{ _('Error while toggling follower status') }}">
+<script id="message-template"  type="text/x-swig-template">
+    {% raw %}
+    <div class="alert alert-{{level}} alert-dismissable">
+      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+      {{message}}
+    </div>
+    {% endraw %}
+</script>
+{% endblock %}
+
+{% block javascript %}
+{% assets "organization-js" %}
+<script src="{{ ASSET_URL}}"></script>
+{% endassets %}
 {% endblock %}

@@ -198,21 +198,24 @@
                         {% else %}
                         <br/>
                         {% endif %}
-                        {% if is_following_org %}
-                            <a href="{{ url(lang, 'group/unfollow', organization.id) }}"
-                                title="{% trans %}Unfollow{% endtrans %}"
-                                class="btn btn-primary btn-block btn-sm icon-left">
-                                <span class="glyphicon glyphicon-eye-close"></span>
-                                {% trans %}Unfollow{% endtrans %}
-                            </a>
-                        {% else %}
-                            <a href="{{ url(lang, 'group/follow', organization.id) }}"
-                                title="{% trans %}Follow{% endtrans %}"
-                                class="btn btn-primary btn-block btn-sm icon-left">
-                                <span class="glyphicon glyphicon-eye-open"></span>
-                                {% trans %}Follow{% endtrans %}
-                            </a>
-                        {% endif %}
+                        <a href class="btn btn-primary btn-block btn-sm icon-left follow"
+                            data-organization-id="{{ organization.id }}"
+                            data-organization-title="{{ organization.title }}"
+                            data-is-following="{% if is_following_org %}true{% else %}false{% endif %}"
+                            data-follow-api="{{ url('api/3/action/follow_group') }}"
+                            data-unfollow-api="{{ url('api/3/action/unfollow_group') }}"
+                            data-follow-label="{% trans %}Follow{% endtrans %}"
+                            data-unfollow-label="{% trans %}Unfollow{% endtrans %}"
+                            {% if is_following_org %}
+                            title="{% trans %}Unfollow{% endtrans %}">
+                            <span class="glyphicon glyphicon-eye-close"></span>
+                            {% trans %}Unfollow{% endtrans %}
+                            {% else %}
+                            title="{% trans %}Follow{% endtrans %}">
+                            <span class="glyphicon glyphicon-eye-open"></span>
+                            {% trans %}Follow{% endtrans %}
+                            {% endif %}
+                        </a>
                     </div>
                 </div>
                 {% endif %}
@@ -513,6 +516,9 @@
     </div>
 </section>
 
+<meta name="following-org-translation" content="{{ _('You are now following {org}') }}">
+<meta name="unfollowing-org-translation" content="{{ _('You are not following {org} anymore') }}">
+<meta name="follow-org-error-translation" content="{{ _('Error while toggling follower status') }}">
 <meta name="is-featured-translation" content="{{ _('This reuse is now featured') }}">
 <meta name="is-unfeatured-translation" content="{{ _('This reuse is no more featured') }}">
 <meta name="featured-error-translation" content="{{ _('Error while toggling featured state') }}">
