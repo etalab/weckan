@@ -299,44 +299,58 @@
                         <div class="row">
                         {% if quality %}
                             <a href="{{ quality.url }}" title="{{ _("Go to the report page") }}">
-                                <div class="col-md-5 col-sm-8">
+                                <div class="col-xs-5 col-sm-12 col-md-6 col-lg-5 text-center">
                                     <span class="big_number">{{ quality.weight|round(2) }}</span>
                                     {% trans %}Performance{% endtrans %}
                                 </div>
-                                <div class="col-lg-3 col-md-4 col-sm-5">
-                                    <ul id="error-list" class="list-unstyled">
-                                        <li>{{ _('Minor') }}</li>
-                                        <li>{{ _('Major') }}</li>
-                                        <li>{{ _('Critical') }}</li>
-                                    </ul>
-                                </div>
-                                <div class="col-lg-4 col-md-3 col-sm-7">
+                                <div class="col-xs-7 col-sm-12 col-md-6 col-lg-7">
                                     <div class="progress">
+                                        {% if quality.warning %}
                                         <div class="progress-bar progress-bar-warning" role="progressbar"
                                             aria-valuenow="{{ quality.warning|default(0) }}" aria-valuemin="0"
                                             style="width: {{ quality.warning|percent(ceils.warning) }}%">
-                                            <span class="sr-only">{% trans nb=quality.warning|default(0)
-                                                %}{{nb}} minor error{%
-                                                pluralize %}{{nb}} minor errors{% endtrans %}</span>
+                                            <span>{% trans nb=quality.warning|default(0)
+                                                %}{{nb}} warning{%
+                                                pluralize %}{{nb}} warnings{% endtrans %}</span>
                                         </div>
+                                        {% else %}
+                                        <div class="progress-bar progress-bar-success" role="progressbar"
+                                            aria-valuenow="0" aria-valuemin="0" style="width: 100%">
+                                        </div>
+                                        <span>{{ _('No warning') }}</span>
+                                        {% endif %}
                                     </div>
                                     <div class="progress">
+                                        {% if quality.error %}
                                         <div class="progress-bar progress-bar-danger" role="progressbar"
                                             aria-valuenow="{{ quality.error|default(0) }}" aria-valuemin="0"
                                             style="width: {{ quality.error|percent(ceils.error) }}%">
-                                            <span class="sr-only">{% trans nb=quality.error|default(0)
-                                                %}{{nb}} major error{%
-                                                pluralize %}{{nb}} major errors{% endtrans %}</span>
+                                            <span>{% trans nb=quality.error|default(0)
+                                                %}{{nb}} error{%
+                                                pluralize %}{{nb}} errors{% endtrans %}</span>
                                         </div>
+                                        {% else %}
+                                        <div class="progress-bar progress-bar-success" role="progressbar"
+                                            aria-valuenow="0" aria-valuemin="0" style="width: 100%">
+                                        </div>
+                                        <span>{{ _('No error') }}</span>
+                                        {% endif %}
                                     </div>
                                     <div class="progress">
+                                        {% if quality.criticals %}
                                         <div class="progress-bar progress-bar-info" role="progressbar"
                                             aria-valuenow="{{ quality.criticals|default(0) }}" aria-valuemin="0"
                                             style="width: {{ quality.criticals|percent(ceils.criticals) }}%">
-                                            <span class="sr-only">{% trans nb=quality.criticals|default(0)
-                                                %}{{nb}} critical error{%
-                                                pluralize %}{{nb}} critical errors{% endtrans %}</span>
+                                            <span>{% trans nb=quality.criticals|default(0)
+                                                %}{{nb}} critical{%
+                                                pluralize %}{{nb}} criticals{% endtrans %}</span>
                                         </div>
+                                        {% else %}
+                                        <div class="progress-bar progress-bar-success" role="progressbar"
+                                            aria-valuenow="0" aria-valuemin="0" style="width: 100%">
+                                        </div>
+                                        <span>{{ _('No critical') }}</span>
+                                        {% endif %}
                                     </div>
                                 </div>
                             </a>
@@ -372,6 +386,7 @@
                 <div class="cover-communaute"></div>
                 <h2>{% trans %}Explore with Datagouv{% endtrans %}</h2>
                 <small>{% trans %}Community contributions{% endtrans %}</small>
+                <br class="visible-xs" />
                 <a class="btn btn-primary btn-punch publish-reuse"
                     href="{{ url(lang, 'dataset', dataset.name, 'related', 'new') }}">
                     <span class="glyphicon glyphicon-plus"></span>&nbsp;
