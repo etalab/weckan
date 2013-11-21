@@ -15,13 +15,16 @@ DB = model.meta.Session
 log = logging.getLogger(__name__)
 
 
-def datasets_and_organizations():
+def datasets_and_organizations(private=False):
     '''Query dataset with their organization'''
     query = DB.query(model.Package, model.Group)
     query = query.outerjoin(model.Group, model.Group.id == model.Package.owner_org)
     query = query.outerjoin(CertifiedPublicService)
-    query = query.filter(~model.Package.private)
     query = query.filter(model.Package.state == 'active')
+    if private:
+        query = query.filter(model.Package.private == True)
+    else:
+        query = query.filter(~model.Package.private)
     query = query.options(joinedload(model.Group.certified_public_service))
     return query
 

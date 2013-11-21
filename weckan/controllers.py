@@ -421,9 +421,11 @@ def display_organization(request):
     query = query.filter(Group.name == organization_name)
 
     if not query.count():
-        return wsgihelpers.not_found(contexts.Ctx(request))
+        return wsgihelpers.not_found(context)
 
     organization, nb_datasets, nb_members = query.first()
+
+    is_member = user and user.is_in_group(organization.id)
 
     last_datasets = queries.last_datasets()
     last_datasets = last_datasets.filter(Package.owner_org == organization.id)
@@ -438,12 +440,21 @@ def display_organization(request):
         ('recents', _('Latest'), build_datasets(last_datasets)),
     )
 
+    if user and (is_member or user.sysadmin):
+        private_datasets = queries.datasets_and_organizations(private=True)
+        private_datasets = private_datasets.filter(Package.owner_org == organization.id)
+        private_datasets = private_datasets.limit(NB_DATASETS)
+        dataset_tabs += (
+            ('privates', _('Privates'), build_datasets(private_datasets)),
+        )
+
     return templates.render_site('organization.html', context,
         organization=organization,
         nb_members=nb_members,
         nb_datasets=nb_datasets,
         nb_followers=UserFollowingGroup.follower_count(organization.id),
         is_following=UserFollowingGroup.is_following(user.id, organization.id) if organization and user else False,
+        is_member=is_member,
         can_edit=auth.can_edit_org(user, organization),
         territory=get_territory_cookie(request),
         dataset_tabs=dataset_tabs,
