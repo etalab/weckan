@@ -75,6 +75,7 @@ setup(
     install_requires = [
         'Biryani1 >= 0.9dev',
         'WebError >= 0.10',
+        'bleach == 1.2.2',
 #        'WebOb >= 1.1',
         'WebOb >= 1.0.8',
         'Jinja2 >= 2.7',

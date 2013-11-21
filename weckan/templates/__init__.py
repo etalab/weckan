@@ -22,6 +22,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 from __future__ import unicode_literals
 
+import bleach
 import json
 
 from os.path import join, dirname, abspath
@@ -133,7 +134,12 @@ def tooltip_ellipsis(source, length=0):
 
 def markdown_filter(source):
     from ckan.lib.helpers import markdown
-    return Markup(markdown(source))
+    return Markup(markdown(bleach.clean(source)))
+
+
+def markdown_extract_filter(source, extract_length=190):
+    from ckan.lib.helpers import markdown_extract
+    return markdown_extract(bleach.clean(source), extract_length)
 
 
 def percent_filter(value, max_value, over=False):
@@ -171,7 +177,6 @@ def get_jinja_env():
 
     if not env:
         from biryani1 import strings
-        from ckan.lib.helpers import markdown_extract
         from weckan.urls import sso_url
 
         # Configure Jinja Environment with webassets
@@ -190,7 +195,7 @@ def get_jinja_env():
         env.globals['ifelse'] = lambda condition, first, second: first if condition else second
         env.globals['avatar'] = avatar
         env.globals['markdown'] = markdown_filter
-        env.globals['markdown_extract'] = markdown_extract
+        env.globals['markdown_extract'] = markdown_extract_filter
         env.globals['user_by_id'] = user_by_id
 
         # Custom filters
