@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version:  weckan\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2013-11-21 03:08+0100\n"
+"POT-Creation-Date: 2013-11-21 10:26+0100\n"
 "PO-Revision-Date: 2013-11-20 12:11+0000\n"
 "Last-Translator: noirbizarre\n"
 "Language-Team: German "
@@ -293,7 +293,7 @@ msgid "Improve"
 msgstr "Verbessern"
 
 #: weckan/templates/dataset.html:375 weckan/templates/dataset.html:380
-#: weckan/templates/dataset.html:504 weckan/templates/dataset.html:515
+#: weckan/templates/dataset.html:505 weckan/templates/dataset.html:516
 msgid "Fork"
 msgstr "Fork"
 
@@ -336,30 +336,34 @@ msgid ""
 msgstr ""
 
 #: weckan/templates/dataset.html:492 weckan/templates/organization.html:126
-msgid "You are now following {org}"
+msgid "You need to be logged in to follow an organization"
 msgstr ""
 
 #: weckan/templates/dataset.html:493 weckan/templates/organization.html:127
-msgid "You are not following {org} anymore"
+msgid "You are now following {org}"
 msgstr ""
 
 #: weckan/templates/dataset.html:494 weckan/templates/organization.html:128
+msgid "You are not following {org} anymore"
+msgstr ""
+
+#: weckan/templates/dataset.html:495 weckan/templates/organization.html:129
 msgid "Error while toggling follower status"
 msgstr ""
 
-#: weckan/templates/dataset.html:495
+#: weckan/templates/dataset.html:496
 msgid "This reuse is now featured"
 msgstr ""
 
-#: weckan/templates/dataset.html:496
+#: weckan/templates/dataset.html:497
 msgid "This reuse is no more featured"
 msgstr ""
 
-#: weckan/templates/dataset.html:497
+#: weckan/templates/dataset.html:498
 msgid "Error while toggling featured state"
 msgstr ""
 
-#: weckan/templates/dataset.html:507
+#: weckan/templates/dataset.html:508
 msgid ""
 "You are about to make a copy of this dataset.\n"
 "                You'll become the owner and you will have the ability to "
@@ -367,11 +371,11 @@ msgid ""
 "                The original dataset will keep a reference of your work."
 msgstr ""
 
-#: weckan/templates/dataset.html:510
+#: weckan/templates/dataset.html:511
 msgid "Continue?"
 msgstr "Weiter?"
 
-#: weckan/templates/dataset.html:519
+#: weckan/templates/dataset.html:520
 msgid "Cancel"
 msgstr "Abbrechen"
 
