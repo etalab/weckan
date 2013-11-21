@@ -35,7 +35,6 @@ import requests
 from datetime import datetime
 from urllib import urlencode
 from uuid import uuid1
-from collections import OrderedDict
 
 from biryani1 import strings
 from sqlalchemy.sql import func, or_
@@ -291,8 +290,8 @@ def get_dataset_quality(dataset_name):
     try:
         response = requests.get(url, timeout=SEARCH_TIMEOUT)
         response.raise_for_status()
-    except requests.RequestException:
-        log.exception('Unable to fetch quality scores for %s', dataset_name)
+    except requests.RequestException as request_exception:
+        log.warning('Unable to fetch quality scores for %s: %s', dataset_name, request_exception)
         return None
     data = response.json().get('value', {})
     return data
