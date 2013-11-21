@@ -29,10 +29,15 @@
             return $('meta[name="'+key+'-translation"]').attr('content');
         },
 
-        ensure_user: function() {
+        ensure_user: function(reason) {
             var $sso = $('#sso-link');
             if ($sso.length) {
-                window.location = $sso.attr('href');
+                var url = $sso.attr('href');
+                if (reason) {
+                    url += url.indexOf('?') > 0 ? '&' : '?';
+                    url += 'message=' + encodeURIComponent(reason);
+                }
+                window.location = url;
             }
         }
     }
