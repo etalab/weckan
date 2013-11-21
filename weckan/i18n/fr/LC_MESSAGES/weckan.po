@@ -12,8 +12,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: weckan\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2013-11-21 11:40+0100\n"
-"PO-Revision-Date: 2013-11-21 10:52+0000\n"
+"POT-Creation-Date: 2013-11-21 13:18+0100\n"
+"PO-Revision-Date: 2013-11-21 12:20+0000\n"
 "Last-Translator: noirbizarre\n"
 "Language-Team: French (http://www.transifex.com/projects/p/weckan/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -289,7 +289,7 @@ msgstr[1] "%(nb)s critiques"
 
 #: weckan/templates/dataset.html:358
 msgid "No critical"
-msgstr "Aucun critique"
+msgstr "Aucune critique"
 
 #: weckan/templates/dataset.html:364
 msgid "No report available"
@@ -344,19 +344,19 @@ msgid ""
 "                    Reference your work in just a few clicks and increase your visibility."
 msgstr "Vous avez réutilisé ces données et publié un article, une infographie, ou une application ?\nC'est le moment de vous faire connaître !\nRéférencez votre travail en quelques clics et augmentez votre visibilité."
 
-#: weckan/templates/dataset.html:492 weckan/templates/organization.html:129
+#: weckan/templates/dataset.html:492 weckan/templates/organization.html:134
 msgid "You need to be logged in to follow an organization"
 msgstr "Vous devez être connecté pour vous abonner à une organisation"
 
-#: weckan/templates/dataset.html:493 weckan/templates/organization.html:130
+#: weckan/templates/dataset.html:493 weckan/templates/organization.html:135
 msgid "You are now following {org}"
 msgstr "Vous êtes maintenant abonné à {org}"
 
-#: weckan/templates/dataset.html:494 weckan/templates/organization.html:131
+#: weckan/templates/dataset.html:494 weckan/templates/organization.html:136
 msgid "You are not following {org} anymore"
 msgstr "Vous n'êtes plus abonné à {org}"
 
-#: weckan/templates/dataset.html:495 weckan/templates/organization.html:132
+#: weckan/templates/dataset.html:495 weckan/templates/organization.html:137
 msgid "Error while toggling follower status"
 msgstr "Erreur lors du changement de statut d'abonnement"
 
@@ -499,6 +499,10 @@ msgid "%(nb)s dataset"
 msgid_plural "%(nb)s datasets"
 msgstr[0] "%(nb)s jeu de données"
 msgstr[1] "%(nb)s jeux de données"
+
+#: weckan/templates/organization.html:119
+msgid "No dataset"
+msgstr "Aucun jeu de données"
 
 #: weckan/templates/search-datasets.html:6
 #: weckan/templates/search-datasets.html:17

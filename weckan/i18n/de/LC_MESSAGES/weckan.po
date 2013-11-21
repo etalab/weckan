@@ -1,24 +1,26 @@
-# German translations for Weckan.
+# Translations template for Weckan.
 # Copyright (C) 2013 ORGANIZATION
 # This file is distributed under the same license as the Weckan project.
-#
+# 
 # Translators:
 # noirbizarre, 2013
+# noirbizarre, 2013
+# schwefel, 2013
 # schwefel, 2013
 msgid ""
 msgstr ""
-"Project-Id-Version:  weckan\n"
+"Project-Id-Version: weckan\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2013-11-21 11:40+0100\n"
-"PO-Revision-Date: 2013-11-20 12:11+0000\n"
+"POT-Creation-Date: 2013-11-21 13:18+0100\n"
+"PO-Revision-Date: 2013-11-21 12:19+0000\n"
 "Last-Translator: noirbizarre\n"
-"Language-Team: German "
-"(http://www.transifex.com/projects/p/weckan/language/de/)\n"
-"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+"Language-Team: German (http://www.transifex.com/projects/p/weckan/language/de/)\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 0.9.6\n"
+"Language: de\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: weckan/application.py:55
 msgid "Web site not found."
@@ -107,9 +109,7 @@ msgstr ""
 msgid ""
 "Published on %(date)s by <a href=\"mailto:%(email)s\" "
 "title=\"%(author)s\">%(author)s</a>"
-msgstr ""
-"Veröffentlicht am %(date)s von <a href=\"mailto:%(email)s\" "
-"title=\"%(author)s\">%(author)s</a>"
+msgstr "Veröffentlicht am %(date)s von <a href=\"mailto:%(email)s\" title=\"%(author)s\">%(author)s</a>"
 
 #: weckan/templates/dataset.html:43
 #, python-format
@@ -124,16 +124,16 @@ msgstr "Veröffentlicht am %(date)s"
 #: weckan/templates/dataset.html:53 weckan/templates/dataset.html:69
 #, python-format
 msgid ""
-"This dataset has been published on %(date)s on the initiative and under "
-"the responsibility of <a href=\"mailto:%(email)s\" "
+"This dataset has been published on %(date)s on the initiative and under the "
+"responsibility of <a href=\"mailto:%(email)s\" "
 "title=\"%(author)s\">%(author)s</a>"
 msgstr ""
 
 #: weckan/templates/dataset.html:59 weckan/templates/dataset.html:64
 #, python-format
 msgid ""
-"This dataset has been published on %(date)s on the initiative and under "
-"the responsibility of %(author)s"
+"This dataset has been published on %(date)s on the initiative and under the "
+"responsibility of %(author)s"
 msgstr ""
 
 #: weckan/templates/dataset.html:78
@@ -258,7 +258,7 @@ msgid "Performance"
 msgstr "Leistung"
 
 #: weckan/templates/dataset.html:318
-#, fuzzy, python-format
+#, python-format
 msgid "%(nb)s warning"
 msgid_plural "%(nb)s warnings"
 msgstr[0] ""
@@ -269,26 +269,24 @@ msgid "No warning"
 msgstr ""
 
 #: weckan/templates/dataset.html:334
-#, fuzzy, python-format
+#, python-format
 msgid "%(nb)s error"
 msgid_plural "%(nb)s errors"
 msgstr[0] ""
 msgstr[1] ""
 
 #: weckan/templates/dataset.html:342
-#, fuzzy
 msgid "No error"
 msgstr ""
 
 #: weckan/templates/dataset.html:350
-#, fuzzy, python-format
+#, python-format
 msgid "%(nb)s critical"
 msgid_plural "%(nb)s criticals"
 msgstr[0] ""
 msgstr[1] ""
 
 #: weckan/templates/dataset.html:358
-#, fuzzy
 msgid "No critical"
 msgstr ""
 
@@ -340,26 +338,24 @@ msgstr ""
 
 #: weckan/templates/dataset.html:479
 msgid ""
-"You reused these data and published an article, a computer graphics, or "
-"an application?\n"
+"You reused these data and published an article, a computer graphics, or an application?\n"
 "                    It's time to let you know!\n"
-"                    Reference your work in just a few clicks and increase"
-" your visibility."
+"                    Reference your work in just a few clicks and increase your visibility."
 msgstr ""
 
-#: weckan/templates/dataset.html:492 weckan/templates/organization.html:129
+#: weckan/templates/dataset.html:492 weckan/templates/organization.html:134
 msgid "You need to be logged in to follow an organization"
 msgstr ""
 
-#: weckan/templates/dataset.html:493 weckan/templates/organization.html:130
+#: weckan/templates/dataset.html:493 weckan/templates/organization.html:135
 msgid "You are now following {org}"
 msgstr ""
 
-#: weckan/templates/dataset.html:494 weckan/templates/organization.html:131
+#: weckan/templates/dataset.html:494 weckan/templates/organization.html:136
 msgid "You are not following {org} anymore"
 msgstr ""
 
-#: weckan/templates/dataset.html:495 weckan/templates/organization.html:132
+#: weckan/templates/dataset.html:495 weckan/templates/organization.html:137
 msgid "Error while toggling follower status"
 msgstr ""
 
@@ -378,8 +374,7 @@ msgstr ""
 #: weckan/templates/dataset.html:508
 msgid ""
 "You are about to make a copy of this dataset.\n"
-"                You'll become the owner and you will have the ability to "
-"edit it and improve it.\n"
+"                You'll become the owner and you will have the ability to edit it and improve it.\n"
 "                The original dataset will keep a reference of your work."
 msgstr ""
 
@@ -504,6 +499,10 @@ msgid_plural "%(nb)s datasets"
 msgstr[0] ""
 msgstr[1] ""
 
+#: weckan/templates/organization.html:119
+msgid "No dataset"
+msgstr ""
+
 #: weckan/templates/search-datasets.html:6
 #: weckan/templates/search-datasets.html:17
 msgid "Datasets search"
@@ -598,4 +597,3 @@ msgstr ""
 #: weckan/templates/widgets/organization-search-result.html:31
 msgid "Number of members"
 msgstr ""
-

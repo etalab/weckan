@@ -105,15 +105,20 @@
 
                 {% for tab_id, label, datasets in dataset_tabs  %}
                 <div class="tab-pane {% if loop.first %}active{% endif %}" id="{{tab_id}}">
+                    {% if datasets %}
                     <ul class="card-list">
-
                         {% for dataset in datasets %}
                         <li class="col-md-4 col-sm-6">
                             {% include "cards/dataset-card.html" %}
                         </li>
                         {% endfor %}
-
                     </ul>
+                    {% else %}
+                    <p class="text-center">
+                        <br/><br/>
+                        <strong>{{ _('No dataset') }}</strong>
+                    </p>
+                    {% endif %}
                 </div>
                 {% endfor %}
 
