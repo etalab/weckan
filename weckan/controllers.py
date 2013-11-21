@@ -324,7 +324,6 @@ def fork(dataset, user):
         }
         for r in dataset.resources
     ]
-    groups = [{'id': g.id} for g in dataset.get_groups()]
     tags = [{'name': t.name, 'vocabulary_id': t.vocabulary_id} for t in dataset.get_tags()]
     extras = [{'key': key, 'value': value} for key, value in dataset.extras.items()]
 
@@ -345,7 +344,6 @@ def fork(dataset, user):
         'type': dataset.type,
         'owner_org': orgs[0].id if len(orgs) else None,
         'resources': resources,
-        'groups': groups,
         'tags': tags,
         'extras': extras,
     }
@@ -360,6 +358,11 @@ def fork(dataset, user):
 
     if not json_response['success']:
         raise Exception('Unable to create package: {0}'.format(json_response['error']['message']))
+
+    # Manually add the groups to bypass CKAN authorization
+    # TODO: Find a better way to handle open groups
+    for group in dataset.get_groups():
+        group.add_package_by_name(dataset.name)
 
     # Add the user as administrator
     forked = DB.query(Package).get(json_response['result']['id'])
