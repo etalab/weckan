@@ -12,8 +12,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: weckan\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2013-11-21 10:26+0100\n"
-"PO-Revision-Date: 2013-11-21 09:42+0000\n"
+"POT-Creation-Date: 2013-11-21 11:40+0100\n"
+"PO-Revision-Date: 2013-11-21 10:52+0000\n"
 "Last-Translator: noirbizarre\n"
 "Language-Team: French (http://www.transifex.com/projects/p/weckan/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -26,6 +26,18 @@ msgstr ""
 #: weckan/application.py:55
 msgid "Web site not found."
 msgstr "Site web introuvable."
+
+#: weckan/controllers.py:401 weckan/controllers.py:439
+msgid "Most popular"
+msgstr "Les plus populaires"
+
+#: weckan/controllers.py:402 weckan/controllers.py:440
+msgid "Latest"
+msgstr "Les plus récents"
+
+#: weckan/controllers.py:448
+msgid "Privates"
+msgstr "Privés"
 
 #: weckan/conv.py:61
 msgid "External URL"
@@ -332,19 +344,19 @@ msgid ""
 "                    Reference your work in just a few clicks and increase your visibility."
 msgstr "Vous avez réutilisé ces données et publié un article, une infographie, ou une application ?\nC'est le moment de vous faire connaître !\nRéférencez votre travail en quelques clics et augmentez votre visibilité."
 
-#: weckan/templates/dataset.html:492 weckan/templates/organization.html:126
+#: weckan/templates/dataset.html:492 weckan/templates/organization.html:129
 msgid "You need to be logged in to follow an organization"
 msgstr "Vous devez être connecté pour vous abonner à une organisation"
 
-#: weckan/templates/dataset.html:493 weckan/templates/organization.html:127
+#: weckan/templates/dataset.html:493 weckan/templates/organization.html:130
 msgid "You are now following {org}"
 msgstr "Vous êtes maintenant abonné à {org}"
 
-#: weckan/templates/dataset.html:494 weckan/templates/organization.html:128
+#: weckan/templates/dataset.html:494 weckan/templates/organization.html:131
 msgid "You are not following {org} anymore"
 msgstr "Vous n'êtes plus abonné à {org}"
 
-#: weckan/templates/dataset.html:495 weckan/templates/organization.html:129
+#: weckan/templates/dataset.html:495 weckan/templates/organization.html:132
 msgid "Error while toggling follower status"
 msgstr "Erreur lors du changement de statut d'abonnement"
 
@@ -431,21 +443,13 @@ msgstr "Thématique de discussion"
 msgid "Best reuse cases"
 msgstr "Les meilleures réutilisations"
 
-#: weckan/templates/home.html:90 weckan/templates/organization.html:94
-msgid "Most popular"
-msgstr "Les plus populaires"
-
-#: weckan/templates/home.html:91 weckan/templates/organization.html:95
-msgid "Latest"
-msgstr "Les plus récents"
-
-#: weckan/templates/home.html:123
+#: weckan/templates/home.html:126
 msgid ""
 "This reuse is no more featured and will not be visible anymore at page "
 "reload"
 msgstr "Cette réutilisation n'est plus mise en avant et ne sera plus visible au rechargement de la page"
 
-#: weckan/templates/home.html:124
+#: weckan/templates/home.html:127
 msgid "Error while removing featured state"
 msgstr "Erreur lors de la suppression de l'état de mise en avant"
 

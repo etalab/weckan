@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version:  weckan\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2013-11-21 10:26+0100\n"
+"POT-Creation-Date: 2013-11-21 11:40+0100\n"
 "PO-Revision-Date: 2013-11-20 12:11+0000\n"
 "Last-Translator: noirbizarre\n"
 "Language-Team: German "
@@ -23,6 +23,18 @@ msgstr ""
 #: weckan/application.py:55
 msgid "Web site not found."
 msgstr "Webseite wurde nicht gefunden"
+
+#: weckan/controllers.py:401 weckan/controllers.py:439
+msgid "Most popular"
+msgstr "Beliebteste"
+
+#: weckan/controllers.py:402 weckan/controllers.py:440
+msgid "Latest"
+msgstr "Neueste"
+
+#: weckan/controllers.py:448
+msgid "Privates"
+msgstr ""
 
 #: weckan/conv.py:61
 msgid "External URL"
@@ -335,19 +347,19 @@ msgid ""
 " your visibility."
 msgstr ""
 
-#: weckan/templates/dataset.html:492 weckan/templates/organization.html:126
+#: weckan/templates/dataset.html:492 weckan/templates/organization.html:129
 msgid "You need to be logged in to follow an organization"
 msgstr ""
 
-#: weckan/templates/dataset.html:493 weckan/templates/organization.html:127
+#: weckan/templates/dataset.html:493 weckan/templates/organization.html:130
 msgid "You are now following {org}"
 msgstr ""
 
-#: weckan/templates/dataset.html:494 weckan/templates/organization.html:128
+#: weckan/templates/dataset.html:494 weckan/templates/organization.html:131
 msgid "You are not following {org} anymore"
 msgstr ""
 
-#: weckan/templates/dataset.html:495 weckan/templates/organization.html:129
+#: weckan/templates/dataset.html:495 weckan/templates/organization.html:132
 msgid "Error while toggling follower status"
 msgstr ""
 
@@ -435,21 +447,13 @@ msgstr "Diskussionsthema"
 msgid "Best reuse cases"
 msgstr "Beste Wiederverwendungsmöglichkeiten"
 
-#: weckan/templates/home.html:90 weckan/templates/organization.html:94
-msgid "Most popular"
-msgstr "Beliebteste"
-
-#: weckan/templates/home.html:91 weckan/templates/organization.html:95
-msgid "Latest"
-msgstr "Neueste"
-
-#: weckan/templates/home.html:123
+#: weckan/templates/home.html:126
 msgid ""
 "This reuse is no more featured and will not be visible anymore at page "
 "reload"
 msgstr ""
 
-#: weckan/templates/home.html:124
+#: weckan/templates/home.html:127
 msgid "Error while removing featured state"
 msgstr ""
 
