@@ -77,6 +77,9 @@
                             {% if not organization.certified_public_service %}
                             <small class="not-certified">{{ _('Not certified') }}</small>
                             {% endif %}
+                            {% if dataset.private %}
+                            <small class="private">{{ _('Private') }}</small>
+                            {% endif %}
                         </p>
                     </div>
                 </div>
