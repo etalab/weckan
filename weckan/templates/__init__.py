@@ -230,6 +230,17 @@ def render(context, name, **kwargs):
     return template.render(lang=lang, languages=LANGUAGES, **kwargs)
 
 
+def fix_ckan_translations(context):
+    '''Register a Pylons translators with CKAN translations'''
+    import pylons
+    import pkg_resources
+    from babel.support import Translations
+
+    i18n_dir = pkg_resources.resource_filename('ckan', 'i18n')
+    ckan_translations = Translations.load(i18n_dir, context.lang, 'ckan')
+    pylons.translator._push_object(ckan_translations)
+
+
 def render_site(name, request_or_context, **kwargs):
     '''
     Render a template with a common site behavior.
@@ -237,6 +248,7 @@ def render_site(name, request_or_context, **kwargs):
     - handle language choice and fallback
     - inject user
     - inject sidebar items
+    - fix CKAN translations
     '''
     context = request_or_context if isinstance(request_or_context, contexts.Ctx) else contexts.Ctx(request_or_context)
     lang = context.req.urlvars.get('lang', None)
@@ -253,6 +265,8 @@ def render_site(name, request_or_context, **kwargs):
     else:
         from weckan import wsgihelpers
         return wsgihelpers.redirect(context, location=base_location)
+
+    fix_ckan_translations(context)
 
     return render(context, name,
         full_url = context.req.url,
