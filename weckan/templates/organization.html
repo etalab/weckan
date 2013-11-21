@@ -87,22 +87,24 @@
             </aside>
         </div>
 
-        {# Tabbar #}
+        {# Dataset tabs #}
         <div class="row">
             <div class="col-xs-12">
                 <ul id="tabs" class="nav nav-pills" data-tabs="tabs">
-                    <li class="active"><a href="#popular" data-toggle="tab">{{ _('Most popular') }}</a></li>
-                    <li><a href="#recent" data-toggle="tab">{{ _('Latest')}}</a></li>
+                    {% for tab_id, label, datasets in dataset_tabs %}
+                    <li {% if loop.first %}class="active"{% endif %}>
+                        <a href="#{{tab_id}}" data-toggle="tab">{{ label }}</a>
+                    </li>
+                    {% endfor %}
                 </ul>
             </div>
         </div>
-        {# end Tabbar #}
 
         <div class="row">
             <div class="tab-content">
 
-                {% for dataset_id, datasets in (('popular', popular_datasets), ('recent', last_datasets))  %}
-                <div class="tab-pane {% if loop.first %}active{% endif %}" id="{{dataset_id}}">
+                {% for tab_id, label, datasets in dataset_tabs  %}
+                <div class="tab-pane {% if loop.first %}active{% endif %}" id="{{tab_id}}">
                     <ul class="card-list">
 
                         {% for dataset in datasets %}
@@ -117,6 +119,7 @@
 
             </div>
         </div>
+        {# end Dataset tabs #}
 
     </div>
 </section>

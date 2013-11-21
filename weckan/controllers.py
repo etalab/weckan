@@ -35,6 +35,7 @@ import requests
 from datetime import datetime
 from urllib import urlencode
 from uuid import uuid1
+from collections import OrderedDict
 
 from biryani1 import strings
 from sqlalchemy.sql import func, or_
@@ -390,17 +391,29 @@ def fork(dataset, user):
 
 @wsgihelpers.wsgify
 def home(request):
-    return templates.render_site('home.html', request,
-        last_datasets=build_datasets(queries.last_datasets().limit(NB_DATASETS)),
-        popular_datasets=build_datasets(queries.popular_datasets().limit(NB_DATASETS)),
+    context = contexts.Ctx(request)
+    _ = context.translator.ugettext
+
+    popular_datasets = queries.popular_datasets().limit(NB_DATASETS)
+    last_datasets = queries.last_datasets().limit(NB_DATASETS)
+
+    dataset_tabs = (
+        ('popular', _('Most popular'), build_datasets(popular_datasets)),
+        ('recents', _('Latest'), build_datasets(last_datasets)),
+    )
+
+    return templates.render_site('home.html', context,
         featured_reuses=queries.featured_reuses().limit(NB_DATASETS),
         territory=get_territory_cookie(request),
+        dataset_tabs=dataset_tabs
     )
 
 
 @wsgihelpers.wsgify
 def display_organization(request):
     user = auth.get_user_from_request(request)
+    context = contexts.Ctx(request)
+    _ = context.translator.ugettext
 
     organization_name = request.urlvars.get('name')
 
@@ -414,20 +427,26 @@ def display_organization(request):
 
     last_datasets = queries.last_datasets()
     last_datasets = last_datasets.filter(Package.owner_org == organization.id)
+    last_datasets = last_datasets.limit(NB_DATASETS)
 
     popular_datasets = queries.popular_datasets()
     popular_datasets = popular_datasets.filter(Package.owner_org == organization.id)
+    popular_datasets = popular_datasets.limit(NB_DATASETS)
 
-    return templates.render_site('organization.html', request,
+    dataset_tabs = (
+        ('popular', _('Most popular'), build_datasets(popular_datasets)),
+        ('recents', _('Latest'), build_datasets(last_datasets)),
+    )
+
+    return templates.render_site('organization.html', context,
         organization=organization,
         nb_members=nb_members,
         nb_datasets=nb_datasets,
         nb_followers=UserFollowingGroup.follower_count(organization.id),
         is_following=UserFollowingGroup.is_following(user.id, organization.id) if organization and user else False,
         can_edit=auth.can_edit_org(user, organization),
-        last_datasets=build_datasets(last_datasets.limit(NB_DATASETS)),
-        popular_datasets=build_datasets(popular_datasets.limit(NB_DATASETS)),
         territory=get_territory_cookie(request),
+        dataset_tabs=dataset_tabs,
     )
 
 
