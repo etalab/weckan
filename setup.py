@@ -78,7 +78,7 @@ setup(
         'bleach == 1.2.2',
 #        'WebOb >= 1.1',
         'WebOb >= 1.0.8',
-        'Jinja2 >= 2.7',
+        'Jinja2 >= 2.6',
         'webassets == 0.9.dev',
         'requests',
         'PyYAML',
