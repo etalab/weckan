@@ -606,6 +606,36 @@ def unfeature_reuse(request):
     return toggle_featured(request, 0, urls.get_url(request.urlvars.get('lang', templates.DEFAULT_LANG)))
 
 
+@wsgihelpers.wsgify
+def redirect_to_home(request):
+    return wsgihelpers.redirect(contexts.Ctx(request), location='/')
+
+
+@wsgihelpers.wsgify
+def redirect_to_profile(request):
+    username = request.urlvars.get('username')
+    profile_url = '{0}/u/{1}/'.format(conf['sso_url'], username)
+    return wsgihelpers.redirect(contexts.Ctx(request), location=profile_url)
+
+
+@wsgihelpers.wsgify
+def redirect_to_account(request):
+    context = contexts.Ctx(request)
+    user = auth.get_user_from_request(request)
+    username = request.urlvars.get('username')
+
+    if not user or not username == user.name:
+        return wsgihelpers.unauthorized(context)
+
+    account_url = '{0}/my/profile/'.format(conf['sso_url'])
+    return wsgihelpers.redirect(context, location=account_url)
+
+
+@wsgihelpers.wsgify
+def forbidden(request):
+    return wsgihelpers.forbidden(contexts.Ctx(request))
+
+
 def make_router(app):
     """Return a WSGI application that searches requests to controllers """
     global router
@@ -620,6 +650,12 @@ def make_router(app):
         ('GET', r'^(/(?P<lang>\w{2}))?/organization/?$', search_more_organizations),
         ('GET', r'^(/(?P<lang>\w{{2}}))?/organization/(?!{0}(/|$))(?P<name>[\w_-]+)/?$'.format('|'.join(EXCLUDED_PATTERNS)), display_organization),
         ('GET', r'^(/(?P<lang>\w{2}))?/unfeature/(?P<reuse>[\w_-]+)/?$', unfeature_reuse),
-        )
+
+        # Override some CKAN URLs
+        ('GET', r'^(/(?P<lang>\w{2}))?/user/(?P<username>[\w_-]+)/?$', redirect_to_profile),
+        ('GET', r'^(/(?P<lang>\w{2}))?/user/(?P<username>[\w_-]+)/edit/?$', redirect_to_account),
+        ('GET', r'^(/(?P<lang>\w{2}))?/users/?$', forbidden),
+        ('GET', r'^(/(?P<lang>\w{2}))?/about/?$', redirect_to_home),
+    )
 
     return router
