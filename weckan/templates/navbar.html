@@ -67,7 +67,8 @@
                 </li>
                 {% else %}
                 <li>
-                    <a title="{% trans %}Sign In / Register{% endtrans %}"
+                    <a id="sso-link"
+                        title="{% trans %}Sign In / Register{% endtrans %}"
                         href="{{ sso('login') }}?next={{ full_url|safe }}">
                         <span class="glyphicon glyphicon-log-in"></span>
                         {% trans %}Sign In / Register{% endtrans %}

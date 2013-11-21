@@ -39,6 +39,8 @@
                 api_url = following ? $this.data('unfollow-api') : $this.data('follow-api'),
                 payload = JSON.stringify({id: $this.data('organization-id')});
 
+            Utils.ensure_user();
+
             $.post(api_url, payload, function(data) {
                 var msg = following ? Utils.translate('unfollowing-org') : Utils.translate('following-org'),
                     label = following ? $this.data('follow-label') : $this.data('unfollow-label'),

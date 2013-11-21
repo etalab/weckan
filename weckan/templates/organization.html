@@ -53,12 +53,12 @@
                     <a href class="btn btn-primary btn-block btn-sm icon-left follow"
                         data-organization-id="{{ organization.id }}"
                         data-organization-title="{{ organization.title }}"
-                        data-is-following="{% if is_following_org %}true{% else %}false{% endif %}"
+                        data-is-following="{% if is_following %}true{% else %}false{% endif %}"
                         data-follow-api="{{ url('api/3/action/follow_group') }}"
                         data-unfollow-api="{{ url('api/3/action/unfollow_group') }}"
                         data-follow-label="{% trans %}Follow{% endtrans %}"
                         data-unfollow-label="{% trans %}Unfollow{% endtrans %}"
-                        {% if is_following_org %}
+                        {% if is_following %}
                         title="{% trans %}Unfollow{% endtrans %}">
                         <span class="glyphicon glyphicon-eye-close"></span>
                         {% trans %}Unfollow{% endtrans %}

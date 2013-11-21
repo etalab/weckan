@@ -27,6 +27,13 @@
 
         translate: function(key) {
             return $('meta[name="'+key+'-translation"]').attr('content');
+        },
+
+        ensure_user: function() {
+            var $sso = $('#sso-link');
+            if ($sso.length) {
+                window.location = $sso.attr('href');
+            }
         }
     }
 
