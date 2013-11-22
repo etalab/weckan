@@ -117,10 +117,12 @@
                         <a class="list-group-item" href="{{ resource.url }}"
                             {% if resource.format.lower() == 'html' %}target="_blank"{% endif %}
                             >
-                            <span class="format-label pull-left" property="dc:format"
-                                data-format="{{ resource.format|trim|lower or 'data' }}">
-                                {{ resource.format|trim|lower or 'data' }}
-                            </span>
+                            <div class="format-label pull-left ellipsis-tooltip">
+                                <span property="dc:format"
+                                    data-format="{{ resource.format|trim|lower or 'data' }}">
+                                    {{ resource.format|trim|lower or 'data' }}
+                                </span>
+                            </div>
                             <h4 class="list-group-item-heading ellipsis {% if not resource.description.strip() %}dual{% endif %}">
                                 {% if resource.name or resource.description %}
                                 {{ resource.name or resource.description }}
