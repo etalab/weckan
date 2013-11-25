@@ -19,11 +19,11 @@
             if (!$this.hasClass('disabled')) {
                 $.get(api_url, function(data) {
                     $this.removeClass('btn-warning').addClass('btn-danger').addClass('disabled');
-                    $this.removeAttr('href').attr('title', Utils.translate('is-unfeatured'));
-                    Utils.success(Utils.translate('is-unfeatured'));
+                    $this.removeAttr('href').attr('title', Utils.i18n('is-unfeatured'));
+                    Utils.success(Utils.i18n('is-unfeatured'));
                 }).error(function(e) {
                     console.error(e);
-                    Utils.error(Utils.translate('featured-error'));
+                    Utils.error(Utils.i18n('featured-error'));
                 });
             }
 

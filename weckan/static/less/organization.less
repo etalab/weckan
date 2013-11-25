@@ -10,3 +10,35 @@ aside {
         cursor: pointer;
     }
 }
+
+.pending-request {
+    max-height: 55px;
+
+    .avatar {
+        float: left;
+        margin-right: 10px;
+    }
+
+    .author-and-date {
+        float: left;
+        margin: 0 10px;
+        display: inline-block;
+
+        .user {
+            display: block;
+            line-height: 13px;
+        }
+
+        .date {
+            color: @gray-light;
+            font-size: 12px;
+            font-style: italic;
+        }
+    }
+
+    .comment {
+        display: inline-block;
+        margin: 0 10px;
+        float: left;
+    }
+}

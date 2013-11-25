@@ -11,6 +11,7 @@ site-common:
         - bower/typeahead.js/dist/typeahead.js
         - bower/jquery.cookie/jquery.cookie.js
         - bower/jquery.dotdotdot/jquery.dotdotdot.js
+        - bower/jquery.validation/jquery.validate.js
         - bower/swig/index.js
         - bower/etalab-assets/js/etalab-site.js
         - js/utils.js

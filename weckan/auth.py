@@ -21,7 +21,7 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-from weckan.model import User, Member, meta
+from weckan.model import User, Member, Role, Group, Package, meta
 
 DB = meta.Session
 
@@ -64,3 +64,26 @@ def can_edit_org(user, organization):
         Member.table_name == 'user',
     )
     return query.count() > 0
+
+
+def get_role_for(user, target):
+    if user is None:
+        return None
+    if user.sysadmin:
+        return Role.ADMIN
+
+    if isinstance(target, Group):
+        group_id = target.id
+    elif isinstance(target, Package):
+        group_id = target.owner_org
+    else:
+        raise ValueError('Unhandled type {0}'.format(type(target)))
+    query = DB.query(Member.capacity).filter(
+        Member.group_id == group_id,
+        Member.state == 'active',
+        Member.table_id == user.id,
+        Member.table_name == 'user',
+    )
+
+    result = query.first()
+    return result[0] if result else None

@@ -45,6 +45,7 @@
 
     {% include "footer.html" %}
 
+    {# Message template #}
     <script id="message-template"  type="text/x-swig-template">
         {% raw %}
         <div class="alert alert-{{level}} alert-dismissable">
@@ -53,6 +54,24 @@
         </div>
         {% endraw %}
     </script>
+
+    {# jQuery validate messages #}
+    <meta name="valid-required-i18n" content="{{ _('This field is required.') }}" />
+    <meta name="valid-remote-i18n" content="{{ _('Please fix this field.') }}" />
+    <meta name="valid-email-i18n" content="{{ _('Please enter a valid email address.') }}" />
+    <meta name="valid-url-i18n" content="{{ _('Please enter a valid URL.') }}" />
+    <meta name="valid-date-i18n" content="{{ _('Please enter a valid date.') }}" />
+    <meta name="valid-date-iso-i18n" content="{{ _('Please enter a valid date (ISO).') }}" />
+    <meta name="valid-number-i18n" content="{{ _('Please enter a valid number.') }}" />
+    <meta name="valid-digits-i18n" content="{{ _('Please enter only digits.') }}" />
+    <meta name="valid-creditcard-i18n" content="{{ _('Please enter a valid credit card number.') }}" />
+    <meta name="valid-equal-to-i18n" content="{{ _('Please enter the same value again.') }}" />
+    <meta name="valid-maxlength-i18n" content="{{ _('Please enter no more than {0} characters.') }}" />
+    <meta name="valid-minlength-i18n" content="{{ _('Please enter at least {0} characters.') }}" />
+    <meta name="valid-range-length-i18n" content="{{ _('Please enter a value between {0} and {1} characters long.') }}" />
+    <meta name="valid-range-i18n" content="{{ _('Please enter a value between {0} and {1}.') }}" />
+    <meta name="valid-max-i18n" content="{{ _('Please enter a value less than or equal to {0}.') }}" />
+    <meta name="valid-min-i18n" content="{{ _('Please enter a value greater than or equal to {0}.') }}" />
     {% block hiddens %}{% endblock %}
 
     {# Load scripts after for faster page loading #}

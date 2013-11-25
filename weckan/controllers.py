@@ -43,6 +43,8 @@ from . import templates, urls, wsgihelpers, conf, contexts, auth, queries
 from .model import Activity, meta, Package, Related, Group
 from .model import Role, PackageRole, UserFollowingDataset, UserFollowingGroup, User
 
+from ckanext.youckan.models import MembershipRequest
+
 
 DB = meta.Session
 log = logging.getLogger(__name__)
@@ -427,8 +429,6 @@ def display_organization(request):
 
     organization, nb_datasets, nb_members = query.first()
 
-    is_member = user and user.is_in_group(organization.id)
-
     last_datasets = queries.last_datasets()
     last_datasets = last_datasets.filter(Package.owner_org == organization.id)
     last_datasets = last_datasets.limit(NB_DATASETS)
@@ -442,7 +442,12 @@ def display_organization(request):
         ('recents', _('Latest'), build_datasets(last_datasets)),
     )
 
-    if user and (is_member or user.sysadmin):
+    role = auth.get_role_for(user, organization)
+    is_member = user and user.is_in_group(organization.id)
+    is_admin = (is_member and role == Role.ADMIN) or (user and user.sysadmin)
+    is_editor = is_admin or (is_member and role == Role.EDITOR)
+
+    if is_admin:
         private_datasets = queries.datasets_and_organizations(private=True)
         private_datasets = private_datasets.filter(Package.owner_org == organization.id)
         private_datasets = private_datasets.limit(NB_DATASETS)
@@ -457,9 +462,13 @@ def display_organization(request):
         nb_followers=UserFollowingGroup.follower_count(organization.id),
         is_following=UserFollowingGroup.is_following(user.id, organization.id) if organization and user else False,
         is_member=is_member,
+        is_admin=is_admin,
+        is_editor=is_editor,
+        pending=(not is_member and MembershipRequest.is_pending(organization, user)),
         can_edit=auth.can_edit_org(user, organization),
         territory=get_territory_cookie(request),
         dataset_tabs=dataset_tabs,
+        pending_requests=MembershipRequest.pending_for(organization) if is_admin else None,
     )
 
 

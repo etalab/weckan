@@ -18,15 +18,15 @@
                 if (data.featured) {
                     $this.removeClass('btn-default').addClass('btn-success');
                     $this.attr('title', $this.data('featured-title'));
-                    Utils.success(Utils.translate('is-featured'), community_container);
+                    Utils.success(Utils.i18n('is-featured'), community_container);
                 } else {
                     $this.removeClass('btn-success').addClass('btn-default');
                     $this.attr('title', $this.data('unfeatured-title'));
-                    Utils.success(Utils.translate('is-unfeatured'), community_container);
+                    Utils.success(Utils.i18n('is-unfeatured'), community_container);
                 }
             }).error(function(e) {
                 console.error(e);
-                Utils.error(Utils.translate('featured-error'), community_container);
+                Utils.error(Utils.i18n('featured-error'), community_container);
             });
 
             return false;
@@ -39,10 +39,10 @@
                 api_url = following ? $this.data('unfollow-api') : $this.data('follow-api'),
                 payload = JSON.stringify({id: $this.data('organization-id')});
 
-            Utils.ensure_user(Utils.translate('login-to-follow-org'));
+            Utils.ensure_user(Utils.i18n('login-to-follow-org'));
 
             $.post(api_url, payload, function(data) {
-                var msg = following ? Utils.translate('unfollowing-org') : Utils.translate('following-org'),
+                var msg = following ? Utils.i18n('unfollowing-org') : Utils.i18n('following-org'),
                     label = following ? $this.data('follow-label') : $this.data('unfollow-label'),
                     icon = following ? 'eye-open': 'eye-close';
 
@@ -53,7 +53,7 @@
                 Utils.success(msg.replace('{org}',$this.data('organization-title')), default_container);
             }).error(function(e) {
                 console.error(e.responseJSON.error.message);
-                Utils.error(Utils.translate('follow-org-error'), default_container);
+                Utils.error(Utils.i18n('follow-org-error'), default_container);
             });
 
             return false;
