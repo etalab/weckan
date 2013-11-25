@@ -51,62 +51,62 @@
                 <p class="text-center">
                     <strong>{% trans nb=nb_datasets %}{{nb}} dataset{% pluralize %}{{nb}} datasets{% endtrans %}</strong>
                 </p>
-                <div class="text-left">
-                    {% if not is_member %}
-                        {% if not pending %}
-                        <a href class="btn btn-primary btn-block btn-sm icon-left membership"
-                            data-api="{{ url('youckan/organization', organization.name, 'membership') }}"
-                            title="{% trans %}Request membership{% endtrans %}">
-                            <span class="glyphicon glyphicon-user"></span>
-                            {% trans %}I belong to this organization{% endtrans %}
-                        </a>
-                        {% endif %}
+                {% if not is_member %}
+                    {% if not pending %}
+                    <a href rel="tooltip" class="btn btn-primary btn-block btn-sm icon-left membership"
+                        data-api="{{ url('youckan/organization', organization.name, 'membership') }}"
+                        title="{% trans %}I belong to this organization{% endtrans %}">
+                        <span class="glyphicon glyphicon-user"></span>
+                        {% trans %}Join{% endtrans %}
+                    </a>
+                    {% endif %}
+                    <div class="tooltip-wrapper" rel="tooltip" title="{% trans %}Waiting for approval{% endtrans %}">
                         <a id="pending-button" href rel="tooltip"
                             class="btn btn-default btn-block btn-sm icon-left disabled {% if not pending %}hide{% endif %}"
-                            title="{% trans %}Waiting for approval{% endtrans %}">
+                            >
                             <span class="glyphicon glyphicon-user"></span>
                             {% trans %}Pending request{% endtrans %}
                         </a>
-                    {% elif is_admin %}
-                    <a href rel="tooltip"
-                        class="btn btn-default btn-block btn-sm icon-left disabled"
-                        title="{% trans %}You are an administrator of this organization{% endtrans %}">
+                    </div>
+                {% elif is_admin %}
+                <div class="tooltip-wrapper" rel="tooltip" title="{% trans %}You are an administrator of this organization{% endtrans %}">
+                    <a href class="btn btn-default btn-block btn-sm icon-left disabled">
                         <span class="glyphicon glyphicon-user"></span>
                         {% trans %}Administrator{% endtrans %}
                     </a>
-                    {% elif is_editor %}
-                    <a href rel="tooltip"
-                        class="btn btn-default btn-block btn-sm icon-left disabled"
-                        title="{% trans %}You are editor in this organization{% endtrans %}">
+                </div>
+                {% elif is_editor %}
+                <div class="tooltip-wrapper" rel="tooltip" title="{% trans %}You are editor in this organization{% endtrans %}">
+                    <a href class="btn btn-default btn-block btn-sm icon-left disabled">
                         <span class="glyphicon glyphicon-user"></span>
                         {% trans %}Editor{% endtrans %}
                     </a>
-                    {% else %}
-                    <a href rel="tooltip"
-                        class="btn btn-default btn-block btn-sm icon-left disabled"
-                        title="{% trans %}You are a member of this organization{% endtrans %}">
+                </div>
+                {% else %}
+                <div  class="tooltip-wrapper" rel="tooltip" title="{% trans %}You are a member of this organization{% endtrans %}">
+                    <a href class="btn btn-default btn-block btn-sm icon-left disabled">
                         <span class="glyphicon glyphicon-user"></span>
                         {% trans %}Member{% endtrans %}
                     </a>
-                    {% endif %}
-
-                    <a href class="btn btn-primary btn-block btn-sm icon-left follow"
-                        data-is-following="{% if is_following %}true{% else %}false{% endif %}"
-                        data-follow-api="{{ url('api/3/action/follow_group') }}"
-                        data-unfollow-api="{{ url('api/3/action/unfollow_group') }}"
-                        data-follow-label="{% trans %}Follow{% endtrans %}"
-                        data-unfollow-label="{% trans %}Unfollow{% endtrans %}"
-                        {% if is_following %}
-                        title="{% trans %}Unfollow{% endtrans %}">
-                        <span class="glyphicon glyphicon-eye-close"></span>
-                        {% trans %}Unfollow{% endtrans %}
-                        {% else %}
-                        title="{% trans %}Follow{% endtrans %}">
-                        <span class="glyphicon glyphicon-eye-open"></span>
-                        {% trans %}Follow{% endtrans %}
-                        {% endif %}
-                    </a>
                 </div>
+                {% endif %}
+
+                <a href class="btn btn-primary btn-block btn-sm icon-left follow"
+                    data-is-following="{% if is_following %}true{% else %}false{% endif %}"
+                    data-follow-api="{{ url('api/3/action/follow_group') }}"
+                    data-unfollow-api="{{ url('api/3/action/unfollow_group') }}"
+                    data-follow-label="{% trans %}Follow{% endtrans %}"
+                    data-unfollow-label="{% trans %}Unfollow{% endtrans %}"
+                    {% if is_following %}
+                    title="{% trans %}Unfollow{% endtrans %}">
+                    <span class="glyphicon glyphicon-eye-close"></span>
+                    {% trans %}Unfollow{% endtrans %}
+                    {% else %}
+                    title="{% trans %}Follow{% endtrans %}">
+                    <span class="glyphicon glyphicon-eye-open"></span>
+                    {% trans %}Follow{% endtrans %}
+                    {% endif %}
+                </a>
             </aside>
         </div>
 

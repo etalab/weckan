@@ -42,12 +42,12 @@
         $('a.membership').click(function() {
             var $this = $(this),
                 api_url = $this.data('api'),
-                $modal = $('#membership-modal'),
-                click_handler;
+                $modal = $('#membership-modal');
 
             Utils.ensure_user(Utils.i18n('login-for-membership'));
 
-            click_handler = function() {
+            $modal.modal().find('form')[0].reset();
+            $('#membership-submit').off('click').click(function() {
                 var data = {comment: $modal.find('#comment').val()};
                 $.post(api_url, data, function(data) {
                     var msg = Utils.i18n('membership-requested', mapping);
@@ -60,13 +60,9 @@
                     console.error(e.responseJSON);
                 }).always(function() {
                     $modal.modal('hide');
-                    $('#membership-submit').off('click', click_handler);
                 });
                 return false;
-            };
-
-            $modal.modal();
-            $('#membership-submit').click(click_handler);
+            });
 
             return false;
         });
@@ -94,11 +90,14 @@
             var $this = $(this),
                 api_url = $this.data('api'),
                 $modal = $('#refusal-modal'),
-                click_handler;
+                $form = $modal.find('form');
 
             Utils.ensure_user(Utils.i18n('login-for-pending'));
 
-            click_handler = function() {
+            $modal.modal();
+            $form.validate(VALIDATION_RULES);
+            $form[0].reset();
+            $('#refusal-submit').off('click').click(function() {
                 if ($modal.find('form').valid()) {
                     var data = {comment: $modal.find('#comment').val()};
                     $.post(api_url, data, function(data) {
@@ -111,14 +110,10 @@
                         console.error(e.responseJSON);
                     }).always(function() {
                         $modal.modal('hide');
-                        $('#refusal-submit').off('click', click_handler);
                     });
                 }
                 return false;
-            };
-
-            $modal.modal().find('form').validate(VALIDATION_RULES);
-            $('#refusal-submit').click(click_handler);
+            });
 
             return false;
         });

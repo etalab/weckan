@@ -12,8 +12,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: weckan\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2013-11-25 10:55+0100\n"
-"PO-Revision-Date: 2013-11-25 09:55+0000\n"
+"POT-Creation-Date: 2013-11-25 12:11+0100\n"
+"PO-Revision-Date: 2013-11-25 11:12+0000\n"
 "Last-Translator: noirbizarre\n"
 "Language-Team: French (http://www.transifex.com/projects/p/weckan/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -200,16 +200,16 @@ msgid "more"
 msgstr "plus"
 
 #: weckan/templates/dataset.html:212 weckan/templates/dataset.html:219
-#: weckan/templates/dataset.html:221 weckan/templates/organization.html:97
-#: weckan/templates/organization.html:104
+#: weckan/templates/dataset.html:221 weckan/templates/organization.html:99
 #: weckan/templates/organization.html:106
+#: weckan/templates/organization.html:108
 msgid "Follow"
 msgstr "S'abonner"
 
 #: weckan/templates/dataset.html:213 weckan/templates/dataset.html:215
-#: weckan/templates/dataset.html:217 weckan/templates/organization.html:98
-#: weckan/templates/organization.html:100
+#: weckan/templates/dataset.html:217 weckan/templates/organization.html:100
 #: weckan/templates/organization.html:102
+#: weckan/templates/organization.html:104
 msgid "Unfollow"
 msgstr "Se désabonner"
 
@@ -350,19 +350,19 @@ msgid ""
 "                    Reference your work in just a few clicks and increase your visibility."
 msgstr "Vous avez réutilisé ces données et publié un article, une infographie, ou une application ?\nC'est le moment de vous faire connaître !\nRéférencez votre travail en quelques clics et augmentez votre visibilité."
 
-#: weckan/templates/dataset.html:497 weckan/templates/organization.html:202
+#: weckan/templates/dataset.html:497 weckan/templates/organization.html:204
 msgid "You need to be logged in to follow an organization"
 msgstr "Vous devez être connecté pour vous abonner à une organisation"
 
-#: weckan/templates/dataset.html:498 weckan/templates/organization.html:215
+#: weckan/templates/dataset.html:498 weckan/templates/organization.html:217
 msgid "You are now following {org}"
 msgstr "Vous êtes maintenant abonné à {org}"
 
-#: weckan/templates/dataset.html:499 weckan/templates/organization.html:216
+#: weckan/templates/dataset.html:499 weckan/templates/organization.html:218
 msgid "You are not following {org} anymore"
 msgstr "Vous n'êtes plus abonné à {org}"
 
-#: weckan/templates/dataset.html:500 weckan/templates/organization.html:217
+#: weckan/templates/dataset.html:500 weckan/templates/organization.html:219
 msgid "Error while toggling follower status"
 msgstr "Erreur lors du changement de statut d'abonnement"
 
@@ -389,8 +389,8 @@ msgstr "Ce jeu de données sera dupliqué, vous en deviendrez le propriétaire e
 msgid "Continue?"
 msgstr "Voulez-vous continuer ?"
 
-#: weckan/templates/dataset.html:525 weckan/templates/organization.html:244
-#: weckan/templates/organization.html:277
+#: weckan/templates/dataset.html:525 weckan/templates/organization.html:246
+#: weckan/templates/organization.html:279
 msgid "Cancel"
 msgstr "Annuler"
 
@@ -508,115 +508,115 @@ msgstr[0] "%(nb)s jeu de données"
 msgstr[1] "%(nb)s jeux de données"
 
 #: weckan/templates/organization.html:59
-msgid "Request membership"
-msgstr "Demande d'adhésion"
-
-#: weckan/templates/organization.html:61
 msgid "I belong to this organization"
 msgstr "J'appartiens à cette organisation"
 
-#: weckan/templates/organization.html:66
+#: weckan/templates/organization.html:61
+msgid "Join"
+msgstr "Rejoindre"
+
+#: weckan/templates/organization.html:64
 msgid "Waiting for approval"
 msgstr "En attente d'approbation"
 
-#: weckan/templates/organization.html:68
+#: weckan/templates/organization.html:69
 msgid "Pending request"
 msgstr "Demande en cours"
 
-#: weckan/templates/organization.html:73
+#: weckan/templates/organization.html:75
 msgid "You are an administrator of this organization"
 msgstr "Vous êtes un administrateur de cette organisation"
 
-#: weckan/templates/organization.html:75
+#: weckan/templates/organization.html:77
 msgid "Administrator"
 msgstr "Administrateur"
 
-#: weckan/templates/organization.html:80
+#: weckan/templates/organization.html:82
 msgid "You are editor in this organization"
 msgstr "Vous êtes éditeur dans cette organisation"
 
-#: weckan/templates/organization.html:82
+#: weckan/templates/organization.html:84
 msgid "Editor"
 msgstr "Éditeur"
 
-#: weckan/templates/organization.html:87
+#: weckan/templates/organization.html:89
 msgid "You are a member of this organization"
 msgstr "Vous êtes membre de cette organisation"
 
-#: weckan/templates/organization.html:89
+#: weckan/templates/organization.html:91
 msgid "Member"
 msgstr "Membre"
 
-#: weckan/templates/organization.html:124
+#: weckan/templates/organization.html:126
 msgid "Membership requests"
 msgstr "Demandes d'adhésion"
 
-#: weckan/templates/organization.html:147
+#: weckan/templates/organization.html:149
 msgid "No dataset"
 msgstr "Aucun jeu de données"
 
-#: weckan/templates/organization.html:173
+#: weckan/templates/organization.html:175
 msgid "Accept"
 msgstr "Accepter"
 
-#: weckan/templates/organization.html:180
-#: weckan/templates/organization.html:273
+#: weckan/templates/organization.html:182
+#: weckan/templates/organization.html:275
 msgid "Refuse"
 msgstr "Refuser"
 
-#: weckan/templates/organization.html:203
+#: weckan/templates/organization.html:205
 msgid "You need to be logged in to request membership to an organization"
 msgstr "Vous devez être authentifié pour demander une adhésion à une organisation"
 
-#: weckan/templates/organization.html:204
+#: weckan/templates/organization.html:206
 msgid "You need to be logged in to accept or refuse a membership request"
 msgstr "Vous devez être authentifié pour accepter ou refuser une demande d'adhésion"
 
-#: weckan/templates/organization.html:207
+#: weckan/templates/organization.html:209
 msgid "A request has been sent to the administrators"
 msgstr "Une demande a été envoyée aux administrateurs"
 
-#: weckan/templates/organization.html:208
+#: weckan/templates/organization.html:210
 msgid "Error while requesting membership to {org}"
 msgstr "Erreur lors de le demande d'adhésion à {org}"
 
-#: weckan/templates/organization.html:211
+#: weckan/templates/organization.html:213
 msgid "Membership request has been accepted"
 msgstr "La demande d'adhésion a été acceptée"
 
-#: weckan/templates/organization.html:212
+#: weckan/templates/organization.html:214
 msgid "Membership request has been refused"
 msgstr "La demande d'adhésion a été refusée"
 
-#: weckan/templates/organization.html:213
+#: weckan/templates/organization.html:215
 msgid "Error while responding to membership request"
 msgstr "Erreur lors de la réponse à la demande d'adhésion"
 
-#: weckan/templates/organization.html:226
+#: weckan/templates/organization.html:228
 msgid "Membership request"
 msgstr "Demande d'adhésion"
 
-#: weckan/templates/organization.html:229
+#: weckan/templates/organization.html:231
 msgid "Your can add some details here for your membership request."
 msgstr "Vous pouvez ajouter des détails sur votre demande d'adhésion ici."
 
-#: weckan/templates/organization.html:232
+#: weckan/templates/organization.html:234
 msgid "Details"
 msgstr "Détails"
 
-#: weckan/templates/organization.html:240
+#: weckan/templates/organization.html:242
 msgid "Send request"
 msgstr "Envoyer la demande"
 
-#: weckan/templates/organization.html:259
+#: weckan/templates/organization.html:261
 msgid "Membership refusal"
 msgstr "Refus d'adhésion"
 
-#: weckan/templates/organization.html:262
+#: weckan/templates/organization.html:264
 msgid "Please add your refusal reason here."
 msgstr "Ajoutez votre raison de refus ici."
 
-#: weckan/templates/organization.html:265
+#: weckan/templates/organization.html:267
 msgid "Refusal reason"
 msgstr "Raison du refus"
 
