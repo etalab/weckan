@@ -91,7 +91,7 @@
                 </div>
                 {% endif %}
 
-                <a href class="btn btn-primary btn-block btn-sm icon-left follow"
+                <a href rel="tooltip" class="btn btn-primary btn-block btn-sm icon-left follow"
                     data-is-following="{% if is_following %}true{% else %}false{% endif %}"
                     data-follow-api="{{ url('api/3/action/follow_group') }}"
                     data-unfollow-api="{{ url('api/3/action/unfollow_group') }}"
@@ -102,7 +102,7 @@
                     <span class="glyphicon glyphicon-eye-close"></span>
                     {% trans %}Unfollow{% endtrans %}
                     {% else %}
-                    title="{% trans %}Follow{% endtrans %}">
+                    title="{% trans %}I'll be informed about this organization news{% endtrans %}">
                     <span class="glyphicon glyphicon-eye-open"></span>
                     {% trans %}Follow{% endtrans %}
                     {% endif %}
