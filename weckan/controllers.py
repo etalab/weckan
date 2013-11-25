@@ -80,10 +80,10 @@ QA_CEILS = {
 def build_territorial_coverage(dataset):
     return {
         'name': ', '.join(
-            territory.strip().rsplit('/', 1)[-1]
+            territory.strip().rsplit('/', 1)[-1].title()
             for territory in dataset.extras.get('territorial_coverage', '').split(',')
         ),
-        'granularity': dataset.extras.get('territorial_coverage_granularity', None),
+        'granularity': dataset.extras.get('territorial_coverage_granularity', '').title() or None,
     }
 
 
