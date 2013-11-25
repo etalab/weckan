@@ -12,8 +12,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: weckan\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2013-11-21 16:57+0100\n"
-"PO-Revision-Date: 2013-11-21 16:10+0000\n"
+"POT-Creation-Date: 2013-11-25 10:36+0100\n"
+"PO-Revision-Date: 2013-11-25 09:47+0000\n"
 "Last-Translator: noirbizarre\n"
 "Language-Team: French (http://www.transifex.com/projects/p/weckan/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -27,15 +27,15 @@ msgstr ""
 msgid "Web site not found."
 msgstr "Site web introuvable."
 
-#: weckan/controllers.py:400 weckan/controllers.py:438
+#: weckan/controllers.py:405 weckan/controllers.py:441
 msgid "Most popular"
 msgstr "Les plus populaires"
 
-#: weckan/controllers.py:401 weckan/controllers.py:439
+#: weckan/controllers.py:406 weckan/controllers.py:442
 msgid "Latest"
 msgstr "Les plus récents"
 
-#: weckan/controllers.py:447
+#: weckan/controllers.py:455
 msgid "Privates"
 msgstr "Privés"
 
@@ -96,8 +96,8 @@ msgstr "Redirection en cours..."
 msgid "MM-dd-yyyy"
 msgstr "dd/MM/yyyy"
 
-#: weckan/templates/dataset.html:25 weckan/templates/dataset.html:451
-#: weckan/templates/organization.html:21
+#: weckan/templates/dataset.html:25 weckan/templates/dataset.html:453
+#: weckan/templates/organization.html:23
 msgid "Edit"
 msgstr "Éditer"
 
@@ -157,237 +157,240 @@ msgstr "Voir le site original"
 msgid "Resources"
 msgstr "Ressources"
 
-#: weckan/templates/dataset.html:128
+#: weckan/templates/dataset.html:130
 msgid "Nameless resource"
 msgstr "Ressource sans nom"
 
-#: weckan/templates/dataset.html:146
+#: weckan/templates/dataset.html:148
 msgid "Unmark this dataset as useful"
 msgstr "Ne plus marquer ce jeu de données comme utile"
 
-#: weckan/templates/dataset.html:152
+#: weckan/templates/dataset.html:154
 msgid "Mark this dataset as useful"
 msgstr "Marquer ce jeu de données comme utile"
 
-#: weckan/templates/dataset.html:157
+#: weckan/templates/dataset.html:159
 msgid "Useful"
 msgstr "Utile"
 
-#: weckan/templates/dataset.html:164
+#: weckan/templates/dataset.html:166
 msgid "Report"
 msgstr "Signaler"
 
-#: weckan/templates/dataset.html:180
+#: weckan/templates/dataset.html:182
 msgid "Producer"
 msgstr "Producteur"
 
-#: weckan/templates/dataset.html:184 weckan/templates/organization.html:34
+#: weckan/templates/dataset.html:186 weckan/templates/organization.html:36
 #: weckan/templates/cards/dataset-card.html:11
 #: weckan/templates/widgets/dataset-search-result.html:10
 #: weckan/templates/widgets/organization-search-result.html:9
 msgid "Certified public service"
 msgstr "Service public certifié"
 
-#: weckan/templates/dataset.html:185 weckan/templates/organization.html:35
+#: weckan/templates/dataset.html:187 weckan/templates/organization.html:37
 #: weckan/templates/cards/dataset-card.html:12
 #: weckan/templates/widgets/dataset-search-result.html:11
 #: weckan/templates/widgets/organization-search-result.html:10
 msgid "This organization and its datasets are certified by data.gouv.fr"
 msgstr "Cette organisation et ses jeux de données sont certifiés par data.gouv.fr"
 
-#: weckan/templates/dataset.html:198
+#: weckan/templates/dataset.html:200
 msgid "more"
 msgstr "plus"
 
-#: weckan/templates/dataset.html:210 weckan/templates/dataset.html:217
-#: weckan/templates/dataset.html:219 weckan/templates/organization.html:59
-#: weckan/templates/organization.html:66 weckan/templates/organization.html:68
+#: weckan/templates/dataset.html:212 weckan/templates/dataset.html:219
+#: weckan/templates/dataset.html:221 weckan/templates/organization.html:97
+#: weckan/templates/organization.html:104
+#: weckan/templates/organization.html:106
 msgid "Follow"
 msgstr "S'abonner"
 
-#: weckan/templates/dataset.html:211 weckan/templates/dataset.html:213
-#: weckan/templates/dataset.html:215 weckan/templates/organization.html:60
-#: weckan/templates/organization.html:62 weckan/templates/organization.html:64
+#: weckan/templates/dataset.html:213 weckan/templates/dataset.html:215
+#: weckan/templates/dataset.html:217 weckan/templates/organization.html:98
+#: weckan/templates/organization.html:100
+#: weckan/templates/organization.html:102
 msgid "Unfollow"
 msgstr "Se désabonner"
 
-#: weckan/templates/dataset.html:228
+#: weckan/templates/dataset.html:230
 msgid "Informations"
 msgstr "Informations"
 
-#: weckan/templates/dataset.html:236
+#: weckan/templates/dataset.html:238
 msgid "License"
 msgstr "License"
 
-#: weckan/templates/dataset.html:247
+#: weckan/templates/dataset.html:249
 #: weckan/templates/cards/dataset-card.html:31
 #: weckan/templates/widgets/dataset-search-result.html:31
 msgid "Temporal coverage"
 msgstr "Couverture temporelle"
 
-#: weckan/templates/dataset.html:250
+#: weckan/templates/dataset.html:252
 #: weckan/templates/cards/dataset-card.html:34
 #: weckan/templates/widgets/dataset-search-result.html:34
 #, python-format
 msgid "%(from)s to %(to)s"
 msgstr "%(from)s à %(to)s"
 
-#: weckan/templates/dataset.html:262
+#: weckan/templates/dataset.html:264
 #: weckan/templates/cards/dataset-card.html:45
 #: weckan/templates/widgets/dataset-search-result.html:44
 msgid "Periodicity"
 msgstr "Périodicité"
 
-#: weckan/templates/dataset.html:273
+#: weckan/templates/dataset.html:275
 #: weckan/templates/cards/dataset-card.html:57
 #: weckan/templates/widgets/dataset-search-result.html:55
 msgid "Territorial coverage"
 msgstr "Couverture territoriale"
 
-#: weckan/templates/dataset.html:283
+#: weckan/templates/dataset.html:285
 #: weckan/templates/cards/dataset-card.html:68
 #: weckan/templates/widgets/dataset-search-result.html:65
 msgid "Territorial coverage granularity"
 msgstr "Granularité de la couverture territoriale"
 
-#: weckan/templates/dataset.html:306
+#: weckan/templates/dataset.html:308
 msgid "Data quality"
 msgstr "Qualité des données"
 
-#: weckan/templates/dataset.html:310
+#: weckan/templates/dataset.html:312
 msgid "Go to the report page"
 msgstr "Aller sur la page du rapport"
 
-#: weckan/templates/dataset.html:313
+#: weckan/templates/dataset.html:315
 msgid "Performance"
 msgstr "Performance"
 
-#: weckan/templates/dataset.html:321
+#: weckan/templates/dataset.html:323
 #, python-format
 msgid "%(nb)s warning"
 msgid_plural "%(nb)s warnings"
 msgstr[0] "%(nb)s avertissement"
 msgstr[1] "%(nb)s avertissements"
 
-#: weckan/templates/dataset.html:329
+#: weckan/templates/dataset.html:331
 msgid "No warning"
 msgstr "Aucun avertissement"
 
-#: weckan/templates/dataset.html:337
+#: weckan/templates/dataset.html:339
 #, python-format
 msgid "%(nb)s error"
 msgid_plural "%(nb)s errors"
 msgstr[0] "%(nb)s erreur"
 msgstr[1] "%(nb)s erreurs"
 
-#: weckan/templates/dataset.html:345
+#: weckan/templates/dataset.html:347
 msgid "No error"
 msgstr "Aucune erreur"
 
-#: weckan/templates/dataset.html:353
+#: weckan/templates/dataset.html:355
 #, python-format
 msgid "%(nb)s critical"
 msgid_plural "%(nb)s criticals"
 msgstr[0] "%(nb)s critique"
 msgstr[1] "%(nb)s critiques"
 
-#: weckan/templates/dataset.html:361
+#: weckan/templates/dataset.html:363
 msgid "No critical"
 msgstr "Aucune critique"
 
-#: weckan/templates/dataset.html:367
+#: weckan/templates/dataset.html:369
 msgid "No report available"
 msgstr "Aucun rapport disponible"
 
-#: weckan/templates/dataset.html:372
+#: weckan/templates/dataset.html:374
 msgid "Improve quality"
 msgstr "Améliorer la qualité"
 
-#: weckan/templates/dataset.html:375
+#: weckan/templates/dataset.html:377
 msgid "Improve"
 msgstr "Améliorer"
 
-#: weckan/templates/dataset.html:378 weckan/templates/dataset.html:383
-#: weckan/templates/dataset.html:508 weckan/templates/dataset.html:519
+#: weckan/templates/dataset.html:380 weckan/templates/dataset.html:385
+#: weckan/templates/dataset.html:510 weckan/templates/dataset.html:521
 msgid "Fork"
 msgstr "Dupliquer"
 
-#: weckan/templates/dataset.html:381
+#: weckan/templates/dataset.html:383
 msgid "Duplicate this dataset and improve it !"
 msgstr "Dupliquer et améliorer ce jeu de données !"
 
-#: weckan/templates/dataset.html:396
+#: weckan/templates/dataset.html:398
 msgid "Explore with Datagouv"
 msgstr "Explorer avec Datagouv"
 
-#: weckan/templates/dataset.html:397
+#: weckan/templates/dataset.html:399
 msgid "Community contributions"
 msgstr "Contributions de la communauté"
 
-#: weckan/templates/dataset.html:402
+#: weckan/templates/dataset.html:404
 msgid "Publish a valorization !"
 msgstr "Publiez une valorisation !"
 
-#: weckan/templates/dataset.html:410
+#: weckan/templates/dataset.html:412
 msgid "Valorizations"
 msgstr "Valorisations"
 
-#: weckan/templates/dataset.html:462 weckan/templates/dataset.html:466
+#: weckan/templates/dataset.html:464 weckan/templates/dataset.html:468
 #: weckan/templates/home.html:69
 msgid "Unmark as featured"
 msgstr "Ne plus mettre en avant"
 
-#: weckan/templates/dataset.html:464 weckan/templates/dataset.html:467
+#: weckan/templates/dataset.html:466 weckan/templates/dataset.html:469
 msgid "Mark as featured"
 msgstr "Mettre en avant"
 
-#: weckan/templates/dataset.html:482
+#: weckan/templates/dataset.html:484
 msgid ""
 "You reused these data and published an article, a computer graphics, or an application?\n"
 "                    It's time to let you know!\n"
 "                    Reference your work in just a few clicks and increase your visibility."
 msgstr "Vous avez réutilisé ces données et publié un article, une infographie, ou une application ?\nC'est le moment de vous faire connaître !\nRéférencez votre travail en quelques clics et augmentez votre visibilité."
 
-#: weckan/templates/dataset.html:495 weckan/templates/organization.html:134
+#: weckan/templates/dataset.html:497 weckan/templates/organization.html:202
 msgid "You need to be logged in to follow an organization"
 msgstr "Vous devez être connecté pour vous abonner à une organisation"
 
-#: weckan/templates/dataset.html:496 weckan/templates/organization.html:135
+#: weckan/templates/dataset.html:498 weckan/templates/organization.html:215
 msgid "You are now following {org}"
 msgstr "Vous êtes maintenant abonné à {org}"
 
-#: weckan/templates/dataset.html:497 weckan/templates/organization.html:136
+#: weckan/templates/dataset.html:499 weckan/templates/organization.html:216
 msgid "You are not following {org} anymore"
 msgstr "Vous n'êtes plus abonné à {org}"
 
-#: weckan/templates/dataset.html:498 weckan/templates/organization.html:137
+#: weckan/templates/dataset.html:500 weckan/templates/organization.html:217
 msgid "Error while toggling follower status"
 msgstr "Erreur lors du changement de statut d'abonnement"
 
-#: weckan/templates/dataset.html:499
+#: weckan/templates/dataset.html:501
 msgid "This reuse is now featured"
 msgstr "Cette réutilisation est maintenant mise en avant"
 
-#: weckan/templates/dataset.html:500
+#: weckan/templates/dataset.html:502
 msgid "This reuse is no more featured"
 msgstr "Cette réutilisation n'est plus mise en avant"
 
-#: weckan/templates/dataset.html:501
+#: weckan/templates/dataset.html:503
 msgid "Error while toggling featured state"
 msgstr "Erreur lors du changement de l'état de mise en avant"
 
-#: weckan/templates/dataset.html:511
+#: weckan/templates/dataset.html:513
 msgid ""
 "You are about to make a copy of this dataset.\n"
 "                You'll become the owner and you will have the ability to edit it and improve it.\n"
 "                The original dataset will keep a reference of your work."
 msgstr "Ce jeu de données sera dupliqué, vous en deviendrez le propriétaire et pourrez l'éditer pour l'améliorer.\nUne référence à ce nouveau jeu de données sera conservée dans le jeu d'origine."
 
-#: weckan/templates/dataset.html:514
+#: weckan/templates/dataset.html:516
 msgid "Continue?"
 msgstr "Voulez-vous continuer ?"
 
-#: weckan/templates/dataset.html:523
+#: weckan/templates/dataset.html:525 weckan/templates/organization.html:244
+#: weckan/templates/organization.html:277
 msgid "Cancel"
 msgstr "Annuler"
 
@@ -481,7 +484,7 @@ msgstr "Déconnexion"
 msgid "Sign In / Register"
 msgstr "Connexion / Inscription"
 
-#: weckan/templates/organization.html:44
+#: weckan/templates/organization.html:46
 #: weckan/templates/widgets/organization-search-result.html:34
 #, python-format
 msgid "%(nb)s member"
@@ -489,14 +492,14 @@ msgid_plural "%(nb)s members"
 msgstr[0] "%(nb)s membre"
 msgstr[1] "%(nb)s membres"
 
-#: weckan/templates/organization.html:47
+#: weckan/templates/organization.html:49
 #, python-format
 msgid "%(nb)s follower"
 msgid_plural "%(nb)s followers"
 msgstr[0] "%(nb)s abonné"
 msgstr[1] "%(nb)s abonnés"
 
-#: weckan/templates/organization.html:50
+#: weckan/templates/organization.html:52
 #: weckan/templates/widgets/organization-search-result.html:27
 #, python-format
 msgid "%(nb)s dataset"
@@ -504,9 +507,118 @@ msgid_plural "%(nb)s datasets"
 msgstr[0] "%(nb)s jeu de données"
 msgstr[1] "%(nb)s jeux de données"
 
-#: weckan/templates/organization.html:119
+#: weckan/templates/organization.html:59
+msgid "Request membership"
+msgstr "Demande d'adhésion"
+
+#: weckan/templates/organization.html:61
+msgid "I belong to this organization"
+msgstr "J'appartiens à cette organisation"
+
+#: weckan/templates/organization.html:66
+msgid "Waiting for approval"
+msgstr "En attente d'approbation"
+
+#: weckan/templates/organization.html:68
+msgid "Pending request"
+msgstr "Demande en cours"
+
+#: weckan/templates/organization.html:73
+msgid "You are an administrator of this organization"
+msgstr "Vous êtes un administrateur de cette organisation"
+
+#: weckan/templates/organization.html:75
+msgid "Administrator"
+msgstr "Administrateur"
+
+#: weckan/templates/organization.html:80
+msgid "You are editor in this organization"
+msgstr "Vous êtes éditeur dans cette organisation"
+
+#: weckan/templates/organization.html:82
+msgid "Editor"
+msgstr "Éditeur"
+
+#: weckan/templates/organization.html:87
+msgid "You are a member of this organization"
+msgstr "Vous êtes membre de cette organisation"
+
+#: weckan/templates/organization.html:89
+msgid "Member"
+msgstr "Membre"
+
+#: weckan/templates/organization.html:124
+msgid "Membership requests"
+msgstr "Demandes d'adhésion"
+
+#: weckan/templates/organization.html:147
 msgid "No dataset"
 msgstr "Aucun jeu de données"
+
+#: weckan/templates/organization.html:173
+msgid "Accept"
+msgstr "Accepter"
+
+#: weckan/templates/organization.html:180
+#: weckan/templates/organization.html:273
+msgid "Refuse"
+msgstr "Refuser"
+
+#: weckan/templates/organization.html:203
+msgid "You need to be logged in to request membership to an organization"
+msgstr "Vous devez être authentifié pour demander une adhésion à une organisation"
+
+#: weckan/templates/organization.html:204
+msgid "You need to be logged in to accept or refuse a membership request"
+msgstr "Vous devez être authentifié pour accepter ou refuser une demande d'adhésion"
+
+#: weckan/templates/organization.html:207
+msgid "A request has been sent to the administrators"
+msgstr "Une demande a été envoyée aux administrateurs"
+
+#: weckan/templates/organization.html:208
+msgid "Error while requesting membership to {org}"
+msgstr "Erreur lors de le demande d'adhésion à {org}"
+
+#: weckan/templates/organization.html:211
+msgid "Membership request has been accepted"
+msgstr "La demande d'adhésion a été acceptée"
+
+#: weckan/templates/organization.html:212
+msgid "Membership request has been refused"
+msgstr "La demande d'adhésion a été refusée"
+
+#: weckan/templates/organization.html:213
+msgid "Error while responding to membership request"
+msgstr "Erreur lors de la réponse à la demande d'adhésion"
+
+#: weckan/templates/organization.html:226
+msgid "Membership request"
+msgstr "Demande d'adhésion"
+
+#: weckan/templates/organization.html:229
+msgid "Your can add some details here for your membership request."
+msgstr "Vous pouvez ajouter des détails sur votre demande d'adhésion ici."
+
+#: weckan/templates/organization.html:232
+msgid "Details"
+msgstr "Détails"
+
+#: weckan/templates/organization.html:240
+msgid "Send request"
+msgstr "Envoyer la demande"
+
+#: weckan/templates/organization.html:259
+msgid "Membership refusal"
+msgstr "Refus d'adhésion"
+
+#: weckan/templates/organization.html:262
+msgid "Please add your refusal reason here."
+msgstr "Ajoutez votre raison de refus ici."
+
+#: weckan/templates/organization.html:265
+msgid "Refusal reason"
+msgstr "Raison du refus"
 
 #: weckan/templates/search-datasets.html:6
 #: weckan/templates/search-datasets.html:17
@@ -565,6 +677,70 @@ msgstr "Questions"
 #: weckan/templates/sidebar.html:5
 msgid "Public data"
 msgstr "Données publiques"
+
+#: weckan/templates/site.html:59
+msgid "This field is required."
+msgstr "Ce champ est requis."
+
+#: weckan/templates/site.html:60
+msgid "Please fix this field."
+msgstr "Corrigez ce champs."
+
+#: weckan/templates/site.html:61
+msgid "Please enter a valid email address."
+msgstr "Saisissez une adresse email valide."
+
+#: weckan/templates/site.html:62
+msgid "Please enter a valid URL."
+msgstr "Saisissez une URL valide."
+
+#: weckan/templates/site.html:63
+msgid "Please enter a valid date."
+msgstr "Saisissez une date valide."
+
+#: weckan/templates/site.html:64
+msgid "Please enter a valid date (ISO)."
+msgstr "Saisissez une date (ISO) valide."
+
+#: weckan/templates/site.html:65
+msgid "Please enter a valid number."
+msgstr "Saisissez un nombre valide."
+
+#: weckan/templates/site.html:66
+msgid "Please enter only digits."
+msgstr "Ne saisissez que des chiffres."
+
+#: weckan/templates/site.html:67
+msgid "Please enter a valid credit card number."
+msgstr "Saisissez un numéro de carte valide."
+
+#: weckan/templates/site.html:68
+msgid "Please enter the same value again."
+msgstr "Saisissez à nouveau la même valeur."
+
+#: weckan/templates/site.html:69
+msgid "Please enter no more than {0} characters."
+msgstr "Ne saisissez pas plus de {0} caractères."
+
+#: weckan/templates/site.html:70
+msgid "Please enter at least {0} characters."
+msgstr "Saisissez au moins {0} caractères."
+
+#: weckan/templates/site.html:71
+msgid "Please enter a value between {0} and {1} characters long."
+msgstr "Saisissez une valeur comprise entre {0} and {1} caractères."
+
+#: weckan/templates/site.html:72
+msgid "Please enter a value between {0} and {1}."
+msgstr "Saisissez une valeur comprise entre {0} et {1}."
+
+#: weckan/templates/site.html:73
+msgid "Please enter a value less than or equal to {0}."
+msgstr "Saisissez une valeur inférieure ou égale à {0}."
+
+#: weckan/templates/site.html:74
+msgid "Please enter a value greater than or equal to {0}."
+msgstr "Saisissez une valeur supérieure ou égale à {0}."
 
 #: weckan/templates/subnav-s.html:27 weckan/templates/subnav.html:30
 msgid "Where"
