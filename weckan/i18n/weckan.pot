@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Weckan 0.2.0.dev\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2013-11-25 10:36+0100\n"
+"POT-Creation-Date: 2013-11-25 10:55+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -314,11 +314,11 @@ msgid "Community contributions"
 msgstr ""
 
 #: weckan/templates/dataset.html:404
-msgid "Publish a valorization !"
+msgid "Publish a reuse !"
 msgstr ""
 
 #: weckan/templates/dataset.html:412
-msgid "Valorizations"
+msgid "Reuses"
 msgstr ""
 
 #: weckan/templates/dataset.html:464 weckan/templates/dataset.html:468
