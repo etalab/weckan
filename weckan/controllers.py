@@ -550,7 +550,7 @@ def search_more_datasets(request):
 @wsgihelpers.wsgify
 def autocomplete_datasets(request):
     query = request.params.get('q', '')
-    num = int(request.params.get('num', 8))
+    num = int(request.params.get('num', NB_DATASETS))
     _, results = search_datasets(query, request, 1, num)
 
     context = contexts.Ctx(request)
@@ -560,6 +560,24 @@ def autocomplete_datasets(request):
             'title': dataset['display_name'],
             'image_url': dataset['organization'].image_url if dataset['organization'] else None,
         } for dataset in results['results']]
+
+    return wsgihelpers.respond_json(context, data, headers=headers)
+
+
+@wsgihelpers.wsgify
+def autocomplete_organizations(request):
+    query = request.params.get('q', '')
+    num = int(request.params.get('num', SEARCH_MAX_ORGANIZATIONS))
+    _, results = search_organizations(query, 1, num)
+
+    context = contexts.Ctx(request)
+    headers = wsgihelpers.handle_cross_origin_resource_sharing(context)
+
+    data = [{
+            'name': organization.name,
+            'title': organization.display_name,
+            'image_url': organization.image_url,
+        } for organization, _, _ in results['results']]
 
     return wsgihelpers.respond_json(context, data, headers=headers)
 
@@ -651,13 +669,18 @@ def make_router(app):
     router = urls.make_router(app,
         ('GET', r'^(/(?P<lang>\w{2}))?/?$', home),
         ('GET', r'^(/(?P<lang>\w{2}))?/search/?$', search_results),
+
         ('GET', r'^(/(?P<lang>\w{2}))?/dataset/?$', search_more_datasets),
         ('GET', r'^(/(?P<lang>\w{2}))?/dataset/autocomplete/?$', autocomplete_datasets),
         ('GET', r'^(/(?P<lang>\w{2}))?/dataset/(?P<name>[\w_-]+)/fork/?$', fork_dataset),
         ('GET', r'^(/(?P<lang>\w{2}))?/dataset/(?P<name>[\w_-]+)/reuse/(?P<reuse>[\w_-]+)/featured/?$', toggle_featured),
         ('GET', r'^(/(?P<lang>\w{{2}}))?/dataset/(?!{0}(/|$))(?P<name>[\w_-]+)/?$'.format('|'.join(EXCLUDED_PATTERNS)), display_dataset),
+
         ('GET', r'^(/(?P<lang>\w{2}))?/organization/?$', search_more_organizations),
+        ('GET', r'^(/(?P<lang>\w{2}))?/organization/autocomplete/?$', autocomplete_organizations),
         ('GET', r'^(/(?P<lang>\w{{2}}))?/organization/(?!{0}(/|$))(?P<name>[\w_-]+)/?$'.format('|'.join(EXCLUDED_PATTERNS)), display_organization),
+
+
         ('GET', r'^(/(?P<lang>\w{2}))?/unfeature/(?P<reuse>[\w_-]+)/?$', unfeature_reuse),
 
         # Override some CKAN URLs
