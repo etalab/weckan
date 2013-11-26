@@ -651,6 +651,18 @@ def redirect_to_home(request):
 
 
 @wsgihelpers.wsgify
+def redirect_to_login(request):
+    url = '{0}/login/'.format(conf['sso_url'])
+    return wsgihelpers.redirect(contexts.Ctx(request), location=url)
+
+
+@wsgihelpers.wsgify
+def redirect_to_logout(request):
+    url = '{0}/logout/'.format(conf['sso_url'])
+    return wsgihelpers.redirect(contexts.Ctx(request), location=url)
+
+
+@wsgihelpers.wsgify
 def redirect_to_profile(request):
     username = request.urlvars.get('username')
     profile_url = '{0}/u/{1}/'.format(conf['sso_url'], username)
@@ -696,8 +708,11 @@ def make_router(app):
         ('GET', r'^(/(?P<lang>\w{2}))?/unfeature/(?P<reuse>[\w_-]+)/?$', unfeature_reuse),
 
         # Override some CKAN URLs
+        ('GET', r'^(/(?P<lang>\w{2}))?/user/_?logout/?$', redirect_to_logout),
+        ('GET', r'^(/(?P<lang>\w{2}))?/user/register/?$', redirect_to_login),
+        ('GET', r'^(/(?P<lang>\w{2}))?/user/login/?$', redirect_to_login),
         ('GET', r'^(/(?P<lang>\w{2}))?/user/(?P<username>[\w_-]+)/?$', redirect_to_profile),
-        ('GET', r'^(/(?P<lang>\w{2}))?/user/(?P<username>[\w_-]+)/edit/?$', redirect_to_account),
+        ('GET', r'^(/(?P<lang>\w{2}))?/user/edit/(?P<username>[\w_-]+)/?$', redirect_to_account),
         ('GET', r'^(/(?P<lang>\w{2}))?/users/?$', forbidden),
         ('GET', r'^(/(?P<lang>\w{2}))?/about/?$', redirect_to_home),
     )
