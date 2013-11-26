@@ -9,7 +9,7 @@
 {% endblock %}
 
 {% block content %}
-<section class="content {% if not organization.certified_public_service %}un{% endif %}certified">
+<section class="content {% if not organization.certified_public_service %}non{% endif %}certified">
     <div class="container dataset-container">
         <div class="row">
 
@@ -408,14 +408,19 @@
         <div class="page-header">
             <div class="container">
                 <div class="cover-communaute"></div>
-                <h2>{% trans %}Explore with Datagouv{% endtrans %}</h2>
-                <small>{% trans %}Community contributions{% endtrans %}</small>
-                <br class="visible-xs" />
-                <a class="btn btn-primary btn-punch publish-reuse"
-                    href="{{ url(lang, 'dataset', dataset.name, 'related', 'new') }}">
-                    <span class="glyphicon glyphicon-plus"></span>&nbsp;
-                    {% trans %}Publish a reuse !{% endtrans %}
-                </a>
+                <div class="row">
+                    <div class="col-xs-6 col-sm-7 col-md-8 col-lg-9">
+                        <h2>{% trans %}Explore with Datagouv{% endtrans %}</h2>
+                        <small>{% trans %}Community contributions{% endtrans %}</small>
+                    </div>
+                    <div class="col-xs-6 col-sm-5 col-md-4 col-lg-3">
+                        <a class="btn btn-primary btn-punch btn-block icon-left publish-reuse"
+                            href="{{ url(lang, 'dataset', dataset.name, 'related', 'new') }}">
+                            <span class="glyphicon glyphicon-plus"></span>&nbsp;
+                            {% trans %}Publish a reuse !{% endtrans %}
+                        </a>
+                    </div>
+                </div>
             </div>
         </div>
 
