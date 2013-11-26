@@ -40,7 +40,7 @@ from biryani1 import strings
 from sqlalchemy.sql import func, or_
 
 from . import templates, urls, wsgihelpers, conf, contexts, auth, queries
-from .model import Activity, meta, Package, Related, Group
+from .model import Activity, meta, Package, PackageRelationship, Related, Group
 from .model import Role, PackageRole, UserFollowingDataset, UserFollowingGroup, User
 
 from ckanext.youckan.models import MembershipRequest
@@ -69,6 +69,8 @@ SEARCH_TIMEOUT = 2
 POST_TIMEOUT = 3
 
 NB_DATASETS = 12
+
+FORK_COMMENT = 'Fork'
 
 QA_CEILS = {
     'warning': 10,
@@ -377,7 +379,7 @@ def fork(dataset, user):
         'type': 'has_derivation',
         'subject': dataset.id,
         'object': forked.id,
-        'comment': 'Fork',
+        'comment': FORK_COMMENT,
     }
     try:
         response = requests.post(url, data=json.dumps(data), headers=headers, timeout=POST_TIMEOUT)
@@ -498,6 +500,14 @@ def display_dataset(request):
     owner_query = owner_query.filter(PackageRole.package_id == dataset.id)
     owner_query = owner_query.filter(PackageRole.role == Role.ADMIN)
 
+    is_fork = PackageRelationship.by_subject(dataset)
+    is_fork = is_fork.filter(PackageRelationship.type == 'derives_from')
+    is_fork = is_fork.filter(PackageRelationship.comment == FORK_COMMENT).count() > 0
+
+    # nb_fork = PackageRelationship.by_object(dataset)
+    # nb_fork = nb_fork.filter(PackageRelationship.type == 'derives_from')
+    # nb_fork = nb_fork.filter(PackageRelationship.comment == FORK_COMMENT).count()
+
     return templates.render_site('dataset.html', request,
         dataset=dataset,
         publication_date=timestamp,
@@ -512,6 +522,8 @@ def display_dataset(request):
         periodicity=periodicity,
         groups=dataset.get_groups('group'),
         can_edit=auth.can_edit_dataset(user, dataset),
+        is_fork=is_fork,
+        # nb_fork=nb_fork,
         quality=get_dataset_quality(dataset.name),
         ceils=QA_CEILS,
         territory=get_territory_cookie(request),

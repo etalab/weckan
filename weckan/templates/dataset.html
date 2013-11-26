@@ -80,6 +80,9 @@
                             {% if dataset.private %}
                             <small class="private">{{ _('Private') }}</small>
                             {% endif %}
+                            {% if is_fork %}
+                            <small class="fork">{{ _('Forked') }}</small>
+                            {% endif %}
                         </p>
                     </div>
                 </div>
@@ -288,6 +291,16 @@
                             {{ territorial_coverage.granularity }}
                         </li>
                         {% endif %}
+
+                        {# {% if nb_fork %}
+                        <li>
+                            <a href class="btn btn-xs btn-default" rel="tooltip" data-placement="right auto"
+                                title="{% trans %}Fork number{% endtrans %}">
+                                <span class="glyphicon glyphicon-random"></span>
+                            </a>
+                            {{ nb_fork }}
+                        </li>
+                        {% endif %} #}
 
                     </ul>
 
