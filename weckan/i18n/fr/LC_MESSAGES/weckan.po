@@ -12,8 +12,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: weckan\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2013-11-27 18:14+0100\n"
-"PO-Revision-Date: 2013-11-27 17:15+0000\n"
+"POT-Creation-Date: 2013-11-27 18:46+0100\n"
+"PO-Revision-Date: 2013-11-27 17:47+0000\n"
 "Last-Translator: noirbizarre\n"
 "Language-Team: French (http://www.transifex.com/projects/p/weckan/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -72,6 +72,10 @@ msgid "Average quality"
 msgstr "Qualité moyenne"
 
 #: weckan/controllers.py:658
+msgid "Median quality"
+msgstr "Qualité médiane"
+
+#: weckan/controllers.py:659
 msgid "File formats"
 msgstr "Formats de fichiers"
 

@@ -1,26 +1,24 @@
-# Translations template for Weckan.
+# German translations for Weckan.
 # Copyright (C) 2013 ORGANIZATION
 # This file is distributed under the same license as the Weckan project.
-# 
+#
 # Translators:
 # noirbizarre, 2013
-# noirbizarre, 2013
-# schwefel, 2013
 # schwefel, 2013
 msgid ""
 msgstr ""
-"Project-Id-Version: weckan\n"
+"Project-Id-Version:  weckan\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2013-11-27 18:14+0100\n"
+"POT-Creation-Date: 2013-11-27 18:46+0100\n"
 "PO-Revision-Date: 2013-11-27 17:15+0000\n"
 "Last-Translator: noirbizarre\n"
-"Language-Team: German (http://www.transifex.com/projects/p/weckan/language/de/)\n"
+"Language-Team: German "
+"(http://www.transifex.com/projects/p/weckan/language/de/)\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 0.9.6\n"
-"Language: de\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: weckan/application.py:55
 msgid "Web site not found."
@@ -71,6 +69,12 @@ msgid "Average quality"
 msgstr ""
 
 #: weckan/controllers.py:658
+#, fuzzy
+#| msgid "Improve quality"
+msgid "Median quality"
+msgstr "Qualität Verbessern"
+
+#: weckan/controllers.py:659
 msgid "File formats"
 msgstr ""
 
@@ -146,7 +150,9 @@ msgstr ""
 msgid ""
 "Published on %(date)s by <a href=\"mailto:%(email)s\" "
 "title=\"%(author)s\">%(author)s</a>"
-msgstr "Veröffentlicht am %(date)s von <a href=\"mailto:%(email)s\" title=\"%(author)s\">%(author)s</a>"
+msgstr ""
+"Veröffentlicht am %(date)s von <a href=\"mailto:%(email)s\" "
+"title=\"%(author)s\">%(author)s</a>"
 
 #: weckan/templates/dataset.html:43
 #, python-format
@@ -161,16 +167,16 @@ msgstr "Veröffentlicht am %(date)s"
 #: weckan/templates/dataset.html:53 weckan/templates/dataset.html:69
 #, python-format
 msgid ""
-"This dataset has been published on %(date)s on the initiative and under the "
-"responsibility of <a href=\"mailto:%(email)s\" "
+"This dataset has been published on %(date)s on the initiative and under "
+"the responsibility of <a href=\"mailto:%(email)s\" "
 "title=\"%(author)s\">%(author)s</a>"
 msgstr ""
 
 #: weckan/templates/dataset.html:59 weckan/templates/dataset.html:64
 #, python-format
 msgid ""
-"This dataset has been published on %(date)s on the initiative and under the "
-"responsibility of %(author)s"
+"This dataset has been published on %(date)s on the initiative and under "
+"the responsibility of %(author)s"
 msgstr ""
 
 #: weckan/templates/dataset.html:79 weckan/templates/dataset.html:81
@@ -388,9 +394,11 @@ msgstr ""
 
 #: weckan/templates/dataset.html:511
 msgid ""
-"You reused these data and published an article, a computer graphics, or an application?\n"
+"You reused these data and published an article, a computer graphics, or "
+"an application?\n"
 "                    It's time to let you know!\n"
-"                    Reference your work in just a few clicks and increase your visibility."
+"                    Reference your work in just a few clicks and increase"
+" your visibility."
 msgstr ""
 
 #: weckan/templates/dataset.html:524 weckan/templates/organization.html:202
@@ -424,7 +432,8 @@ msgstr ""
 #: weckan/templates/dataset.html:540
 msgid ""
 "You are about to make a copy of this dataset.\n"
-"                You'll become the owner and you will have the ability to edit it and improve it.\n"
+"                You'll become the owner and you will have the ability to "
+"edit it and improve it.\n"
 "                The original dataset will keep a reference of your work."
 msgstr ""
 
@@ -827,3 +836,4 @@ msgstr ""
 #: weckan/templates/widgets/organization-search-result.html:31
 msgid "Number of members"
 msgstr ""
+

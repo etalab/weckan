@@ -647,15 +647,16 @@ def metrics(request):
     users = DB.query(User).count()
 
     return templates.render_site('metrics.html', request, ws_url=conf['ws_url'], metrics=(
-        ('datasets', _('Datasets'), datasets),
-        ('reuses', _('Reuses'), reuses),
-        ('resources', _('Resources'), resources),
-        ('organizations', _('Organizations'), organizations),
+        ('datasets_count', _('Datasets'), datasets),
+        ('related_count', _('Reuses'), reuses),
+        ('resources_count', _('Resources'), resources),
+        ('organizations_count', _('Organizations'), organizations),
         ('certifieds', _('Certified organizations'), certified_organizations),
         ('users', _('Users'), users),
-        ('total-qa', _('Total quality'), 'TODO'),
-        ('average-qa', _('Average quality'), 'TODO'),
-        ('formats', _('File formats'), file_formats),
+        ('datasets_total_weight', _('Total quality'), '...'),
+        ('datasets_average_weight', _('Average quality'), '...'),
+        ('datasets_median_weight', _('Median quality'), '...'),
+        ('formats_count', _('File formats'), file_formats),
     ))
 
 

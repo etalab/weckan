@@ -8,9 +8,13 @@
     var ws_url = $('.metrics-container').data('ws-url');
 
     function updateValue(id, value) {
-        $('#' + id + ' .metric-value').fadeOut("slow", function(){
-            $(this).text(value).fadeIn("slow");
-        });
+        var $div = $('#' + id + ' .metric-value');
+
+        if ($div.text() != value) {
+            $div.fadeOut("slow", function(){
+                $(this).text(value).fadeIn("slow");
+            });
+        }
     }
 
     function startWebSocket() {
@@ -42,8 +46,9 @@
 
         ws.onmessage = function(evt) {
             var data = $.parseJSON(evt.data);
-            console.debug(data);
-            updateValue(data.metric, data.value);
+            for (var key in data.value) {
+                updateValue(key, data.value[key]);
+            }
         };
     }
 
