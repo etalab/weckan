@@ -309,100 +309,6 @@ def get_dataset_quality(dataset_name):
     return data
 
 
-def fork(dataset, user):
-    '''
-    Fork this package by duplicating it.
-
-    The new owner will be the user parameter.
-    The new package is created and the original will have a new related reference to the fork.
-    '''
-    if not user:
-        raise ValueError('Fark requires an user')
-
-    name_width = min(len(dataset.name), 88)
-    name = '{name}-fork-{hash}'.format(
-        name=dataset.name[:name_width],
-        hash=str(uuid1())[:6],
-    )
-
-    orgs = user.get_groups('organization')
-    resources = [{
-            'url': r.url,
-            'description': r.description,
-            'format': r.format,
-            'name': r.name,
-            'resource_type': r.resource_type,
-            'mimetype': r.mimetype,
-        }
-        for r in dataset.resources
-    ]
-    tags = [{'name': t.name, 'vocabulary_id': t.vocabulary_id} for t in dataset.get_tags()]
-    extras = [{'key': key, 'value': value} for key, value in dataset.extras.items()]
-
-    url = '{0}/api/3/action/package_create'.format(conf['ckan_url'])
-    headers = {
-        'content-type': 'application/json',
-        'Authorization': user.apikey,
-    }
-    data = {
-        'name': name,
-        'title': dataset.title,
-        'maintainer': user.fullname,
-        'maintainer_email': user.email,
-        'license_id': dataset.license_id,
-        'notes': dataset.notes,
-        'url': dataset.url,
-        'version': dataset.version,
-        'type': dataset.type,
-        'owner_org': orgs[0].id if len(orgs) else None,
-        'resources': resources,
-        'tags': tags,
-        'extras': extras,
-    }
-
-    try:
-        response = requests.post(url, data=json.dumps(data), headers=headers)
-        response.raise_for_status()
-    except requests.RequestException:
-        log.exception('Unable to create dataset')
-        raise
-    json_response = response.json()
-
-    if not json_response['success']:
-        raise Exception('Unable to create package: {0}'.format(json_response['error']['message']))
-
-    # Manually add the groups to bypass CKAN authorization
-    # TODO: Find a better way to handle open groups
-    for group in dataset.get_groups():
-        group.add_package_by_name(dataset.name)
-
-    # Add the user as administrator
-    forked = DB.query(Package).get(json_response['result']['id'])
-    PackageRole.add_user_to_role(user, Role.ADMIN, forked)
-    DB.commit()
-
-    # Create the fork relationship
-    url = url = '{0}/api/3/action/package_relationship_create'.format(conf['ckan_url'])
-    data = {
-        'type': 'has_derivation',
-        'subject': dataset.id,
-        'object': forked.id,
-        'comment': FORK_COMMENT,
-    }
-    try:
-        response = requests.post(url, data=json.dumps(data), headers=headers)
-        response.raise_for_status()
-    except requests.RequestException:
-        log.exception('Unable to create relationship')
-        return forked
-
-    json_response = response.json()
-    if not json_response['success']:
-        log.error('Unable to create relationship: {0}'.format(json_response['error']['message']))
-
-    return forked
-
-
 @wsgihelpers.wsgify
 def home(request):
     context = contexts.Ctx(request)
@@ -662,17 +568,33 @@ def metrics(request):
 
 @wsgihelpers.wsgify
 def fork_dataset(request):
+    context = contexts.Ctx(request)
+
     user = auth.get_user_from_request(request)
     if not user:
-        return wsgihelpers.unauthorized(contexts.Ctx(request))  # redirect to login/register ?
+        return wsgihelpers.unauthorized(context)  # redirect to login/register ?
 
     dataset_name = request.urlvars.get('name')
 
-    original = DB.query(Package).filter(Package.name == dataset_name).one()
-    forked = fork(original, user)
+    url = '{0}/youckan/dataset/{1}/fork'.format(conf['ckan_url'], dataset_name)
+    headers = {
+        'content-type': 'application/json',
+        'Authorization': user.apikey,
+    }
 
-    edit_url = urls.get_url(request.urlvars.get('lang', templates.DEFAULT_LANG), 'dataset/edit', forked.name)
-    return wsgihelpers.redirect(contexts.Ctx(request), location=edit_url)
+    try:
+        response = requests.post(url, headers=headers)
+        response.raise_for_status()
+    except requests.RequestException:
+        log.exception('Unable to fork dataset')
+        raise
+    forked = response.json()
+
+    lang = request.urlvars.get('lang', templates.DEFAULT_LANG)
+    # edit_url = urls.get_url(request.urlvars.get('lang', templates.DEFAULT_LANG), 'dataset/edit', forked['name'])
+    # return wsgihelpers.redirect(context, location=edit_url)
+    fork_url = urls.get_url(lang, 'dataset', forked['name'])
+    return wsgihelpers.redirect(context, location=fork_url)
 
 
 @wsgihelpers.wsgify
