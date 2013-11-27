@@ -29,6 +29,8 @@
             return;
         }
 
+
+
         window.onbeforeunload = function(e) {
             ws.close(1000, 'Left the room');
 
@@ -46,13 +48,15 @@
 
         ws.onmessage = function(evt) {
             var data = $.parseJSON(evt.data);
-            for (var key in data.value) {
-                updateValue(key, data.value[key]);
+            for (var key in data) {
+                updateValue(key, data[key]);
             }
         };
-    }
 
-    window.updateValue = updateValue;
+        ws.onerror = function(evt) {
+            console.error('WS error', evt);
+        };
+    }
 
     $(function() {
         startWebSocket();
