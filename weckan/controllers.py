@@ -354,7 +354,7 @@ def fork(dataset, user):
     }
 
     try:
-        response = requests.post(url, data=json.dumps(data), headers=headers, timeout=POST_TIMEOUT)
+        response = requests.post(url, data=json.dumps(data), headers=headers)
         response.raise_for_status()
     except requests.RequestException:
         log.exception('Unable to create dataset')
@@ -383,7 +383,7 @@ def fork(dataset, user):
         'comment': FORK_COMMENT,
     }
     try:
-        response = requests.post(url, data=json.dumps(data), headers=headers, timeout=POST_TIMEOUT)
+        response = requests.post(url, data=json.dumps(data), headers=headers)
         response.raise_for_status()
     except requests.RequestException:
         log.exception('Unable to create relationship')
