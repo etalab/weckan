@@ -56,6 +56,7 @@ def organizations_and_counters():
         desc('nb_members'),
         model.Group.title
     )
+    query = query.options(joinedload(model.Group.certified_public_service))
     return query
 
 

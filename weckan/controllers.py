@@ -126,7 +126,7 @@ def build_datasets(query):
     return datasets
 
 
-def search_datasets(query, request, page=1, page_size=SEARCH_PAGE_SIZE):
+def search_datasets(query, request, page=1, page_size=SEARCH_PAGE_SIZE, group=None):
     '''Perform a Dataset search given a ``query``'''
     from ckan.lib import search
 
@@ -155,6 +155,10 @@ def search_datasets(query, request, page=1, page_size=SEARCH_PAGE_SIZE):
         'sort': 'score desc, metadata_modified desc',
         'start': page_zero * page_size,
         }
+
+    if group:
+        group_name = group.name if isinstance(group, Group) else group
+        params['fq'] = ' '.join([params['fq'], '+groups:{0}'.format(group_name)])
 
     # Territory search if specified
     ancestors_kind_code = territory.get('ancestors_kind_code')
@@ -286,7 +290,10 @@ def get_page_url_pattern(request):
     for key, value in request.params.iteritems():
         if key != 'page':
             url_pattern_params[key] = unicode(value).encode('utf-8')
-    return '?'.join([request.path, urlencode(url_pattern_params)]) + '&page={page}'
+    if url_pattern_params:
+        return '?'.join([request.path, urlencode(url_pattern_params)]) + '&page={page}'
+    else:
+        return '?'.join([request.path, 'page={page}'])
 
 
 def get_dataset_quality(dataset_name):
@@ -608,6 +615,19 @@ def search_more_organizations(request):
 
 
 @wsgihelpers.wsgify
+def display_group(request):
+    group_name = request.urlvars.get('name')
+    group = Group.by_name(group_name)
+    page = int(request.params.get('page', 1))
+    _, results = search_datasets('', request, page, SEARCH_PAGE_SIZE, group)
+    return templates.render_site('group.html', request,
+        group=group,
+        url_pattern=get_page_url_pattern(request),
+        datasets=results
+    )
+
+
+@wsgihelpers.wsgify
 def metrics(request):
     context = contexts.Ctx(request)
     _ = context._
@@ -737,6 +757,8 @@ def make_router(app):
         ('GET', r'^(/(?P<lang>\w{2}))?/organization/?$', search_more_organizations),
         ('GET', r'^(/(?P<lang>\w{2}))?/organization/autocomplete/?$', autocomplete_organizations),
         ('GET', r'^(/(?P<lang>\w{{2}}))?/organization/(?!{0}(/|$))(?P<name>[\w_-]+)/?$'.format('|'.join(EXCLUDED_PATTERNS)), display_organization),
+
+        ('GET', r'^(/(?P<lang>\w{{2}}))?/groups/(?!{0}(/|$))(?P<name>[\w_-]+)/?$'.format('|'.join(EXCLUDED_PATTERNS)), display_group),
 
         ('GET', r'^(/(?P<lang>\w{2}))?/unfeature/(?P<reuse>[\w_-]+)/?$', unfeature_reuse),
 
