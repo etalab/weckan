@@ -1,9 +1,11 @@
 {% extends "site.html" %}
 {% from "macros/paginator.html" import paginator %}
 
-{% set style = 'search' %}
+{% set style = 'group' %}
 
 {% block title %}{{ group.title }}{% endblock %}
+
+{% block subnav %}{% include 'subnav-topic.html' %}{% endblock %}
 
 {% block content %}
 <section class="default">
@@ -12,12 +14,9 @@
         {% if datasets.results %}
         {% set start = ((datasets.page - 1) * datasets.page_size) + 1 %}
         {% set end = start - 1 + datasets.results|length %}
-        <div class="page-header">
-            <h1>
-                {{ group.title }}
-                <small>{% trans total=datasets.total %}results {{start}} to {{end}} of {{total}}{% endtrans %}</small>
-            </h1>
-        </div>
+        <p class="lead">
+            {% trans total=datasets.total %}Datasets {{start}} to {{end}} of {{total}}{% endtrans %}
+        </p>
         <ul class="search-results">
             {% for dataset in datasets.results %}
             {% include "widgets/dataset-search-result.html" %}

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Weckan 0.2.0.dev\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2013-11-27 16:02+0100\n"
+"POT-Creation-Date: 2013-11-27 18:14+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -21,51 +21,51 @@ msgstr ""
 msgid "Web site not found."
 msgstr ""
 
-#: weckan/controllers.py:408 weckan/controllers.py:444
+#: weckan/controllers.py:415 weckan/controllers.py:451
 msgid "Most popular"
 msgstr ""
 
-#: weckan/controllers.py:409 weckan/controllers.py:445
+#: weckan/controllers.py:416 weckan/controllers.py:452
 msgid "Latest"
 msgstr ""
 
-#: weckan/controllers.py:458
+#: weckan/controllers.py:465
 msgid "Privates"
 msgstr ""
 
-#: weckan/controllers.py:630 weckan/templates/search.html:43
+#: weckan/controllers.py:650 weckan/templates/search.html:43
 msgid "Datasets"
 msgstr ""
 
-#: weckan/controllers.py:631 weckan/templates/dataset.html:439
+#: weckan/controllers.py:651 weckan/templates/dataset.html:439
 msgid "Reuses"
 msgstr ""
 
-#: weckan/controllers.py:632 weckan/templates/dataset.html:127
+#: weckan/controllers.py:652 weckan/templates/dataset.html:127
 msgid "Resources"
 msgstr ""
 
-#: weckan/controllers.py:633 weckan/templates/search.html:18
+#: weckan/controllers.py:653 weckan/templates/search.html:18
 msgid "Organizations"
 msgstr ""
 
-#: weckan/controllers.py:634
+#: weckan/controllers.py:654
 msgid "Certified organizations"
 msgstr ""
 
-#: weckan/controllers.py:635
+#: weckan/controllers.py:655
 msgid "Users"
 msgstr ""
 
-#: weckan/controllers.py:636
+#: weckan/controllers.py:656
 msgid "Total quality"
 msgstr ""
 
-#: weckan/controllers.py:637
+#: weckan/controllers.py:657
 msgid "Average quality"
 msgstr ""
 
-#: weckan/controllers.py:638
+#: weckan/controllers.py:658
 msgid "File formats"
 msgstr ""
 
@@ -127,7 +127,8 @@ msgid "MM-dd-yyyy"
 msgstr ""
 
 #: weckan/templates/dataset.html:25 weckan/templates/dataset.html:480
-#: weckan/templates/organization.html:23
+#: weckan/templates/organization.html:23 weckan/templates/subnav-topic.html:56
+#: weckan/templates/subnav-topic.html:59
 msgid "Edit"
 msgstr ""
 
@@ -199,7 +200,7 @@ msgstr ""
 msgid "See the original website"
 msgstr ""
 
-#: weckan/templates/dataset.html:142
+#: weckan/templates/dataset.html:129
 msgid "Nameless resource"
 msgstr ""
 
@@ -468,6 +469,11 @@ msgstr ""
 msgid "Back to top"
 msgstr ""
 
+#: weckan/templates/group.html:18
+#, python-format
+msgid "Datasets %(start)s to %(end)s of %(total)s"
+msgstr ""
+
 #: weckan/templates/home.html:5
 msgid "Home"
 msgstr ""
@@ -500,23 +506,23 @@ msgstr ""
 msgid "Open platform for french public data"
 msgstr ""
 
-#: weckan/templates/navbar.html:43 weckan/templates/navbar.html:45
+#: weckan/templates/navbar.html:44 weckan/templates/navbar.html:46
 msgid "Profile"
 msgstr ""
 
-#: weckan/templates/navbar.html:49 weckan/templates/navbar.html:51
+#: weckan/templates/navbar.html:50 weckan/templates/navbar.html:52
 msgid "Dashboard"
 msgstr ""
 
-#: weckan/templates/navbar.html:55 weckan/templates/navbar.html:57
+#: weckan/templates/navbar.html:56 weckan/templates/navbar.html:58
 msgid "Settings"
 msgstr ""
 
-#: weckan/templates/navbar.html:62 weckan/templates/navbar.html:64
+#: weckan/templates/navbar.html:63 weckan/templates/navbar.html:65
 msgid "Log out"
 msgstr ""
 
-#: weckan/templates/navbar.html:72 weckan/templates/navbar.html:75
+#: weckan/templates/navbar.html:73 weckan/templates/navbar.html:76
 msgid "Sign In / Register"
 msgstr ""
 
@@ -675,7 +681,7 @@ msgid "Organizations search"
 msgstr ""
 
 #: weckan/templates/search.html:6 weckan/templates/subnav-s.html:15
-#: weckan/templates/subnav.html:16
+#: weckan/templates/subnav-topic.html:16 weckan/templates/subnav.html:16
 msgid "Search"
 msgstr ""
 
@@ -772,7 +778,8 @@ msgstr ""
 msgid "Please enter a value greater than or equal to {0}."
 msgstr ""
 
-#: weckan/templates/subnav-s.html:27 weckan/templates/subnav.html:30
+#: weckan/templates/subnav-s.html:27 weckan/templates/subnav-topic.html:30
+#: weckan/templates/subnav.html:30
 msgid "Where"
 msgstr ""
 

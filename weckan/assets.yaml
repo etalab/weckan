@@ -61,6 +61,12 @@ organization-css:
     contents: less/organization.less
     depends: less/*.less
 
+group-css:
+    filters: less,cssrewrite,cssmin
+    output: css/group.min.css
+    contents: less/group.less
+    depends: less/*.less
+
 metrics-css:
     filters: less,cssrewrite,cssmin
     output: css/metrics.min.css
