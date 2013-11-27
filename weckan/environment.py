@@ -101,6 +101,7 @@ def load_environment(global_conf, app_conf):
             'ckan_url': conv.default('http://ckan.data.gouv.fr'),
             'cow_url': conv.default('http://cow.data.gouv.fr'),
             'sso_url': conv.default('http://id.data.gouv.fr'),
+            'ws_url': conv.default('http://log.data.gouv.fr'),
             'territory_api_url': conv.default('http://ou.comarquage.fr/api/v1'),
             },
         default = 'drop',
