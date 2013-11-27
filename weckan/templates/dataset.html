@@ -143,8 +143,8 @@
                                 {% endif %}
                             </h4>
                             {% if resource.description.strip() %}
-                            <p class="list-group-item-text">
-                            {{ markdown_extract(resource.description, 80) }}
+                            <p class="list-group-item-text ellipsis">
+                            {{ markdown_extract(resource.description, 250) }}
                             </p>
                             {% endif %}
                         </a>
