@@ -1,0 +1,30 @@
+{% extends "site.html" %}
+
+{% set style = 'metrics' %}
+
+{% block title %}{{ _('Metrics') }}{% endblock %}
+
+{% block content %}
+<section class="default">
+    <div class="container metrics-container" data-ws-url="{{ ws_url }}">
+
+        <ul class="card-list">
+            {% for id, title, value in metrics %}
+            <li id="{{ id }}" class="col-sm-6 col-md-4">
+                <div class="card text-center">
+                    <div class="metric-value">{{value}}</div>
+                    <div class="metric-title">{{title}}</div>
+                </div>
+            </li>
+            {% endfor %}
+        </ul>
+
+    </div>
+</section>
+{% endblock %}
+
+{% block javascript %}
+{% assets "metrics-js" %}
+<script src="{{ ASSET_URL}}"></script>
+{% endassets %}
+{% endblock %}

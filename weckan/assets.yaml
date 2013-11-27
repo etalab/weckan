@@ -61,6 +61,12 @@ organization-css:
     contents: less/organization.less
     depends: less/*.less
 
+metrics-css:
+    filters: less,cssrewrite,cssmin
+    output: css/metrics.min.css
+    contents: less/metrics.less
+    depends: less/*.less
+
 home-js:
     filters: uglifyjs
     output: js/home.min.js
@@ -72,6 +78,12 @@ dataset-js:
     output: js/dataset.min.js
     contents:
         - js/dataset.js
+
+metrics-js:
+    filters: uglifyjs
+    output: js/metrics.min.js
+    contents:
+        - js/metrics.js
 
 organization-js:
     filters: uglifyjs

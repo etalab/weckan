@@ -37,12 +37,13 @@ from urllib import urlencode
 from uuid import uuid1
 
 from biryani1 import strings
-from sqlalchemy.sql import func, or_
+from sqlalchemy.sql import func, or_, distinct
 
 from . import templates, urls, wsgihelpers, conf, contexts, auth, queries
-from .model import Activity, meta, Package, PackageRelationship, Related, Group
+from .model import Activity, meta, Package, PackageRelationship, Related, Group, Resource
 from .model import Role, PackageRole, UserFollowingDataset, UserFollowingGroup, User
 
+from ckanext.etalab.model import CertifiedPublicService
 from ckanext.youckan.models import MembershipRequest
 
 
@@ -607,6 +608,38 @@ def search_more_organizations(request):
 
 
 @wsgihelpers.wsgify
+def metrics(request):
+    context = contexts.Ctx(request)
+    _ = context._
+
+    datasets = DB.query(Package).filter(Package.state == 'active', ~Package.private).count()
+
+    reuses = DB.query(Related).count()
+
+    resources = DB.query(Resource).filter(Resource.state == 'active').count()
+
+    file_formats = DB.query(distinct(Resource.format)).count()
+
+    organizations = DB.query(Group).filter(Group.is_organization == True, Group.state == 'active').count()
+
+    certified_organizations = DB.query(CertifiedPublicService).join(Group).filter(Group.state == 'active').count()
+
+    users = DB.query(User).count()
+
+    return templates.render_site('metrics.html', request, ws_url=conf['ws_url'], metrics=(
+        ('datasets', _('Datasets'), datasets),
+        ('reuses', _('Reuses'), reuses),
+        ('resources', _('Resources'), resources),
+        ('organizations', _('Organizations'), organizations),
+        ('certifieds', _('Certified organizations'), certified_organizations),
+        ('users', _('Users'), users),
+        ('total-qa', _('Total quality'), 'TODO'),
+        ('average-qa', _('Average quality'), 'TODO'),
+        ('formats', _('File formats'), file_formats),
+    ))
+
+
+@wsgihelpers.wsgify
 def fork_dataset(request):
     user = auth.get_user_from_request(request)
     if not user:
@@ -693,6 +726,7 @@ def make_router(app):
     router = urls.make_router(app,
         ('GET', r'^(/(?P<lang>\w{2}))?/?$', home),
         ('GET', r'^(/(?P<lang>\w{2}))?/search/?$', search_results),
+        ('GET', r'^(/(?P<lang>\w{2}))?/metrics/?$', metrics),
 
         ('GET', r'^(/(?P<lang>\w{2}))?/dataset/?$', search_more_datasets),
         ('GET', r'^(/(?P<lang>\w{2}))?/dataset/autocomplete/?$', autocomplete_datasets),
@@ -703,7 +737,6 @@ def make_router(app):
         ('GET', r'^(/(?P<lang>\w{2}))?/organization/?$', search_more_organizations),
         ('GET', r'^(/(?P<lang>\w{2}))?/organization/autocomplete/?$', autocomplete_organizations),
         ('GET', r'^(/(?P<lang>\w{{2}}))?/organization/(?!{0}(/|$))(?P<name>[\w_-]+)/?$'.format('|'.join(EXCLUDED_PATTERNS)), display_organization),
-
 
         ('GET', r'^(/(?P<lang>\w{2}))?/unfeature/(?P<reuse>[\w_-]+)/?$', unfeature_reuse),
 
