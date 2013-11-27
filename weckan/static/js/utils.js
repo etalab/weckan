@@ -46,7 +46,7 @@
                 window.location = url;
             }
         }
-    }
+    };
 
     // jQuery validate
     $.extend($.validator.messages, {

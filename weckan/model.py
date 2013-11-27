@@ -25,6 +25,7 @@
 
 """The application's model objects"""
 
+from sqlalchemy.sql import and_
 
 from . import urls
 
@@ -33,8 +34,11 @@ from ckan.model import *
 
 db = None
 
+DB = meta.Session
+
 
 CkanPackage = Package
+
 
 class Package(CkanPackage):
     def get_url(self, ctx, *path, **query):
@@ -63,6 +67,7 @@ meta.mapper(Package, inherits = CkanPackage)
 
 CkanTag = Tag
 
+
 class Tag(CkanTag):
     @classmethod
     def slug_to_name(cls, value, state = None):
@@ -76,3 +81,25 @@ class Tag(CkanTag):
             )(value, state = state)
 
 meta.mapper(Tag, inherits = CkanTag)
+
+
+CkanUser = User
+
+
+class User(CkanUser):
+    @property
+    def organizations(self):
+        query = DB.query(Group)
+        query = query.filter(Group.state == 'active')
+        query = query.filter(Group.approval_status == 'approved')
+        query = query.filter(Group.is_organization == True)
+        query = query.order_by(Group.title)
+        query = query.join(Member, and_(
+            Member.group_id == Group.id,
+            Member.table_name == 'user',
+            Member.state == 'active',
+            Member.table_id == self.id,
+        ))
+        return query.all()
+
+meta.mapper(User, inherits=CkanUser)

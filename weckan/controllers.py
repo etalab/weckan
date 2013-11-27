@@ -27,6 +27,7 @@
 from __future__ import unicode_literals
 
 import futures
+import json
 import logging
 import math
 import requests
@@ -41,8 +42,10 @@ from . import templates, urls, wsgihelpers, conf, contexts, auth, queries
 from .model import Activity, meta, Package, Related, Group, Resource
 from .model import Role, UserFollowingDataset, UserFollowingGroup, User
 
+from weckan.forms import ReuseForm
+
 from ckanext.etalab.model import CertifiedPublicService
-from ckanext.youckan.models import MembershipRequest
+from ckanext.youckan.models import MembershipRequest, ReuseAsOrganization
 
 
 DB = meta.Session
@@ -121,6 +124,22 @@ def build_datasets(query):
         })
 
     return datasets
+
+
+def ckan_api(action, user, data, timeout=None):
+    '''Perform a CKAN Action API call'''
+    url = '{0}/api/3/action/{1}'.format(conf['ckan_url'], action)
+    headers = {
+        'content-type': 'application/json',
+        'Authorization': user.apikey,
+    }
+    try:
+        response = requests.post(url, headers=headers, data=json.dumps(data), timeout=timeout)
+        response.raise_for_status()
+    except requests.RequestException:
+        log.exception('Error on CKAN API for action %s', action)
+        raise
+    return response.json()
 
 
 def search_datasets(query, request, page=1, page_size=SEARCH_PAGE_SIZE, group=None):
@@ -412,6 +431,104 @@ def display_dataset(request):
 
 
 @wsgihelpers.wsgify
+def create_reuse(request):
+    context = contexts.Ctx(request)
+    lang = request.urlvars.get('lang', templates.DEFAULT_LANG)
+
+    dataset_name = request.urlvars.get('name')
+    dataset_url = urls.get_url(lang, 'dataset', dataset_name)
+
+    user = auth.get_user_from_request(request)
+    if not user:
+        return wsgihelpers.unauthorized(context)  # redirect to login/register ?
+
+    if request.method == 'POST':
+        form = ReuseForm(request.POST)
+        if not form.validate():
+            return templates.render_site('reuse-form.html', request, new=True, form=form, back_url=dataset_url)
+        data = ckan_api('related_create', user, {
+            'title': request.POST['title'],
+            'description': request.POST['description'],
+            'url': request.POST['url'],
+            'image_url': request.POST['image_url'],
+            'type': request.POST['type'],
+            'dataset_id': dataset_name,
+        })
+
+        org_id = request.POST.get('publish_as')
+        if org_id:
+            reuse = Related.get(data['result']['id'])
+            organization = Group.get(org_id)
+            reuse_as_org = ReuseAsOrganization(reuse, organization)
+            DB.add(reuse_as_org)
+            DB.commit()
+
+        return wsgihelpers.redirect(context, location=dataset_url)
+
+    else:
+        return templates.render_site('reuse-form.html', request, new=True, form=ReuseForm(), back_url=dataset_url)
+
+
+@wsgihelpers.wsgify
+def edit_reuse(request):
+    context = contexts.Ctx(request)
+    lang = request.urlvars.get('lang', templates.DEFAULT_LANG)
+
+    dataset_name = request.urlvars.get('name')
+    dataset_url = urls.get_url(lang, 'dataset', dataset_name)
+
+    reuse_id = request.urlvars.get('reuse')
+    reuse = Related.get(reuse_id)
+    publish_as = ReuseAsOrganization.get(reuse)
+
+    user = auth.get_user_from_request(request)
+    if not user:
+        return wsgihelpers.unauthorized(context)  # redirect to login/register ?
+
+    if request.method == 'POST':
+        form = ReuseForm(request.POST)
+        if not form.validate():
+            return templates.render_site('reuse-form.html', request, new=False, form=form, back_url=dataset_url)
+
+        ckan_api('related_update', user, {
+            'id': reuse_id,
+            'title': request.POST['title'],
+            'description': request.POST['description'],
+            'url': request.POST['url'],
+            'image_url': request.POST['image_url'],
+            'type': request.POST['type'],
+            'owner_id': reuse.owner_id,
+            'dataset_id': dataset_name,
+        })
+
+        org_id = request.POST.get('publish_as')
+        if org_id:
+            organization = Group.get(org_id)
+            if publish_as:
+                publish_as.organization = organization
+            else:
+                publish_as = ReuseAsOrganization(reuse, organization)
+            DB.add(publish_as)
+            DB.commit()
+        elif publish_as:
+            DB.delete(publish_as)
+            DB.commit()
+
+        return wsgihelpers.redirect(context, location=dataset_url)
+
+    else:
+        form = ReuseForm({
+            'title': reuse.title,
+            'description': reuse.description,
+            'url': reuse.url,
+            'image_url': reuse.image_url,
+            'type': reuse.type,
+            'publish_as': publish_as.organization.id if publish_as else None,
+        })
+        return templates.render_site('reuse-form.html', request, new=False, form=form, back_url=dataset_url)
+
+
+@wsgihelpers.wsgify
 def search_results(request):
     query = request.params.get('q', '')
 
@@ -644,6 +761,9 @@ def make_router(app):
         ('GET', r'^(/(?P<lang>\w{2}))?/dataset/(?P<name>[\w_-]+)/fork/?$', fork_dataset),
         ('GET', r'^(/(?P<lang>\w{2}))?/dataset/(?P<name>[\w_-]+)/reuse/(?P<reuse>[\w_-]+)/featured/?$', toggle_featured),
         ('GET', r'^(/(?P<lang>\w{{2}}))?/dataset/(?!{0}(/|$))(?P<name>[\w_-]+)/?$'.format('|'.join(EXCLUDED_PATTERNS)), display_dataset),
+
+        (('GET', 'POST'), r'^(/(?P<lang>\w{2}))?/dataset/(?P<name>[\w_-]+)/related/new?$', create_reuse),
+        (('GET', 'POST'), r'^(/(?P<lang>\w{2}))?/dataset/(?P<name>[\w_-]+)/related/edit/(?P<reuse>[\w_-]+)/?$', edit_reuse),
 
         ('GET', r'^(/(?P<lang>\w{2}))?/organization/?$', search_more_organizations),
         ('GET', r'^(/(?P<lang>\w{2}))?/organization/autocomplete/?$', autocomplete_organizations),

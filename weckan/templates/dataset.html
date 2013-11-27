@@ -457,52 +457,44 @@
             <div class="row">
                 <div class="col-md-9 col-sm-9 smaller reuses-list">
                     <div class="row">
-                        {% for related in dataset.related %}
-                        {% set owner = user_by_id(related.owner_id) %}
+                        {% for reuse in dataset.related %}
                         <div class="col-sm-6 col-md-4">
                             <div class="thumbnail reuse">
-                                <a class="preview" href="{{ related.url.format(**territory) }}" target="_blank">
-                                    <img class="media-object img-responsive" alt="{{ related.title.format(**territory) }}"
-                                        src="{{ related.image_url or static('/base/images/placeholder-image.png') }}">
+                                <a class="preview" href="{{ reuse.url.format(**territory) }}" target="_blank">
+                                    <img class="media-object img-responsive" alt="{{ reuse.title.format(**territory) }}"
+                                        src="{{ reuse.image_url or static('/base/images/placeholder-image.png') }}">
                                 </a>
                                 <div class="caption">
                                     <h4 class="ellipsis-dot">
-                                        <a href="{{ related.url.format(**territory) }}" target="_blank"
-                                            title="{{ related.title.format(**territory) }}">
-                                            {{ related.title.format(**territory) }}
+                                        <a href="{{ reuse.url.format(**territory) }}" target="_blank"
+                                            title="{{ reuse.title.format(**territory) }}">
+                                            {{ reuse.title.format(**territory) }}
                                         </a>
                                     </h4>
                                     <div class="author">
-                                        <a class="avatar" href="{{ sso('user', owner.name) }}"
-                                            title="{{ owner.display_name }}">
-                                            {{ avatar(owner, 25) }}
-                                        </a>
-                                        <a class="user" href="{{ sso('user', owner.name) }}"
-                                            title="{{ owner.display_name }}">
-                                            {{ owner.display_name }}
-                                        </a>
-                                        <span class="date">{{ related.created|date(format='long', locale=lang) }}</span>
+                                        {{ publisher_small(reuse, 25, lang) }}
+                                        <span class="date">{{ reuse.created|date(format='long', locale=lang) }}</span>
                                     </div>
                                 </div>
-                                {% if related.description %}
-                                <a class="rollover fade in" href="{{related.url.format(**territory)}}" target="_blank"
-                                    title="{{ related.title }}">
-                                    {{ markdown_extract(related.description, 180) }}
+                                {% if reuse.description %}
+                                <a class="rollover fade in" href="{{reuse.url.format(**territory)}}" target="_blank"
+                                    title="{{ reuse.title }}">
+                                    {{ markdown_extract(reuse.description, 180) }}
                                 </a>
                                 {% endif %}
                                 <div class="btn-group btn-group-xs">
                                     {% if user.sysadmin or owner == user %}
                                     <a class="btn btn-default" rel="tooltip" title="{{ _('Edit') }}"
-                                        href="{{ url(lang, 'dataset', dataset.name, 'related/edit', related.id) }}"
+                                        href="{{ url(lang, 'dataset', dataset.name, 'related/edit', reuse.id) }}"
                                         data-containter="body">
                                         <span class="glyphicon glyphicon-edit"></span>
                                     </a>
                                     {% endif %}
                                     {% if user.sysadmin %}
-                                    {% set btn_class = 'success' if related.featured > 0 else 'default' %}
+                                    {% set btn_class = 'success' if reuse.featured > 0 else 'default' %}
                                     <a class="btn btn-{{ btn_class }} featured" rel="tooltip" href
-                                        data-api="{{ url('youckan/reuse', related.id, 'featured') }}"
-                                        {% if related.featured > 0 %}
+                                        data-api="{{ url('youckan/reuse', reuse.id, 'featured') }}"
+                                        {% if reuse.featured > 0 %}
                                         title="{{ _('Unmark as featured') }}"
                                         {% else %}
                                         title="{{ _('Mark as featured') }}"

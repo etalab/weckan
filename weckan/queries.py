@@ -3,7 +3,7 @@ from __future__ import unicode_literals
 
 import logging
 
-from sqlalchemy.orm import joinedload
+from sqlalchemy import orm
 from sqlalchemy.sql import func, desc, null, and_, distinct
 
 from ckanext.etalab.model import CertifiedPublicService
@@ -29,7 +29,7 @@ def datasets(private=False):
         query = query.filter(Package.private == True)
     else:
         query = query.filter(~Package.private)
-    query = query.options(joinedload(Group.certified_public_service))
+    query = query.options(orm.joinedload(Group.certified_public_service))
     return query
 
 
@@ -60,7 +60,7 @@ def organizations_and_counters():
         desc('nb_members'),
         Group.title
     )
-    query = query.options(joinedload(Group.certified_public_service))
+    query = query.options(orm.joinedload(Group.certified_public_service))
     return query
 
 
@@ -84,8 +84,7 @@ def popular_datasets():
 
 def featured_reuses():
     '''Get ``num``featured reuses'''
-    query = DB.query(Related, User)
-    query = query.join(User, Related.owner_id == User.id)
+    query = DB.query(Related)
     query = query.filter(Related.featured > 0)
     query = query.order_by(desc(Related.created))
     return query

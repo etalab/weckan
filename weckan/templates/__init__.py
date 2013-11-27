@@ -53,17 +53,6 @@ DEFAULT_STATIC = abspath(join(dirname(__file__), '..', 'static'))
 
 GRAVATAR_DEFAULTS = ('404', 'mm', 'identicon', 'monsterid', 'wavatar', 'retro')
 
-GROUPS = (
-    (u'Culture et communication', 'culture', None),
-    (u'Développement durable', 'wind', '{wiki}/Le_D%C3%A9veloppement_Durable'),
-    (u'Éducation et recherche', 'education', None),
-    (u'Justice', 'justice', None),
-    (u'Santé et solidarité', 'heart', None),
-    (u'Sécurité et défense', 'shield', None),
-    (u'Société', 'people', None),
-    (u'Travail, économie, emploi', 'case', None),
-)
-
 MAIN_TOPICS = None
 
 
@@ -107,7 +96,82 @@ def format_date(value, format='display', locale='fr'):
 
 def avatar(user, size=100):
     url = '{0}/u/{1}/avatar'.format(conf['sso_url'], user.name)
-    return Markup('<img src="{0}" class="gravatar" width="{1}" height="{1}" />'.format(url, size))
+    return Markup('<img src="{0}" class="gravatar" width="{1}" height="{1}"/>'.format(url, size))
+
+
+def publisher(reuse, size=100):
+    from weckan.model import User
+    from ckanext.youckan.models import ReuseAsOrganization
+    user = User.get(reuse.owner_id)
+    organization = ReuseAsOrganization.get_org(reuse)
+    return publisher_avatar(user, organization, size)
+
+
+def publisher_small(reuse, size=100, lang=DEFAULT_LANG):
+    from weckan.model import User
+    from ckanext.youckan.models import ReuseAsOrganization
+    user = User.get(reuse.owner_id)
+    organization = ReuseAsOrganization.get_org(reuse)
+    markup = (
+        '<a class="avatar" href="{url}" title="{title}">'
+        '{avatar}'
+        '</a>'
+        '<a class="user" href="{url}" title="{title}">'
+        '{title}'
+        '</a>'
+    )
+    if organization:
+        org_url = url(lang, 'organization', organization.name)
+        logo = '<img src="{0}" alt="{1} logo" />'.format(organization.image_url, organization.display_name)
+        return Markup(markup.format(url=org_url, avatar=logo, title=organization.display_name))
+    else:
+        user_url = '{0}/u/{1}/avatar'.format(conf['sso_url'], user.name)
+        return Markup(markup.format(url=user_url, avatar=avatar(user, size), title=user.fullname))
+
+
+def publisher_avatar(user, organization, size=100):
+    user_url = '{0}/u/{1}'.format(conf['sso_url'], user.name)
+    user_html = (
+        '<a class="{clazz}" href="{url}" title="{display}">'
+        '<img src="{url}/avatar" alt="{display}"/>'
+        '</a>'
+    )
+    if organization:
+        org_url = url('organization', organization.name)
+        image_url = organization.image_url or static('/img/placeholder_producer.png')
+        org_html = (
+            '<a class="organization" href="{url}" title="{display}">'
+            '<img src="{image_url}" alt="{display}"/>'
+            '</a>'
+        ).format(display=organization.display_name, url=org_url, image_url=image_url, size=size)
+        content = ''.join([
+            org_html,
+            user_html.format(clazz='user', display=user.fullname, url=user_url, size=(size / 4))
+        ])
+    else:
+        content = user_html.format(clazz='', display=user.fullname, url=user_url, size=size)
+    return Markup(
+        '<div class="publisher-avatar-{size}">'
+        '<div class="frame">{content}</div>'
+        '</div>'.format(size=size, content=content)
+    )
+
+
+def form_grid(specs):
+    if not specs:
+        return None
+    label_sizes, control_sizes, offset_sizes = [], [], []
+    for spec in specs.split(','):
+        label_sizes.append('col-{0}'.format(spec))
+        size, col = spec.split('-')
+        offset_sizes.append('col-{0}-offset-{1}'.format(size, col))
+        col = 12 - int(col)
+        control_sizes.append('col-{0}-{1}'.format(size, col))
+    return {
+        'label': ' '.join(label_sizes),
+        'control': ' '.join(control_sizes),
+        'offset': ' '.join(offset_sizes),
+    }
 
 
 def swig(value):
@@ -161,7 +225,11 @@ def get_webassets_env(conf):
     assets_environment = AssetsEnvironment(conf.get('static_files_dir', DEFAULT_STATIC), '/')
     assets_environment.debug = conf.get('debug', False)
     assets_environment.auto_build = conf.get('debug', False)
-    assets_environment.config['less_paths'] = ('bower/bootstrap/less', 'bower/etalab-assets/less')
+    assets_environment.config['less_paths'] = (
+        'bower/bootstrap/less',
+        'bower/etalab-assets/less',
+        'bower/bootstrap-markdown/less',
+    )
 
     # Load bundle from yaml file
     loader = YAMLLoader(resource_stream(__name__, '../assets.yaml'))
@@ -202,9 +270,13 @@ def get_jinja_env():
         env.globals['slugify'] = strings.slugify
         env.globals['ifelse'] = lambda condition, first, second: first if condition else second
         env.globals['avatar'] = avatar
+        env.globals['publisher'] = publisher
+        env.globals['publisher_small'] = publisher_small
+        env.globals['publisher_avatar'] = publisher_avatar
         env.globals['markdown'] = markdown_filter
         env.globals['markdown_extract'] = markdown_extract_filter
         env.globals['user_by_id'] = user_by_id
+        env.globals['form_grid'] = form_grid
 
         # Custom filters
         env.filters['datetime'] = format_datetime

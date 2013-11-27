@@ -73,6 +73,14 @@ metrics-css:
     contents: less/metrics.less
     depends: less/*.less
 
+forms-css:
+    filters: less,cssrewrite,cssmin
+    output: css/forms.min.css
+    contents:
+        - bower/bootstrap-select/bootstrap-select.css
+        - less/forms.less
+    depends: less/*.less
+
 home-js:
     filters: uglifyjs
     output: js/home.min.js
@@ -96,3 +104,12 @@ organization-js:
     output: js/organization.min.js
     contents:
         - js/organization.js
+
+forms-js:
+    filters: uglifyjs
+    output: js/forms.min.js
+    contents:
+        - bower/bootstrap-select/bootstrap-select.js
+        - bower/markdown/lib/markdown.js
+        - bower/bootstrap-markdown/js/bootstrap-markdown.js
+        - js/forms.js
