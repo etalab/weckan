@@ -467,7 +467,7 @@
                                 </a>
                                 {% endif %}
                                 <div class="btn-group btn-group-xs">
-                                    {% if user.sysadmin or related.owner == user %}
+                                    {% if user.sysadmin or owner == user %}
                                     <a class="btn btn-default" rel="tooltip" title="{{ _('Edit') }}"
                                         href="{{ url(lang, 'dataset', dataset.name, 'related/edit', related.id) }}"
                                         data-containter="body">
