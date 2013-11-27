@@ -75,13 +75,22 @@
                                 {% endif %}
                             </small>
                             {% if not organization.certified_public_service %}
-                            <small class="not-certified">{{ _('Not certified') }}</small>
+                            <small class="not-certified" rel="popover"
+                                data-title="{{ _('Not certified') }}" data-trigger="hover" data-placement="top"
+                                data-content="{{ _('This dataset is not provided by a certified public service') }}"
+                                >{{ _('Not certified') }}</small>
                             {% endif %}
                             {% if dataset.private %}
-                            <small class="private">{{ _('Private') }}</small>
+                            <small class="private"rel="popover"
+                                data-title="{{ _('Private') }}" data-trigger="hover" data-placement="top"
+                                data-content="{{ _('This dataset is private and will not be visible by other users') }}"
+                                >{{ _('Private') }}</small>
                             {% endif %}
                             {% if is_fork %}
-                            <small class="fork">{{ _('Forked') }}</small>
+                            <small class="fork" rel="popover"
+                                data-title="{{ _('Forked') }}" data-trigger="hover" data-placement="top"
+                                data-content="{{ _('This dataset is a fork of another existing dataset') }}"
+                                >{{ _('Forked') }}</small>
                             {% endif %}
                         </p>
                     </div>
