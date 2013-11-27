@@ -126,25 +126,25 @@
                 <div class="list-group resources-list">
                     <h3>{% trans %}Resources{% endtrans %}</h3>
                     {% for resource in dataset.active_resources %}
+                        {% set resource_name = resource.name or resource.description or _('Nameless resource') %}
+                        {% set resource_format = resource.format|trim|lower or 'data' %}
                         <a class="list-group-item" href="{{ resource.url }}"
                             {% if resource.format.lower() == 'html' %}target="_blank"{% endif %}
+                            rel="popover" data-trigger="hover" data-placement="top"
+                            title="{{ resource_name }} [{{ resource_format }}]"
+                            data-content="{{ resource.description }}"
                             >
-                            <div class="format-label pull-left ellipsis-tooltip">
-                                <span property="dc:format"
-                                    data-format="{{ resource.format|trim|lower or 'data' }}">
-                                    {{ resource.format|trim|lower or 'data' }}
+                            <div class="format-label pull-left ellipsis-dot">
+                                <span property="dc:format"data-format="{{ resource_format }}">
+                                    {{ resource_format }}
                                 </span>
                             </div>
                             <h4 class="list-group-item-heading ellipsis {% if not resource.description.strip() %}dual{% endif %}">
-                                {% if resource.name or resource.description %}
-                                {{ resource.name or resource.description }}
-                                {% else %}
-                                {% trans %}Nameless resource{% endtrans %}
-                                {% endif %}
+                                {{ resource_name }}
                             </h4>
                             {% if resource.description.strip() %}
                             <p class="list-group-item-text ellipsis">
-                            {{ markdown_extract(resource.description, 250) }}
+                            {{ markdown_extract(resource.description) }}
                             </p>
                             {% endif %}
                         </a>
