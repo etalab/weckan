@@ -54,13 +54,14 @@
                 {% if not is_member %}
                     {% if not pending %}
                     <a href rel="tooltip" class="btn btn-primary btn-block btn-sm icon-left membership"
+                        data-placement="left"
                         data-api="{{ url('youckan/organization', organization.name, 'membership') }}"
                         title="{% trans %}I belong to this organization{% endtrans %}">
                         <span class="glyphicon glyphicon-user"></span>
                         {% trans %}Join{% endtrans %}
                     </a>
                     {% endif %}
-                    <div class="tooltip-wrapper" rel="tooltip" title="{% trans %}Waiting for approval{% endtrans %}">
+                    <div class="tooltip-wrapper" rel="tooltip" title="{% trans %}Waiting for approval{% endtrans %}" data-placement="left">
                         <a id="pending-button" href rel="tooltip"
                             class="btn btn-default btn-block btn-sm icon-left disabled {% if not pending %}hide{% endif %}"
                             >
@@ -69,21 +70,21 @@
                         </a>
                     </div>
                 {% elif is_admin %}
-                <div class="tooltip-wrapper" rel="tooltip" title="{% trans %}You are an administrator of this organization{% endtrans %}">
+                <div class="tooltip-wrapper" rel="tooltip" title="{% trans %}You are an administrator of this organization{% endtrans %}" data-placement="left">
                     <a href class="btn btn-default btn-block btn-sm icon-left disabled">
                         <span class="glyphicon glyphicon-user"></span>
                         {% trans %}Administrator{% endtrans %}
                     </a>
                 </div>
                 {% elif is_editor %}
-                <div class="tooltip-wrapper" rel="tooltip" title="{% trans %}You are editor in this organization{% endtrans %}">
+                <div class="tooltip-wrapper" rel="tooltip" title="{% trans %}You are editor in this organization{% endtrans %}" data-placement="left">
                     <a href class="btn btn-default btn-block btn-sm icon-left disabled">
                         <span class="glyphicon glyphicon-user"></span>
                         {% trans %}Editor{% endtrans %}
                     </a>
                 </div>
                 {% else %}
-                <div  class="tooltip-wrapper" rel="tooltip" title="{% trans %}You are a member of this organization{% endtrans %}">
+                <div  class="tooltip-wrapper" rel="tooltip" title="{% trans %}You are a member of this organization{% endtrans %}" data-placement="left">
                     <a href class="btn btn-default btn-block btn-sm icon-left disabled">
                         <span class="glyphicon glyphicon-user"></span>
                         {% trans %}Member{% endtrans %}
@@ -91,7 +92,7 @@
                 </div>
                 {% endif %}
 
-                <a href rel="tooltip" class="btn btn-primary btn-block btn-sm icon-left follow"
+                <a href rel="tooltip" class="btn btn-primary btn-block btn-sm icon-left follow" data-placement="left"
                     data-is-following="{% if is_following %}true{% else %}false{% endif %}"
                     data-follow-api="{{ url('api/3/action/follow_group') }}"
                     data-unfollow-api="{{ url('api/3/action/unfollow_group') }}"

@@ -131,8 +131,12 @@
                         <a class="list-group-item" href="{{ resource.url }}"
                             {% if resource.format.lower() == 'html' %}target="_blank"{% endif %}
                             rel="popover" data-trigger="hover" data-placement="top"
+                            {% if resource.description %}
                             title="{{ resource_name }} [{{ resource_format }}]"
                             data-content="{{ resource.description }}"
+                            {% else %}
+                            data-content="{{ resource_name }} [{{ resource_format }}]"
+                            {% endif %}
                             >
                             <div class="format-label pull-left ellipsis-dot">
                                 <span property="dc:format"data-format="{{ resource_format }}">

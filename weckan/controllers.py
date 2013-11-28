@@ -591,9 +591,9 @@ def fork_dataset(request):
     forked = response.json()
 
     lang = request.urlvars.get('lang', templates.DEFAULT_LANG)
-    # edit_url = urls.get_url(request.urlvars.get('lang', templates.DEFAULT_LANG), 'dataset/edit', forked['name'])
-    # return wsgihelpers.redirect(context, location=edit_url)
     fork_url = urls.get_url(lang, 'dataset', forked['name'])
+    # fork_url = urls.get_url(rlang, 'dataset/edit', forked['name'])
+
     return wsgihelpers.redirect(context, location=fork_url)
 
 

@@ -1,7 +1,7 @@
 /**
  * Dataset page specific features
  */
-(function($) {
+(function($, WebSocket) {
 
     "use strict";
 
@@ -20,16 +20,14 @@
     function startWebSocket() {
         var ws;
 
-        if (window.WebSocket) {
+        if (WebSocket) {
             ws = new WebSocket(ws_url);
-        } else if (window.MozWebSocket) {
-            ws = MozWebSocket(ws_url);
+        // } else if (window.MozWebSocket) {
+        //     ws = MozWebSocket(ws_url);
         } else {
             console.log('WebSocket Not Supported');
             return;
         }
-
-
 
         window.onbeforeunload = function(e) {
             ws.close(1000, 'Left the room');
@@ -53,8 +51,8 @@
             }
         };
 
-        ws.onerror = function(evt) {
-            console.error('WS error', evt);
+        ws.onerror = function(error) {
+            console.error('WS error', error);
         };
     }
 
@@ -62,4 +60,4 @@
         startWebSocket();
     });
 
-}(window.jQuery));
+}(window.jQuery, window.WebSocket));
