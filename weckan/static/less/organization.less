@@ -21,14 +21,17 @@ aside {
     @media (max-width: @screen-xs-max) {
         max-height: 132px;
 
-        .col-xs-12 {
+        .col-xs-12:first-child {
+            height: 70px;
+        }
+
+        .col-xs-12:not(:first-child) {
             height: 35px;
         }
     }
 
     .avatar {
         float: left;
-        margin-right: 10px;
     }
 
     .author-and-date {
