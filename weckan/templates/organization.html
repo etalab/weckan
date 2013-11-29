@@ -155,35 +155,45 @@
                 <div class="tab-pane" id="pending-requests">
                     <ul class="card-list">
                         {% for request in pending_requests %}
-                        <li class="card pending-request">
-                            <a class="avatar" href="{{ sso('user', request.user.name) }}"
-                                title="{{ request.user.display_name }}">
-                                {{ avatar(request.user, 30) }}
-                            </a>
-                            <div class="author-and-date">
-                                <a class="user" href="{{ sso('user', request.user.name) }}"
+                        <li class="card pending-request row">
+                            <div class="col-xs-12 col-sm-4 col-md-3 col-lg-2">
+                                <a class="avatar" href="{{ sso('user', request.user.name) }}"
                                     title="{{ request.user.display_name }}">
-                                    {{ request.user.display_name }}
+                                    {{ avatar(request.user, 35) }}
                                 </a>
-                                <span class="date">{{ request.created|date(format='long', locale=lang) }}</span>
-                            </div>
-                            <div class="comment">{{ request.comment }}</div>
-                            <div class="btn-toolbar pull-right">
-                                <div class="btn-group btn-group-sm">
-                                    <a href class="btn btn-success membership-accept"
-                                        title="{{ _('Accept') }}"
-                                        data-api="{{ url('youckan/membership', request.id, 'accept') }}">
-                                        <span class="glyphicon glyphicon-ok"></span>
+                                <div class="author-and-date">
+                                    <a class="user" href="{{ sso('user', request.user.name) }}"
+                                        title="{{ request.user.display_name }}">
+                                        {{ request.user.display_name }}
                                     </a>
-                                </div>
-                                <div class="btn-group btn-group-sm">
-                                    <a href class="btn btn-danger membership-refuse"
-                                        title="{{ _('Refuse') }}"
-                                        data-api="{{ url('youckan/membership', request.id, 'refuse') }}">
-                                        <span class="glyphicon glyphicon-remove"></span>
-                                    </a>
+                                    <span class="date">{{ request.created|date(format='long', locale=lang) }}</span>
                                 </div>
                             </div>
+                            <div class="clearfix visible-xs"></div>
+                            <div class="comment ellipsis-tooltip col-xs-12 col-sm-6 col-md-7 col-lg-9" data-container="body">
+                                <div>{{ request.comment }}</div>
+                            </div>
+                            <div class="clearfix visible-xs"></div>
+
+                            <div class="col-xs-12 col-sm-2 col-md-2 col-lg-1">
+                                <div class="btn-toolbar">
+                                    <div class="btn-group btn-group-sm">
+                                        <a href class="btn btn-success membership-accept"
+                                            title="{{ _('Accept') }}"
+                                            data-api="{{ url('youckan/membership', request.id, 'accept') }}">
+                                            <span class="glyphicon glyphicon-ok"></span>
+                                        </a>
+                                    </div>
+                                    <div class="btn-group btn-group-sm">
+                                        <a href class="btn btn-danger membership-refuse"
+                                            title="{{ _('Refuse') }}"
+                                            data-api="{{ url('youckan/membership', request.id, 'refuse') }}">
+                                            <span class="glyphicon glyphicon-remove"></span>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+
                         </li>
                         {% endfor %}
                     </ul>
