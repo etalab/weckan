@@ -234,26 +234,6 @@ def search_topics(query):
     }
 
 
-def search_questions(query):
-    '''Perform a question search given a ``query``'''
-    url = '{0}/api/v1/questions'.format(conf['questions_url'])
-    params = {
-        'query': query,
-        'sort': 'vote-desc',
-    }
-    try:
-        response = requests.get(url, params=params, timeout=SEARCH_TIMEOUT)
-        response.raise_for_status()
-    except requests.RequestException:
-        log.exception('Unable to fetch questions')
-        return 'questions', {'results': [], 'total': 0}
-    json_response = response.json()
-    return 'questions', {
-        'results': json_response.get('questions', [])[:SEARCH_MAX_QUESTIONS],
-        'total': json_response.get('count', 0),
-    }
-
-
 def get_territory(kind, code):
     '''Perform a Territory API Call'''
     url = '{0}/territory'.format(conf['territory_api_url'])
@@ -448,12 +428,11 @@ def display_dataset(request):
 def search_results(request):
     query = request.params.get('q', '')
 
-    with futures.ThreadPoolExecutor(max_workers=4) as executor:
+    with futures.ThreadPoolExecutor(max_workers=3) as executor:
         workers = [
             executor.submit(search_datasets, query, request),
             executor.submit(search_organizations, query),
             executor.submit(search_topics, query),
-            executor.submit(search_questions, query),
         ]
 
     results = dict(worker.result() for worker in futures.as_completed(workers))
