@@ -138,10 +138,7 @@ def search_datasets(query, request, page=1, page_size=SEARCH_PAGE_SIZE, group=No
 
     page_zero = page - 1
     params = {
-        'defType': u'edismax',
-        'fq': '+dataset_type:dataset',
-        'q': query,
-        'qf': u'name title groups^0.5 notes^0.5 tags^0.5 text^0.25 +_val_:"{}"^2'.format(
+        'bf': u'{}^2'.format(
             dict(
                 ArrondissementOfCommuneOfFrance = 'weight_commune',
                 CommuneOfFrance = 'weight_commune',
@@ -151,6 +148,10 @@ def search_datasets(query, request, page=1, page_size=SEARCH_PAGE_SIZE, group=No
                 RegionOfFrance = 'weight_region',
                 ).get(territory.get('kind'), 'weight'),
             ),
+        'defType': u'edismax',
+        'fq': '+dataset_type:dataset',
+        'q': query,
+        'qf': u'name title groups^0.5 notes^0.5 tags^0.5 text^0.25',
         'rows': page_size,
         'sort': 'score desc, metadata_modified desc',
         'start': page_zero * page_size,
