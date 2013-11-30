@@ -506,10 +506,12 @@ def display_group(request):
     group = Group.by_name(group_name)
     page = int(request.params.get('page', 1))
     _, results = search_datasets('', request, page, SEARCH_PAGE_SIZE, group)
+    main_groups = [t['name'] for t in templates.main_topics()]
     return templates.render_site('group.html', request,
         group=group,
         url_pattern=get_page_url_pattern(request),
-        datasets=results
+        datasets=results,
+        group_class='topic-{0}'.format(main_groups.index(group_name) + 1) if group_name in main_groups else None,
     )
 
 

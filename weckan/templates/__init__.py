@@ -213,7 +213,8 @@ def format_topic(topic):
         group='{0}/{{lang}}/groups'.format(conf['home_url']),
         wiki=conf['wiki_url']
     )
-    return {'title': topic['title'], 'url': url}
+    name = topic['url'].split('/')[-1]
+    return {'name': name, 'title': topic['title'], 'url': url}
 
 
 def main_topics():
