@@ -33,6 +33,7 @@ from jinja2.utils import Markup
 from webassets import Environment as AssetsEnvironment
 from webassets.ext.jinja2 import AssetsExtension
 from webassets.loaders import YAMLLoader
+from webhelpers.text import truncate
 
 from babel import dates
 
@@ -138,8 +139,15 @@ def markdown_filter(source):
 
 
 def markdown_extract_filter(source, extract_length=190):
-    from ckan.lib.helpers import markdown_extract
-    return markdown_extract(bleach.clean(source), extract_length)
+    from ckan.lib.helpers import markdown
+    if not source or not source.strip():
+        return ''
+
+    extracted = bleach.clean(markdown(source), tags=[], strip=True)
+
+    if not extract_length or len(extracted) < extract_length:
+        return Markup(extracted)
+    return Markup(unicode(truncate(extracted, length=extract_length, indicator='...', whole_word=True)))
 
 
 def percent_filter(value, max_value, over=False):
