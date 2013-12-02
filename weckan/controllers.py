@@ -27,21 +27,19 @@
 from __future__ import unicode_literals
 
 import futures
-import json
 import logging
 import math
 import requests
 
 from datetime import datetime
 from urllib import urlencode
-from uuid import uuid1
 
 from biryani1 import strings
 from sqlalchemy.sql import func, or_, distinct
 
 from . import templates, urls, wsgihelpers, conf, contexts, auth, queries
-from .model import Activity, meta, Package, PackageRelationship, Related, Group, Resource
-from .model import Role, PackageRole, UserFollowingDataset, UserFollowingGroup, User
+from .model import Activity, meta, Package, Related, Group, Resource
+from .model import Role, UserFollowingDataset, UserFollowingGroup, User
 
 from ckanext.etalab.model import CertifiedPublicService
 from ckanext.youckan.models import MembershipRequest
@@ -70,8 +68,6 @@ SEARCH_TIMEOUT = 2
 POST_TIMEOUT = 3
 
 NB_DATASETS = 12
-
-FORK_COMMENT = 'Fork'
 
 QA_CEILS = {
     'warning': 10,
@@ -121,6 +117,7 @@ def build_datasets(query):
             'temporal_coverage': build_temporal_coverage(dataset),
             'territorial_coverage': build_territorial_coverage(dataset),
             'periodicity': dataset.extras.get('"dct:accrualPeriodicity"', None),
+            'original': queries.forked_from(dataset).first(),
         })
 
     return datasets
@@ -176,7 +173,7 @@ def search_datasets(query, request, page=1, page_size=SEARCH_PAGE_SIZE, group=No
     if not query.results:
         return 'datasets', {'results': [], 'total': 0}
 
-    datasets_query = queries.datasets_and_organizations()
+    datasets_query = queries.datasets()
     datasets_query = datasets_query.filter(Package.name.in_(query.results))
     datasets = build_datasets(datasets_query.all())
 
@@ -345,7 +342,7 @@ def display_organization(request):
     is_editor = is_admin or (is_member and role == Role.EDITOR)
 
     if is_admin:
-        private_datasets = queries.datasets_and_organizations(private=True)
+        private_datasets = queries.datasets(private=True)
         private_datasets = private_datasets.filter(Package.owner_org == organization.id)
         private_datasets = private_datasets.limit(NB_DATASETS)
         dataset_tabs += (
@@ -391,25 +388,13 @@ def display_dataset(request):
     supplier_id = dataset.extras.get('supplier_id', None)
     supplier = DB.query(Group).filter(Group.id == supplier_id).first() if supplier_id else None
 
-    owner_query = DB.query(User).join(PackageRole)
-    owner_query = owner_query.filter(PackageRole.package_id == dataset.id)
-    owner_query = owner_query.filter(PackageRole.role == Role.ADMIN)
-
-    is_fork = PackageRelationship.by_subject(dataset)
-    is_fork = is_fork.filter(PackageRelationship.type == 'derives_from')
-    is_fork = is_fork.filter(PackageRelationship.comment == FORK_COMMENT).count() > 0
-
-    # nb_fork = PackageRelationship.by_object(dataset)
-    # nb_fork = nb_fork.filter(PackageRelationship.type == 'derives_from')
-    # nb_fork = nb_fork.filter(PackageRelationship.comment == FORK_COMMENT).count()
-
     return templates.render_site('dataset.html', request,
         dataset=dataset,
         publication_date=timestamp,
         organization=organization,
         is_following_org=UserFollowingGroup.is_following(user.id, organization.id) if organization and user else False,
         supplier=supplier,
-        owner=owner_query.first(),
+        owner=queries.owner(dataset).first(),
         nb_followers=UserFollowingDataset.follower_count(dataset.id),
         is_following=UserFollowingDataset.is_following(user.id, dataset.id) if user else False,
         territorial_coverage=build_territorial_coverage(dataset),
@@ -417,7 +402,7 @@ def display_dataset(request):
         periodicity=periodicity,
         groups=dataset.get_groups('group'),
         can_edit=auth.can_edit_dataset(user, dataset),
-        is_fork=is_fork,
+        is_fork=queries.is_fork(dataset),
         # nb_fork=nb_fork,
         quality=get_dataset_quality(dataset.name),
         ceils=QA_CEILS,

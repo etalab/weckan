@@ -16,6 +16,15 @@
     <div class="card-logo">
         <img src="{{ static('/img/placeholder_producer.png') }}">
     </div>
+
+    <div class="card-badges">
+        {% if dataset.original %}
+        <small class="fork" rel="popover"
+            data-title="{{ _('Forked') }}" data-trigger="hover" data-placement="top" data-container="body"
+            data-content="{{ _('This dataset is a fork of another existing dataset') }}"
+            >{{ _('Forked') }}</small>
+        {% endif %}
+    </div>
     {% endif %}
     <div class="card-body ellipsis-dot">
         <h4>
