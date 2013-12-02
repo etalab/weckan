@@ -222,7 +222,7 @@ msgstr "Ressource sans nom"
 
 #: weckan/templates/dataset.html:167
 msgid "See all resources"
-msgstr "Voir toutes les resources"
+msgstr "Voir toutes les ressources"
 
 #: weckan/templates/dataset.html:179
 msgid "Unmark this dataset as useful"
