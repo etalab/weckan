@@ -191,11 +191,12 @@ def search_organizations(query, page=1, page_size=SEARCH_MAX_ORGANIZATIONS):
     likes = ['%{0}%'.format(word) for word in query.split() if word]
 
     organizations = queries.organizations_and_counters()
-    organizations = organizations.filter(or_(
-        and_(*(Group.name.ilike(like) for like in likes)),
-        and_(*(Group.title.ilike(like) for like in likes)),
-        # GroupRevision.description.ilike(like),
-    ))
+    if likes:
+        organizations = organizations.filter(or_(
+            and_(*(Group.name.ilike(like) for like in likes)),
+            and_(*(Group.title.ilike(like) for like in likes)),
+            # GroupRevision.description.ilike(like),
+        ))
 
     total = organizations.count()
     start = (page - 1) * page_size
