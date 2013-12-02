@@ -35,7 +35,7 @@ from datetime import datetime
 from urllib import urlencode
 
 from biryani1 import strings
-from sqlalchemy.sql import func, or_, distinct
+from sqlalchemy.sql import func, and_, or_, distinct
 
 from . import templates, urls, wsgihelpers, conf, contexts, auth, queries
 from .model import Activity, meta, Package, Related, Group, Resource
@@ -188,12 +188,12 @@ def search_datasets(query, request, page=1, page_size=SEARCH_PAGE_SIZE, group=No
 
 def search_organizations(query, page=1, page_size=SEARCH_MAX_ORGANIZATIONS):
     '''Perform an organization search given a ``query``'''
-    like = '%{0}%'.format(query)
+    likes = ['%{0}%'.format(word) for word in query.split() if word]
 
     organizations = queries.organizations_and_counters()
     organizations = organizations.filter(or_(
-        Group.name.ilike(like),
-        Group.title.ilike(like),
+        and_(*(Group.name.ilike(like) for like in likes)),
+        and_(*(Group.title.ilike(like) for like in likes)),
         # GroupRevision.description.ilike(like),
     ))
 
