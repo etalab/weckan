@@ -52,10 +52,11 @@ class Package(CkanPackage):
         assert len(self.resource_groups_all) == 1, "can only use resources on packages if there is only one resource_group"
         resource_group_id = self.resource_groups_all[0].id
 
-        return meta.Session.query(ResourceRevision)\
-                .filter_by(resource_group_id=resource_group_id)\
-                .filter_by(state='active').filter_by(current=True)\
-                .order_by(ResourceRevision.position)
+        resources = meta.Session.query(ResourceRevision)
+        resources = resources.filter_by(resource_group_id=resource_group_id)
+        resources = resources.filter_by(state='active').filter_by(current=True)
+        resources = resources.order_by(ResourceRevision.position)
+        return resources.all()
 
 meta.mapper(Package, inherits = CkanPackage)
 

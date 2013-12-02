@@ -125,48 +125,52 @@
                 {# Resources #}
                 <div class="list-group resources-list">
                     <h3>{% trans %}Resources{% endtrans %}</h3>
-                    {% for resource in dataset.active_resources %}
-                        {% set resource_name = resource.name or resource.description or _('Nameless resource') %}
-                        {% set resource_format = resource.format|trim|lower or 'data' %}
+                    {% if dataset.active_resources %}
+                        {% for resource in dataset.active_resources %}
+                            {% set resource_name = resource.name or resource.description or _('Nameless resource') %}
+                            {% set resource_format = resource.format|trim|lower or 'data' %}
 
-                        {% if loop.index == 4 %}
-                        <div id="all-resources" class="collapse">
+                            {% if loop.index == 4 %}
+                            <div id="all-resources" class="collapse">
+                            {% endif %}
+
+                            <a class="list-group-item" href="{{ resource.url }}"
+                                {% if resource.format.lower() == 'html' %}target="_blank"{% endif %}
+                                rel="popover" data-trigger="hover" data-placement="top"
+                                {% if resource.description %}
+                                title="{{ resource_name }} [{{ resource_format }}]"
+                                data-content="{{ resource.description }}"
+                                {% else %}
+                                data-content="{{ resource_name }} [{{ resource_format }}]"
+                                {% endif %}
+                                >
+                                <div class="format-label pull-left ellipsis-dot">
+                                    <span property="dc:format"data-format="{{ resource_format }}">
+                                        {{ resource_format }}
+                                    </span>
+                                </div>
+                                <h4 class="list-group-item-heading ellipsis {% if not resource.description.strip() %}dual{% endif %}">
+                                    {{ resource_name }}
+                                </h4>
+                                {% if resource.description.strip() %}
+                                <p class="list-group-item-text ellipsis">
+                                {{ markdown_extract(resource.description) }}
+                                </p>
+                                {% endif %}
+                            </a>
+                        {% endfor %}
+
+                        {% if loop.index0 >= 4 %}
+                        </div>
+                        <p class="text-center">
+                            <button id="more-resources" type="button" class="btn btn-default">
+                                <span class="glyphicon glyphicon-list" ></span>
+                                {{ _('See all resources') }}
+                            </button>
+                        </p>
                         {% endif %}
-
-                        <a class="list-group-item" href="{{ resource.url }}"
-                            {% if resource.format.lower() == 'html' %}target="_blank"{% endif %}
-                            rel="popover" data-trigger="hover" data-placement="top"
-                            {% if resource.description %}
-                            title="{{ resource_name }} [{{ resource_format }}]"
-                            data-content="{{ resource.description }}"
-                            {% else %}
-                            data-content="{{ resource_name }} [{{ resource_format }}]"
-                            {% endif %}
-                            >
-                            <div class="format-label pull-left ellipsis-dot">
-                                <span property="dc:format"data-format="{{ resource_format }}">
-                                    {{ resource_format }}
-                                </span>
-                            </div>
-                            <h4 class="list-group-item-heading ellipsis {% if not resource.description.strip() %}dual{% endif %}">
-                                {{ resource_name }}
-                            </h4>
-                            {% if resource.description.strip() %}
-                            <p class="list-group-item-text ellipsis">
-                            {{ markdown_extract(resource.description) }}
-                            </p>
-                            {% endif %}
-                        </a>
-                    {% endfor %}
-
-                    {% if loop.index0 >= 4 %}
-                    </div>
-                    <p class="text-center">
-                        <button id="more-resources" type="button" class="btn btn-default">
-                            <span class="glyphicon glyphicon-list" ></span>
-                            {{ _('See all resources') }}
-                        </button>
-                    </p>
+                    {% else %}
+                    <p class="text-center">{{ _('No resources') }}</p>
                     {% endif %}
                 </div>
 
