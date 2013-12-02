@@ -58,6 +58,15 @@
 
             return false;
         });
+
+        $('#more-resources').click(function() {
+            var $this = $(this);
+            $this.fadeOut();
+            $('#all-resources').collapse().on('shown.bs.collapse', function() {
+                $this.remove();
+            });
+            return false;
+        });
     });
 
 }(window.jQuery, window.Utils));

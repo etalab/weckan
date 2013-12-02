@@ -128,6 +128,11 @@
                     {% for resource in dataset.active_resources %}
                         {% set resource_name = resource.name or resource.description or _('Nameless resource') %}
                         {% set resource_format = resource.format|trim|lower or 'data' %}
+
+                        {% if loop.index == 4 %}
+                        <div id="all-resources" class="collapse">
+                        {% endif %}
+
                         <a class="list-group-item" href="{{ resource.url }}"
                             {% if resource.format.lower() == 'html' %}target="_blank"{% endif %}
                             rel="popover" data-trigger="hover" data-placement="top"
@@ -153,6 +158,16 @@
                             {% endif %}
                         </a>
                     {% endfor %}
+
+                    {% if loop.index0 >= 4 %}
+                    </div>
+                    <p class="text-center">
+                        <button id="more-resources" type="button" class="btn btn-default">
+                            <span class="glyphicon glyphicon-list" ></span>
+                            {{ _('See all resources') }}
+                        </button>
+                    </p>
+                    {% endif %}
                 </div>
 
                 <div class="row opinion">
