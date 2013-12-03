@@ -49,13 +49,15 @@
                         <div class="item {% if loop.first %}active{% endif %}">
                             <img class="slide" src="{{ reuse.image_url }}" alt="{{ reuse.title.format(**territory) }}">
                             <div class="carousel-caption">
-                                <div class="slide-logo pull-left">
-                                    <a class="slide-logo-big" title="{{ owner.display_name }}"
-                                        href="{{ sso('user', owner.name) }}">
-                                        {# <img alt="{{ organization.title }}"
-                                            src="{{ organization.image_url }}"> #}
-                                        {{ avatar(owner, 80) }}
-                                    </a>
+                                <div class="slide-logo pull-left publisher-avatar-80">
+                                    <div class="frame">
+                                        <a title="{{ owner.display_name }}"
+                                            href="{{ sso('user', owner.name) }}">
+                                            {# <img alt="{{ organization.title }}"
+                                                src="{{ organization.image_url }}"> #}
+                                            {{ avatar(owner, 80) }}
+                                        </a>
+                                    </div>
                                 </div>
                                 <h4 class="title ellipsis-dot">
                                     <a href="{{ reuse.url.format(**territory) }}" title="{{ reuse.title.format(**territory) }}">
