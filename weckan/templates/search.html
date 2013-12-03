@@ -16,11 +16,9 @@
         {% if organizations.results %}
         <h2 class="result-type">
             {% trans %}Organizations{% endtrans %}
-            {% if organizations.total <= organizations.results|length %}
             <small>
                 {% trans count=organizations.total %}{{count}} result{% pluralize %}{{count}} results{% endtrans %}
             </small>
-            {% endif %}
         </h2>
         <ul class="search-results">
             {% for organization, nb_datasets, nb_members in organizations.results %}
@@ -41,11 +39,9 @@
         {% if datasets.results %}
         <h2 class="result-type">
             {% trans %}Datasets{% endtrans %}
-            {% if datasets.total <= datasets.results|length %}
             <small>
                 {% trans count=datasets.total %}{{count}} result{% pluralize %}{{count}} results{% endtrans %}
             </small>
-            {% endif %}
         </h2>
         <ul class="search-results">
             {% for dataset in datasets.results %}
