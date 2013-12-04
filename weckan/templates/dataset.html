@@ -456,7 +456,6 @@
 
             <div class="row">
                 <div class="col-md-9 col-sm-9 smaller reuses-list">
-                    {% if dataset.related %}
                     <div class="row">
                         {% for related in dataset.related %}
                         {% set owner = user_by_id(related.owner_id) %}
@@ -467,14 +466,14 @@
                                         src="{{ related.image_url or static('/base/images/placeholder-image.png') }}">
                                 </a>
                                 <div class="caption">
-                                    <h4>
+                                    <h4 class="ellipsis-dot">
                                         <a href="{{ related.url.format(**territory) }}" target="_blank"
                                             title="{{ related.title.format(**territory) }}">
                                             {{ related.title.format(**territory) }}
                                         </a>
                                     </h4>
                                     <div class="author">
-                                        <a href="{{ sso('user', owner.name) }}"
+                                        <a class="avatar" href="{{ sso('user', owner.name) }}"
                                             title="{{ owner.display_name }}">
                                             {{ avatar(owner, 25) }}
                                         </a>
@@ -519,21 +518,15 @@
                         </div>
                         {% endfor %}
                         <div class="col-sm-6 col-md-4">
-                            <div class="thumbnail reuse add">
-                                <a class="preview" href="{{ url(lang, 'dataset', dataset.name, 'related', 'new') }}">
-                                    +
-                                </a>
+                            <a class="thumbnail reuse add" href="{{ url(lang, 'dataset', dataset.name, 'related', 'new') }}">
+                                <div class="preview">+</div>
                                 <div class="caption">
-                                    <h4>
-                                        {% trans %}Add a reuse{% endtrans %}
-                                    </h4>
+                                    <h4>{% trans %}Add a reuse{% endtrans %}</h4>
                                 </div>
-                            </div>
+                            </a>
                         </div>
 
                     </div>
-                    <br/>
-                    {% endif %}
                 </div>
 
                 <div class="col-md-3 col-sm-3 note">
