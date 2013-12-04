@@ -442,15 +442,8 @@
                 <div class="cover-communaute"></div>
                 <div class="row">
                     <div class="col-xs-6 col-sm-7 col-md-8 col-lg-9">
-                        <h2>{% trans %}Explore with Datagouv{% endtrans %}</h2>
-                        <small>{% trans %}Community contributions{% endtrans %}</small>
-                    </div>
-                    <div class="col-xs-6 col-sm-5 col-md-4 col-lg-3">
-                        <a class="btn btn-primary btn-yellow btn-punch btn-block icon-left publish-reuse"
-                            href="{{ url(lang, 'dataset', dataset.name, 'related', 'new') }}">
-                            <span class="glyphicon glyphicon-plus"></span>&nbsp;
-                            {% trans %}Publish a reuse !{% endtrans %}
-                        </a>
+                        <h2>{% trans %}Community contributions{% endtrans %}</h2>
+                        <small>{% trans %}Explore with Datagouv{% endtrans %}</small>
                     </div>
                 </div>
             </div>
@@ -462,7 +455,7 @@
             <h3 class="panel-title">{{ _('Reuses') }}</h3>
 
             <div class="row">
-                <div class="col-md-9 col-sm-9 smaller">
+                <div class="col-md-9 col-sm-9 smaller reuses-list">
                     {% if dataset.related %}
                     <div class="row">
                         {% for related in dataset.related %}
@@ -525,6 +518,19 @@
                             </div>
                         </div>
                         {% endfor %}
+                        <div class="col-sm-6 col-md-4">
+                            <div class="thumbnail reuse add">
+                                <a class="preview" href="{{ url(lang, 'dataset', dataset.name, 'related', 'new') }}">
+                                    +
+                                </a>
+                                <div class="caption">
+                                    <h4>
+                                        {% trans %}Add a reuse{% endtrans %}
+                                    </h4>
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
                     <br/>
                     {% endif %}
