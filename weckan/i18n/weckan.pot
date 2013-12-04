@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Weckan 0.2.0.dev\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2013-12-02 16:30+0100\n"
+"POT-Creation-Date: 2013-12-04 10:20+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -21,55 +21,55 @@ msgstr ""
 msgid "Web site not found."
 msgstr ""
 
-#: weckan/controllers.py:299 weckan/controllers.py:335
+#: weckan/controllers.py:300 weckan/controllers.py:336
 msgid "Most popular"
 msgstr ""
 
-#: weckan/controllers.py:300 weckan/controllers.py:336
+#: weckan/controllers.py:301 weckan/controllers.py:337
 msgid "Latest"
 msgstr ""
 
-#: weckan/controllers.py:349
+#: weckan/controllers.py:350
 msgid "Privates"
 msgstr ""
 
-#: weckan/controllers.py:523 weckan/templates/search.html:43
+#: weckan/controllers.py:524 weckan/templates/search.html:41
 msgid "Datasets"
 msgstr ""
 
-#: weckan/controllers.py:524 weckan/templates/dataset.html:462
+#: weckan/controllers.py:525 weckan/templates/dataset.html:455
 msgid "Reuses"
 msgstr ""
 
-#: weckan/controllers.py:525 weckan/templates/dataset.html:127
+#: weckan/controllers.py:526 weckan/templates/dataset.html:127
 msgid "Resources"
 msgstr ""
 
-#: weckan/controllers.py:526 weckan/templates/search.html:18
+#: weckan/controllers.py:527 weckan/templates/search.html:18
 msgid "Organizations"
 msgstr ""
 
-#: weckan/controllers.py:527
+#: weckan/controllers.py:528
 msgid "Certified organizations"
 msgstr ""
 
-#: weckan/controllers.py:528
+#: weckan/controllers.py:529
 msgid "Users"
 msgstr ""
 
-#: weckan/controllers.py:529
+#: weckan/controllers.py:530
 msgid "Total quality"
 msgstr ""
 
-#: weckan/controllers.py:530
+#: weckan/controllers.py:531
 msgid "Average quality"
 msgstr ""
 
-#: weckan/controllers.py:531
+#: weckan/controllers.py:532
 msgid "Median quality"
 msgstr ""
 
-#: weckan/controllers.py:532
+#: weckan/controllers.py:533
 msgid "File formats"
 msgstr ""
 
@@ -130,7 +130,7 @@ msgstr ""
 msgid "MM-dd-yyyy"
 msgstr ""
 
-#: weckan/templates/dataset.html:25 weckan/templates/dataset.html:503
+#: weckan/templates/dataset.html:25 weckan/templates/dataset.html:495
 #: weckan/templates/organization.html:23 weckan/templates/subnav-topic.html:56
 #: weckan/templates/subnav-topic.html:59
 msgid "Edit"
@@ -362,37 +362,28 @@ msgstr ""
 msgid "Improve"
 msgstr ""
 
-#: weckan/templates/dataset.html:425 weckan/templates/dataset.html:430
-#: weckan/templates/dataset.html:560 weckan/templates/dataset.html:571
-msgid "Fork"
-msgstr ""
-
-#: weckan/templates/dataset.html:428
-msgid "Duplicate this dataset and improve it !"
-msgstr ""
-
 #: weckan/templates/dataset.html:445
-msgid "Explore with Datagouv"
-msgstr ""
-
-#: weckan/templates/dataset.html:446
 msgid "Community contributions"
 msgstr ""
 
-#: weckan/templates/dataset.html:452
-msgid "Publish a reuse !"
+#: weckan/templates/dataset.html:446
+msgid "Explore with Datagouv"
 msgstr ""
 
-#: weckan/templates/dataset.html:514 weckan/templates/dataset.html:518
-#: weckan/templates/home.html:69
+#: weckan/templates/dataset.html:506 weckan/templates/dataset.html:510
+#: weckan/templates/home.html:71
 msgid "Unmark as featured"
 msgstr ""
 
-#: weckan/templates/dataset.html:516 weckan/templates/dataset.html:519
+#: weckan/templates/dataset.html:508 weckan/templates/dataset.html:511
 msgid "Mark as featured"
 msgstr ""
 
-#: weckan/templates/dataset.html:534
+#: weckan/templates/dataset.html:524
+msgid "Add a reuse"
+msgstr ""
+
+#: weckan/templates/dataset.html:533
 msgid ""
 "You reused these data and published an article, a computer graphics, or an "
 "application?\n"
@@ -401,35 +392,39 @@ msgid ""
 "your visibility."
 msgstr ""
 
-#: weckan/templates/dataset.html:547 weckan/templates/organization.html:213
+#: weckan/templates/dataset.html:546 weckan/templates/organization.html:213
 msgid "You need to be logged in to follow an organization"
 msgstr ""
 
-#: weckan/templates/dataset.html:548 weckan/templates/organization.html:226
+#: weckan/templates/dataset.html:547 weckan/templates/organization.html:226
 msgid "You are now following {org}"
 msgstr ""
 
-#: weckan/templates/dataset.html:549 weckan/templates/organization.html:227
+#: weckan/templates/dataset.html:548 weckan/templates/organization.html:227
 msgid "You are not following {org} anymore"
 msgstr ""
 
-#: weckan/templates/dataset.html:550 weckan/templates/organization.html:228
+#: weckan/templates/dataset.html:549 weckan/templates/organization.html:228
 msgid "Error while toggling follower status"
 msgstr ""
 
-#: weckan/templates/dataset.html:551
+#: weckan/templates/dataset.html:550
 msgid "This reuse is now featured"
 msgstr ""
 
-#: weckan/templates/dataset.html:552
+#: weckan/templates/dataset.html:551
 msgid "This reuse is no more featured"
 msgstr ""
 
-#: weckan/templates/dataset.html:553
+#: weckan/templates/dataset.html:552
 msgid "Error while toggling featured state"
 msgstr ""
 
-#: weckan/templates/dataset.html:563
+#: weckan/templates/dataset.html:559 weckan/templates/dataset.html:570
+msgid "Fork"
+msgstr ""
+
+#: weckan/templates/dataset.html:562
 msgid ""
 "You are about to make a copy of this dataset.\n"
 "                You'll become the owner and you will have the ability to edit"
@@ -437,11 +432,11 @@ msgid ""
 "                The original dataset will keep a reference of your work."
 msgstr ""
 
-#: weckan/templates/dataset.html:566
+#: weckan/templates/dataset.html:565
 msgid "Continue?"
 msgstr ""
 
-#: weckan/templates/dataset.html:575 weckan/templates/organization.html:255
+#: weckan/templates/dataset.html:574 weckan/templates/organization.html:255
 #: weckan/templates/organization.html:288
 msgid "Cancel"
 msgstr ""
@@ -469,7 +464,7 @@ msgstr ""
 msgid "Credits"
 msgstr ""
 
-#: weckan/templates/footer.html:20 weckan/templates/search.html:67
+#: weckan/templates/footer.html:20 weckan/templates/search.html:63
 #: weckan/templates/subnav-s.html:38
 msgid "Topics"
 msgstr ""
@@ -507,11 +502,11 @@ msgstr ""
 msgid "Best reuse cases"
 msgstr ""
 
-#: weckan/templates/home.html:126
+#: weckan/templates/home.html:128
 msgid "This reuse is no more featured and will not be visible anymore at page reload"
 msgstr ""
 
-#: weckan/templates/home.html:127
+#: weckan/templates/home.html:129
 msgid "Error while removing featured state"
 msgstr ""
 
@@ -706,19 +701,19 @@ msgstr ""
 msgid "No results found"
 msgstr ""
 
-#: weckan/templates/search.html:21 weckan/templates/search.html:46
+#: weckan/templates/search.html:20 weckan/templates/search.html:43
 #, python-format
 msgid "%(count)s result"
 msgid_plural "%(count)s results"
 msgstr[0] ""
 msgstr[1] ""
 
-#: weckan/templates/search.html:35 weckan/templates/search.html:60
+#: weckan/templates/search.html:33 weckan/templates/search.html:56
 #, python-format
 msgid "See the %(total)s results"
 msgstr ""
 
-#: weckan/templates/search.html:84
+#: weckan/templates/search.html:80
 msgid "See all the results"
 msgstr ""
 

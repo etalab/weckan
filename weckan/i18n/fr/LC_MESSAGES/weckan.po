@@ -12,8 +12,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: weckan\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2013-12-02 16:30+0100\n"
-"PO-Revision-Date: 2013-12-02 15:31+0000\n"
+"POT-Creation-Date: 2013-12-04 10:20+0100\n"
+"PO-Revision-Date: 2013-12-04 09:25+0000\n"
 "Last-Translator: noirbizarre\n"
 "Language-Team: French (http://www.transifex.com/projects/p/weckan/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -27,55 +27,55 @@ msgstr ""
 msgid "Web site not found."
 msgstr "Site web introuvable."
 
-#: weckan/controllers.py:299 weckan/controllers.py:335
+#: weckan/controllers.py:300 weckan/controllers.py:336
 msgid "Most popular"
 msgstr "Les plus populaires"
 
-#: weckan/controllers.py:300 weckan/controllers.py:336
+#: weckan/controllers.py:301 weckan/controllers.py:337
 msgid "Latest"
 msgstr "Les plus récents"
 
-#: weckan/controllers.py:349
+#: weckan/controllers.py:350
 msgid "Privates"
 msgstr "Privés"
 
-#: weckan/controllers.py:523 weckan/templates/search.html:43
+#: weckan/controllers.py:524 weckan/templates/search.html:41
 msgid "Datasets"
 msgstr "Jeux de données"
 
-#: weckan/controllers.py:524 weckan/templates/dataset.html:462
+#: weckan/controllers.py:525 weckan/templates/dataset.html:455
 msgid "Reuses"
 msgstr "Réutilisations"
 
-#: weckan/controllers.py:525 weckan/templates/dataset.html:127
+#: weckan/controllers.py:526 weckan/templates/dataset.html:127
 msgid "Resources"
 msgstr "Ressources"
 
-#: weckan/controllers.py:526 weckan/templates/search.html:18
+#: weckan/controllers.py:527 weckan/templates/search.html:18
 msgid "Organizations"
 msgstr "Organisations"
 
-#: weckan/controllers.py:527
+#: weckan/controllers.py:528
 msgid "Certified organizations"
 msgstr "Organisations certifiées"
 
-#: weckan/controllers.py:528
+#: weckan/controllers.py:529
 msgid "Users"
 msgstr "Utilisateurs"
 
-#: weckan/controllers.py:529
+#: weckan/controllers.py:530
 msgid "Total quality"
 msgstr "Qualité totale"
 
-#: weckan/controllers.py:530
+#: weckan/controllers.py:531
 msgid "Average quality"
 msgstr "Qualité moyenne"
 
-#: weckan/controllers.py:531
+#: weckan/controllers.py:532
 msgid "Median quality"
 msgstr "Qualité médiane"
 
-#: weckan/controllers.py:532
+#: weckan/controllers.py:533
 msgid "File formats"
 msgstr "Formats de fichiers"
 
@@ -136,7 +136,7 @@ msgstr "Redirection en cours..."
 msgid "MM-dd-yyyy"
 msgstr "dd/MM/yyyy"
 
-#: weckan/templates/dataset.html:25 weckan/templates/dataset.html:503
+#: weckan/templates/dataset.html:25 weckan/templates/dataset.html:495
 #: weckan/templates/organization.html:23 weckan/templates/subnav-topic.html:56
 #: weckan/templates/subnav-topic.html:59
 msgid "Edit"
@@ -375,83 +375,78 @@ msgstr "Améliorer la qualité"
 msgid "Improve"
 msgstr "Améliorer"
 
-#: weckan/templates/dataset.html:425 weckan/templates/dataset.html:430
-#: weckan/templates/dataset.html:560 weckan/templates/dataset.html:571
-msgid "Fork"
-msgstr "Dupliquer"
-
-#: weckan/templates/dataset.html:428
-msgid "Duplicate this dataset and improve it !"
-msgstr "Dupliquer et améliorer ce jeu de données !"
-
 #: weckan/templates/dataset.html:445
-msgid "Explore with Datagouv"
-msgstr "Explorer avec Datagouv"
-
-#: weckan/templates/dataset.html:446
 msgid "Community contributions"
 msgstr "Contributions de la communauté"
 
-#: weckan/templates/dataset.html:452
-msgid "Publish a reuse !"
-msgstr "Publiez une réutilisation !"
+#: weckan/templates/dataset.html:446
+msgid "Explore with Datagouv"
+msgstr "Explorer avec Datagouv"
 
-#: weckan/templates/dataset.html:514 weckan/templates/dataset.html:518
-#: weckan/templates/home.html:69
+#: weckan/templates/dataset.html:506 weckan/templates/dataset.html:510
+#: weckan/templates/home.html:71
 msgid "Unmark as featured"
 msgstr "Ne plus mettre en avant"
 
-#: weckan/templates/dataset.html:516 weckan/templates/dataset.html:519
+#: weckan/templates/dataset.html:508 weckan/templates/dataset.html:511
 msgid "Mark as featured"
 msgstr "Mettre en avant"
 
-#: weckan/templates/dataset.html:534
+#: weckan/templates/dataset.html:524
+msgid "Add a reuse"
+msgstr "Ajouter une réutilisation"
+
+#: weckan/templates/dataset.html:533
 msgid ""
 "You reused these data and published an article, a computer graphics, or an application?\n"
 "                    It's time to let you know!\n"
 "                    Reference your work in just a few clicks and increase your visibility."
 msgstr "Vous avez réutilisé ces données et publié un article, une infographie, ou une application ?\nC'est le moment de vous faire connaître !\nRéférencez votre travail en quelques clics et augmentez votre visibilité."
 
-#: weckan/templates/dataset.html:547 weckan/templates/organization.html:213
+#: weckan/templates/dataset.html:546 weckan/templates/organization.html:213
 msgid "You need to be logged in to follow an organization"
 msgstr "Vous devez être connecté pour vous abonner à une organisation"
 
-#: weckan/templates/dataset.html:548 weckan/templates/organization.html:226
+#: weckan/templates/dataset.html:547 weckan/templates/organization.html:226
 msgid "You are now following {org}"
 msgstr "Vous êtes maintenant abonné à {org}"
 
-#: weckan/templates/dataset.html:549 weckan/templates/organization.html:227
+#: weckan/templates/dataset.html:548 weckan/templates/organization.html:227
 msgid "You are not following {org} anymore"
 msgstr "Vous n'êtes plus abonné à {org}"
 
-#: weckan/templates/dataset.html:550 weckan/templates/organization.html:228
+#: weckan/templates/dataset.html:549 weckan/templates/organization.html:228
 msgid "Error while toggling follower status"
 msgstr "Erreur lors du changement de statut d'abonnement"
 
-#: weckan/templates/dataset.html:551
+#: weckan/templates/dataset.html:550
 msgid "This reuse is now featured"
 msgstr "Cette réutilisation est maintenant mise en avant"
 
-#: weckan/templates/dataset.html:552
+#: weckan/templates/dataset.html:551
 msgid "This reuse is no more featured"
 msgstr "Cette réutilisation n'est plus mise en avant"
 
-#: weckan/templates/dataset.html:553
+#: weckan/templates/dataset.html:552
 msgid "Error while toggling featured state"
 msgstr "Erreur lors du changement de l'état de mise en avant"
 
-#: weckan/templates/dataset.html:563
+#: weckan/templates/dataset.html:559 weckan/templates/dataset.html:570
+msgid "Fork"
+msgstr "Dupliquer"
+
+#: weckan/templates/dataset.html:562
 msgid ""
 "You are about to make a copy of this dataset.\n"
 "                You'll become the owner and you will have the ability to edit it and improve it.\n"
 "                The original dataset will keep a reference of your work."
 msgstr "Ce jeu de données sera dupliqué, vous en deviendrez le propriétaire et pourrez l'éditer pour l'améliorer.\nUne référence à ce nouveau jeu de données sera conservée dans le jeu d'origine."
 
-#: weckan/templates/dataset.html:566
+#: weckan/templates/dataset.html:565
 msgid "Continue?"
 msgstr "Voulez-vous continuer ?"
 
-#: weckan/templates/dataset.html:575 weckan/templates/organization.html:255
+#: weckan/templates/dataset.html:574 weckan/templates/organization.html:255
 #: weckan/templates/organization.html:288
 msgid "Cancel"
 msgstr "Annuler"
@@ -479,7 +474,7 @@ msgstr "Licence Ouverte"
 msgid "Credits"
 msgstr "Crédits"
 
-#: weckan/templates/footer.html:20 weckan/templates/search.html:67
+#: weckan/templates/footer.html:20 weckan/templates/search.html:63
 #: weckan/templates/subnav-s.html:38
 msgid "Topics"
 msgstr "Thématiques"
@@ -517,13 +512,13 @@ msgstr "Thématique de discussion"
 msgid "Best reuse cases"
 msgstr "Les meilleures réutilisations"
 
-#: weckan/templates/home.html:126
+#: weckan/templates/home.html:128
 msgid ""
 "This reuse is no more featured and will not be visible anymore at page "
 "reload"
 msgstr "Cette réutilisation n'est plus mise en avant et ne sera plus visible au rechargement de la page"
 
-#: weckan/templates/home.html:127
+#: weckan/templates/home.html:129
 msgid "Error while removing featured state"
 msgstr "Erreur lors de la suppression de l'état de mise en avant"
 
@@ -720,19 +715,19 @@ msgstr "Recherche"
 msgid "No results found"
 msgstr "Aucun résultat n'a été trouvé"
 
-#: weckan/templates/search.html:21 weckan/templates/search.html:46
+#: weckan/templates/search.html:20 weckan/templates/search.html:43
 #, python-format
 msgid "%(count)s result"
 msgid_plural "%(count)s results"
 msgstr[0] "%(count)s résultat"
 msgstr[1] "%(count)s résultats"
 
-#: weckan/templates/search.html:35 weckan/templates/search.html:60
+#: weckan/templates/search.html:33 weckan/templates/search.html:56
 #, python-format
 msgid "See the %(total)s results"
 msgstr "Voir les %(total)s résultats"
 
-#: weckan/templates/search.html:84
+#: weckan/templates/search.html:80
 msgid "See all the results"
 msgstr "Voir tous les résultats"
 
