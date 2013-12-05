@@ -12,8 +12,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: weckan\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2013-12-04 12:36+0100\n"
-"PO-Revision-Date: 2013-12-04 11:39+0000\n"
+"POT-Creation-Date: 2013-12-05 17:31+0100\n"
+"PO-Revision-Date: 2013-12-05 16:32+0000\n"
 "Last-Translator: noirbizarre\n"
 "Language-Team: French (http://www.transifex.com/projects/p/weckan/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -27,55 +27,55 @@ msgstr ""
 msgid "Web site not found."
 msgstr "Site web introuvable."
 
-#: weckan/controllers.py:319 weckan/controllers.py:355
+#: weckan/controllers.py:325 weckan/controllers.py:359
 msgid "Most popular"
 msgstr "Les plus populaires"
 
-#: weckan/controllers.py:320 weckan/controllers.py:356
+#: weckan/controllers.py:326 weckan/controllers.py:360
 msgid "Latest"
 msgstr "Les plus récents"
 
-#: weckan/controllers.py:369
+#: weckan/controllers.py:373
 msgid "Privates"
 msgstr "Privés"
 
-#: weckan/controllers.py:641 weckan/templates/search.html:41
+#: weckan/controllers.py:648 weckan/templates/search.html:41
 msgid "Datasets"
 msgstr "Jeux de données"
 
-#: weckan/controllers.py:642 weckan/templates/dataset.html:455
+#: weckan/controllers.py:649 weckan/templates/dataset.html:455
 msgid "Reuses"
 msgstr "Réutilisations"
 
-#: weckan/controllers.py:643 weckan/templates/dataset.html:127
+#: weckan/controllers.py:650 weckan/templates/dataset.html:127
 msgid "Resources"
 msgstr "Ressources"
 
-#: weckan/controllers.py:644 weckan/templates/search.html:18
+#: weckan/controllers.py:651 weckan/templates/search.html:18
 msgid "Organizations"
 msgstr "Organisations"
 
-#: weckan/controllers.py:645
+#: weckan/controllers.py:652
 msgid "Certified organizations"
 msgstr "Organisations certifiées"
 
-#: weckan/controllers.py:646
+#: weckan/controllers.py:653
 msgid "Users"
 msgstr "Utilisateurs"
 
-#: weckan/controllers.py:647
+#: weckan/controllers.py:654
 msgid "Total quality"
 msgstr "Qualité totale"
 
-#: weckan/controllers.py:648
+#: weckan/controllers.py:655
 msgid "Average quality"
 msgstr "Qualité moyenne"
 
-#: weckan/controllers.py:649
+#: weckan/controllers.py:656
 msgid "Median quality"
 msgstr "Qualité médiane"
 
-#: weckan/controllers.py:650
+#: weckan/controllers.py:657
 msgid "File formats"
 msgstr "Formats de fichiers"
 
@@ -756,8 +756,36 @@ msgid "Add"
 msgstr "Ajouter"
 
 #: weckan/templates/reuse-form.html:30
-msgid "Submit"
-msgstr "Valider"
+msgid "Save"
+msgstr "Enregistrer"
+
+#: weckan/templates/reuse-form.html:33 weckan/templates/reuse-form.html:34
+msgid "Delete"
+msgstr "Supprimer"
+
+#: weckan/templates/reuse-form.html:52
+msgid "Confirm deletion"
+msgstr "Confirmer la suppression"
+
+#: weckan/templates/reuse-form.html:56
+msgid "You are about to delete this reuse."
+msgstr "Vous êtes sur le point de supprimer cette réutilisation."
+
+#: weckan/templates/reuse-form.html:57
+msgid "This operation is unreversible"
+msgstr "Cette opération est irréversible."
+
+#: weckan/templates/reuse-form.html:59
+msgid "Are you sure ?"
+msgstr "Êtes-vous sûr ?"
+
+#: weckan/templates/reuse-form.html:62
+msgid "Yes"
+msgstr "Oui"
+
+#: weckan/templates/reuse-form.html:63
+msgid "No"
+msgstr "Non"
 
 #: weckan/templates/search-datasets.html:6
 #: weckan/templates/search-datasets.html:17

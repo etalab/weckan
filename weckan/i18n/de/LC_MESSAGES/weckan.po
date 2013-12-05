@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version:  weckan\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2013-12-04 12:36+0100\n"
+"POT-Creation-Date: 2013-12-05 17:31+0100\n"
 "PO-Revision-Date: 2013-12-02 11:13+0000\n"
 "Last-Translator: noirbizarre\n"
 "Language-Team: German "
@@ -24,55 +24,55 @@ msgstr ""
 msgid "Web site not found."
 msgstr "Webseite wurde nicht gefunden"
 
-#: weckan/controllers.py:319 weckan/controllers.py:355
+#: weckan/controllers.py:325 weckan/controllers.py:359
 msgid "Most popular"
 msgstr "Beliebteste"
 
-#: weckan/controllers.py:320 weckan/controllers.py:356
+#: weckan/controllers.py:326 weckan/controllers.py:360
 msgid "Latest"
 msgstr "Neueste"
 
-#: weckan/controllers.py:369
+#: weckan/controllers.py:373
 msgid "Privates"
 msgstr ""
 
-#: weckan/controllers.py:641 weckan/templates/search.html:41
+#: weckan/controllers.py:648 weckan/templates/search.html:41
 msgid "Datasets"
 msgstr "Datensätze"
 
-#: weckan/controllers.py:642 weckan/templates/dataset.html:455
+#: weckan/controllers.py:649 weckan/templates/dataset.html:455
 msgid "Reuses"
 msgstr ""
 
-#: weckan/controllers.py:643 weckan/templates/dataset.html:127
+#: weckan/controllers.py:650 weckan/templates/dataset.html:127
 msgid "Resources"
 msgstr "Quellen"
 
-#: weckan/controllers.py:644 weckan/templates/search.html:18
+#: weckan/controllers.py:651 weckan/templates/search.html:18
 msgid "Organizations"
 msgstr "Organisationen"
 
-#: weckan/controllers.py:645
+#: weckan/controllers.py:652
 msgid "Certified organizations"
 msgstr ""
 
-#: weckan/controllers.py:646
+#: weckan/controllers.py:653
 msgid "Users"
 msgstr ""
 
-#: weckan/controllers.py:647
+#: weckan/controllers.py:654
 msgid "Total quality"
 msgstr ""
 
-#: weckan/controllers.py:648
+#: weckan/controllers.py:655
 msgid "Average quality"
 msgstr ""
 
-#: weckan/controllers.py:649
+#: weckan/controllers.py:656
 msgid "Median quality"
 msgstr ""
 
-#: weckan/controllers.py:650
+#: weckan/controllers.py:657
 msgid "File formats"
 msgstr ""
 
@@ -122,13 +122,11 @@ msgstr ""
 
 #: weckan/forms.py:68
 #, fuzzy
-#| msgid "Report"
 msgid "Post"
 msgstr "Bericht"
 
 #: weckan/forms.py:69
 #, fuzzy
-#| msgid "Organizations"
 msgid "Visualization"
 msgstr "Organisationen"
 
@@ -138,7 +136,6 @@ msgstr ""
 
 #: weckan/forms.py:72
 #, fuzzy
-#| msgid "Publishers"
 msgid "Publish as"
 msgstr "Herausgeber"
 
@@ -757,7 +754,6 @@ msgstr ""
 
 #: weckan/templates/reuse-form.html:4 weckan/templates/reuse-form.html:17
 #, fuzzy
-#| msgid "Best reuse cases"
 msgid "Edit reuse"
 msgstr "Beste Wiederverwendungsmöglichkeiten"
 
@@ -766,7 +762,35 @@ msgid "Add"
 msgstr ""
 
 #: weckan/templates/reuse-form.html:30
-msgid "Submit"
+msgid "Save"
+msgstr ""
+
+#: weckan/templates/reuse-form.html:33 weckan/templates/reuse-form.html:34
+msgid "Delete"
+msgstr ""
+
+#: weckan/templates/reuse-form.html:52
+msgid "Confirm deletion"
+msgstr ""
+
+#: weckan/templates/reuse-form.html:56
+msgid "You are about to delete this reuse."
+msgstr ""
+
+#: weckan/templates/reuse-form.html:57
+msgid "This operation is unreversible"
+msgstr ""
+
+#: weckan/templates/reuse-form.html:59
+msgid "Are you sure ?"
+msgstr ""
+
+#: weckan/templates/reuse-form.html:62
+msgid "Yes"
+msgstr ""
+
+#: weckan/templates/reuse-form.html:63
+msgid "No"
 msgstr ""
 
 #: weckan/templates/search-datasets.html:6
@@ -894,8 +918,6 @@ msgstr ""
 
 #: weckan/templates/macros/forms.html:67
 #, fuzzy, python-format
-#| msgid "%(nb)s member"
-#| msgid_plural "%(nb)s members"
 msgid "%(org)s member"
 msgstr ""
 
@@ -926,4 +948,7 @@ msgstr ""
 #: weckan/templates/widgets/organization-search-result.html:31
 msgid "Number of members"
 msgstr ""
+
+#~ msgid "You are going to delete this reuse."
+#~ msgstr ""
 
