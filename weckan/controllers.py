@@ -319,8 +319,6 @@ def home(request):
     fake, results = search_datasets(None, request, page_size=NB_DATASETS)
     last_datasets = queries.last_datasets().limit(NB_DATASETS)
 
-    print results, len(results['results'])
-
     dataset_tabs = (
         ('popular', _('Most popular'), results['results']),
         ('recents', _('Latest'), build_datasets(last_datasets)),
