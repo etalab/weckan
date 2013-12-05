@@ -121,6 +121,7 @@ def build_datasets(query):
             'territorial_coverage': build_territorial_coverage(dataset),
             'periodicity': dataset.extras.get('"dct:accrualPeriodicity"', None),
             'original': queries.forked_from(dataset).first(),
+            'nb_reuses': len(dataset.related),
         })
 
     return datasets

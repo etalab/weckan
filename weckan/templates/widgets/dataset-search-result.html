@@ -73,6 +73,17 @@
         </li>
         {% endif %}
 
+        {% if dataset.nb_reuses %}
+        <li>
+            <a href class="btn btn-xs btn-default" rel="tooltip"
+                data-placement="top" data-container="body"
+                title="{% trans %}Reuse number{% endtrans %}">
+                <span class="glyphicon glyphicon-random"></span>
+            </a>
+            {{ dataset.nb_reuses }}
+        </li>
+        {% endif %}
+
         {% if dataset.original %}
         <li>
             <small class="fork" rel="popover"
