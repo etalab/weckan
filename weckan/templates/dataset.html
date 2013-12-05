@@ -435,6 +435,7 @@
                 <div class="col-md-9 col-sm-9 smaller reuses-list">
                     <div class="row">
                         {% for reuse in dataset.related %}
+                        {% set owner = user_by_id(reuse.owner_id) %}
                         <div class="col-sm-6 col-md-4">
                             <div class="thumbnail reuse">
                                 <a class="preview" href="{{ reuse.url.format(**territory) }}" target="_blank">
