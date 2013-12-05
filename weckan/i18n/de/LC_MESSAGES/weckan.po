@@ -1,24 +1,26 @@
-# German translations for Weckan.
+# Translations template for Weckan.
 # Copyright (C) 2013 ORGANIZATION
 # This file is distributed under the same license as the Weckan project.
-#
+# 
 # Translators:
 # noirbizarre, 2013
+# noirbizarre, 2013
+# schwefel, 2013
 # schwefel, 2013
 msgid ""
 msgstr ""
-"Project-Id-Version:  weckan\n"
+"Project-Id-Version: weckan\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
 "POT-Creation-Date: 2013-12-05 18:28+0100\n"
-"PO-Revision-Date: 2013-12-05 17:03+0000\n"
+"PO-Revision-Date: 2013-12-05 17:29+0000\n"
 "Last-Translator: noirbizarre\n"
-"Language-Team: German "
-"(http://www.transifex.com/projects/p/weckan/language/de/)\n"
-"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+"Language-Team: German (http://www.transifex.com/projects/p/weckan/language/de/)\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 0.9.6\n"
+"Language: de\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: weckan/application.py:55
 msgid "Web site not found."
@@ -214,9 +216,8 @@ msgstr ""
 #: weckan/templates/dataset.html:47
 #, python-format
 msgid ""
-"This dataset has been published on %(date)s on the initiative and under "
-"the responsibility of <a href=\"%(url)s\" "
-"title=\"%(author)s\">%(author)s</a>"
+"This dataset has been published on %(date)s on the initiative and under the "
+"responsibility of <a href=\"%(url)s\" title=\"%(author)s\">%(author)s</a>"
 msgstr ""
 
 #: weckan/templates/dataset.html:56 weckan/templates/dataset.html:58
@@ -243,7 +244,8 @@ msgstr ""
 msgid "Forked"
 msgstr ""
 
-#: weckan/templates/dataset.html:69 weckan/templates/cards/dataset-card.html:24
+#: weckan/templates/dataset.html:69
+#: weckan/templates/cards/dataset-card.html:24
 #: weckan/templates/widgets/dataset-search-result.html:91
 msgid "This dataset is a fork of another existing dataset"
 msgstr ""
@@ -439,11 +441,9 @@ msgstr ""
 
 #: weckan/templates/dataset.html:503
 msgid ""
-"You reused these data and published an article, a computer graphics, or "
-"an application?\n"
+"You reused these data and published an article, a computer graphics, or an application?\n"
 "                    It's time to let you know!\n"
-"                    Reference your work in just a few clicks and increase"
-" your visibility."
+"                    Reference your work in just a few clicks and increase your visibility."
 msgstr ""
 
 #: weckan/templates/dataset.html:516 weckan/templates/organization.html:213
@@ -481,8 +481,7 @@ msgstr "Fork"
 #: weckan/templates/dataset.html:532
 msgid ""
 "You are about to make a copy of this dataset.\n"
-"                You'll become the owner and you will have the ability to "
-"edit it and improve it.\n"
+"                You'll become the owner and you will have the ability to edit it and improve it.\n"
 "                The original dataset will keep a reference of your work."
 msgstr ""
 
@@ -934,4 +933,3 @@ msgstr ""
 #: weckan/templates/widgets/organization-search-result.html:31
 msgid "Number of members"
 msgstr ""
-
