@@ -429,6 +429,7 @@ def display_dataset(request):
         quality=get_dataset_quality(dataset.name),
         ceils=QA_CEILS,
         territory=get_territory_cookie(request),
+        bot_name=conf['bot_name'],
     )
 
 

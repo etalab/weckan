@@ -33,45 +33,22 @@
                             <small>
                                 {% if organization.certified_public_service %}
                                     <strong>{{ _('This dataset comes from a certified public service') }}</strong><br/>
-                                    {% if dataset.author_email %}
-                                    {% trans
-                                        date=publication_date|date(format='long', locale=lang),
-                                        author=dataset.author,
-                                        email=dataset.author_email
-                                    %}Published on {{date}} by <a href="mailto:{{email}}" title="{{author}}">{{author}}</a>{% endtrans %}
-                                    {% elif dataset.author %}
-                                    {% trans
-                                        date=publication_date|date(format='long', locale=lang),
-                                        author=dataset.author
-                                    %}Published on {{date}} by {{ author }}{% endtrans %}
+                                    {% if owner.name == bot_name %}
+                                        {% trans date=publication_date|date(format='long', locale=lang)
+                                        %}Published on {{date}}{% endtrans %}
                                     {% else %}
-                                    {% trans date=publication_date|date(format='long', locale=lang)
-                                    %}Published on {{date}}{% endtrans %}
+                                        {% trans
+                                            date=publication_date|date(format='long', locale=lang),
+                                            author=owner.fullname,
+                                            url=sso('user', owner.name)
+                                        %}Published on {{date}} by <a href="{{url}}" title="{{author}}">{{author}}</a>{% endtrans %}
                                     {% endif %}
                                 {% else %}
-                                    {% if dataset.author_email %}
                                     {% trans
                                         date=publication_date|date(format='long', locale=lang),
-                                        author=dataset.author,
-                                        email=dataset.author_email
-                                    %}This dataset has been published on {{date}} on the initiative and under the responsibility of <a href="mailto:{{email}}" title="{{author}}">{{author}}</a>{% endtrans %}
-                                    {% elif dataset.author %}
-                                    {% trans
-                                        date=publication_date|date(format='long', locale=lang),
-                                        author=dataset.author
-                                    %}This dataset has been published on {{date}} on the initiative and under the responsibility of {{ author }}{% endtrans %}
-                                    {% elif dataset.author %}
-                                    {% trans
-                                        date=publication_date|date(format='long', locale=lang),
-                                        author=dataset.author
-                                    %}This dataset has been published on {{date}} on the initiative and under the responsibility of {{ author }}{% endtrans %}
-                                    {% else %}
-                                    {% trans
-                                        date=publication_date|date(format='long', locale=lang),
-                                        author=owner.fullname,
-                                        email=owner.email
-                                    %}This dataset has been published on {{date}} on the initiative and under the responsibility of <a href="mailto:{{email}}" title="{{author}}">{{author}}</a>{% endtrans %}
-                                    {% endif %}
+                                        author=organization.display_name if owner.name == bot_name else owner.fullname,
+                                        url=url(lang, 'organization', organization.name) if owner.name == bot_name else sso('user', owner.name)
+                                    %}This dataset has been published on {{date}} on the initiative and under the responsibility of <a href="{{url}}" title="{{author}}">{{author}}</a>{% endtrans %}
                                 {% endif %}
                             </small>
                             {% if not organization.certified_public_service %}
