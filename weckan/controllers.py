@@ -142,7 +142,7 @@ def ckan_api(action, user, data, timeout=None):
     return response.json()
 
 
-def search_datasets(query, request, page=1, page_size=SEARCH_PAGE_SIZE, group=None):
+def search_datasets(query, request, page=1, page_size=SEARCH_PAGE_SIZE, group=None, organization=None):
     '''Perform a Dataset search given a ``query``'''
     from ckan.lib import search
 
@@ -166,7 +166,7 @@ def search_datasets(query, request, page=1, page_size=SEARCH_PAGE_SIZE, group=No
             ),
         'defType': u'edismax',
         'fq': '+dataset_type:dataset',
-        'q': query,
+        'q': query or '',
         'qf': u'name title groups^0.5 notes^0.5 tags^0.5 text^0.25',
         'rows': page_size,
         'sort': 'score desc, metadata_modified desc',
@@ -176,6 +176,10 @@ def search_datasets(query, request, page=1, page_size=SEARCH_PAGE_SIZE, group=No
     if group:
         group_name = group.name if isinstance(group, Group) else group
         params['fq'] = ' '.join([params['fq'], '+groups:{0}'.format(group_name)])
+
+    if organization:
+        org_name = organization.name if isinstance(organization, Group) else organization
+        params['fq'] = ' '.join([params['fq'], '+organization:{0}'.format(org_name)])
 
     # Territory search if specified
     ancestors_kind_code = territory.get('ancestors_kind_code')
@@ -312,18 +316,20 @@ def home(request):
     context = contexts.Ctx(request)
     _ = context.translator.ugettext
 
-    popular_datasets = queries.popular_datasets().limit(NB_DATASETS)
+    fake, results = search_datasets(None, request, page_size=NB_DATASETS)
     last_datasets = queries.last_datasets().limit(NB_DATASETS)
 
+    print results, len(results['results'])
+
     dataset_tabs = (
-        ('popular', _('Most popular'), build_datasets(popular_datasets)),
+        ('popular', _('Most popular'), results['results']),
         ('recents', _('Latest'), build_datasets(last_datasets)),
     )
 
     return templates.render_site('home.html', context,
         featured_reuses=queries.featured_reuses().limit(NB_DATASETS),
         territory=get_territory_cookie(request),
-        dataset_tabs=dataset_tabs
+        dataset_tabs=dataset_tabs,
     )
 
 
@@ -347,12 +353,10 @@ def display_organization(request):
     last_datasets = last_datasets.filter(Package.owner_org == organization.id)
     last_datasets = last_datasets.limit(NB_DATASETS)
 
-    popular_datasets = queries.popular_datasets()
-    popular_datasets = popular_datasets.filter(Package.owner_org == organization.id)
-    popular_datasets = popular_datasets.limit(NB_DATASETS)
+    fake, results = search_datasets(None, request, page_size=NB_DATASETS, organization=organization)
 
     dataset_tabs = (
-        ('popular', _('Most popular'), build_datasets(popular_datasets)),
+        ('popular', _('Most popular'), results['results']),
         ('recents', _('Latest'), build_datasets(last_datasets)),
     )
 
@@ -529,7 +533,7 @@ def edit_reuse(request):
 
 
 @wsgihelpers.wsgify
-def search_results(request):
+def display_search_results(request):
     query = request.params.get('q', '')
 
     with futures.ThreadPoolExecutor(max_workers=3) as executor:
@@ -753,7 +757,7 @@ def make_router(app):
     global router
     router = urls.make_router(app,
         ('GET', r'^(/(?P<lang>\w{2}))?/?$', home),
-        ('GET', r'^(/(?P<lang>\w{2}))?/search/?$', search_results),
+        ('GET', r'^(/(?P<lang>\w{2}))?/search/?$', display_search_results),
         ('GET', r'^(/(?P<lang>\w{2}))?/metrics/?$', metrics),
 
         ('GET', r'^(/(?P<lang>\w{2}))?/dataset/?$', search_more_datasets),
