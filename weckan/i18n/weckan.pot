@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Weckan 0.2.0.dev\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2013-12-05 18:28+0100\n"
+"POT-Creation-Date: 2013-12-06 18:40+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -322,28 +322,28 @@ msgstr ""
 msgid "License"
 msgstr ""
 
-#: weckan/templates/dataset.html:261 weckan/templates/cards/dataset-card.html:44
+#: weckan/templates/dataset.html:261 weckan/templates/cards/dataset-card.html:45
 #: weckan/templates/widgets/dataset-search-result.html:35
 msgid "Temporal coverage"
 msgstr ""
 
-#: weckan/templates/dataset.html:264 weckan/templates/cards/dataset-card.html:47
+#: weckan/templates/dataset.html:264 weckan/templates/cards/dataset-card.html:48
 #: weckan/templates/widgets/dataset-search-result.html:38
 #, python-format
 msgid "%(from)s to %(to)s"
 msgstr ""
 
-#: weckan/templates/dataset.html:276 weckan/templates/cards/dataset-card.html:58
+#: weckan/templates/dataset.html:276 weckan/templates/cards/dataset-card.html:59
 #: weckan/templates/widgets/dataset-search-result.html:48
 msgid "Periodicity"
 msgstr ""
 
-#: weckan/templates/dataset.html:287 weckan/templates/cards/dataset-card.html:70
+#: weckan/templates/dataset.html:287 weckan/templates/cards/dataset-card.html:71
 #: weckan/templates/widgets/dataset-search-result.html:59
 msgid "Territorial coverage"
 msgstr ""
 
-#: weckan/templates/dataset.html:297 weckan/templates/cards/dataset-card.html:81
+#: weckan/templates/dataset.html:297 weckan/templates/cards/dataset-card.html:82
 #: weckan/templates/widgets/dataset-search-result.html:69
 msgid "Territorial coverage granularity"
 msgstr ""
@@ -777,7 +777,7 @@ msgid "Organizations search"
 msgstr ""
 
 #: weckan/templates/search.html:6 weckan/templates/subnav-s.html:15
-#: weckan/templates/subnav-topic.html:16 weckan/templates/subnav.html:16
+#: weckan/templates/subnav-topic.html:16 weckan/templates/subnav.html:19
 msgid "Search"
 msgstr ""
 
@@ -870,20 +870,20 @@ msgid "Please enter a value greater than or equal to {0}."
 msgstr ""
 
 #: weckan/templates/subnav-s.html:27 weckan/templates/subnav-topic.html:30
-#: weckan/templates/subnav.html:30
+#: weckan/templates/subnav.html:32
 msgid "Where"
 msgstr ""
 
 #: weckan/templates/subnav-s.html:56 weckan/templates/subnav-s.html:59
-#: weckan/templates/subnav.html:55 weckan/templates/subnav.html:58
+#: weckan/templates/subnav.html:56 weckan/templates/subnav.html:59
 msgid "Publish a dataset !"
 msgstr ""
 
-#: weckan/templates/subnav.html:52
-msgid "Share, improve and reuse <br/>public data "
+#: weckan/templates/subnav.html:53
+msgid "Share, improve and reuse public data "
 msgstr ""
 
-#: weckan/templates/cards/dataset-card.html:92
+#: weckan/templates/cards/dataset-card.html:93
 #: weckan/templates/widgets/dataset-search-result.html:80
 msgid "Reuse number"
 msgstr ""
