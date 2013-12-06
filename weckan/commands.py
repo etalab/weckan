@@ -13,7 +13,7 @@ from weckan.templates import get_webassets_env
 STATIC = join(dirname(__file__), 'static')
 
 TO_COPY = {
-    'bower/bootstrap/fonts/*': 'fonts/',
+    'bower/bootstrap/dist/fonts/*': 'fonts/',
     'bower/etalab-assets/fonts/*': 'fonts/',
     'bower/etalab-assets/img/*': 'img/',
     'bower/etalab-assets/img/flags/*': 'img/flags/',

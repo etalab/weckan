@@ -3,7 +3,7 @@ modernizr:
     output: js/modernizr.min.js
     contents:
         - bower/modernizr/modernizr.js
-        - bower/respond/respond.src.js
+        - bower/respond/dest/respond.src.js
 
 site-common:
     contents:

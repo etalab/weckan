@@ -5,8 +5,8 @@
 
         <div class="search_bar">
 
-            <form class="navbar-form form-inline" role="search" action="{{ url(lang, 'search') }}">
-                <div class="input-group col-sm-4 col-md-4 col-lg-3 col-xs-12">
+            <form class="navbar-form" role="search" action="{{ url(lang, 'search') }}">
+                <div class="form-group col-sm-4 col-md-4 col-lg-3 col-xs-12">
                     <div class="input-group">
                         <div class="input-group-btn">
                             <button class="btn" type="submit"><i class="glyphicon glyphicon-search"></i></button>
@@ -17,8 +17,8 @@
                     </div>
                 </div>
 
-                <div class="input-group col-sm-2 col-md-2 col-lg-3 col-xs-12">
-                    <div class="collapse subnav-collapse">
+                <div class="form-group col-sm-2 col-md-2 col-lg-3 col-xs-12">
+                    <div class="input-group collapse subnav-collapse">
                         <div id="where-group" class="input-group">
                             <span class="input-group-addon">
                                 <span class="glyphicon glyphicon-globe"></span>
@@ -33,7 +33,7 @@
             </form>
 
 
-            <div class="input-group col-sm-2 col-md-2 col-lg-3 col-xs-12">
+            <div class="form-group col-sm-2 col-md-2 col-lg-3 col-xs-12">
                 <button class="dropdown-toggle btn-block btn-light" data-toggle="dropdown">
                     {% trans %}Topics{% endtrans %}
                     <span class="glyphicon glyphicon-chevron-down pull-right hidden-sm"></span>
