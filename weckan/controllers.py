@@ -785,6 +785,8 @@ def make_router(app):
         ('GET', r'^(/(?P<lang>\w{2}))?/user/_?logout/?$', redirect_to_logout),
         ('GET', r'^(/(?P<lang>\w{2}))?/user/register/?$', redirect_to_login),
         ('GET', r'^(/(?P<lang>\w{2}))?/user/login/?$', redirect_to_login),
+        ('GET', r'^(/(?P<lang>\w{2}))?/register/?$', redirect_to_login),
+        ('GET', r'^(/(?P<lang>\w{2}))?/login/?$', redirect_to_login),
         ('GET', r'^(/(?P<lang>\w{2}))?/user/(?P<username>[\w_-]+)/?$', redirect_to_profile),
         ('GET', r'^(/(?P<lang>\w{2}))?/user/edit/(?P<username>[\w_-]+)/?$', redirect_to_account),
         ('GET', r'^(/(?P<lang>\w{2}))?/users/?$', forbidden),
