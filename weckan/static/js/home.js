@@ -7,7 +7,7 @@
 
     $(function() {
         // Update carousel ellipsis on change
-        $('#home-carousel .title').on('slide.bs.carousel', function() {
+        $('.carousel .title').on('slide.bs.carousel', function() {
             $(this).trigger('update');
         });
 

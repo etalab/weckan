@@ -414,17 +414,15 @@
     </div>
 
     <section class="community_container">
-        <div class="page-header">
+        <header>
             <div class="container">
                 <div class="cover-communaute"></div>
-                <div class="row">
-                    <div class="col-xs-6 col-sm-7 col-md-8 col-lg-9">
-                        <h2>{% trans %}Community contributions{% endtrans %}</h2>
-                        <small>{% trans %}Explore with Datagouv{% endtrans %}</small>
-                    </div>
+                <div class="page-header">
+                    <h2>{% trans %}Community contributions{% endtrans %}</h2>
+                    <small>{% trans %}Explore with Datagouv{% endtrans %}</small>
                 </div>
             </div>
-        </div>
+        </header>
 
 
         <div class="container">
@@ -436,7 +434,7 @@
                     <div class="row">
                         {% for reuse in dataset.related %}
                         {% set owner = user_by_id(reuse.owner_id) %}
-                        <div class="col-sm-6 col-md-4">
+                        <div class="col-sm-6 col-lg-4">
                             <div class="thumbnail reuse">
                                 <a class="preview" href="{{ reuse.url.format(**territory) }}" target="_blank">
                                     <img class="media-object img-responsive" alt="{{ reuse.title.format(**territory) }}"
