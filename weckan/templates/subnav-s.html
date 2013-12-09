@@ -1,6 +1,5 @@
 <nav class="navbar navbar-static-top navbar-subnav">
     <div class="container">
-
         <div class="cover-marianne"></div>
 
         <div class="search_bar">
@@ -27,9 +26,7 @@
                         <input id="ext_territory" name="ext_territory" type="hidden" />
                     </div>
                 </div>
-                <span></span>
             </form>
-
 
             <div class="form-group col-sm-2 col-md-2 col-lg-3 col-xs-12">
                 <button class="dropdown-toggle btn-block btn-light" data-toggle="dropdown">
@@ -40,7 +37,6 @@
                     {% for topic in main_topics %}
                     <li role="presentation">
                         <a role="menuitem" tabindex="-1" href="{{ topic.url.format(lang=lang) }}">
-                        {# link or url(lang, 'group', slugify(title)) }}"> #}
                             {{ topic.title }}
                         </a>
                     </li>
@@ -48,8 +44,7 @@
                 </ul>
             </div>
 
-
-            <div class="col-sm-4 col-md-4 col-lg-3 hidden-xs">
+            <div class="col-sm-4 col-md-4 col-lg-3 col-xs-12 collapse subnav-collapse">
                 <a class="btn btn-primary btn-dark btn-block"
                         title="{% trans %}Publish a dataset !{% endtrans %}"
                         href="{{ url(lang, 'dataset/new') }}">
@@ -58,7 +53,6 @@
                 </a>
             </div>
         </div>
-
 
     </div>
 </nav>
