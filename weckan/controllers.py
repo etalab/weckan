@@ -483,6 +483,7 @@ def edit_reuse(request):
 
     reuse_id = request.urlvars.get('reuse')
     reuse = Related.get(reuse_id)
+    owner = User.get(reuse.owner_id)
     publish_as = ReuseAsOrganization.get(reuse)
     delete_url = urls.get_url(lang, 'dataset', dataset_name, 'related/delete', reuse.id)
 
@@ -493,7 +494,7 @@ def edit_reuse(request):
     if request.method == 'POST':
         form = ReuseForm(request.POST)
         if not form.validate():
-            return templates.render_site('reuse-form.html', request, new=False, form=form,
+            return templates.render_site('reuse-form.html', request, new=False, form=form, owner=owner,
                 back_url=dataset_url, delete_url=delete_url)
 
         ckan_api('related_update', user, {
@@ -531,7 +532,7 @@ def edit_reuse(request):
             'type': reuse.type,
             'publish_as': publish_as.organization.id if publish_as else None,
         })
-        return templates.render_site('reuse-form.html', request, new=False, form=form,
+        return templates.render_site('reuse-form.html', request, new=False, form=form, owner=owner,
             back_url=dataset_url, delete_url=delete_url)
 
 

@@ -20,7 +20,7 @@
         <form class="form-horizontal validation" role="form" method="post">
 
             {% for field in form.fields %}
-            {{ forms.field(field, user) }}
+            {{ forms.field(field, owner or user) }}
             {% endfor %}
 
             {{ forms.required_disclaimer() }}
