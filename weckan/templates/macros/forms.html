@@ -60,7 +60,7 @@
         <div class="caption">{{ user.fullname }}</div>
     </li>
     {% for organization in user.organizations %}
-    <li class="col-sm-3 col-md-2 publisher-card text-center {% if field.data == organization.id %}active{% endif %}"
+    <li class="col-sm-3 col-md-2 publisher-card text-center ellipsis-tooltip {% if field.data == organization.id %}active{% endif %}"
         data-org-id="{{ organization.id }}">
         {{ publisher_avatar(user, organization, 100) }}
         <div class="caption">

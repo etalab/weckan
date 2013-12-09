@@ -95,7 +95,7 @@ def format_date(value, format='display', locale='fr'):
 
 
 def avatar(user, size=100):
-    url = '{0}/u/{1}/avatar'.format(conf['sso_url'], user.name)
+    url = ('{0}/u/{1}/avatar/{2}' if size else '{0}/u/{1}/avatar/').format(conf['sso_url'], user.name, size)
     return Markup('<img src="{0}" class="gravatar" width="{1}" height="{1}"/>'.format(url, size))
 
 
