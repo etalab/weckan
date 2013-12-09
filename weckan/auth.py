@@ -57,7 +57,7 @@ def can_edit_org(user, organization):
         return True
 
     query = DB.query(Member).filter(
-        Member.capacity.in_(['admin', 'editor']),
+        Member.capacity == 'admin',
         Member.group_id == organization.id,
         Member.state == 'active',
         Member.table_id == user.id,
