@@ -45,7 +45,7 @@ from .model import Role, UserFollowingDataset, UserFollowingGroup, User
 from weckan.forms import ReuseForm
 
 from ckanext.etalab.model import CertifiedPublicService
-from ckanext.youckan.models import MembershipRequest, ReuseAsOrganization
+from ckanext.youckan.models import MembershipRequest, ReuseAsOrganization, CommunityResource
 
 
 DB = meta.Session
@@ -431,6 +431,7 @@ def display_dataset(request):
         ceils=QA_CEILS,
         territory=get_territory_cookie(request),
         bot_name=conf['bot_name'],
+        community_resources=CommunityResource.get(dataset),
     )
 
 

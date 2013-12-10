@@ -112,7 +112,7 @@
                             {% endif %}
 
                             <a class="list-group-item" href="{{ resource.url }}"
-                                {% if resource.format.lower() == 'html' %}target="_blank"{% endif %}
+                                {% if resource_format == 'html' %}target="_blank"{% endif %}
                                 rel="popover" data-trigger="hover" data-placement="top"
                                 {% if resource.description %}
                                 title="{{ resource_name }} [{{ resource_format }}]"
@@ -426,74 +426,118 @@
 
 
         <div class="container">
-
-            <h3 class="panel-title">{{ _('Reuses') }}</h3>
-
             <div class="row">
-                <div class="col-md-9 col-sm-9 smaller reuses-list">
+                <div class="col-md-9 col-sm-9 smaller">
+
                     <div class="row">
-                        {% for reuse in dataset.related %}
-                        {% set owner = user_by_id(reuse.owner_id) %}
-                        <div class="col-sm-6 col-lg-4">
-                            <div class="thumbnail reuse">
-                                <a class="preview" href="{{ reuse.url.format(**territory) }}" target="_blank">
-                                    <img class="media-object img-responsive" alt="{{ reuse.title.format(**territory) }}"
-                                        src="{{ reuse.image_url or static('/base/images/placeholder-image.png') }}">
-                                </a>
-                                <div class="caption">
-                                    <h4 class="ellipsis-dot">
-                                        <a href="{{ reuse.url.format(**territory) }}" target="_blank"
-                                            title="{{ reuse.title.format(**territory) }}">
-                                            {{ reuse.title.format(**territory) }}
-                                        </a>
+                        <div class="col-xs-12 list-group resources-list">
+                            <h3>{{ _('Resources') }}</h3>
+                            {% for resource in community_resources %}
+                                {% set resource_name = resource.name or resource.description or _('Nameless resource') %}
+                                {% set resource_format = resource.format|trim|lower or 'data' %}
+                                <a class="list-group-item" href="{{ resource.url }}"
+                                    {% if resource_format == 'html' %}target="_blank"{% endif %}
+                                    rel="popover" data-trigger="hover" data-placement="top"
+                                    {% if resource.description %}
+                                    title="{{ resource_name }} [{{ resource_format }}]"
+                                    data-content="{{ resource.description }}"
+                                    {% else %}
+                                    data-content="{{ resource_name }} [{{ resource_format }}]"
+                                    {% endif %}
+                                    >
+                                    <div class="format-label pull-left ellipsis-dot">
+                                        <span property="dc:format" data-format="{{ resource_format }}">
+                                            {{ resource_format }}
+                                        </span>
+                                    </div>
+                                    <h4 class="list-group-item-heading ellipsis {% if not resource.description %}dual{% endif %}">
+                                        {{ resource.name }}
                                     </h4>
-                                    <div class="author">
-                                        {{ publisher_small(reuse, 25, lang) }}
-                                        <span class="date">{{ reuse.created|date(format='long', locale=lang) }}</span>
+                                    {% if resource.description %}
+                                    <p class="list-group-item-text ellipsis">
+                                        {{ markdown_extract(resource.description) }}
+                                    </p>
+                                    {% endif %}
+                                </a>
+                            {% endfor %}
+                                <a class="list-group-item add" href>
+                                    <div class="format-label pull-left">+</div>
+                                    <h4 class="list-group-item-heading">
+                                        {{ _('Add a resource') }}
+                                    </h4>
+                                </a>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-xs-12 reuses-list">
+
+                            <h3 class="panel-title">{{ _('Reuses') }}</h3>
+                            <div class="row">
+                                {% for reuse in dataset.related %}
+                                {% set owner = user_by_id(reuse.owner_id) %}
+                                <div class="col-sm-6 col-lg-4">
+                                    <div class="thumbnail reuse">
+                                        <a class="preview" href="{{ reuse.url.format(**territory) }}" target="_blank">
+                                            <img class="media-object img-responsive" alt="{{ reuse.title.format(**territory) }}"
+                                                src="{{ reuse.image_url or static('/base/images/placeholder-image.png') }}">
+                                        </a>
+                                        <div class="caption">
+                                            <h4 class="ellipsis-dot">
+                                                <a href="{{ reuse.url.format(**territory) }}" target="_blank"
+                                                    title="{{ reuse.title.format(**territory) }}">
+                                                    {{ reuse.title.format(**territory) }}
+                                                </a>
+                                            </h4>
+                                            <div class="author">
+                                                {{ publisher_small(reuse, 25, lang) }}
+                                                <span class="date">{{ reuse.created|date(format='long', locale=lang) }}</span>
+                                            </div>
+                                        </div>
+                                        {% if reuse.description %}
+                                        <a class="rollover fade in" href="{{reuse.url.format(**territory)}}" target="_blank"
+                                            title="{{ reuse.title }}">
+                                            {{ markdown_extract(reuse.description, 180) }}
+                                        </a>
+                                        {% endif %}
+                                        <div class="btn-group btn-group-xs">
+                                            {% if user.sysadmin or owner == user %}
+                                            <a class="btn btn-default" rel="tooltip" title="{{ _('Edit') }}"
+                                                href="{{ url(lang, 'dataset', dataset.name, 'related/edit', reuse.id) }}"
+                                                data-containter="body">
+                                                <span class="glyphicon glyphicon-edit"></span>
+                                            </a>
+                                            {% endif %}
+                                            {% if user.sysadmin %}
+                                            {% set btn_class = 'success' if reuse.featured > 0 else 'default' %}
+                                            <a class="btn btn-{{ btn_class }} featured" rel="tooltip" href
+                                                data-api="{{ url('youckan/reuse', reuse.id, 'featured') }}"
+                                                {% if reuse.featured > 0 %}
+                                                title="{{ _('Unmark as featured') }}"
+                                                {% else %}
+                                                title="{{ _('Mark as featured') }}"
+                                                {% endif %}
+                                                data-featured-title="{{ _('Unmark as featured') }}"
+                                                data-unfeatured-title="{{ _('Mark as featured') }}"
+                                                data-containter="body">
+                                                <span class="glyphicon glyphicon-pushpin"></span>
+                                            </a>
+                                            {% endif %}
+                                        </div>
                                     </div>
                                 </div>
-                                {% if reuse.description %}
-                                <a class="rollover fade in" href="{{reuse.url.format(**territory)}}" target="_blank"
-                                    title="{{ reuse.title }}">
-                                    {{ markdown_extract(reuse.description, 180) }}
-                                </a>
-                                {% endif %}
-                                <div class="btn-group btn-group-xs">
-                                    {% if user.sysadmin or owner == user %}
-                                    <a class="btn btn-default" rel="tooltip" title="{{ _('Edit') }}"
-                                        href="{{ url(lang, 'dataset', dataset.name, 'related/edit', reuse.id) }}"
-                                        data-containter="body">
-                                        <span class="glyphicon glyphicon-edit"></span>
+                                {% endfor %}
+                                <div class="col-sm-6 col-md-4">
+                                    <a class="thumbnail reuse add" href="{{ url(lang, 'dataset', dataset.name, 'related', 'new') }}">
+                                        <div class="preview">+</div>
+                                        <div class="caption">
+                                            <h4>{% trans %}Add a reuse{% endtrans %}</h4>
+                                        </div>
                                     </a>
-                                    {% endif %}
-                                    {% if user.sysadmin %}
-                                    {% set btn_class = 'success' if reuse.featured > 0 else 'default' %}
-                                    <a class="btn btn-{{ btn_class }} featured" rel="tooltip" href
-                                        data-api="{{ url('youckan/reuse', reuse.id, 'featured') }}"
-                                        {% if reuse.featured > 0 %}
-                                        title="{{ _('Unmark as featured') }}"
-                                        {% else %}
-                                        title="{{ _('Mark as featured') }}"
-                                        {% endif %}
-                                        data-featured-title="{{ _('Unmark as featured') }}"
-                                        data-unfeatured-title="{{ _('Mark as featured') }}"
-                                        data-containter="body">
-                                        <span class="glyphicon glyphicon-pushpin"></span>
-                                    </a>
-                                    {% endif %}
                                 </div>
                             </div>
-                        </div>
-                        {% endfor %}
-                        <div class="col-sm-6 col-md-4">
-                            <a class="thumbnail reuse add" href="{{ url(lang, 'dataset', dataset.name, 'related', 'new') }}">
-                                <div class="preview">+</div>
-                                <div class="caption">
-                                    <h4>{% trans %}Add a reuse{% endtrans %}</h4>
-                                </div>
-                            </a>
-                        </div>
 
+                        </div>
                     </div>
                 </div>
 
