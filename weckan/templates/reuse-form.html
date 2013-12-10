@@ -28,10 +28,18 @@
             <div class="form-group">
                 <div class="col-sm-offset-2 col-sm-10 text-center">
                     {% set btn_title = _('Add') if new else _('Save') %}
-                    <button type="submit" class="btn btn-primary" title="{{ btn_title }}">{{ btn_title }}</button>
-                    <a href="{{ back_url }}" class="btn btn-warning" title="{{ _('Cancel') }}">{{ _('Cancel') }}</a>
+                    <button type="submit" class="btn btn-primary" title="{{ btn_title }}">
+                        {{ btn_title }}
+                    </button>
+                    <a href="{{ back_url }}" class="btn btn-warning" title="{{ _('Cancel') }}">
+                        {{ _('Cancel') }}
+                    </a>
+                    {% if not new %}
                     <button class="btn btn-danger pull-right" title="{{ _('Delete') }}"
-                        data-toggle="modal" data-target="#confirm-delete-modal">{{ _('Delete') }}</button>
+                        data-toggle="modal" data-target="#confirm-delete-modal">
+                        {{ _('Delete') }}
+                    </button>
+                    {% endif %}
                 </div>
             </div>
 
