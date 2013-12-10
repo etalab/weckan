@@ -490,12 +490,7 @@ def edit_reuse(request):
     if not user:
         return wsgihelpers.unauthorized(context)  # redirect to login/register ?
 
-    form = ReuseForm(request.POST,
-        title=reuse.title,
-        description=reuse.description,
-        url=reuse.url,
-        image_url=reuse.image_url,
-        type=reuse.type,
+    form = ReuseForm(request.POST, reuse,
         publish_as=publish_as.organization.id if publish_as else None,
         i18n=context.translator,
     )
