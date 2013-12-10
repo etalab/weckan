@@ -447,16 +447,15 @@ def create_reuse(request):
     if not user:
         return wsgihelpers.unauthorized(context)  # redirect to login/register ?
 
-    if request.method == 'POST':
-        form = ReuseForm(request.POST)
-        if not form.validate():
-            return templates.render_site('reuse-form.html', request, new=True, form=form, back_url=dataset_url)
+    form = ReuseForm(request.POST, i18n=context.translator)
+
+    if request.method == 'POST' and form.validate():
         data = ckan_api('related_create', user, {
-            'title': request.POST['title'],
-            'description': request.POST['description'],
-            'url': request.POST['url'],
-            'image_url': request.POST['image_url'],
-            'type': request.POST['type'],
+            'title': form.title.data,
+            'description': form.description.data,
+            'url': form.url.data,
+            'image_url': form.image_url.data,
+            'type': form.type.data,
             'dataset_id': dataset_name,
         })
 
@@ -470,8 +469,7 @@ def create_reuse(request):
 
         return wsgihelpers.redirect(context, location=dataset_url)
 
-    else:
-        return templates.render_site('reuse-form.html', request, new=True, form=ReuseForm(), back_url=dataset_url)
+    return templates.render_site('reuse-form.html', request, new=True, form=form, back_url=dataset_url)
 
 
 @wsgihelpers.wsgify
@@ -492,19 +490,24 @@ def edit_reuse(request):
     if not user:
         return wsgihelpers.unauthorized(context)  # redirect to login/register ?
 
-    if request.method == 'POST':
-        form = ReuseForm(request.POST)
-        if not form.validate():
-            return templates.render_site('reuse-form.html', request, new=False, form=form, owner=owner,
-                back_url=dataset_url, delete_url=delete_url)
+    form = ReuseForm(request.POST,
+        title=reuse.title,
+        description=reuse.description,
+        url=reuse.url,
+        image_url=reuse.image_url,
+        type=reuse.type,
+        publish_as=publish_as.organization.id if publish_as else None,
+        i18n=context.translator,
+    )
 
+    if request.method == 'POST' and form.validate():
         ckan_api('related_update', user, {
             'id': reuse_id,
-            'title': request.POST['title'],
-            'description': request.POST['description'],
-            'url': request.POST['url'],
-            'image_url': request.POST['image_url'],
-            'type': request.POST['type'],
+            'title': form.title.data,
+            'description': form.description.data,
+            'url': form.url.data,
+            'image_url': form.image_url.data,
+            'type': form.type.data,
             'owner_id': reuse.owner_id,
             'dataset_id': dataset_name,
         })
@@ -524,16 +527,7 @@ def edit_reuse(request):
 
         return wsgihelpers.redirect(context, location=dataset_url)
 
-    else:
-        form = ReuseForm({
-            'title': reuse.title,
-            'description': reuse.description,
-            'url': reuse.url,
-            'image_url': reuse.image_url,
-            'type': reuse.type,
-            'publish_as': publish_as.organization.id if publish_as else None,
-        })
-        return templates.render_site('reuse-form.html', request, new=False, form=form, owner=owner,
+    return templates.render_site('reuse-form.html', request, new=False, form=form, owner=owner,
             back_url=dataset_url, delete_url=delete_url)
 
 

@@ -84,6 +84,7 @@ setup(
         'PyYAML',
         'cssmin',
         'futures',
+        'wtforms',
         ],
     message_extractors = {'weckan': [
         ('**.py', 'python', None),

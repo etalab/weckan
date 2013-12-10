@@ -3,71 +3,86 @@ from __future__ import unicode_literals
 
 _ = lambda s: s
 
+from wtforms import Form as WTForm, Field, validators, fields, widgets
+from wtforms.fields import html5
 
-class Field(object):
-    def __init__(self, name, label, type='text', required=False, initial=None, help_text=None, **kwargs):
-        self.name = name
-        self.label = label
-        self.type = type
-        self.required = required
-        self.initial = initial
-        self.help_text = help_text
 
-    def feed(self, data, initial=None):
-        initial = initial.get(self.name, self.initial) if initial else None
-        self.data = data.get(self.name, initial) if data else initial
+class Form(WTForm):
+    def __init__(self, *args, **kwargs):
+        self.i18n = kwargs.pop('i18n', None)
+        super(Form, self).__init__(*args, **kwargs)
 
-    def validate(self):
-        self.errors = []
-        if self.required and not self.data:
-            self.errors.append(_('Field {label} is required'))
-        return not self.errors
+    def _get_translations(self):
+        return self.i18n
+
+
+class FieldHelper(object):
+    def __init__(self, *args, **kwargs):
+        id = kwargs.pop('id', None)
+        if not id and '_name' in kwargs:
+            id = '{_name}_id'.format(**kwargs)
+        super(FieldHelper, self).__init__(*args, id=id, **kwargs)
 
     def is_visible(self, user):
         return True
 
 
-class SelectField(Field):
-    def __init__(self, name, label, options, **kwargs):
-        super(SelectField, self).__init__(name, label, type='select', **kwargs)
-        self.options = options
+class SelectPicker(widgets.Select):
+    def __call__(self, field, **kwargs):
+        classes = (kwargs.pop('class', '') or kwargs.pop('class_', '')).split()
+        if not 'selectpicker' in classes:
+            classes.append('selectpicker')
+        kwargs['class'] = ' '.join(classes)
+        return super(SelectPicker, self).__call__(field, **kwargs)
 
 
-class PublishAsField(Field):
-    def __init__(self, name, label, **kwargs):
-        super(PublishAsField, self).__init__(name, label, type='publish_as', **kwargs)
+class MarkdownEditor(widgets.TextArea):
+    def __call__(self, field, **kwargs):
+        classes = (kwargs.pop('class', '') or kwargs.pop('class_', '')).split(' ')
+        if not 'md' in classes:
+            classes.append('md')
+        kwargs['class'] = ' '.join(classes)
+        kwargs.setdefault('rows', 8)
+        return super(MarkdownEditor, self).__call__(field, **kwargs)
 
+
+class StringField(FieldHelper, fields.StringField):
+    pass
+
+
+class URLField(FieldHelper, html5.URLField):
+    pass
+
+
+class SelectField(FieldHelper, fields.SelectField):
+    widget = SelectPicker()
+
+    def iter_choices(self):
+        for value, label, selected in super(SelectField, self).iter_choices():
+            yield (value, self._translations.ugettext(label), selected)
+
+
+class MarkdownField(FieldHelper, fields.TextAreaField):
+    widget = MarkdownEditor()
+
+
+class PublishAsField(FieldHelper, Field):
     def is_visible(self, user):
         return len(user.organizations) > 0
 
 
-class Form(object):
-    '''Base form helper'''
-    fields = []
-
-    def __init__(self, data=None, initial=None):
-        self.data = data
-        for field in self.fields:
-            field.feed(data, initial)
-
-    def validate(self):
-        return all([field.validate() for field in self.fields])
-
-
 class ReuseForm(Form):
-    fields = (
-        Field('title', _('Title'), required=True),
-        Field('url', _('URL'), type='url', required=True),
-        Field('image_url', _('Image URL'), type='url', required=True),
-        SelectField('type', _('Type'), required=True, options=(
-            ('api', _('API')),
-            ('application', _('Application')),
-            ('idea', _('Idea')),
-            ('news_article', _('News Article')),
-            ('paper', _('Paper')),
-            ('post', _('Post')),
-            ('visualization', _('Visualization')),
-        )),
-        Field('description', _('Description'), type='markdown', required=True),
-        PublishAsField('publish_as', _('Publish as')),
-    )
+    title = StringField(_('Title'), [validators.required()])
+    url = URLField(_('URL'), [validators.required()])
+    image_url = URLField(_('Image URL'), [validators.required()])
+    type = SelectField(_('Type'), [validators.required()], choices=(
+        ('api', _('API')),
+        ('application', _('Application')),
+        ('idea', _('Idea')),
+        ('news_article', _('News Article')),
+        ('paper', _('Paper')),
+        ('post', _('Post')),
+        ('visualization', _('Visualization')),
+    ))
+    description = MarkdownField(_('Description'), [validators.required()])
+    publish_as = PublishAsField(_('Publish as'))

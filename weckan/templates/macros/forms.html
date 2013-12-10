@@ -2,23 +2,19 @@
 {% if field.is_visible(user) %}
 {% set cols = form_grid(sizes) %}
 <div class="form-group{% if field.errors %} has-error{% endif %}">
-    <label for="{{ field.name }}_id"
-        class="{{ cols.label }} control-label{% if field.required %} required{% endif %}">
-        {{ _(field.label) }}
-        {% if field.help_text %}<span class="form-help" data-content="{{ _(field.help_text) }}"></span>{% endif %}
+    <label for="{{ field.id }}"
+        class="{{ cols.label }} control-label{% if field.flags.required %} required{% endif %}">
+        {{ _(field.label.text) }}
+        {% if field.description %}<span class="form-help" data-content="{{ _(field.description) }}"></span>{% endif %}
     </label>
     <div class="{{ cols.control }}">
-        {% if field.type == 'select' %}
-        {{ select(field) }}
-        {% elif field.type == 'markdown' %}
-        {{ markdown(field) }}
-        {% elif field.type == 'publish_as' %}
+        {% if field.type == 'PublishAsField' %}
         {{ publish_as(field, user) }}
         {% else %}
-        {{ input(field) }}
+        {{ field(class_='form-control', placeholder=_(field.label.text), required=field.flags.required) }}
         {% endif %}
         {% for error in field.errors %}
-        <label for="{{ field.name }}_id" class="help-block">{{ _(error).format(**field.__dict__) }}</label>
+        <label for="{{ field.id }}" class="help-block">{{ error }}</label>
         {% endfor %}
     </div>
 </div>
@@ -26,34 +22,9 @@
 {% endmacro %}
 
 
-{% macro input(field) %}
-<input id="{{ field.name }}_id" name="{{ field.name }}" class="form-control"
-    type="{{ field.type }}" placeholder="{{ _(field.label) }}"
-    {% if field.data %}value="{{ field.data }}"{% endif %}
-    {% if field.required %}required{% endif %}>
-{% endmacro %}
-
-
-{% macro select(field) %}
-<select id="{{ field.name }}_id" name="{{ field.name }}" class="selectpicker form-control"
-    {% if field.required %}required{% endif %}>
-    {% for value, label in field.options %}
-    <option value="{{ value }}">{{ _(label) }}</option>
-    {% endfor %}
-</select>
-{% endmacro %}
-
-
-{% macro markdown(field) %}
-<textarea id="{{ field.name }}_id" name="{{ field.name }}" class="md form-control" rows="8"
-    placeholder="{{ _(field.label) }}" {% if field.required %}required{% endif %}
-    >{% if field.data %}{{ field.data }}{% endif %}</textarea>
-{% endmacro %}
-
-
 {% macro publish_as(field, user) %}
 {% if user.organizations %}
-<input id="{{ field.name }}_id" name="{{ field.name }}" type="hidden" {% if field.data %}value="{{ field.data }}"{% endif %}/>
+<input id="{{ field.id }}" name="{{ field.name }}" type="hidden" {% if field.data %}value="{{ field.data }}"{% endif %}/>
 <ul class="card-list">
     <li class="col-sm-3 col-md-2 publisher-card text-center {% if not field.data %}active{% endif %}">
         {{ publisher_avatar(user, None, 100) }}
