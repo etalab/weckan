@@ -29,3 +29,29 @@
     </div>
 </section>
 {% endblock %}
+
+{% block hiddens %}
+<div id="topic-modal" class="modal fade" tabindex="-1" role="dialog"
+    aria-labelledby="topic-modal-title" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 id="topic-modal-title" class="modal-title">{{ group.title }}</h4>
+            </div>
+            <div class="modal-body">
+                {{ markdown(group.description) }}
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">{{ _('Close') }}</button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block javascript %}
+{% assets "group-js" %}
+<script src="{{ ASSET_URL}}"></script>
+{% endassets %}
+{% endblock %}

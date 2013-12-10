@@ -105,6 +105,12 @@ organization-js:
     contents:
         - js/organization.js
 
+group-js:
+    filters: uglifyjs
+    output: js/group.min.js
+    contents:
+        - js/group.js
+
 forms-js:
     filters: uglifyjs
     output: js/forms.min.js

@@ -51,14 +51,25 @@
             <h3>{{ group.title }}</h3>
             {{ markdown(group.description) }}
         </div>
-        {% if user.sysadmin %}
-        <a class="btn btn-default btn-sm pull-right"
-            title="{{ _('Edit') }}"
-            href="{{ url(lang, 'group/edit', group.name) }}">
-            <span class="glyphicon glyphicon-edit" ></span>
-            {{ _('Edit') }}
-        </a>
-        {% endif %}
+
+        <div class="topic-toolbar btn-toolbar pull-right">
+            <div class="btn-group btn-group-sm more">
+                <a href class="btn btn-default"
+                    data-toggle="modal" data-target="#topic-modal">
+                    {{ _('Read more') }}
+                </a>
+            </div>
+            {% if user.sysadmin %}
+            <div class="btn-group btn-group-sm">
+                <a class="btn btn-default"
+                    title="{{ _('Edit') }}"
+                    href="{{ url(lang, 'group/edit', group.name) }}">
+                    <span class="glyphicon glyphicon-edit" ></span>
+                    {{ _('Edit') }}
+                </a>
+            </div>
+            {% endif %}
+        </div>
 
     </div>
 </nav>
