@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Weckan 0.2.0.dev\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2013-12-11 18:02+0100\n"
+"POT-Creation-Date: 2013-12-11 18:48+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -33,44 +33,44 @@ msgstr ""
 msgid "Privates"
 msgstr ""
 
-#: weckan/controllers.py:716 weckan/templates/search.html:41
+#: weckan/controllers.py:714 weckan/templates/search.html:41
 msgid "Datasets"
 msgstr ""
 
-#: weckan/controllers.py:717 weckan/templates/dataset.html:484
+#: weckan/controllers.py:715 weckan/templates/dataset.html:484
 msgid "Reuses"
 msgstr ""
 
-#: weckan/controllers.py:718 weckan/templates/dataset.html:104
+#: weckan/controllers.py:716 weckan/templates/dataset.html:104
 #: weckan/templates/dataset.html:434
 msgid "Resources"
 msgstr ""
 
-#: weckan/controllers.py:719 weckan/templates/search.html:18
+#: weckan/controllers.py:717 weckan/templates/search.html:18
 msgid "Organizations"
 msgstr ""
 
-#: weckan/controllers.py:720
+#: weckan/controllers.py:718
 msgid "Certified organizations"
 msgstr ""
 
-#: weckan/controllers.py:721
+#: weckan/controllers.py:719
 msgid "Users"
 msgstr ""
 
-#: weckan/controllers.py:722
+#: weckan/controllers.py:720
 msgid "Total quality"
 msgstr ""
 
-#: weckan/controllers.py:723
+#: weckan/controllers.py:721
 msgid "Average quality"
 msgstr ""
 
-#: weckan/controllers.py:724
+#: weckan/controllers.py:722
 msgid "Median quality"
 msgstr ""
 
-#: weckan/controllers.py:725
+#: weckan/controllers.py:723
 msgid "File formats"
 msgstr ""
 
@@ -512,32 +512,36 @@ msgid "Publishers"
 msgstr ""
 
 #: weckan/templates/footer.html:12 weckan/templates/navbar.html:28
-#: weckan/templates/sidebar.html:14
-msgid "Open license"
+msgid "Open Licence"
 msgstr ""
 
-#: weckan/templates/footer.html:16
+#: weckan/templates/footer.html:15 weckan/templates/metrics.html:5
+#: weckan/templates/navbar.html:31
+msgid "Metrics"
+msgstr ""
+
+#: weckan/templates/footer.html:18
 msgid "Credits"
 msgstr ""
 
-#: weckan/templates/footer.html:17
+#: weckan/templates/footer.html:19
 msgid "Terms of use"
 msgstr ""
 
-#: weckan/templates/footer.html:21 weckan/templates/search.html:63
+#: weckan/templates/footer.html:23 weckan/templates/search.html:63
 #: weckan/templates/subnav-s.html:33
 msgid "Topics"
 msgstr ""
 
-#: weckan/templates/footer.html:34
+#: weckan/templates/footer.html:36
 msgid "Network"
 msgstr ""
 
-#: weckan/templates/footer.html:45
+#: weckan/templates/footer.html:47
 msgid "Contact"
 msgstr ""
 
-#: weckan/templates/footer.html:58
+#: weckan/templates/footer.html:60
 msgid "Back to top"
 msgstr ""
 
@@ -572,10 +576,6 @@ msgstr ""
 
 #: weckan/templates/home.html:122
 msgid "Error while removing featured state"
-msgstr ""
-
-#: weckan/templates/metrics.html:5 weckan/templates/navbar.html:31
-msgid "Metrics"
 msgstr ""
 
 #: weckan/templates/navbar.html:7
@@ -829,6 +829,10 @@ msgstr ""
 
 #: weckan/templates/sidebar.html:5
 msgid "Public data"
+msgstr ""
+
+#: weckan/templates/sidebar.html:14
+msgid "Open license"
 msgstr ""
 
 #: weckan/templates/site.html:59

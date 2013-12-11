@@ -1,24 +1,26 @@
-# German translations for Weckan.
+# Translations template for Weckan.
 # Copyright (C) 2013 ORGANIZATION
 # This file is distributed under the same license as the Weckan project.
-#
+# 
 # Translators:
 # noirbizarre, 2013
+# noirbizarre, 2013
+# schwefel, 2013
 # schwefel, 2013
 msgid ""
 msgstr ""
-"Project-Id-Version:  weckan\n"
+"Project-Id-Version: weckan\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2013-12-11 18:02+0100\n"
-"PO-Revision-Date: 2013-12-05 17:29+0000\n"
+"POT-Creation-Date: 2013-12-11 18:48+0100\n"
+"PO-Revision-Date: 2013-12-11 17:48+0000\n"
 "Last-Translator: noirbizarre\n"
-"Language-Team: German "
-"(http://www.transifex.com/projects/p/weckan/language/de/)\n"
-"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+"Language-Team: German (http://www.transifex.com/projects/p/weckan/language/de/)\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 0.9.6\n"
+"Language: de\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: weckan/application.py:55
 msgid "Web site not found."
@@ -36,44 +38,44 @@ msgstr "Neueste"
 msgid "Privates"
 msgstr ""
 
-#: weckan/controllers.py:716 weckan/templates/search.html:41
+#: weckan/controllers.py:714 weckan/templates/search.html:41
 msgid "Datasets"
 msgstr "Datensätze"
 
-#: weckan/controllers.py:717 weckan/templates/dataset.html:484
+#: weckan/controllers.py:715 weckan/templates/dataset.html:484
 msgid "Reuses"
 msgstr ""
 
-#: weckan/controllers.py:718 weckan/templates/dataset.html:104
+#: weckan/controllers.py:716 weckan/templates/dataset.html:104
 #: weckan/templates/dataset.html:434
 msgid "Resources"
 msgstr "Quellen"
 
-#: weckan/controllers.py:719 weckan/templates/search.html:18
+#: weckan/controllers.py:717 weckan/templates/search.html:18
 msgid "Organizations"
 msgstr "Organisationen"
 
-#: weckan/controllers.py:720
+#: weckan/controllers.py:718
 msgid "Certified organizations"
 msgstr ""
 
-#: weckan/controllers.py:721
+#: weckan/controllers.py:719
 msgid "Users"
 msgstr ""
 
-#: weckan/controllers.py:722
+#: weckan/controllers.py:720
 msgid "Total quality"
 msgstr ""
 
-#: weckan/controllers.py:723
+#: weckan/controllers.py:721
 msgid "Average quality"
 msgstr ""
 
-#: weckan/controllers.py:724
+#: weckan/controllers.py:722
 msgid "Median quality"
 msgstr ""
 
-#: weckan/controllers.py:725
+#: weckan/controllers.py:723
 msgid "File formats"
 msgstr ""
 
@@ -138,9 +140,8 @@ msgid "Name"
 msgstr ""
 
 #: weckan/forms.py:94
-#, fuzzy
 msgid "Format"
-msgstr "Informationen"
+msgstr ""
 
 #: weckan/model.py:80
 msgid "Keyword doesn't exist"
@@ -220,9 +221,8 @@ msgstr ""
 #: weckan/templates/dataset.html:47
 #, python-format
 msgid ""
-"This dataset has been published on %(date)s on the initiative and under "
-"the responsibility of <a href=\"%(url)s\" "
-"title=\"%(author)s\">%(author)s</a>"
+"This dataset has been published on %(date)s on the initiative and under the "
+"responsibility of <a href=\"%(url)s\" title=\"%(author)s\">%(author)s</a>"
 msgstr ""
 
 #: weckan/templates/dataset.html:56 weckan/templates/dataset.html:58
@@ -249,7 +249,8 @@ msgstr ""
 msgid "Forked"
 msgstr ""
 
-#: weckan/templates/dataset.html:69 weckan/templates/cards/dataset-card.html:24
+#: weckan/templates/dataset.html:69
+#: weckan/templates/cards/dataset-card.html:24
 #: weckan/templates/widgets/dataset-search-result.html:91
 msgid "This dataset is a fork of another existing dataset"
 msgstr ""
@@ -432,9 +433,8 @@ msgstr "Mit Datagouv untersuchen"
 #: weckan/templates/dataset.html:475
 #: weckan/templates/forms/resource-form.html:4
 #: weckan/templates/forms/resource-form.html:17
-#, fuzzy
 msgid "Add a resource"
-msgstr "Namenlose Quelle"
+msgstr ""
 
 #: weckan/templates/dataset.html:525 weckan/templates/dataset.html:529
 #: weckan/templates/home.html:64
@@ -452,11 +452,9 @@ msgstr ""
 
 #: weckan/templates/dataset.html:554
 msgid ""
-"You reused these data and published an article, a computer graphics, or "
-"an application?\n"
+"You reused these data and published an article, a computer graphics, or an application?\n"
 "                    It's time to let you know!\n"
-"                    Reference your work in just a few clicks and increase"
-" your visibility."
+"                    Reference your work in just a few clicks and increase your visibility."
 msgstr ""
 
 #: weckan/templates/dataset.html:567 weckan/templates/organization.html:213
@@ -494,8 +492,7 @@ msgstr "Fork"
 #: weckan/templates/dataset.html:583
 msgid ""
 "You are about to make a copy of this dataset.\n"
-"                You'll become the owner and you will have the ability to "
-"edit it and improve it.\n"
+"                You'll become the owner and you will have the ability to edit it and improve it.\n"
 "                The original dataset will keep a reference of your work."
 msgstr ""
 
@@ -526,32 +523,36 @@ msgid "Publishers"
 msgstr "Herausgeber"
 
 #: weckan/templates/footer.html:12 weckan/templates/navbar.html:28
-#: weckan/templates/sidebar.html:14
-msgid "Open license"
-msgstr "Offene Lizenz"
+msgid "Open Licence"
+msgstr ""
 
-#: weckan/templates/footer.html:16
+#: weckan/templates/footer.html:15 weckan/templates/metrics.html:5
+#: weckan/templates/navbar.html:31
+msgid "Metrics"
+msgstr ""
+
+#: weckan/templates/footer.html:18
 msgid "Credits"
 msgstr ""
 
-#: weckan/templates/footer.html:17
+#: weckan/templates/footer.html:19
 msgid "Terms of use"
 msgstr ""
 
-#: weckan/templates/footer.html:21 weckan/templates/search.html:63
+#: weckan/templates/footer.html:23 weckan/templates/search.html:63
 #: weckan/templates/subnav-s.html:33
 msgid "Topics"
 msgstr "Themen"
 
-#: weckan/templates/footer.html:34
+#: weckan/templates/footer.html:36
 msgid "Network"
 msgstr ""
 
-#: weckan/templates/footer.html:45
+#: weckan/templates/footer.html:47
 msgid "Contact"
 msgstr ""
 
-#: weckan/templates/footer.html:58
+#: weckan/templates/footer.html:60
 msgid "Back to top"
 msgstr "Nach oben"
 
@@ -588,10 +589,6 @@ msgstr ""
 
 #: weckan/templates/home.html:122
 msgid "Error while removing featured state"
-msgstr ""
-
-#: weckan/templates/metrics.html:5 weckan/templates/navbar.html:31
-msgid "Metrics"
 msgstr ""
 
 #: weckan/templates/navbar.html:7
@@ -856,6 +853,10 @@ msgstr "Alle Ergebnisse ansehen"
 msgid "Public data"
 msgstr "Öffentliche Daten"
 
+#: weckan/templates/sidebar.html:14
+msgid "Open license"
+msgstr "Offene Lizenz"
+
 #: weckan/templates/site.html:59
 msgid "This field is required."
 msgstr ""
@@ -932,14 +933,12 @@ msgid "Publish a dataset !"
 msgstr "Datensatz veröffentlichen !"
 
 #: weckan/templates/subnav-s.html:58
-#, fuzzy
 msgid "Publish !"
-msgstr "Herausgeber"
+msgstr ""
 
 #: weckan/templates/subnav-topic.html:59
-#, fuzzy
 msgid "Read more"
-msgstr "mehr"
+msgstr ""
 
 #: weckan/templates/subnav.html:53
 msgid "Share, improve and reuse public data "
@@ -952,9 +951,8 @@ msgstr ""
 
 #: weckan/templates/forms/resource-form.html:4
 #: weckan/templates/forms/resource-form.html:17
-#, fuzzy
 msgid "Edit resource"
-msgstr "Namenlose Quelle"
+msgstr ""
 
 #: weckan/templates/forms/resource-form.html:64
 msgid "You are about to delete this resource."
@@ -992,4 +990,3 @@ msgstr ""
 #: weckan/templates/widgets/organization-search-result.html:31
 msgid "Number of members"
 msgstr ""
-
