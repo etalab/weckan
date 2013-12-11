@@ -575,7 +575,10 @@ def autocomplete_datasets(request):
     data = [{
             'name': dataset['name'],
             'title': dataset['display_name'],
-            'image_url': dataset['organization'].image_url if dataset['organization'] else None,
+            'image_url': (
+                (dataset['organization'].image_url if dataset['organization'] else None)
+                or templates.static('/img/placeholder_producer.png')
+            ),
         } for dataset in results['results']]
 
     return wsgihelpers.respond_json(context, data, headers=headers)
@@ -593,7 +596,7 @@ def autocomplete_organizations(request):
     data = [{
             'name': organization.name,
             'title': organization.display_name,
-            'image_url': organization.image_url,
+            'image_url': organization.image_url or templates.static('/img/placeholder_producer.png'),
         } for organization, _, _ in results['results']]
 
     return wsgihelpers.respond_json(context, data, headers=headers)
