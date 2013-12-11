@@ -316,15 +316,10 @@ def render(context, name, **kwargs):
     return template.render(lang=lang, languages=LANGUAGES, **kwargs)
 
 
-def fix_ckan_translations(context):
+def fix_pylons_translations(context):
     '''Register a Pylons translators with CKAN translations'''
     import pylons
-    import pkg_resources
-    from babel.support import Translations
-
-    i18n_dir = pkg_resources.resource_filename('ckan', 'i18n')
-    ckan_translations = Translations.load(i18n_dir, context.lang, 'ckan')
-    pylons.translator._push_object(ckan_translations)
+    pylons.translator._push_object(context.translator)
 
 
 def render_site(name, request_or_context, **kwargs):
@@ -344,15 +339,13 @@ def render_site(name, request_or_context, **kwargs):
     base_location = current_location.replace('/{0}'.format(lang), '')
 
     # Override browser language
-    if lang in LANGUAGES:
-        context.lang = lang
-    elif lang is None:
+    if not lang:
         lang = DEFAULT_LANG
-    else:
+    elif lang not in LANGUAGES:
         from weckan import wsgihelpers
         return wsgihelpers.redirect(context, location=base_location)
 
-    fix_ckan_translations(context)
+    fix_pylons_translations(context)
 
     return render(context, name,
         full_url = context.req.url,

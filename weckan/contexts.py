@@ -25,17 +25,16 @@
 
 """Context loaded and saved in WSGI requests"""
 
-
 import gettext
 
 import webob
 
-from . import conf, conv
+from . import conv
+
+from .i18n import LANGUAGES, new_translator
 
 
 __all__ = ['Ctx', 'null_ctx']
-
-DEFAULT_LANGS = ['fr-FR', 'fr', 'en-US', 'en']
 
 
 class Ctx(conv.State):
@@ -56,6 +55,11 @@ class Ctx(conv.State):
                 value = weckan_env.get(key)
                 if value is not None:
                     setattr(self, key, value)
+
+            lang = req.urlvars.get('lang', None)
+            if lang in LANGUAGES:
+                self.lang = [lang]
+
 
     def __getattribute__(self, name):
         try:
@@ -130,7 +134,7 @@ class Ctx(conv.State):
 
     def lang_get(self):
         if self._lang is None:
-            self._lang = DEFAULT_LANGS
+            self._lang = LANGUAGES
             if self.req is not None:
                 self.req.environ.setdefault('weckan', {})['_lang'] = self._lang
         return self._lang
@@ -169,14 +173,7 @@ class Ctx(conv.State):
                 return gettext.NullTranslations()
             if not isinstance(languages, list):
                 languages = [languages]
-            translator = gettext.NullTranslations()
-            for name, i18n_dir in [
-                    ('biryani1', conf['biryani1_i18n_dir']),
-                    ]:
-                if i18n_dir is not None:
-                    translator = new_translator(name, i18n_dir, languages, fallback = translator)
-            translator = new_translator(conf['package_name'], conf['i18n_dir'], languages, fallback = translator)
-            self._translator = translator
+            self._translator = new_translator(languages)
         return self._translator
 
     def user_del(self):
@@ -197,11 +194,4 @@ class Ctx(conv.State):
 
 
 null_ctx = Ctx()
-null_ctx.lang = DEFAULT_LANGS
-
-
-def new_translator(domain, localedir, languages, fallback = None):
-    new = gettext.translation(domain, localedir, fallback = True, languages = languages)
-    if fallback is not None:
-        new.add_fallback(fallback)
-    return new
+null_ctx.lang = LANGUAGES
