@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Weckan 0.2.0.dev\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2013-12-10 16:10+0100\n"
+"POT-Creation-Date: 2013-12-11 12:01+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -482,6 +482,8 @@ msgstr ""
 
 #: weckan/templates/dataset.html:542 weckan/templates/organization.html:255
 #: weckan/templates/organization.html:288 weckan/templates/reuse-form.html:32
+#: weckan/templates/forms/resource-form.html:34
+#: weckan/templates/forms/resource-form.html:35
 msgid "Cancel"
 msgstr ""
 
@@ -508,20 +510,24 @@ msgstr ""
 msgid "Credits"
 msgstr ""
 
-#: weckan/templates/footer.html:20 weckan/templates/search.html:63
+#: weckan/templates/footer.html:17
+msgid "Terms of use"
+msgstr ""
+
+#: weckan/templates/footer.html:21 weckan/templates/search.html:63
 #: weckan/templates/subnav-s.html:33
 msgid "Topics"
 msgstr ""
 
-#: weckan/templates/footer.html:33
+#: weckan/templates/footer.html:34
 msgid "Network"
 msgstr ""
 
-#: weckan/templates/footer.html:44
+#: weckan/templates/footer.html:45
 msgid "Contact"
 msgstr ""
 
-#: weckan/templates/footer.html:56
+#: weckan/templates/footer.html:58
 msgid "Back to top"
 msgstr ""
 
@@ -562,27 +568,31 @@ msgstr ""
 msgid "Metrics"
 msgstr ""
 
+#: weckan/templates/navbar.html:7
+msgid "Toggle navigation"
+msgstr ""
+
 #: weckan/templates/navbar.html:13
 msgid "Open platform for french public data"
 msgstr ""
 
-#: weckan/templates/navbar.html:44 weckan/templates/navbar.html:46
+#: weckan/templates/navbar.html:45 weckan/templates/navbar.html:47
 msgid "Profile"
 msgstr ""
 
-#: weckan/templates/navbar.html:50 weckan/templates/navbar.html:52
+#: weckan/templates/navbar.html:51 weckan/templates/navbar.html:53
 msgid "Dashboard"
 msgstr ""
 
-#: weckan/templates/navbar.html:56 weckan/templates/navbar.html:58
+#: weckan/templates/navbar.html:57 weckan/templates/navbar.html:59
 msgid "Settings"
 msgstr ""
 
-#: weckan/templates/navbar.html:63 weckan/templates/navbar.html:65
+#: weckan/templates/navbar.html:64 weckan/templates/navbar.html:66
 msgid "Log out"
 msgstr ""
 
-#: weckan/templates/navbar.html:73 weckan/templates/navbar.html:76
+#: weckan/templates/navbar.html:74 weckan/templates/navbar.html:77
 msgid "Sign In / Register"
 msgstr ""
 
@@ -729,19 +739,21 @@ msgstr ""
 msgid "Edit reuse"
 msgstr ""
 
-#: weckan/templates/reuse-form.html:30
+#: weckan/templates/reuse-form.html:30 weckan/templates/forms/resource-form.html:30
 msgid "Add"
 msgstr ""
 
-#: weckan/templates/reuse-form.html:30
+#: weckan/templates/reuse-form.html:30 weckan/templates/forms/resource-form.html:30
 msgid "Save"
 msgstr ""
 
 #: weckan/templates/reuse-form.html:33 weckan/templates/reuse-form.html:34
+#: weckan/templates/forms/resource-form.html:38
+#: weckan/templates/forms/resource-form.html:40
 msgid "Delete"
 msgstr ""
 
-#: weckan/templates/reuse-form.html:52
+#: weckan/templates/reuse-form.html:52 weckan/templates/forms/resource-form.html:60
 msgid "Confirm deletion"
 msgstr ""
 
@@ -749,19 +761,19 @@ msgstr ""
 msgid "You are about to delete this reuse."
 msgstr ""
 
-#: weckan/templates/reuse-form.html:57
+#: weckan/templates/reuse-form.html:57 weckan/templates/forms/resource-form.html:65
 msgid "This operation is unreversible"
 msgstr ""
 
-#: weckan/templates/reuse-form.html:59
+#: weckan/templates/reuse-form.html:59 weckan/templates/forms/resource-form.html:67
 msgid "Are you sure ?"
 msgstr ""
 
-#: weckan/templates/reuse-form.html:62
+#: weckan/templates/reuse-form.html:62 weckan/templates/forms/resource-form.html:70
 msgid "Yes"
 msgstr ""
 
-#: weckan/templates/reuse-form.html:63
+#: weckan/templates/reuse-form.html:63 weckan/templates/forms/resource-form.html:71
 msgid "No"
 msgstr ""
 
@@ -899,6 +911,20 @@ msgstr ""
 #: weckan/templates/cards/dataset-card.html:93
 #: weckan/templates/widgets/dataset-search-result.html:80
 msgid "Reuse number"
+msgstr ""
+
+#: weckan/templates/forms/resource-form.html:4
+#: weckan/templates/forms/resource-form.html:17
+msgid "Add a resource"
+msgstr ""
+
+#: weckan/templates/forms/resource-form.html:4
+#: weckan/templates/forms/resource-form.html:17
+msgid "Edit resource"
+msgstr ""
+
+#: weckan/templates/forms/resource-form.html:64
+msgid "You are about to delete this resource."
 msgstr ""
 
 #: weckan/templates/macros/forms.html:67
