@@ -42,7 +42,7 @@ from . import templates, urls, wsgihelpers, conf, contexts, auth, queries
 from .model import Activity, meta, Package, Related, Group, Resource
 from .model import Role, UserFollowingDataset, UserFollowingGroup, User
 
-from weckan.forms import ReuseForm
+from weckan.forms import ReuseForm, ResourceForm
 
 from ckanext.etalab.model import CertifiedPublicService
 from ckanext.youckan.models import MembershipRequest, ReuseAsOrganization, CommunityResource
@@ -426,12 +426,10 @@ def display_dataset(request):
         groups=dataset.get_groups('group'),
         can_edit=auth.can_edit_dataset(user, dataset),
         is_fork=queries.is_fork(dataset),
-        # nb_fork=nb_fork,
         quality=get_dataset_quality(dataset.name),
         ceils=QA_CEILS,
         territory=get_territory_cookie(request),
         bot_name=conf['bot_name'],
-        community_resources=CommunityResource.get(dataset),
     )
 
 
@@ -524,6 +522,80 @@ def edit_reuse(request):
 
     return templates.render_site('reuse-form.html', request, new=False, form=form, owner=owner,
             back_url=dataset_url, delete_url=delete_url)
+
+
+@wsgihelpers.wsgify
+def create_community_resource(request):
+    context = contexts.Ctx(request)
+    lang = request.urlvars.get('lang', templates.DEFAULT_LANG)
+    user = auth.get_user_from_request(request)
+    if not user:
+        return wsgihelpers.unauthorized(context)  # redirect to login/register ?
+
+    dataset_name = request.urlvars.get('name')
+    dataset_url = urls.get_url(lang, 'dataset', dataset_name)
+
+    form = ResourceForm(request.POST, i18n=context.translator)
+
+    if request.method == 'POST' and form.validate():
+        dataset = Package.get(dataset_name)
+        resource = CommunityResource(dataset.id, user.id)
+        form.populate_obj(resource)
+        DB.add(resource)
+        DB.commit()
+        return wsgihelpers.redirect(context, location=dataset_url)
+
+    return templates.render_site('forms/resource-form.html', request, new=True, form=form, back_url=dataset_url)
+
+
+@wsgihelpers.wsgify
+def edit_community_resource(request):
+    context = contexts.Ctx(request)
+    lang = request.urlvars.get('lang', templates.DEFAULT_LANG)
+    user = auth.get_user_from_request(request)
+    if not user:
+        return wsgihelpers.unauthorized(context)  # redirect to login/register ?
+
+    dataset_name = request.urlvars.get('name')
+    dataset_url = urls.get_url(lang, 'dataset', dataset_name)
+
+    resource_id = request.urlvars.get('resource')
+    resource = CommunityResource.get(resource_id)
+    delete_url = urls.get_url(lang, 'dataset', dataset_name, 'community/resource', resource_id, 'delete')
+
+    form = ResourceForm(request.POST, resource, i18n=context.translator)
+
+    if request.method == 'POST' and form.validate():
+        form.populate_obj(resource)
+        DB.add(resource)
+        DB.commit()
+        return wsgihelpers.redirect(context, location=dataset_url)
+
+    return templates.render_site('forms/resource-form.html', request, new=False, form=form,
+            back_url=dataset_url, delete_url=delete_url)
+
+
+@wsgihelpers.wsgify
+def delete_community_resource(request):
+    context = contexts.Ctx(request)
+    lang = request.urlvars.get('lang', templates.DEFAULT_LANG)
+    user = auth.get_user_from_request(request)
+    if not user:
+        return wsgihelpers.unauthorized(context)  # redirect to login/register ?
+
+    dataset_name = request.urlvars.get('name')
+    dataset_url = urls.get_url(lang, 'dataset', dataset_name)
+
+    resource_id = request.urlvars.get('resource')
+    resource = CommunityResource.get(resource_id)
+
+    if not user.sysadmin and not resource.owner_id == user.id:
+        return wsgihelpers.unauthorized(context)  # redirect to login/register ?
+
+    DB.delete(resource)
+    DB.commit()
+
+    return wsgihelpers.redirect(context, location=dataset_url)
 
 
 @wsgihelpers.wsgify
@@ -765,6 +837,11 @@ def make_router(app):
 
         (('GET', 'POST'), r'^(/(?P<lang>\w{2}))?/dataset/(?P<name>[\w_-]+)/related/new?$', create_reuse),
         (('GET', 'POST'), r'^(/(?P<lang>\w{2}))?/dataset/(?P<name>[\w_-]+)/related/edit/(?P<reuse>[\w_-]+)/?$', edit_reuse),
+
+
+        (('GET', 'POST'), r'^(/(?P<lang>\w{2}))?/dataset/(?P<name>[\w_-]+)/community/resource/new/?$', create_community_resource),
+        (('GET', 'POST'), r'^(/(?P<lang>\w{2}))?/dataset/(?P<name>[\w_-]+)/community/resource/(?P<resource>[\w_-]+)/edit/?$', edit_community_resource),
+        ('POST', r'^(/(?P<lang>\w{2}))?/dataset/(?P<name>[\w_-]+)/community/resource/(?P<resource>[\w_-]+)/delete/?$', delete_community_resource),
 
         ('GET', r'^(/(?P<lang>\w{2}))?/organization/?$', search_more_organizations),
         ('GET', r'^(/(?P<lang>\w{2}))?/organization/autocomplete/?$', autocomplete_organizations),

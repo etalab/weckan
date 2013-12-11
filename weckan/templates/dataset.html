@@ -432,11 +432,11 @@
                     <div class="row">
                         <div class="col-xs-12 list-group resources-list">
                             <h3>{{ _('Resources') }}</h3>
-                            {% for resource in community_resources %}
+                            {% for resource in dataset.community_resources %}
                                 {% set resource_name = resource.name or resource.description or _('Nameless resource') %}
                                 {% set resource_format = resource.format|trim|lower or 'data' %}
-                                <a class="list-group-item" href="{{ resource.url }}"
-                                    {% if resource_format == 'html' %}target="_blank"{% endif %}
+                                <div class="list-group-item"
+                                    data-url="{{ resource.url }}" data-format="{{ resource_format }}"
                                     rel="popover" data-trigger="hover" data-placement="top"
                                     {% if resource.description %}
                                     title="{{ resource_name }} [{{ resource_format }}]"
@@ -458,9 +458,18 @@
                                         {{ markdown_extract(resource.description) }}
                                     </p>
                                     {% endif %}
-                                </a>
+                                    {% if user.sysadmin or resource.owner_id == user.id %}
+                                    <div class="btn-group btn-group-xs tools">
+                                        <a class="btn btn-default" rel="tooltip" title="{{ _('Edit') }}"
+                                            href="{{ url(lang, 'dataset', dataset.name, 'community/resource', resource.id, 'edit') }}">
+                                            <span class="glyphicon glyphicon-edit"></span>
+                                        </a>
+                                    </div>
+                                    {% endif %}
+                                </div>
                             {% endfor %}
-                                <a class="list-group-item add" href>
+                                <a class="list-group-item add"
+                                    href="{{ url(lang, 'dataset', dataset.name, 'community/resource/new') }}">
                                     <div class="format-label pull-left">+</div>
                                     <h4 class="list-group-item-heading">
                                         {{ _('Add a resource') }}
@@ -528,7 +537,7 @@
                                 </div>
                                 {% endfor %}
                                 <div class="col-sm-6 col-md-4">
-                                    <a class="thumbnail reuse add" href="{{ url(lang, 'dataset', dataset.name, 'related', 'new') }}">
+                                    <a class="thumbnail reuse add" href="{{ url(lang, 'dataset', dataset.name, 'related/new') }}">
                                         <div class="preview">+</div>
                                         <div class="caption">
                                             <h4>{% trans %}Add a reuse{% endtrans %}</h4>

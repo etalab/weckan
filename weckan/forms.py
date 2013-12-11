@@ -86,3 +86,11 @@ class ReuseForm(Form):
     ))
     description = MarkdownField(_('Description'), [validators.required()])
     publish_as = PublishAsField(_('Publish as'))
+
+
+class ResourceForm(Form):
+    name = StringField(_('Name'), [validators.required()])
+    url = URLField(_('URL'), [validators.required()])
+    format = StringField(_('Format'))
+    description = MarkdownField(_('Description'), [validators.required()])
+    # publish_as = PublishAsField(_('Publish as'))

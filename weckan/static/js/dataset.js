@@ -59,6 +59,7 @@
             return false;
         });
 
+        // Display hidden resources
         $('#more-resources').click(function() {
             var $this = $(this);
             $this.fadeOut();
@@ -67,6 +68,17 @@
             });
             return false;
         });
+
+        $('.resources-list div.list-group-item').click(function(e) {
+            if (!$(e.target).is('.glyphicon')) {
+                if ($(this).data('format') == 'html') {
+                    window.open($(this).data('url'));
+                } else {
+                    window.location = $(this).data('url');
+                }
+            }
+        });
+
     });
 
 }(window.jQuery, window.Utils));
