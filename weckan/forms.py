@@ -6,6 +6,8 @@ _ = lambda s: s
 from wtforms import Form as WTForm, Field, validators, fields, widgets
 from wtforms.fields import html5
 
+from weckan import model
+
 
 class Form(WTForm):
     def __init__(self, *args, **kwargs):
@@ -83,6 +85,18 @@ class PublishAsField(FieldHelper, Field):
     def is_visible(self, user):
         return len(user.organizations) > 0
 
+    def process_data(self, value):
+        self.data = value.id if isinstance(value, model.Group) else value
+
+    def populate_obj(self, obj, name):
+        if not self.data:
+            setattr(obj, name, None)
+        fkey = '{0}_id'.format(name)
+        if hasattr(obj, fkey):
+            setattr(obj, fkey, self.data)
+        else:
+            setattr(obj, name, model.Group.get(self.data))
+
 
 class ReuseForm(Form):
     title = StringField(_('Title'), [validators.required()])
@@ -106,6 +120,7 @@ class ResourceForm(Form):
     url = URLField(_('URL'), [validators.required()])
     format = StringField(_('Format'), widget=FormatAutocompleter())
     description = MarkdownField(_('Description'), [validators.required()])
+    publish_as = PublishAsField(_('Publish as'))
 
 
 class GroupCreateForm(Form):
