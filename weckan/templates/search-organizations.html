@@ -13,6 +13,13 @@
         {% set start = ((organizations.page - 1) * organizations.page_size) + 1 %}
         {% set end = start - 1 + organizations.results|length %}
         <div class="page-header">
+            <a class="btn btn-sm btn-primary pull-right" href="{{ url(lang, 'organization/new') }}"
+                title="{{ _('Add a new organization') }}"
+                rel="popover" data-trigger="hover" data-placement="left"
+                data-content="{{ _('Your organization does not exists ? Create it !') }}">
+                <span class="glyphicon glyphicon-plus"></span>
+                {{ _('Add') }}
+            </a>
             <h1>
                 {% trans %}Organizations search{% endtrans %}
                 <small>{% trans total=organizations.total %}results {{start}} to {{end}} of {{total}}{% endtrans %}</small>

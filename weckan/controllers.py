@@ -897,8 +897,8 @@ def make_router(app):
         (('GET', 'POST'), r'^(/(?P<lang>\w{2}))?/dataset/(?P<name>[\w_-]+)/community/resource/(?P<resource>[\w_-]+)/edit/?$', edit_community_resource),
         ('POST', r'^(/(?P<lang>\w{2}))?/dataset/(?P<name>[\w_-]+)/community/resource/(?P<resource>[\w_-]+)/delete/?$', delete_community_resource),
 
-        ('GET', r'^(/(?P<lang>\w{2}))?/organizations/?$', search_more_organizations),
-        ('GET', r'^(/(?P<lang>\w{2}))?/organizations/autocomplete/?$', autocomplete_organizations),
+        ('GET', r'^(/(?P<lang>\w{2}))?/organizations?/?$', search_more_organizations),
+        ('GET', r'^(/(?P<lang>\w{2}))?/organizations?/autocomplete/?$', autocomplete_organizations),
         (('GET', 'POST'), r'^(/(?P<lang>\w{2}))?/organization/new/?$', create_organization),
         ('GET', r'^(/(?P<lang>\w{{2}}))?/organizations/(?!{0}(/|$))(?P<name>[\w_-]+)/?$'.format('|'.join(EXCLUDED_PATTERNS)), display_organization),
 
