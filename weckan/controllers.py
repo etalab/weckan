@@ -467,7 +467,7 @@ def create_reuse(request):
 
         return wsgihelpers.redirect(context, location=dataset_url)
 
-    return templates.render_site('reuse-form.html', request, new=True, form=form, back_url=dataset_url)
+    return templates.render_site('forms/reuse-form.html', request, new=True, form=form, back_url=dataset_url)
 
 
 @wsgihelpers.wsgify
@@ -520,7 +520,7 @@ def edit_reuse(request):
 
         return wsgihelpers.redirect(context, location=dataset_url)
 
-    return templates.render_site('reuse-form.html', request, new=False, form=form, owner=owner,
+    return templates.render_site('forms/reuse-form.html', request, new=False, form=form, owner=owner,
             back_url=dataset_url, delete_url=delete_url)
 
 
