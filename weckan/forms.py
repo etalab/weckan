@@ -120,6 +120,9 @@ class ResourceForm(Form):
     url = URLField(_('URL'), [validators.required()])
     format = StringField(_('Format'), widget=FormatAutocompleter())
     description = MarkdownField(_('Description'), [validators.required()])
+
+
+class CommunityResourceForm(ResourceForm):
     publish_as = PublishAsField(_('Publish as'))
 
 
