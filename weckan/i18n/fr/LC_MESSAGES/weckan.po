@@ -12,8 +12,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: weckan\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2013-12-11 18:48+0100\n"
-"PO-Revision-Date: 2013-12-11 17:48+0000\n"
+"POT-Creation-Date: 2013-12-12 12:06+0100\n"
+"PO-Revision-Date: 2013-12-12 11:12+0000\n"
 "Last-Translator: noirbizarre\n"
 "Language-Team: French (http://www.transifex.com/projects/p/weckan/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -39,44 +39,44 @@ msgstr "Les plus récents"
 msgid "Privates"
 msgstr "Privés"
 
-#: weckan/controllers.py:714 weckan/templates/search.html:41
+#: weckan/controllers.py:767 weckan/templates/search.html:41
 msgid "Datasets"
 msgstr "Jeux de données"
 
-#: weckan/controllers.py:715 weckan/templates/dataset.html:484
+#: weckan/controllers.py:768 weckan/templates/dataset.html:484
 msgid "Reuses"
 msgstr "Réutilisations"
 
-#: weckan/controllers.py:716 weckan/templates/dataset.html:104
+#: weckan/controllers.py:769 weckan/templates/dataset.html:104
 #: weckan/templates/dataset.html:434
 msgid "Resources"
 msgstr "Ressources"
 
-#: weckan/controllers.py:717 weckan/templates/search.html:18
+#: weckan/controllers.py:770 weckan/templates/search.html:18
 msgid "Organizations"
 msgstr "Organisations"
 
-#: weckan/controllers.py:718
+#: weckan/controllers.py:771
 msgid "Certified organizations"
 msgstr "Organisations certifiées"
 
-#: weckan/controllers.py:719
+#: weckan/controllers.py:772
 msgid "Users"
 msgstr "Utilisateurs"
 
-#: weckan/controllers.py:720
+#: weckan/controllers.py:773
 msgid "Total quality"
 msgstr "Qualité totale"
 
-#: weckan/controllers.py:721
+#: weckan/controllers.py:774
 msgid "Average quality"
 msgstr "Qualité moyenne"
 
-#: weckan/controllers.py:722
+#: weckan/controllers.py:775
 msgid "Median quality"
 msgstr "Qualité médiane"
 
-#: weckan/controllers.py:723
+#: weckan/controllers.py:776
 msgid "File formats"
 msgstr "Formats de fichiers"
 
@@ -84,63 +84,63 @@ msgstr "Formats de fichiers"
 msgid "External URL"
 msgstr "URL externe"
 
-#: weckan/forms.py:75
+#: weckan/forms.py:102 weckan/forms.py:127
 msgid "Title"
 msgstr "Titre"
 
-#: weckan/forms.py:76 weckan/forms.py:93
+#: weckan/forms.py:103 weckan/forms.py:120
 msgid "URL"
 msgstr "URL"
 
-#: weckan/forms.py:77
+#: weckan/forms.py:104 weckan/forms.py:129
 msgid "Image URL"
 msgstr "URL de l'image"
 
-#: weckan/forms.py:78
+#: weckan/forms.py:105
 msgid "Type"
 msgstr "Type"
 
-#: weckan/forms.py:79
+#: weckan/forms.py:106
 msgid "API"
 msgstr "API"
 
-#: weckan/forms.py:80
+#: weckan/forms.py:107
 msgid "Application"
 msgstr "Application"
 
-#: weckan/forms.py:81
+#: weckan/forms.py:108
 msgid "Idea"
 msgstr "Idée"
 
-#: weckan/forms.py:82
+#: weckan/forms.py:109
 msgid "News Article"
 msgstr "Article de presse"
 
-#: weckan/forms.py:83
+#: weckan/forms.py:110
 msgid "Paper"
 msgstr "Papier"
 
-#: weckan/forms.py:84
+#: weckan/forms.py:111
 msgid "Post"
 msgstr "Article de blog"
 
-#: weckan/forms.py:85
+#: weckan/forms.py:112
 msgid "Visualization"
 msgstr "Visualisation"
 
-#: weckan/forms.py:87 weckan/forms.py:95
+#: weckan/forms.py:114 weckan/forms.py:122 weckan/forms.py:128
 msgid "Description"
 msgstr "Description"
 
-#: weckan/forms.py:88
+#: weckan/forms.py:115 weckan/forms.py:123
 msgid "Publish as"
 msgstr "Publier en tant que"
 
-#: weckan/forms.py:92
+#: weckan/forms.py:119
 msgid "Name"
 msgstr "Nom"
 
-#: weckan/forms.py:94
+#: weckan/forms.py:121
 msgid "Format"
 msgstr "Format"
 
@@ -433,7 +433,7 @@ msgstr "Explorer avec Datagouv"
 
 #: weckan/templates/dataset.html:475
 #: weckan/templates/forms/resource-form.html:4
-#: weckan/templates/forms/resource-form.html:17
+#: weckan/templates/forms/resource-form.html:18
 msgid "Add a resource"
 msgstr "Ajouter une ressource"
 
@@ -446,8 +446,8 @@ msgstr "Ne plus mettre en avant"
 msgid "Mark as featured"
 msgstr "Mettre en avant"
 
-#: weckan/templates/dataset.html:543 weckan/templates/reuse-form.html:4
-#: weckan/templates/reuse-form.html:17
+#: weckan/templates/dataset.html:543 weckan/templates/forms/reuse-form.html:4
+#: weckan/templates/forms/reuse-form.html:18
 msgid "Add a reuse"
 msgstr "Ajouter une réutilisation"
 
@@ -502,10 +502,13 @@ msgid "Continue?"
 msgstr "Voulez-vous continuer ?"
 
 #: weckan/templates/dataset.html:595 weckan/templates/organization.html:255
-#: weckan/templates/organization.html:288 weckan/templates/reuse-form.html:34
-#: weckan/templates/reuse-form.html:35
-#: weckan/templates/forms/resource-form.html:34
+#: weckan/templates/organization.html:288
+#: weckan/templates/forms/group-create-form.html:36
+#: weckan/templates/forms/group-create-form.html:37
 #: weckan/templates/forms/resource-form.html:35
+#: weckan/templates/forms/resource-form.html:36
+#: weckan/templates/forms/reuse-form.html:35
+#: weckan/templates/forms/reuse-form.html:36
 msgid "Cancel"
 msgstr "Annuler"
 
@@ -760,70 +763,35 @@ msgstr "Ajoutez votre raison de refus ici."
 msgid "Refusal reason"
 msgstr "Raison du refus"
 
-#: weckan/templates/reuse-form.html:4 weckan/templates/reuse-form.html:17
-msgid "Edit reuse"
-msgstr "Edition de la réutilisation"
-
-#: weckan/templates/reuse-form.html:30
-#: weckan/templates/forms/resource-form.html:30
-msgid "Add"
-msgstr "Ajouter"
-
-#: weckan/templates/reuse-form.html:30
-#: weckan/templates/forms/resource-form.html:30
-msgid "Save"
-msgstr "Enregistrer"
-
-#: weckan/templates/reuse-form.html:38 weckan/templates/reuse-form.html:40
-#: weckan/templates/forms/resource-form.html:38
-#: weckan/templates/forms/resource-form.html:40
-msgid "Delete"
-msgstr "Supprimer"
-
-#: weckan/templates/reuse-form.html:60
-#: weckan/templates/forms/resource-form.html:60
-msgid "Confirm deletion"
-msgstr "Confirmer la suppression"
-
-#: weckan/templates/reuse-form.html:64
-msgid "You are about to delete this reuse."
-msgstr "Vous êtes sur le point de supprimer cette réutilisation."
-
-#: weckan/templates/reuse-form.html:65
-#: weckan/templates/forms/resource-form.html:65
-msgid "This operation is unreversible"
-msgstr "Cette opération est irréversible."
-
-#: weckan/templates/reuse-form.html:67
-#: weckan/templates/forms/resource-form.html:67
-msgid "Are you sure ?"
-msgstr "Êtes-vous sûr ?"
-
-#: weckan/templates/reuse-form.html:70
-#: weckan/templates/forms/resource-form.html:70
-msgid "Yes"
-msgstr "Oui"
-
-#: weckan/templates/reuse-form.html:71
-#: weckan/templates/forms/resource-form.html:71
-msgid "No"
-msgstr "Non"
-
 #: weckan/templates/search-datasets.html:6
 #: weckan/templates/search-datasets.html:17
 msgid "Datasets search"
 msgstr "Recherche de jeux de données"
 
 #: weckan/templates/search-datasets.html:18
-#: weckan/templates/search-organizations.html:18
+#: weckan/templates/search-organizations.html:25
 #, python-format
 msgid "results %(start)s to %(end)s of %(total)s"
 msgstr "résultats %(start)s à %(end)s sur %(total)s"
 
 #: weckan/templates/search-organizations.html:6
-#: weckan/templates/search-organizations.html:17
+#: weckan/templates/search-organizations.html:24
 msgid "Organizations search"
 msgstr "Recherche d'organisations"
+
+#: weckan/templates/search-organizations.html:17
+msgid "Add a new organization"
+msgstr "Ajouter une nouvelle organisation"
+
+#: weckan/templates/search-organizations.html:19
+msgid "Your organization does not exists ? Create it !"
+msgstr "Votre organisation n'existe pas ? Créez la !"
+
+#: weckan/templates/search-organizations.html:21
+#: weckan/templates/forms/resource-form.html:31
+#: weckan/templates/forms/reuse-form.html:31
+msgid "Add"
+msgstr "Ajouter"
 
 #: weckan/templates/search.html:6 weckan/templates/subnav-s.html:14
 #: weckan/templates/subnav-topic.html:19 weckan/templates/subnav.html:19
@@ -950,21 +918,79 @@ msgstr "Partagez, améliorez et réutilisez la donnée publique"
 msgid "Reuse number"
 msgstr "Nombre de réutilisations"
 
+#: weckan/templates/forms/group-create-form.html:4
+msgid "Create an organization"
+msgstr "Créer une organisation"
+
+#: weckan/templates/forms/group-create-form.html:4
+msgid "Create a group"
+msgstr "Créer un groupe"
+
+#: weckan/templates/forms/group-create-form.html:34
+msgid "Create"
+msgstr "Créer"
+
 #: weckan/templates/forms/resource-form.html:4
-#: weckan/templates/forms/resource-form.html:17
+#: weckan/templates/forms/resource-form.html:18
 msgid "Edit resource"
 msgstr "Edition de la ressource"
 
-#: weckan/templates/forms/resource-form.html:64
+#: weckan/templates/forms/resource-form.html:31
+#: weckan/templates/forms/reuse-form.html:31
+msgid "Save"
+msgstr "Enregistrer"
+
+#: weckan/templates/forms/resource-form.html:39
+#: weckan/templates/forms/resource-form.html:41
+#: weckan/templates/forms/reuse-form.html:39
+#: weckan/templates/forms/reuse-form.html:41
+msgid "Delete"
+msgstr "Supprimer"
+
+#: weckan/templates/forms/resource-form.html:62
+#: weckan/templates/forms/reuse-form.html:62
+msgid "Confirm deletion"
+msgstr "Confirmer la suppression"
+
+#: weckan/templates/forms/resource-form.html:66
 msgid "You are about to delete this resource."
 msgstr "Vous êtes sur le point de supprimer cette ressource."
 
-#: weckan/templates/macros/forms.html:38
+#: weckan/templates/forms/resource-form.html:67
+#: weckan/templates/forms/reuse-form.html:67
+msgid "This operation is unreversible"
+msgstr "Cette opération est irréversible."
+
+#: weckan/templates/forms/resource-form.html:69
+#: weckan/templates/forms/reuse-form.html:69
+msgid "Are you sure ?"
+msgstr "Êtes-vous sûr ?"
+
+#: weckan/templates/forms/resource-form.html:72
+#: weckan/templates/forms/reuse-form.html:72
+msgid "Yes"
+msgstr "Oui"
+
+#: weckan/templates/forms/resource-form.html:73
+#: weckan/templates/forms/reuse-form.html:73
+msgid "No"
+msgstr "Non"
+
+#: weckan/templates/forms/reuse-form.html:4
+#: weckan/templates/forms/reuse-form.html:18
+msgid "Edit reuse"
+msgstr "Edition de la réutilisation"
+
+#: weckan/templates/forms/reuse-form.html:66
+msgid "You are about to delete this reuse."
+msgstr "Vous êtes sur le point de supprimer cette réutilisation."
+
+#: weckan/templates/macros/forms.html:41
 #, python-format
 msgid "%(org)s member"
 msgstr "Membre de %(org)s"
 
-#: weckan/templates/macros/forms.html:54
+#: weckan/templates/macros/forms.html:58
 msgid "required fields"
 msgstr "champs requis"
 
