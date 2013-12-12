@@ -900,7 +900,7 @@ def make_router(app):
         ('GET', r'^(/(?P<lang>\w{2}))?/organizations?/?$', search_more_organizations),
         ('GET', r'^(/(?P<lang>\w{2}))?/organizations?/autocomplete/?$', autocomplete_organizations),
         (('GET', 'POST'), r'^(/(?P<lang>\w{2}))?/organization/new/?$', create_organization),
-        ('GET', r'^(/(?P<lang>\w{{2}}))?/organizations/(?!{0}(/|$))(?P<name>[\w_-]+)/?$'.format('|'.join(EXCLUDED_PATTERNS)), display_organization),
+        ('GET', r'^(/(?P<lang>\w{{2}}))?/organization/(?!{0}(/|$))(?P<name>[\w_-]+)/?$'.format('|'.join(EXCLUDED_PATTERNS)), display_organization),
 
         (('GET', 'POST'), r'^(/(?P<lang>\w{2}))?/group/new/?$', create_group),
         ('GET', r'^(/(?P<lang>\w{{2}}))?/groups?/(?!{0}(/|$))(?P<name>[\w_-]+)/?$'.format('|'.join(EXCLUDED_PATTERNS)), display_group),
