@@ -8,6 +8,8 @@
     margin-right: 10px;
     cursor: pointer;
     height: 180px;
+    width: 100%;
+    text-align: center;
 
     &.active, &:hover, &:active, &:focus {
         color: white;
@@ -15,11 +17,15 @@
     }
 
     .caption {
-        display: table-cell;
+        display: table;
         height: 65px;
-        width: 150px;
+        width: 100%;
         font-weight: bold;
-        vertical-align: middle;
 
+        p {
+            display: table-cell;
+            vertical-align: middle;
+            text-align: center;
+        }
     }
 }

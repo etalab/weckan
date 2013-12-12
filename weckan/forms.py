@@ -18,6 +18,7 @@ class Form(WTForm):
 
 class FieldHelper(object):
     def __init__(self, *args, **kwargs):
+        # Suffix name with _id for id
         id = kwargs.pop('id', None)
         if not id and '_name' in kwargs:
             id = '{_name}_id'.format(**kwargs)
@@ -27,23 +28,35 @@ class FieldHelper(object):
         return True
 
 
-class SelectPicker(widgets.Select):
+class WidgetHelper(object):
+    classes = []
+    defaults = {}
+
     def __call__(self, field, **kwargs):
+        # Handle extra classes
         classes = (kwargs.pop('class', '') or kwargs.pop('class_', '')).split()
-        if not 'selectpicker' in classes:
-            classes.append('selectpicker')
+        extra_classes = self.classes if isinstance(self.classes, (list, tuple)) else [self.classes]
+        classes.extend([cls for cls in extra_classes if cls not in classes])
         kwargs['class'] = ' '.join(classes)
-        return super(SelectPicker, self).__call__(field, **kwargs)
+
+        # Handle defaults
+        for key, value in self.defaults.items():
+            kwargs.setdefault(key, value)
+
+        return super(WidgetHelper, self).__call__(field, **kwargs)
 
 
-class MarkdownEditor(widgets.TextArea):
-    def __call__(self, field, **kwargs):
-        classes = (kwargs.pop('class', '') or kwargs.pop('class_', '')).split(' ')
-        if not 'md' in classes:
-            classes.append('md')
-        kwargs['class'] = ' '.join(classes)
-        kwargs.setdefault('rows', 8)
-        return super(MarkdownEditor, self).__call__(field, **kwargs)
+class SelectPicker(WidgetHelper, widgets.Select):
+    classes = 'selectpicker'
+
+
+class MarkdownEditor(WidgetHelper, widgets.TextArea):
+    classes = 'md'
+    defaults = {'rows': 8}
+
+
+class FormatAutocompleter(WidgetHelper, widgets.TextInput):
+    classes = 'format-completer'
 
 
 class StringField(FieldHelper, fields.StringField):
@@ -91,6 +104,5 @@ class ReuseForm(Form):
 class ResourceForm(Form):
     name = StringField(_('Name'), [validators.required()])
     url = URLField(_('URL'), [validators.required()])
-    format = StringField(_('Format'))
+    format = StringField(_('Format'), widget=FormatAutocompleter())
     description = MarkdownField(_('Description'), [validators.required()])
-    # publish_as = PublishAsField(_('Publish as'))

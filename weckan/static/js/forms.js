@@ -50,6 +50,12 @@
 
             return false;
         });
+
+        // Formats fields
+        $('.format-completer').typeahead({
+            name: 'formats',
+            prefetch: '/format/autocomplete'
+        });
     });
 
 }(window.jQuery, window.Utils, window.ETALAB_VALIDATION_RULES));

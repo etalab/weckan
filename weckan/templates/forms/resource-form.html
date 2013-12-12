@@ -13,37 +13,39 @@
 <section class="default">
     <div class="container">
 
-        <div class="page-header">
-            <h1>{% if new %}{{ _('Add a resource') }}{% else %}{{ _('Edit resource') }}{% endif %}</h1>
-        </div>
-
-        <form class="form-horizontal validation" role="form" method="post">
-
-            {% for field in form %}
-            {{ forms.field(field, owner or user) }}
-            {% endfor %}
-
-            {{ forms.required_disclaimer() }}
-
-            <div class="form-group">
-                <div class="col-sm-offset-2 col-sm-10 text-center">
-                    {% set btn_title = _('Add') if new else _('Save') %}
-                    <button type="submit" class="btn btn-primary" title="{{ btn_title }}">
-                        {{ btn_title }}
-                    </button>
-                    <a href="{{ back_url }}" class="btn btn-warning" title="{{ _('Cancel') }}">
-                        {{ _('Cancel') }}
-                    </a>
-                    {% if not new %}
-                    <button class="btn btn-danger pull-right" title="{{ _('Delete') }}"
-                        data-toggle="modal" data-target="#confirm-delete-modal">
-                        {{ _('Delete') }}
-                    </button>
-                    {% endif %}
-                </div>
+        <div class="row">
+            <div class="page-header col-lg-offset-1 col-lg-10">
+                <h1>{% if new %}{{ _('Add a resource') }}{% else %}{{ _('Edit resource') }}{% endif %}</h1>
             </div>
 
-        </form>
+            <form class="form-horizontal validation col-lg-offset-1 col-lg-10" role="form" method="post">
+
+                {% for field in form %}
+                {{ forms.field(field, owner or user) }}
+                {% endfor %}
+
+                {{ forms.required_disclaimer() }}
+
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10 text-center">
+                        {% set btn_title = _('Add') if new else _('Save') %}
+                        <button type="submit" class="btn btn-primary" title="{{ btn_title }}">
+                            {{ btn_title }}
+                        </button>
+                        <a href="{{ back_url }}" class="btn btn-warning" title="{{ _('Cancel') }}">
+                            {{ _('Cancel') }}
+                        </a>
+                        {% if not new %}
+                        <button class="btn btn-danger pull-right" title="{{ _('Delete') }}"
+                            data-toggle="modal" data-target="#confirm-delete-modal">
+                            {{ _('Delete') }}
+                        </button>
+                        {% endif %}
+                    </div>
+                </div>
+
+            </form>
+        </div>
 
     </div>
 </section>

@@ -36,7 +36,7 @@ from datetime import datetime
 from urllib import urlencode
 
 from biryani1 import strings
-from sqlalchemy.sql import func, and_, or_, distinct
+from sqlalchemy.sql import func, and_, or_, distinct, union
 
 from . import templates, urls, wsgihelpers, conf, contexts, auth, queries
 from .model import Activity, meta, Package, Related, Group, Resource
@@ -665,6 +665,23 @@ def autocomplete_organizations(request):
 
 
 @wsgihelpers.wsgify
+def autocomplete_formats(request):
+    context = contexts.Ctx(request)
+    pattern = '{0}%'.format(request.params.get('q', ''))
+    num = int(request.params.get('num', 0))
+
+    query = DB.query(distinct(func.lower(Resource.format)).label('format'))
+    query = query.filter(Resource.format.ilike(pattern))
+    query = query.order_by('format')
+    if num:
+        query = query.limit(num)
+
+    data = [row[0] for row in query]
+    headers = wsgihelpers.handle_cross_origin_resource_sharing(context)
+    return wsgihelpers.respond_json(context, data, headers=headers)
+
+
+@wsgihelpers.wsgify
 def search_more_organizations(request):
     query = request.params.get('q', '')
     page = int(request.params.get('page', 1))
@@ -850,6 +867,8 @@ def make_router(app):
         ('GET', r'^(/(?P<lang>\w{{2}}))?/groups?/(?!{0}(/|$))(?P<name>[\w_-]+)/?$'.format('|'.join(EXCLUDED_PATTERNS)), display_group),
 
         ('GET', r'^(/(?P<lang>\w{2}))?/unfeature/(?P<reuse>[\w_-]+)/?$', unfeature_reuse),
+
+        ('GET', r'^(/(?P<lang>\w{2}))?/format/autocomplete/?$', autocomplete_formats),
 
         # Override some CKAN URLs
         ('GET', r'^(/(?P<lang>\w{2}))?/user/_?logout/?$', redirect_to_logout),
