@@ -1,0 +1,53 @@
+{% extends "site.html" %}
+{% import "macros/forms.html" as forms %}
+
+{% set title = _('Create an organization') if is_org else _('Create a group') %}
+
+{% block title %}{{title}}{% endblock %}
+
+{% block extra_head %}
+{% assets 'forms-css' %}
+<link rel="stylesheet" media="screen" href="{{ ASSET_URL }}"/>
+{% endassets %}
+{% endblock %}
+
+{% block content %}
+<section class="default form">
+    <div class="container">
+
+        <div class="row">
+            <div class="page-header col-lg-offset-1 col-lg-10">
+                <h1>{{ title }}</h1>
+            </div>
+
+            <form class="form-horizontal validation col-lg-offset-1 col-lg-10" role="form" method="post">
+
+                {% for field in form %}
+                {{ forms.field(field, owner or user) }}
+                {% endfor %}
+
+                {{ forms.required_disclaimer() }}
+
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10 text-center">
+                        <button type="submit" class="btn btn-primary" title="{{ title }}">
+                            {{ _('Create') }}
+                        </button>
+                        <a href="{{ back_url }}" class="btn btn-warning" title="{{ _('Cancel') }}">
+                            {{ _('Cancel') }}
+                        </a>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+
+    </div>
+</section>
+{% endblock %}
+
+{% block javascript %}
+{% assets "forms-js" %}
+<script src="{{ ASSET_URL}}"></script>
+{% endassets %}
+{% endblock %}

@@ -36,13 +36,13 @@ from datetime import datetime
 from urllib import urlencode
 
 from biryani1 import strings
-from sqlalchemy.sql import func, and_, or_, distinct, union
+from sqlalchemy.sql import func, and_, or_, distinct
 
 from . import templates, urls, wsgihelpers, conf, contexts, auth, queries
 from .model import Activity, meta, Package, Related, Group, Resource
 from .model import Role, UserFollowingDataset, UserFollowingGroup, User
 
-from weckan.forms import ReuseForm, ResourceForm
+from weckan.forms import ReuseForm, ResourceForm, GroupCreateForm
 
 from ckanext.etalab.model import CertifiedPublicService
 from ckanext.youckan.models import MembershipRequest, ReuseAsOrganization, CommunityResource
@@ -599,6 +599,42 @@ def delete_community_resource(request):
 
 
 @wsgihelpers.wsgify
+def create_group_or_org(request, is_org):
+    context = contexts.Ctx(request)
+    lang = request.urlvars.get('lang', templates.DEFAULT_LANG)
+    user = auth.get_user_from_request(request)
+    if not user:
+        return wsgihelpers.unauthorized(context)  # redirect to login/register ?
+
+    form = GroupCreateForm(request.POST, i18n=context.translator)
+
+    if request.method == 'POST' and form.validate():
+        name = strings.slugify(form.title.data)
+        ckan_api('organization_create' if is_org else 'group_create', user, {
+            'name': name,
+            'title': form.title.data,
+            'description': form.description.data,
+            'image_url': form.image_url.data,
+        })
+
+        redirect_url = urls.get_url(lang, 'organization' if is_org else 'group', name)
+        return wsgihelpers.redirect(context, location=redirect_url)
+
+    back_url = urls.get_url(lang, 'organizations' if is_org else 'groups')
+    return templates.render_site('forms/group-create-form.html', request, new=True, is_org=is_org, form=form, back_url=back_url)
+
+
+@wsgihelpers.wsgify
+def create_group(request):
+    return create_group_or_org(request, False)
+
+
+@wsgihelpers.wsgify
+def create_organization(request):
+    return create_group_or_org(request, True)
+
+
+@wsgihelpers.wsgify
 def display_search_results(request):
     query = request.params.get('q', '')
 
@@ -847,6 +883,7 @@ def make_router(app):
         ('GET', r'^(/(?P<lang>\w{2}))?/metrics/?$', metrics),
 
         ('GET', r'^(/(?P<lang>\w{2}))?/dataset/?$', search_more_datasets),
+
         ('GET', r'^(/(?P<lang>\w{2}))?/dataset/autocomplete/?$', autocomplete_datasets),
         ('GET', r'^(/(?P<lang>\w{2}))?/dataset/(?P<name>[\w_-]+)/fork/?$', fork_dataset),
         ('GET', r'^(/(?P<lang>\w{2}))?/dataset/(?P<name>[\w_-]+)/reuse/(?P<reuse>[\w_-]+)/featured/?$', toggle_featured),
@@ -860,10 +897,12 @@ def make_router(app):
         (('GET', 'POST'), r'^(/(?P<lang>\w{2}))?/dataset/(?P<name>[\w_-]+)/community/resource/(?P<resource>[\w_-]+)/edit/?$', edit_community_resource),
         ('POST', r'^(/(?P<lang>\w{2}))?/dataset/(?P<name>[\w_-]+)/community/resource/(?P<resource>[\w_-]+)/delete/?$', delete_community_resource),
 
-        ('GET', r'^(/(?P<lang>\w{2}))?/organization/?$', search_more_organizations),
-        ('GET', r'^(/(?P<lang>\w{2}))?/organization/autocomplete/?$', autocomplete_organizations),
-        ('GET', r'^(/(?P<lang>\w{{2}}))?/organization/(?!{0}(/|$))(?P<name>[\w_-]+)/?$'.format('|'.join(EXCLUDED_PATTERNS)), display_organization),
+        ('GET', r'^(/(?P<lang>\w{2}))?/organizations/?$', search_more_organizations),
+        ('GET', r'^(/(?P<lang>\w{2}))?/organizations/autocomplete/?$', autocomplete_organizations),
+        (('GET', 'POST'), r'^(/(?P<lang>\w{2}))?/organization/new/?$', create_organization),
+        ('GET', r'^(/(?P<lang>\w{{2}}))?/organizations/(?!{0}(/|$))(?P<name>[\w_-]+)/?$'.format('|'.join(EXCLUDED_PATTERNS)), display_organization),
 
+        (('GET', 'POST'), r'^(/(?P<lang>\w{2}))?/group/new/?$', create_group),
         ('GET', r'^(/(?P<lang>\w{{2}}))?/groups?/(?!{0}(/|$))(?P<name>[\w_-]+)/?$'.format('|'.join(EXCLUDED_PATTERNS)), display_group),
 
         ('GET', r'^(/(?P<lang>\w{2}))?/unfeature/(?P<reuse>[\w_-]+)/?$', unfeature_reuse),

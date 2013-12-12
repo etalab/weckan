@@ -106,3 +106,9 @@ class ResourceForm(Form):
     url = URLField(_('URL'), [validators.required()])
     format = StringField(_('Format'), widget=FormatAutocompleter())
     description = MarkdownField(_('Description'), [validators.required()])
+
+
+class GroupCreateForm(Form):
+    title = StringField(_('Title'), [validators.required()])
+    description = MarkdownField(_('Description'), [validators.required()])
+    image_url = URLField(_('Image URL'), [validators.required()])
