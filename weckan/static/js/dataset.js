@@ -70,7 +70,7 @@
         });
 
         $('.resources-list div.list-group-item').click(function(e) {
-            if (!$(e.target).is('.glyphicon')) {
+            if (!$(e.target).parents('.tools, .resource-owner').length) {
                 if ($(this).data('format') == 'html') {
                     window.open($(this).data('url'));
                 } else {

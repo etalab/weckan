@@ -99,12 +99,12 @@ def avatar(user, size=100):
     return Markup('<img src="{0}" class="gravatar" width="{1}" height="{1}"/>'.format(url, size))
 
 
-def publisher(reuse, size=100):
+def publisher(reuse, size=100, **kwargs):
     from weckan.model import User
     from ckanext.youckan.models import ReuseAsOrganization
     user = User.get(reuse.owner_id)
     organization = ReuseAsOrganization.get_org(reuse)
-    return publisher_avatar(user, organization, size)
+    return publisher_avatar(user, organization, size, **kwargs)
 
 
 def publisher_small(reuse, size=100, lang=DEFAULT_LANG):
@@ -129,7 +129,7 @@ def publisher_small(reuse, size=100, lang=DEFAULT_LANG):
         return Markup(markup.format(url=user_url, avatar=avatar(user, size), title=user.fullname))
 
 
-def publisher_avatar(user, organization, size=100):
+def publisher_avatar(user, organization, size=100, **kwargs):
     user_url = '{0}/u/{1}'.format(conf['sso_url'], user.name)
     user_html = (
         '<a class="{clazz}" href="{url}" title="{display}">'
@@ -150,10 +150,13 @@ def publisher_avatar(user, organization, size=100):
         ])
     else:
         content = user_html.format(clazz='', display=user.fullname, url=user_url, size=size)
+
+    classes = [] if kwargs.get('overwrite') else ['publisher-avatar-{0}'.format(size)]
+    classes.extend([cls for cls in kwargs.get('classes', '').split()])
     return Markup(
-        '<div class="publisher-avatar-{size}">'
+        '<div class="{classes}">'
         '<div class="frame">{content}</div>'
-        '</div>'.format(size=size, content=content)
+        '</div>'.format(classes=' '.join(classes), content=content)
     )
 
 
