@@ -107,12 +107,10 @@
                             {% set resource_name = resource.name or resource.description or _('Nameless resource') %}
                             {% set resource_format = resource.format|trim|lower or 'data' %}
 
-                            {% if loop.index == 4 %}
-                            <div id="all-resources" class="collapse">
-                            {% endif %}
+                            {% if loop.index == 4 %}<div id="all-resources" class="collapse">{% endif %}
 
-                            <a class="list-group-item" href="{{ resource.url }}"
-                                {% if resource_format == 'html' %}target="_blank"{% endif %}
+                            <div class="list-group-item"
+                                data-url="{{ resource.url }}" data-format="{{ resource_format }}"
                                 rel="popover" data-trigger="hover" data-placement="top"
                                 {% if resource.description %}
                                 title="{{ resource_name }} [{{ resource_format }}]"
@@ -134,11 +132,28 @@
                                 {{ markdown_extract(resource.description) }}
                                 </p>
                                 {% endif %}
-                            </a>
+                                {% if can_edit %}
+                                <div class="btn-group btn-group-xs tools">
+                                    <a class="btn btn-default" rel="tooltip" title="{{ _('Edit') }}"
+                                        href="{{ url(lang, 'dataset', dataset.name, 'resource_edit', resource.id) }}">
+                                        <span class="glyphicon glyphicon-edit"></span>
+                                    </a>
+                                </div>
+                                {% endif %}
+                            </div>
                         {% endfor %}
 
+                        {% if loop.index0 >= 4 %}</div>{% endif %}
+                        {% if can_edit %}
+                        <a class="list-group-item add"
+                            href="{{ url(lang, 'dataset/new_resource', dataset.name) }}">
+                            <div class="format-label pull-left">+</div>
+                            <h4 class="list-group-item-heading">
+                                {{ _('Add a resource') }}
+                            </h4>
+                        </a>
+                        {% endif %}
                         {% if loop.index0 >= 4 %}
-                        </div>
                         <p class="text-center">
                             <button id="more-resources" type="button" class="btn btn-default">
                                 <span class="glyphicon glyphicon-list" ></span>
