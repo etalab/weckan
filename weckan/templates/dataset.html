@@ -142,7 +142,7 @@
                         <p class="text-center">
                             <button id="more-resources" type="button" class="btn btn-default">
                                 <span class="glyphicon glyphicon-list" ></span>
-                                {{ _('See all resources') }}
+                                {% trans count=loop.index0 %}See the {{ count }} resources{% endtrans %}
                             </button>
                         </p>
                         {% endif %}

@@ -12,8 +12,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: weckan\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2013-12-12 16:53+0100\n"
-"PO-Revision-Date: 2013-12-12 15:54+0000\n"
+"POT-Creation-Date: 2013-12-12 17:01+0100\n"
+"PO-Revision-Date: 2013-12-12 16:02+0000\n"
 "Last-Translator: noirbizarre\n"
 "Language-Team: French (http://www.transifex.com/projects/p/weckan/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -269,8 +269,9 @@ msgid "Nameless resource"
 msgstr "Ressource sans nom"
 
 #: weckan/templates/dataset.html:145
-msgid "See all resources"
-msgstr "Voir toutes les ressources"
+#, python-format
+msgid "See the %(count)s resources"
+msgstr "Voir les %(count)s ressources"
 
 #: weckan/templates/dataset.html:150
 msgid "No resources"

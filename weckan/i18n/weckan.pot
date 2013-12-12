@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Weckan 0.2.0.dev\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2013-12-12 16:53+0100\n"
+"POT-Creation-Date: 2013-12-12 17:01+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -262,7 +262,8 @@ msgid "Nameless resource"
 msgstr ""
 
 #: weckan/templates/dataset.html:145
-msgid "See all resources"
+#, python-format
+msgid "See the %(count)s resources"
 msgstr ""
 
 #: weckan/templates/dataset.html:150
