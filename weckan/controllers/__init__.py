@@ -53,7 +53,7 @@ def search_results(request):
         workers = [
             executor.submit(dataset.search, query, request),
             executor.submit(organization.search, query),
-            executor.submit(wiki.searck, query),
+            executor.submit(wiki.search, query),
         ]
 
     results = dict(worker.result() for worker in futures.as_completed(workers))
