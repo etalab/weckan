@@ -33,7 +33,7 @@ def fetch(kind, code):
 def get_cookie(request):
     if request.cookies.get('territory-infos', '').count('|') == 1:
         territory_key, _ = request.cookies.get('territory-infos').split('|')
-        territory = get(*territory_key.split('/')) if territory_key else {}
+        territory = fetch(*territory_key.split('/')) if territory_key else {}
     else:
         territory = {}
 
