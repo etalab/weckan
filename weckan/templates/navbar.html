@@ -34,11 +34,26 @@
             </ul>
 
             <ul class="nav navbar-nav navbar-right">
+                <li class="dropdown language">
+                    <button class="btn btn-link dropdown-toggle" data-toggle="dropdown">
+                        <img src="/img/flags/{{lang}}.png" alt="Current locale flag" />
+                    </button>
+                    <ul class="dropdown-menu">
+                        {% for code, name in languages.items() %}
+                        <li>
+                            <a href="{{ url(code) }}{{ current_base_location|safe }}">
+                                <img src="/img/flags/{{code}}.png" alt="{{name}} flag" />
+                                {{name}}
+                            </a>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </li>
                 {% if user %}
-                <li class="dropdown user">
+                <li class="dropdown user login">
                     <button class="btn-link dropdown-toggle" data-toggle="dropdown">
-                        {{ avatar(user, 30)}}
                         <span class="username">{{ user.display_name }}</span>
+                        {{ avatar(user, 30)}}
                     </button>
                     <ul class="dropdown-menu">
                         <li>
@@ -69,7 +84,7 @@
                     </ul>
                 </li>
                 {% else %}
-                <li>
+                <li class="login">
                     <a id="sso-link"
                         title="{% trans %}Sign In / Register{% endtrans %}"
                         href="{{ sso('login') }}?next={{ full_url|safe }}">
@@ -78,30 +93,6 @@
                     </a>
                 </li>
                 {% endif %}
-                {%- set has_ckan = has_ckan|default(True) -%}
-                {# {% if user and has_ckan %}
-                <li>
-                    <a class="btn btn-link" title="{% trans %}Advanced mode{% endtrans %}"
-                        href="{{ CKAN_URL|safe }}{{ current_location|safe }}">
-                        <span class="icon icon-factory"></span>
-                    </a>
-                </li>
-                {% endif %} #}
-                <li class="dropdown language">
-                    <button class="btn btn-link dropdown-toggle" data-toggle="dropdown">
-                        <img src="/img/flags/{{lang}}.png" alt="Current locale flag" />
-                    </button>
-                    <ul class="dropdown-menu">
-                        {% for code, name in languages.items() %}
-                        <li>
-                            <a href="{{ url(code) }}{{ current_base_location|safe }}">
-                                <img src="/img/flags/{{code}}.png" alt="{{name}} flag" />
-                                {{name}}
-                            </a>
-                        </li>
-                        {% endfor %}
-                    </ul>
-                </li>
             </ul>
         </nav>
     </div>

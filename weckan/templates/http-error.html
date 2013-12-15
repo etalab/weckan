@@ -3,9 +3,10 @@
 {% block title %}{{title}}{% endblock %}
 
 {% block content %}
-<section class="default">
+<section class="error">
+    <div class="animation"></div>
     <div class="container">
-        <div class="row">
+        <div class="jumbotron">
             <h2>{{title}}</h2>
             <p>{{explanation}}</p>
             {% if comment %}<p>{{comment}}</p>{% endif %}
@@ -14,4 +15,10 @@
         </div>
     </div>
 </section>
+{% endblock %}
+
+{% block javascript %}
+{% assets "animation-js" %}
+<script src="{{ ASSET_URL}}"></script>
+{% endassets %}
 {% endblock %}
