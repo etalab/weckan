@@ -23,7 +23,7 @@ def new_translator(languages=None):
         return translations
 
     for name, path in EXTRA_TRANSLATIONS:
-        translations.add(Translations.load(path, lang, name))
+        translations.merge(Translations.load(path, lang, name))
 
     return translations
 
