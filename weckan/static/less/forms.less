@@ -1,16 +1,48 @@
+// @import "variables.less";
+@import "etalab/variables.less";
 @import "bootstrap-markdown.less";
 @import "bower/bootstrap-select/bootstrap-select.css";
-@import "etalab/variables.less";
+@import "bower/tagmanager/tagmanager.css";
+
 
 section.form {
     .page-header {
-        margin-top: 10px;
+        // margin-top: 10px;
         margin-bottom: 10px;
 
-        h1 {
+        h1, h2, h3 {
             margin-top: 0;
+            > a {
+                color: black;
+                // text-decoration: none;
+
+                // &:active, &:focus, &:hover {
+
+                // }
+            }
+
         }
     }
+
+    .side-card {
+        position: relative;
+
+        .certified {
+            position: absolute;
+            top: -20px;
+            left: -20px;
+        }
+
+        .caption {
+            max-height: 350px;
+        }
+    }
+
+    form > .row {
+        margin-bottom: 10px;
+    }
+
+
 }
 
 .publisher-card {

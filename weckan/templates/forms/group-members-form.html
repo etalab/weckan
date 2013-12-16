@@ -5,20 +5,50 @@
 {% set active_tab = 'members' %}
 
 {% block formcontent %}
-<table class="table table-stripped col-lg-offset-1 col-lg-10">
+<table class="table table-stripped">
     <thead>
         <tr>
-            <td width="40px"><span class="glyphicon glyphicon-user"></span></td>
+            <td width="40px" class="text-center">
+                <span class="glyphicon glyphicon-user"></span>
+            </td>
             <td>{{ _('Name') }}</td>
             <td>{{ _('Role') }}</td>
         </tr>
     </thead>
-    {% for member in members %}
+    {% for member, user in members %}
     <tr>
-        <td>{{ avatar(member, 30) }}</td>
-        <td>{{ mamber.fullname }}</td>
-        <td></td>
+        <td class="text-center">
+            <a class="avatar" href="{{ sso('user', user.name) }}"
+                title="{{ user.display_name }}">
+                {{ avatar(user, 30) }}
+            </a>
+        </td>
+        <td>
+            <a class="avatar" href="{{ sso('user', user.name) }}"
+                title="{{ user.display_name }}">
+                {{ user.fullname }}
+            </a>
+        </td>
+        <td>
+            <a class="member-role" data-type="select" href
+                data-pk="{{ user.id }}" data-title ="{{ _('Role') }}" data-value="{{member.capacity}}">
+                {{ roles[member.capacity] }}
+            </a>
+        </td>
     </tr>
     {% endfor %}
 </table>
+{% endblock %}
+
+{% block hiddens %}
+<meta name="role-admin-i18n" content="{{ roles['admin'] }}">
+<meta name="role-editor-i18n" content="{{ roles['editor'] }}">
+<meta name="role-member-i18n" content="{{ roles['member'] }}">
+{% endblock %}
+
+{% block javascript %}
+{{ super() }}
+{% assets "group-members-js" %}
+<script src="{{ ASSET_URL}}"></script>
+{% endassets %}
 {% endblock %}

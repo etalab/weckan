@@ -5,13 +5,17 @@ import logging
 import math
 import requests
 
+from biryani1 import strings
 from datetime import datetime
 from urllib import urlencode
 
 from sqlalchemy.sql import func
 
+
 from weckan import templates, urls, wsgihelpers, conf, contexts, auth, queries, territories
+from weckan.forms import DatasetForm, DatasetExtrasForm
 from weckan.model import Activity, meta, Package, Group, UserFollowingDataset, UserFollowingGroup
+from weckan.tools import ckan_api
 
 
 DB = meta.Session
@@ -286,9 +290,90 @@ def fork(request):
     return wsgihelpers.redirect(context, location=fork_url)
 
 
+@wsgihelpers.wsgify
+def create(request):
+    context = contexts.Ctx(request)
+    lang = request.urlvars.get('lang', templates.DEFAULT_LANG)
+    user = auth.get_user_from_request(request)
+    if not user:
+        return wsgihelpers.unauthorized(context)  # redirect to login/register ?
+
+    form = DatasetForm(request.POST, i18n=context.translator)
+
+    if request.method == 'POST' and form.validate():
+        name = strings.slugify(form.title.data)
+        ckan_api('package_create', user, {
+            'name': name,
+            'title': form.title.data,
+            'notes': form.notes.data,
+        })
+
+        redirect_url = urls.get_url(lang, 'dataset', name, 'resource')
+        return wsgihelpers.redirect(context, location=redirect_url)
+
+    back_url = urls.get_url(lang)
+    return templates.render_site('forms/dataset-create-form.html', request, form=form, back_url=back_url)
+
+
+@wsgihelpers.wsgify
+def edit(request):
+    context = contexts.Ctx(request)
+    lang = request.urlvars.get('lang', templates.DEFAULT_LANG)
+    user = auth.get_user_from_request(request)
+    if not user:
+        return wsgihelpers.unauthorized(context)  # redirect to login/register ?
+
+    dataset_name = request.urlvars.get('name')
+    dataset = Package.by_name(dataset_name)
+    form = DatasetForm(request.POST, dataset, i18n=context.translator)
+
+    if request.method == 'POST' and form.validate():
+        name = strings.slugify(form.title.data)
+        ckan_api('package_update', user, {
+            'id': dataset.id,
+            'name': name,
+            'title': form.title.data,
+            'notes': form.notes.data,
+        })
+
+        redirect_url = urls.get_url(lang, 'dataset', name)
+        return wsgihelpers.redirect(context, location=redirect_url)
+
+    back_url = urls.get_url(lang, 'dataset', dataset.name)
+    return templates.render_site('forms/dataset-edit-form.html', request, dataset=dataset, form=form, back_url=back_url)
+
+
+@wsgihelpers.wsgify
+def extras(request):
+    context = contexts.Ctx(request)
+    lang = request.urlvars.get('lang', templates.DEFAULT_LANG)
+    user = auth.get_user_from_request(request)
+    if not user:
+        return wsgihelpers.unauthorized(context)  # redirect to login/register ?
+
+    dataset_name = request.urlvars.get('name')
+    dataset = Package.by_name(dataset_name)
+    form = DatasetExtrasForm(request.POST, dataset, i18n=context.translator)
+
+    if request.method == 'POST' and form.validate():
+        ckan_api('package_update', user, {
+            'id': dataset.id,
+            'extras': form.extras.data,
+        })
+
+        redirect_url = urls.get_url(lang, 'dataset', dataset.name)
+        return wsgihelpers.redirect(context, location=redirect_url)
+
+    back_url = urls.get_url(lang, 'dataset', dataset.name)
+    return templates.render_site('forms/dataset-extras-form.html', request, dataset=dataset, form=form, back_url=back_url)
+
+
 routes = (
     ('GET', r'^(/(?P<lang>\w{2}))?/dataset/?$', search_more),
     ('GET', r'^(/(?P<lang>\w{2}))?/dataset/autocomplete/?$', autocomplete),
+    (('GET','POST'), r'^(/(?P<lang>\w{2}))?/dataset/new/?$', create),
+    (('GET','POST'), r'^(/(?P<lang>\w{2}))?/dataset/edit/(?P<name>[\w_-]+)/?$', edit),
+    (('GET','POST'), r'^(/(?P<lang>\w{2}))?/dataset/extras/(?P<name>[\w_-]+)/?$', extras),
     ('GET', r'^(/(?P<lang>\w{2}))?/dataset/(?P<name>[\w_-]+)/fork/?$', fork),
     ('GET', r'^(/(?P<lang>\w{{2}}))?/dataset/(?!{0}(/|$))(?P<name>[\w_-]+)/?$'.format('|'.join(EXCLUDED_PATTERNS)), display),
 )

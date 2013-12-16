@@ -17,13 +17,13 @@
 
         <div class="row animover">
             {% if group %}
-            <div class="card text-center col-sm-4 col-md-3 col-lg-2">
+            <div class="card side-card text-center col-sm-4 col-md-3 col-lg-2">
                 {% if group.certified_public_service %}
                 <img src="{{static('/img/certified-stamp.png')}}" alt="certified"
                     class="certified" rel="popover"
                     data-title="{% trans %}Certified public service{% endtrans %}"
                     data-content="{% trans %}The identity of this public service public is certified by Etalab{% endtrans %}"
-                    data-container="body" data-placement="left" data-trigger="hover"/>
+                    data-container="body" data-trigger="hover"/>
                 {% endif %}
                 <a href="{{ group_base_url }}/{{ group.name }}"
                     title="{{ group.title }}">
@@ -31,14 +31,15 @@
                         alt="{{ group.title }}" class="img-responsive" />
                 </a>
                 <h3>{{ group.title }}</h3>
-                <div class="caption text-left">
+                <div class="caption text-left ellipsis-dot">
                     {{ markdown(group.description) }}
                 </div>
             </div>
             <div class="col-sm-8 col-md-9 col-lg-10">
-                <ul class="nav nav-pills col-xs-12  col-lg-offset-1 col-lg-10">
+                <ul class="nav nav-pills">
                     {% for tab, label, form_url in (
                         ('description', _('Description'), 'edit'),
+                        ('extras', _('Additional informations'), 'extras'),
                         ('members', _('Members'), 'members'),
                         ('requests', _('Membership requests'), 'requests'),
                     ) %}
@@ -48,13 +49,13 @@
                     {% endfor %}
                 </ul>
             {% else %}
-            <div class="page-header col-lg-offset-1 col-lg-10">
+            <div class="page-header">
                 <h1>{{ title }}</h1>
             </div>
             {% endif %}
 
             {% block formcontent %}
-            <form class="form-horizontal validation col-lg-offset-1 col-lg-10" role="form" method="post">
+            <form class="form-horizontal validation" role="form" method="post">
 
                 {% for field in form %}
                 {{ forms.field(field, owner or user) }}

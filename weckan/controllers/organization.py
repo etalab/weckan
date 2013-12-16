@@ -27,9 +27,7 @@ EXCLUDED_PATTERNS = (
     'activity',
     'delete',
     'follow',
-    'new',
     'new_metadata',
-    'new_resource',
 )
 
 
@@ -78,7 +76,7 @@ def search_more(request):
         search_query=query,
         url_pattern=get_page_url_pattern(request),
         organizations=results
-        )
+    )
 
 
 @wsgihelpers.wsgify
@@ -150,7 +148,17 @@ def edit(request):
 
 @wsgihelpers.wsgify
 def members(request):
-    return group.group_or_org_members(request, False)
+    return group.group_or_org_members(request, True)
+
+
+@wsgihelpers.wsgify
+def extras(request):
+    return group.group_or_org_extras(request, True)
+
+
+@wsgihelpers.wsgify
+def membership_requests(request):
+    return group.group_or_org_membership_requests(request, True)
 
 
 @wsgihelpers.wsgify
@@ -176,6 +184,8 @@ routes = (
     ('GET', r'^(/(?P<lang>\w{2}))?/organizations?/autocomplete/?$', autocomplete),
     (('GET', 'POST'), r'^(/(?P<lang>\w{2}))?/organization/new/?$', create),
     (('GET', 'POST'), r'^(/(?P<lang>\w{2}))?/organization/edit/(?P<name>[\w_-]+)/?$', edit),
+    (('GET', 'POST'), r'^(/(?P<lang>\w{2}))?/organization/extras/(?P<name>[\w_-]+)/?$', extras),
     (('GET', 'POST'), r'^(/(?P<lang>\w{2}))?/organization/members/(?P<name>[\w_-]+)/?$', members),
+    ('GET', r'^(/(?P<lang>\w{2}))?/organization/requests/(?P<name>[\w_-]+)/?$', membership_requests),
     ('GET', r'^(/(?P<lang>\w{{2}}))?/organization/(?!{0}(/|$))(?P<name>[\w_-]+)/?$'.format('|'.join(EXCLUDED_PATTERNS)), display),
 )

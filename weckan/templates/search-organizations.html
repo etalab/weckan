@@ -12,6 +12,7 @@
         {% if organizations.results %}
         {% set start = ((organizations.page - 1) * organizations.page_size) + 1 %}
         {% set end = start - 1 + organizations.results|length %}
+        {% endif %}
         <div class="page-header">
             <a class="btn btn-sm btn-primary pull-right" href="{{ url(lang, 'organization/new') }}"
                 title="{{ _('Add a new organization') }}"
@@ -22,15 +23,25 @@
             </a>
             <h1>
                 {% trans %}Organizations search{% endtrans %}
+                {% if organizations.results %}
                 <small>{% trans total=organizations.total %}results {{start}} to {{end}} of {{total}}{% endtrans %}</small>
+                {% endif %}
             </h1>
         </div>
+        {% if organizations.results %}
         <ul class="search-results">
             {% for organization, nb_datasets, nb_members in organizations.results %}
             {% include "widgets/organization-search-result.html" %}
             {% endfor %}
         </ul>
+        {% else %}
+        <div class="lead text-center">
+            <p>{{ _('No organization found.') }}</p>
+            <p>{{ _('Your organization does not exists ? Create it !') }}</p>
+        </div>
+        {% endif %}
 
+        {% if organizations.results %}
         {{ paginator(organizations.page, organizations.total_pages, url_pattern) }}
         {% endif %}
 

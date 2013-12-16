@@ -1,5 +1,24 @@
-{% extends "site.html" %}
+{% extends "forms/group-base-form.html" %}
 {% import "macros/forms.html" as forms %}
 
-{% set title = _('Acciditional informations') %}
+{% set title = _('Additional informations') %}
 {% set active_tab = 'extras' %}
+
+{% block formcontent %}
+ <form class="form-horizontal validation" role="form" method="post">
+
+    {{ forms.key_values(form.extras, owner or user) }}
+
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10 text-center">
+            <button type="submit" class="btn btn-primary" title="{{ title }}">
+                {{ _('Save') }}
+            </button>
+            <a href="{{ back_url }}" class="btn btn-warning" title="{{ _('Cancel') }}">
+                {{ _('Cancel') }}
+            </a>
+        </div>
+    </div>
+
+</form>
+ {% endblock %}

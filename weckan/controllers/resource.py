@@ -92,7 +92,6 @@ def delete_community(request):
     return wsgihelpers.redirect(context, location=dataset_url)
 
 
-
 @wsgihelpers.wsgify
 def create(request):
     context = contexts.Ctx(request)

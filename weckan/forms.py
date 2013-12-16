@@ -79,6 +79,10 @@ class FormatAutocompleter(WidgetHelper, widgets.TextInput):
     classes = 'format-completer'
 
 
+class TerritoryAutocompleter(WidgetHelper, widgets.TextInput):
+    classes = 'territory-completer'
+
+
 class KeyValueWidget(WidgetHelper, widgets.TextInput):
     pass
 
@@ -102,7 +106,7 @@ class SelectField(FieldHelper, fields.SelectField):
 
     def iter_choices(self):
         for value, label, selected in super(SelectField, self).iter_choices():
-            yield (value, self._translations.ugettext(label), selected)
+            yield (value, self._translations.ugettext(label) if label else '', selected)
 
 
 class MarkdownField(FieldHelper, fields.TextAreaField):
@@ -117,11 +121,9 @@ class PublishAsField(FieldHelper, Field):
         self.data = value.id if isinstance(value, model.Group) else value
 
     def populate_obj(self, obj, name):
-        if not self.data:
-            setattr(obj, name, None)
         fkey = '{0}_id'.format(name)
         if hasattr(obj, fkey):
-            setattr(obj, fkey, self.data)
+            setattr(obj, fkey, self.data or None)
         else:
             setattr(obj, name, model.Group.get(self.data))
 
@@ -204,16 +206,64 @@ class CommunityResourceForm(Form):
     publish_as = PublishAsField(_('Publish as'))
 
 
-class GroupForm(Form):
+class DatasetForm(Form):
     title = StringField(_('Title'), [validators.required()])
-    description = MarkdownField(_('Description'), [validators.required()])
-    image_url = URLField(_('Image URL'), [validators.required()])
+    notes = MarkdownField(_('Description'), [validators.required()])
+    owner = PublishAsField(_('Publish as'))
+    private = RadioField(_('Visibility'), [validators.required()], choices=(
+        (True, _('Private')),
+        (False, _('Public')),
+    ))
+    territorial_coverage = StringField(_('Territorial coverage'), widget=TerritoryAutocompleter())
+    territorial_coverage_granularity = SelectField(_('Territorial coverage granularity'),
+        # description=_('Dataset update periodicity'),
+        choices=(
+            ('', ''),
+            ('poi', "Point d'intérêt"),
+            ('iris', 'Iris (quartier Insee)'),
+            ('commune', 'Commune'),
+            ('canton', 'Canton'),
+            ('epci', 'Intercommunalité (EPCI)'),
+            ('department', 'Département'),
+            ('region', 'Région'),
+            ('pays', 'Pays'),
+            ('other', "Autre"),
+        )
+    )
 
+    frequency = SelectField(_('Frequency'),
+        description=_('Dataset update periodicity'),
+        choices=(
+            ('', ''),
+            ('aucune', 'Aucune'),
+            ('ponctuelle', 'Ponctuelle'),
+            ('temps réel', "Temps réel"),
+            ('quotidienne', 'Quotidienne'),
+            ('hebdomadaire', 'Hebdomadaire'),
+            ('bimensuelle', 'Bimensuelle'),
+            ('mensuelle', 'Mensuelle'),
+            ('bimestrielle', 'Bimestrielle'),
+            ('trimestrielle', 'Trimestrielle'),
+            ('semestrielle', 'Semestrielle'),
+            ('annuelle', 'Annuelle'),
+            ("triennale", "Triennale"),
+            ("quinquennale", "Quinquennale"),
 
-class GroupExtrasForm(Form):
+            # ('aucune': 'Aucune'),
+            # ('ponctuelle': 'Ponctuelle'),
+            # ('temps réel': "Temps réel"),
+            # ('quotidienne': 'Quotidienne'),
+            # ('hebdomadaire': 'Hebdomadaire'),
+            # ('bimensuelle': 'Bimensuelle'),
+            # ('mensuelle': 'Mensuelle'),
+            # ('bimestrielle': 'Bimestrielle'),
+            # ('trimestrielle': 'Trimestrielle'),
+            # ('semestrielle': 'Semestrielle'),
+            # ('annuelle': 'Annuelle'),
+            # ("triennale": "Triennale"),
+            # ("quinquennale": "Quinquennale"),
+        )
+    )
+
+class DatasetExtrasForm(Form):
     extras = KeyValueField(_('Additional data'))
-
-
-class MembersForm(Form):
-    pass
-

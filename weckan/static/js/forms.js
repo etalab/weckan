@@ -1,13 +1,13 @@
 /**
  * Forms specific features
  */
-(function($, Utils, VALIDATION_RULES){
+(function($, Utils, Config){
 
     "use strict";
 
     $(function() {
         // jQuery validate
-        $('form.validation').validate(VALIDATION_RULES);
+        $('form.validation').validate(Config.rules);
 
         // Bootstrap select
         $('.selectpicker').selectpicker();
@@ -56,6 +56,20 @@
             name: 'formats',
             prefetch: '/format/autocomplete'
         });
+
+        // Territory fields
+        $('.territory-completer').each(function() {
+            $(this).typeahead(Config.typeahead.territories)
+            .tagsManager({
+                tagsContainer: $(this).closest('div'),
+                replace: true,
+            })
+            .on('typeahead:selected', function (e, data) {
+                console.log(data, this);
+                $(this).tagsManager("pushTag", data.main_postal_distribution);
+            })
+        });
+        ;
     });
 
-}(window.jQuery, window.Utils, window.ETALAB_VALIDATION_RULES));
+}(window.jQuery, window.Utils, window.EtalabConfig));

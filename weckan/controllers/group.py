@@ -7,13 +7,14 @@ from urllib import urlencode
 
 from biryani1 import strings
 
-from weckan import templates, urls, wsgihelpers, contexts, auth
-from weckan.model import meta, Group
+from ckanext.youckan.models import MembershipRequest
+
+from weckan import templates, urls, wsgihelpers, contexts, auth, forms
+from weckan.model import meta, Group, Member, User
 from weckan.tools import ckan_api
 from weckan.controllers import dataset
-from weckan.forms import GroupForm, MembersForm
 
-
+_ = lambda s: s
 DB = meta.Session
 log = logging.getLogger(__name__)
 
@@ -22,11 +23,25 @@ SEARCH_PAGE_SIZE = 20
 EXCLUDED_PATTERNS = (
     'activity',
     'delete',
-    'edit',
+    # 'edit',
     'follow',
     'new_metadata',
-    'new_resource',
 )
+
+
+class GroupForm(forms.Form):
+    title = forms.StringField(_('Title'), [forms.validators.required()])
+    description = forms.MarkdownField(_('Description'), [forms.validators.required()])
+    image_url = forms.URLField(_('Image URL'), [forms.validators.required()])
+
+
+class GroupExtrasForm(forms.Form):
+    extras = forms.KeyValueField(_('Additional data'))
+
+
+class GroupRoleForm(forms.Form):
+    pk = forms.StringField(validators=[forms.validators.required()])
+    value = forms.StringField(validators=[forms.validators.required()])
 
 
 def get_page_url_pattern(request):
@@ -92,7 +107,7 @@ def edit_group_or_org(request, is_org):
         return wsgihelpers.redirect(context, location=redirect_url)
 
     group_base_url = urls.get_url(lang, 'organization' if is_org else 'group')
-    back_url = urls.get_url(group, group.name)
+    back_url = urls.get_url(lang, 'group', group.name)
     return templates.render_site('forms/group-edit-form.html', request,
         is_new=False, is_org=is_org, form=form, group_base_url=group_base_url, back_url=back_url, group=group)
 
@@ -106,25 +121,21 @@ def group_or_org_extras(request, is_org):
 
     group_name = request.urlvars.get('name')
     group = Group.by_name(group_name)
-    form = GroupForm(request.POST, group, i18n=context.translator)
+    form = GroupExtrasForm(request.POST, group, i18n=context.translator)
 
     if request.method == 'POST' and form.validate():
-        name = strings.slugify(form.title.data)
         ckan_api('organization_update' if is_org else 'group_update', user, {
             'id': group.id,
-            'name': name,
-            'title': form.title.data,
-            'description': form.description.data,
-            'image_url': form.image_url.data,
+            'extras': form.extras.data,
         })
 
-        redirect_url = urls.get_url(lang, 'organization' if is_org else 'group', name)
+        redirect_url = urls.get_url(lang, 'organization' if is_org else 'group', group.name)
         return wsgihelpers.redirect(context, location=redirect_url)
 
     group_base_url = urls.get_url(lang, 'organization' if is_org else 'group')
-    back_url = urls.get_url(group, group.name)
+    back_url = urls.get_url(lang, 'group', group.name)
     return templates.render_site('forms/group-extras-form.html', request,
-        is_new=False, is_org=is_org, form=form, group_base_url=group_base_url, back_url=back_url, group=group)
+        is_org=is_org, form=form, group_base_url=group_base_url, back_url=back_url, group=group)
 
 
 def group_or_org_members(request, is_org):
@@ -136,27 +147,55 @@ def group_or_org_members(request, is_org):
 
     group_name = request.urlvars.get('name')
     group = Group.by_name(group_name)
-    form = GroupForm(request.POST, group, i18n=context.translator)
 
-    if request.method == 'POST' and form.validate():
-        name = strings.slugify(form.title.data)
-        ckan_api('organization_update' if is_org else 'group_update', user, {
-            'id': group.id,
-            'name': name,
-            'title': form.title.data,
-            'description': form.description.data,
-            'image_url': form.image_url.data,
-        })
+    if request.method == 'POST':
+        form = GroupRoleForm(request.POST)
+        headers = wsgihelpers.handle_cross_origin_resource_sharing(context)
+        if form.validate():
+            data = ckan_api('member_create', user, {
+                'id': group.id,
+                'object': form.pk.data,
+                'object_type': 'user',
+                'capacity': form.value.data,
+            })
+            if data['success']:
+                return wsgihelpers.respond_json(context, {}, headers=headers, code=200)
+        return wsgihelpers.respond_json(context, {}, headers=headers, code=400)
 
-        redirect_url = urls.get_url(lang, 'organization' if is_org else 'group', name)
-        return wsgihelpers.redirect(context, location=redirect_url)
+    members = DB.query(Member, User).filter(
+        Member.group == group,
+        Member.state == 'active',
+        Member.table_id == User.id,
+        Member.table_name == 'user',
+    )
+
+    roles = {
+        'admin': context._('Administrator'),
+        'editor': context._('Editor'),
+        'member': context._('Member'),
+    }
 
     group_base_url = urls.get_url(lang, 'organization' if is_org else 'group')
     back_url = urls.get_url(group, group.name)
     return templates.render_site('forms/group-members-form.html', request,
-        is_new=False, is_org=is_org, form=form, group_base_url=group_base_url, back_url=back_url, group=group)
+        is_org=is_org, members=members, group_base_url=group_base_url, back_url=back_url, group=group, roles=roles)
 
 
+def group_or_org_membership_requests(request, is_org):
+    context = contexts.Ctx(request)
+    lang = request.urlvars.get('lang', templates.DEFAULT_LANG)
+    user = auth.get_user_from_request(request)
+    if not user:
+        return wsgihelpers.unauthorized(context)  # redirect to login/register ?
+
+    group_name = request.urlvars.get('name')
+    group = Group.by_name(group_name)
+    pending_requests = MembershipRequest.pending_for(group)
+
+    group_base_url = urls.get_url(lang, 'organization' if is_org else 'group')
+    back_url = urls.get_url(group, group.name)
+    return templates.render_site('forms/group-membership-requests-form.html', request,
+        is_org=is_org, pending_requests=pending_requests, group_base_url=group_base_url, back_url=back_url, group=group)
 
 
 @wsgihelpers.wsgify
@@ -180,8 +219,13 @@ def datasets(request):
 
 
 @wsgihelpers.wsgify
+def extras(request):
+    return group_or_org_extras(request, False)
+
+
+@wsgihelpers.wsgify
 def membership_requests(request):
-    return edit_group_or_org(request, False)
+    return group_or_org_membership_requests(request, False)
 
 
 @wsgihelpers.wsgify
@@ -202,7 +246,8 @@ def display(request):
 routes = (
     (('GET', 'POST'), r'^(/(?P<lang>\w{2}))?/group/new/?$', create),
     (('GET', 'POST'), r'^(/(?P<lang>\w{2}))?/group/edit/(?P<name>[\w_-]+)/?$', edit),
+    (('GET', 'POST'), r'^(/(?P<lang>\w{2}))?/group/extras/(?P<name>[\w_-]+)/?$', extras),
     (('GET', 'POST'), r'^(/(?P<lang>\w{2}))?/group/members/(?P<name>[\w_-]+)/?$', members),
-    (('GET', 'POST'), r'^(/(?P<lang>\w{2}))?/group/requests/(?P<name>[\w_-]+)/?$', membership_requests),
+    ('GET', r'^(/(?P<lang>\w{2}))?/group/requests/(?P<name>[\w_-]+)/?$', membership_requests),
     ('GET', r'^(/(?P<lang>\w{{2}}))?/groups?/(?!{0}(/|$))(?P<name>[\w_-]+)/?$'.format('|'.join(EXCLUDED_PATTERNS)), display),
 )
