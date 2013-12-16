@@ -133,6 +133,12 @@ animation-js:
         - bower/etalab-assets/js/animation/edge.1.0.0.min.js
         - bower/etalab-assets/js/animation/animation.preload.js
 
+resource-form-js:
+    filters: uglifyjs
+    output: js/resource-form.min.js
+    contents:
+        - js/resource-form.js
+
 group-members-js:
     filters: uglifyjs
     output: js/group/members.min.js

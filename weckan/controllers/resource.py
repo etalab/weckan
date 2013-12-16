@@ -25,7 +25,8 @@ class ResourceForm(forms.Form):
         ('api', _('Link to an API')),
         ('file.upload', _('Upload a file from your computer')),
     ))
-    url = forms.URLField(_('URL'), [forms.validators.required()])
+    url = forms.URLField(_('URL'), [forms.RequiredIfVal('resource_type', ['file', 'api'])])
+    file = forms.FileField(_('File'), [forms.RequiredIfVal('resource_type', 'file.upload')])
     format = forms.StringField(_('Format'), widget=forms.FormatAutocompleter())
     description = forms.MarkdownField(_('Description'), [forms.validators.required()])
 
@@ -126,12 +127,15 @@ def create(request):
     form = ResourceForm(request.POST, i18n=context.translator)
 
     if request.method == 'POST' and form.validate():
+        url = forms.handle_upload(request, form.file, user)
+        print url
         ckan_api('resource_create', user, {
             'package_id': dataset_name,
             'name': form.name.data,
             'description': form.description.data,
-            'url': form.url.data,
+            'url': url or form.url.data,
             'format': form.format.data,
+            'resource_type': form.resource_type.data,
         })
         return wsgihelpers.redirect(context, location=dataset_url)
 

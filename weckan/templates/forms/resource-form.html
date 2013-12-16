@@ -19,7 +19,7 @@
                 <h1>{% if new %}{{ _('Add a resource') }}{% else %}{{ _('Edit resource') }}{% endif %}</h1>
             </div>
 
-            <form class="form-horizontal validation col-lg-offset-1 col-lg-10" role="form" method="post">
+            <form class="form-horizontal validation col-lg-offset-1 col-lg-10" role="form" method="post" enctype="multipart/form-data">
 
                 {% for field in form %}
                 {{ forms.field(field, owner or user) }}
@@ -79,7 +79,7 @@
 {% endblock %}
 
 {% block javascript %}
-{% assets "forms-js" %}
+{% assets "forms-js", "resource-form-js" %}
 <script src="{{ ASSET_URL}}"></script>
 {% endassets %}
 {% endblock %}

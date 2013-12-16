@@ -1,12 +1,33 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
-_ = lambda s: s
+import cgi
+
+from datetime import datetime
 
 from wtforms import Form as WTForm, Field, validators, fields, widgets
 from wtforms.fields import html5
 
-from weckan import model
+from weckan import model, urls
+
+_ = lambda s: s
+
+STORAGE_BUCKET = 'default'
+
+
+def handle_upload(request, field, user=None):
+    from ckan.controllers import storage
+
+    if not isinstance(field.data, cgi.FieldStorage):
+        return None
+
+    filename = '{ts:%Y-%m-%dT%H-%M-%S}/{name}'.format(name=field.data.filename, ts=datetime.now())
+    ofs = storage.get_ofs()
+    ofs.put_stream(STORAGE_BUCKET, filename, field.data.file, {
+        'filename-original': field.data.filename,
+        'uploaded-by': user.name if user else '',
+    })
+    return urls.get_url(None, 'storage/f', filename)
 
 
 class Form(WTForm):
@@ -48,6 +69,24 @@ class RequiredIf(validators.Required):
             super(RequiredIf, self).__call__(form, field)
 
 
+class RequiredIfVal(validators.Required):
+    '''
+    A validator which makes a field required
+    only if another field is set and has a specified value.
+    '''
+    def __init__(self, other_field_name, expected_value, *args, **kwargs):
+        self.other_field_name = other_field_name
+        self.expected_values = expected_value if isinstance(expected_value, (list, tuple)) else tuple(expected_value)
+        super(RequiredIfVal, self).__init__(*args, **kwargs)
+
+    def __call__(self, form, field):
+        other_field = form._fields.get(self.other_field_name)
+        if other_field is None:
+            raise Exception('no field named "%s" in form' % self.other_field_name)
+        if other_field.data in self.expected_values:
+            super(RequiredIfVal, self).__call__(form, field)
+
+
 class WidgetHelper(object):
     classes = []
     attributes = {}
@@ -87,10 +126,6 @@ class TagAutocompleter(WidgetHelper, widgets.TextInput):
     classes = 'tag-completer'
 
 
-class FileField(WidgetHelper, fields.FileField):
-    pass
-
-
 class KeyValueWidget(WidgetHelper, widgets.TextInput):
     pass
 
@@ -109,6 +144,10 @@ class RadioField(FieldHelper, fields.RadioField):
     def __init__(self, *args, **kwargs):
         self.stacked = kwargs.pop('stacked', False)
         super(RadioField, self).__init__(*args, **kwargs)
+
+
+class FileField(FieldHelper, fields.FileField):
+    pass
 
 
 class URLField(FieldHelper, html5.URLField):
