@@ -57,6 +57,21 @@
             prefetch: '/format/autocomplete'
         });
 
+        // Tags
+        $('.tag-completer').each(function() {
+            $(this).typeahead({
+                name: 'tags',
+                prefetch: '/tags/autocomplete'
+            })
+            .tagsManager({
+                tagsContainer: $(this).closest('div'),
+                replace: true,
+            })
+            .on('typeahead:selected', function (e, data) {
+                $(this).tagsManager("pushTag", data.main_postal_distribution);
+            })
+        });
+
         // Territory fields
         $('.territory-completer').each(function() {
             $(this).typeahead(Config.typeahead.territories)
@@ -65,11 +80,9 @@
                 replace: true,
             })
             .on('typeahead:selected', function (e, data) {
-                console.log(data, this);
                 $(this).tagsManager("pushTag", data.main_postal_distribution);
             })
         });
-        ;
     });
 
 }(window.jQuery, window.Utils, window.EtalabConfig));

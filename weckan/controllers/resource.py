@@ -5,17 +5,37 @@ import logging
 
 from sqlalchemy.sql import func, distinct
 
-from weckan import templates, urls, wsgihelpers, contexts, auth
+from weckan import templates, urls, wsgihelpers, contexts, auth, forms
 from weckan.model import meta, Package, Resource
 
-from weckan.forms import ResourceForm, CommunityResourceForm
 from weckan.tools import ckan_api
 
 from ckanext.youckan.models import CommunityResource
 
 
+_ = lambda s: s
 DB = meta.Session
 log = logging.getLogger(__name__)
+
+
+class ResourceForm(forms.Form):
+    name = forms.StringField(_('Name'), [forms.validators.required()])
+    resource_type = forms.RadioField(_('Type'), [forms.validators.required()], choices=(
+        ('file', _('Link to a file')),
+        ('api', _('Link to an API')),
+        ('file.upload', _('Upload a file from your computer')),
+    ))
+    url = forms.URLField(_('URL'), [forms.validators.required()])
+    format = forms.StringField(_('Format'), widget=forms.FormatAutocompleter())
+    description = forms.MarkdownField(_('Description'), [forms.validators.required()])
+
+
+class CommunityResourceForm(forms.Form):
+    name = forms.StringField(_('Name'), [forms.validators.required()])
+    url = forms.URLField(_('URL'), [forms.validators.required()])
+    format = forms.StringField(_('Format'), widget=forms.FormatAutocompleter())
+    description = forms.MarkdownField(_('Description'), [forms.validators.required()])
+    publish_as = forms.PublishAsField(_('Publish as'))
 
 
 @wsgihelpers.wsgify
@@ -158,7 +178,7 @@ def autocomplete_formats(request):
 
     query = DB.query(distinct(func.lower(Resource.format)).label('format'))
     query = query.filter(Resource.format.ilike(pattern))
-    query = query.order_by('format')
+    query = query.order_by(func.count(Resource), 'format').group_by('format')
     if num:
         query = query.limit(num)
 

@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
+import json
 import logging
 import math
 import requests
@@ -8,16 +9,15 @@ import requests
 from biryani1 import strings
 from datetime import datetime
 from urllib import urlencode
+from pkg_resources import resource_stream
 
 from sqlalchemy.sql import func
 
-
-from weckan import templates, urls, wsgihelpers, conf, contexts, auth, queries, territories
-from weckan.forms import DatasetForm, DatasetExtrasForm
+from weckan import templates, urls, wsgihelpers, conf, contexts, auth, queries, territories, forms
 from weckan.model import Activity, meta, Package, Group, UserFollowingDataset, UserFollowingGroup
 from weckan.tools import ckan_api
 
-
+_ = lambda s: s
 DB = meta.Session
 log = logging.getLogger(__name__)
 
@@ -41,6 +41,79 @@ EXCLUDED_PATTERNS = (
     'new_metadata',
     'new_resource',
 )
+
+LICENSES = json.load(resource_stream('ckanext.etalab', 'public/licenses.json'))
+
+
+class LicenseField(forms.SelectField):
+    def iter_choices(self):
+        licenses = (license for license in LICENSES if license['status'] == 'active')
+        for license in sorted(licenses, key=lambda l: l['title']):
+            value = license['id']
+            yield (value, self._translations.ugettext(license['title']), self.coerce(value) == self.data)
+
+
+class DatasetForm(forms.Form):
+    title = forms.StringField(_('Title'), [forms.validators.required()])
+    notes = forms.MarkdownField(_('Description'), [forms.validators.required()])
+    owner = forms.PublishAsField(_('Publish as'))
+    tags = forms.StringField(_('Tags'), widget=forms.TagAutocompleter())
+    temporal_coverage_from = forms.StringField(_('Temporal coverage start'))
+    temporal_coverage_to = forms.StringField(_('Temporal coverage end'))
+    territorial_coverage = forms.StringField(_('Territorial coverage'), widget=forms.TerritoryAutocompleter())
+    territorial_coverage_granularity = forms.SelectField(_('Territorial coverage granularity'),
+        # description=_('Dataset update periodicity'),
+        choices=(
+            (None, 'None'),
+            ('poi', "Point d'intérêt"),
+            ('iris', 'Iris (quartier Insee)'),
+            ('commune', 'Commune'),
+            ('canton', 'Canton'),
+            ('epci', 'Intercommunalité (EPCI)'),
+            ('department', 'Département'),
+            ('region', 'Région'),
+            ('pays', 'Pays'),
+            ('other', "Autre"),
+        )
+    )
+    frequency = forms.SelectField(_('Frequency'),
+        description=_('Dataset update periodicity'),
+        choices=(
+            ('aucune', _('None')),
+            ('ponctuelle', _('Punctual')),
+            ('temps réel', _('Real time')),
+            ('quotidienne', _('Daily')),
+            ('hebdomadaire', _('Weekly')),
+            ('bimensuelle', _('Fortnighly')),
+            ('mensuelle', _('Mensuelle')),
+            ('bimestrielle', _('Bimonthly')),
+            ('trimestrielle', _('Quaterly')),
+            ('semestrielle', _('Biannual')),
+            ('annuelle', _('Annual')),
+            ('triennale', _('Triennial')),
+            ('quinquennale', _('Quinquennial')),
+
+            # ('aucune': 'Aucune'),
+            # ('ponctuelle': 'Ponctuelle'),
+            # ('temps réel': "Temps réel"),
+            # ('quotidienne': 'Quotidienne'),
+            # ('hebdomadaire': 'Hebdomadaire'),
+            # ('bimensuelle': 'Bimensuelle'),
+            # ('mensuelle': 'Mensuelle'),
+            # ('bimestrielle': 'Bimestrielle'),
+            # ('trimestrielle': 'Trimestrielle'),
+            # ('semestrielle': 'Semestrielle'),
+            # ('annuelle': 'Annuelle'),
+            # ("triennale": "Triennale"),
+            # ("quinquennale": "Quinquennale"),
+        )
+    )
+    license_id = LicenseField(_('License'), default='notspecified')
+    private = forms.BooleanField(_('Private'), default=False)
+
+
+class DatasetExtrasForm(forms.Form):
+    extras = forms.KeyValueField(_('Additional data'))
 
 
 def build_territorial_coverage(dataset):
@@ -325,7 +398,14 @@ def edit(request):
 
     dataset_name = request.urlvars.get('name')
     dataset = Package.by_name(dataset_name)
-    form = DatasetForm(request.POST, dataset, i18n=context.translator)
+    form = DatasetForm(request.POST, dataset,
+        frequency=dataset.extras.get('"dct:accrualPeriodicity"'),
+        territorial_coverage=dataset.extras.get('territorial_coverage'),
+        territorial_coverage_granularity=dataset.extras.get('territorial_coverage_granularity'),
+        temporal_coverage_from=dataset.extras.get('temporal_coverage_from'),
+        temporal_coverage_to=dataset.extras.get('temporal_coverage_to'),
+        i18n=context.translator
+    )
 
     if request.method == 'POST' and form.validate():
         name = strings.slugify(form.title.data)

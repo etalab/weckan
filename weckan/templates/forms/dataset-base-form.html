@@ -1,0 +1,83 @@
+{% extends "site.html" %}
+{% import "macros/forms.html" as forms %}
+
+{% block title %}{{title}}{% endblock %}
+
+{% block extra_head %}
+{{ super() }}
+{% assets 'forms-css' %}
+<link rel="stylesheet" media="screen" href="{{ ASSET_URL }}"/>
+{% endassets %}
+{% endblock %}
+
+{% block content %}
+<section class="form">
+    <div class="animation"></div>
+    <div class="container"
+        {% if group %}
+        data-group-id="{{ group.id }}" data-group-title="{{ group.title }}"
+        {% endif %}
+        >
+
+        <div class="row">
+            <div class="animover col-sm-12 col-lg-offset-1 col-lg-10">
+                {% if dataset %}
+                <div class="page-header">
+                    <h1>
+                        <a href="{{ url(lang, 'dataset', dataset.name) }}"
+                            title="{{ dataset.title }}">
+                            {{ dataset.title }}
+                        </a>
+                    </h1>
+                </div>
+                <ul class="nav nav-pills">
+                    {% for tab, label, form_url in (
+                        ('description', _('Description'), 'edit'),
+                        ('extras', _('Additional informations'), 'extras'),
+                    ) %}
+                    <li {% if active_tab == tab %}class="active"{% endif %}>
+                        <a href="{{ url(lang, 'dataset', form_url, dataset.name) }}">{{ label }}</a>
+                    </li>
+                    {% endfor %}
+                </ul>
+                {% else %}
+                <div class="page-header">
+                    <h1>{{ title }}</h1>
+                </div>
+                {% endif %}
+
+
+                {% block formcontent %}
+                <form class="form-horizontal validation" role="form" method="post">
+
+                    {% for field in form %}
+                    {{ forms.field(field, owner or user) }}
+                    {% endfor %}
+
+                    {{ forms.required_disclaimer() }}
+
+                    <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-10 text-center">
+                            <button type="submit" class="btn btn-primary" title="{{ title }}">
+                                {{ _('Save') }}
+                            </button>
+                            <a href="{{ back_url }}" class="btn btn-warning" title="{{ _('Cancel') }}">
+                                {{ _('Cancel') }}
+                            </a>
+                        </div>
+                    </div>
+
+                </form>
+                {% endblock %}
+            </div>
+        </div>
+
+    </div>
+</section>
+{% endblock %}
+
+{% block javascript %}
+{% assets "forms-js" %}
+<script src="{{ ASSET_URL}}"></script>
+{% endassets %}
+{% endblock %}

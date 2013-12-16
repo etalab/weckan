@@ -6,7 +6,7 @@ import logging
 
 from weckan import templates, urls, wsgihelpers, contexts, queries, territories
 
-from weckan.controllers import dashboard, dataset, group, organization, redirect, reuse, resource, wiki
+from weckan.controllers import dashboard, dataset, group, organization, redirect, reuse, resource, tags, wiki
 
 
 log = logging.getLogger(__name__)
@@ -59,7 +59,7 @@ def forbidden(request):
 def make_router(app):
     """Return a WSGI application that searches requests to controllers """
     global router
-    controllers = group, organization, dashboard, dataset, redirect, resource, reuse
+    controllers = group, organization, dashboard, dataset, redirect, resource, reuse, tags
     routes = (controller.routes for controller in controllers)
     routes = sum(routes, tuple())
     router = urls.make_router(app,

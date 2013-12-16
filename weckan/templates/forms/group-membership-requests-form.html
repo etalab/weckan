@@ -1,0 +1,98 @@
+{% extends "forms/group-base-form.html" %}
+{% import "macros/forms.html" as forms %}
+
+{% set title = _('Membership requests') %}
+{% set active_tab = 'requests' %}
+
+{% block formcontent %}
+<table class="table table-stripped">
+    <thead>
+        <tr>
+            <td width="40px"><span class="glyphicon glyphicon-user"></span></td>
+            <td>{{ _('Name') }}</td>
+            <td>{{ _('Details') }}</td>
+            <td>{{ _('Date') }}</td>
+            <td width="80px">{{ _('Actions') }}</td>
+        </tr>
+    </thead>
+    {% for request in pending_requests %}
+    <tr>
+        <td class="text-center avatar">
+            <a class="avatar" href="{{ sso('user', request.user.name) }}"
+                title="{{ request.user.display_name }}">
+                {{ avatar(request.user, 30) }}
+            </a>
+        </td>
+        <td>
+            <a class="user" href="{{ sso('user', request.user.name) }}"
+                title="{{ request.user.display_name }}">
+                {{ request.user.fullname }}
+            </a>
+        </td>
+        <td>{{ request.comment }}</td>
+        <td>{{ request.created|date(format='long', locale=lang) }}</td>
+        <td>
+            <div class="btn-group btn-group-sm">
+                <a class="btn btn-success membership-accept" title="{{ _('Accept') }}"
+                    data-api="{{ url('youckan/membership', request.id, 'accept') }}">
+                    <span class="glyphicon glyphicon-ok"></span>
+                </a>
+                <a class="btn btn-danger membership-refuse" title="{{ _('Refuse') }}"
+                    data-api="{{ url('youckan/membership', request.id, 'refuse') }}">
+                    <span class="glyphicon glyphicon-remove"></span>
+                </a>
+            </div>
+        </td>
+    </tr>
+    {% else %}
+    <tr>
+        <td colspan="5" class="text-center">{{ _('No pending requests') }}</td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}
+
+{% block hiddens %}
+{# Translations #}
+<meta name="membership-accepted-i18n" content="{{ _('Membership request has been accepted') }}">
+<meta name="membership-refused-i18n" content="{{ _('Membership request has been refused') }}">
+<meta name="membership-response-error-i18n" content="{{ _('Error while responding to membership request') }}">
+
+{# Membership refusal modal #}
+<div class="modal fade" id="refusal-modal" tabindex="-1" role="dialog" aria-labelledby="refusal-modal-title" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 id="refusal-modal-title" class="modal-title">{{ _("Membership refusal") }}</h4>
+            </div>
+            <div class="modal-body">
+                <p>{% trans %}Please add your refusal reason here.{% endtrans %}</p>
+                <form role="form">
+                    <div class="form-group">
+                        <label for="comment">{{ _('Refusal reason') }}</label>
+                        <textarea id="comment" name="comment" class="form-control" rows="3" required></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <a id="refusal-submit" class="btn btn-primary" href>
+                    <span class="glyphicon glyphicon-minus-sign"></span>
+                    {{ _("Refuse") }}
+                </a>
+                <button type="button" class="btn btn-warning" data-dismiss="modal">
+                    <span class="glyphicon glyphicon-remove"></span>
+                    {{ _("Cancel") }}
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block javascript %}
+{{ super() }}
+{% assets "group-membership-requests-js" %}
+<script src="{{ ASSET_URL}}"></script>
+{% endassets %}
+{% endblock %}

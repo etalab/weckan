@@ -5,14 +5,31 @@ import logging
 
 from ckanext.youckan.models import ReuseAsOrganization
 
-from weckan import templates, urls, wsgihelpers, contexts, auth
-from weckan.forms import ReuseForm
+from weckan import templates, urls, wsgihelpers, contexts, auth, forms
 from weckan.model import meta, Related, Group, User
 from weckan.tools import ckan_api
 
 
+_ = lambda s: s
 DB = meta.Session
 log = logging.getLogger(__name__)
+
+
+class ReuseForm(forms.Form):
+    title = forms.StringField(_('Title'), [forms.validators.required()])
+    url = forms.URLField(_('URL'), [forms.validators.required()])
+    image_url = forms.URLField(_('Image URL'), [forms.validators.required()])
+    type = forms.SelectField(_('Type'), [forms.validators.required()], choices=(
+        ('api', _('API')),
+        ('application', _('Application')),
+        ('idea', _('Idea')),
+        ('news_article', _('News Article')),
+        ('paper', _('Paper')),
+        ('post', _('Post')),
+        ('visualization', _('Visualization')),
+    ))
+    description = forms.MarkdownField(_('Description'), [forms.validators.required()])
+    publish_as = forms.PublishAsField(_('Publish as'))
 
 
 @wsgihelpers.wsgify

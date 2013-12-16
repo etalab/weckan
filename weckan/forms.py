@@ -83,12 +83,26 @@ class TerritoryAutocompleter(WidgetHelper, widgets.TextInput):
     classes = 'territory-completer'
 
 
+class TagAutocompleter(WidgetHelper, widgets.TextInput):
+    classes = 'tag-completer'
+
+
+class FileField(WidgetHelper, fields.FileField):
+    pass
+
+
 class KeyValueWidget(WidgetHelper, widgets.TextInput):
     pass
 
 
 class StringField(FieldHelper, fields.StringField):
     pass
+
+
+class BooleanField(FieldHelper, fields.BooleanField):
+    def __init__(self, *args, **kwargs):
+        self.stacked = kwargs.pop('stacked', False)
+        super(BooleanField, self).__init__(*args, **kwargs)
 
 
 class RadioField(FieldHelper, fields.RadioField):
@@ -167,103 +181,3 @@ class KeyValueField(FieldHelper, fields.FieldList):
         #     return u', '.join(self.data)
         # else:
         #     return u''
-
-
-class ReuseForm(Form):
-    title = StringField(_('Title'), [validators.required()])
-    url = URLField(_('URL'), [validators.required()])
-    image_url = URLField(_('Image URL'), [validators.required()])
-    type = SelectField(_('Type'), [validators.required()], choices=(
-        ('api', _('API')),
-        ('application', _('Application')),
-        ('idea', _('Idea')),
-        ('news_article', _('News Article')),
-        ('paper', _('Paper')),
-        ('post', _('Post')),
-        ('visualization', _('Visualization')),
-    ))
-    description = MarkdownField(_('Description'), [validators.required()])
-    publish_as = PublishAsField(_('Publish as'))
-
-
-class ResourceForm(Form):
-    name = StringField(_('Name'), [validators.required()])
-    resource_type = RadioField(_('Type'), [validators.required()], choices=(
-        ('file', _('Link to a file')),
-        ('api', _('Link to an API')),
-        ('file.upload', _('Upload a file from your computer')),
-    ))
-    url = URLField(_('URL'), [validators.required()])
-    format = StringField(_('Format'), widget=FormatAutocompleter())
-    description = MarkdownField(_('Description'), [validators.required()])
-
-
-class CommunityResourceForm(Form):
-    name = StringField(_('Name'), [validators.required()])
-    url = URLField(_('URL'), [validators.required()])
-    format = StringField(_('Format'), widget=FormatAutocompleter())
-    description = MarkdownField(_('Description'), [validators.required()])
-    publish_as = PublishAsField(_('Publish as'))
-
-
-class DatasetForm(Form):
-    title = StringField(_('Title'), [validators.required()])
-    notes = MarkdownField(_('Description'), [validators.required()])
-    owner = PublishAsField(_('Publish as'))
-    private = RadioField(_('Visibility'), [validators.required()], choices=(
-        (True, _('Private')),
-        (False, _('Public')),
-    ))
-    territorial_coverage = StringField(_('Territorial coverage'), widget=TerritoryAutocompleter())
-    territorial_coverage_granularity = SelectField(_('Territorial coverage granularity'),
-        # description=_('Dataset update periodicity'),
-        choices=(
-            ('', ''),
-            ('poi', "Point d'intérêt"),
-            ('iris', 'Iris (quartier Insee)'),
-            ('commune', 'Commune'),
-            ('canton', 'Canton'),
-            ('epci', 'Intercommunalité (EPCI)'),
-            ('department', 'Département'),
-            ('region', 'Région'),
-            ('pays', 'Pays'),
-            ('other', "Autre"),
-        )
-    )
-
-    frequency = SelectField(_('Frequency'),
-        description=_('Dataset update periodicity'),
-        choices=(
-            ('', ''),
-            ('aucune', 'Aucune'),
-            ('ponctuelle', 'Ponctuelle'),
-            ('temps réel', "Temps réel"),
-            ('quotidienne', 'Quotidienne'),
-            ('hebdomadaire', 'Hebdomadaire'),
-            ('bimensuelle', 'Bimensuelle'),
-            ('mensuelle', 'Mensuelle'),
-            ('bimestrielle', 'Bimestrielle'),
-            ('trimestrielle', 'Trimestrielle'),
-            ('semestrielle', 'Semestrielle'),
-            ('annuelle', 'Annuelle'),
-            ("triennale", "Triennale"),
-            ("quinquennale", "Quinquennale"),
-
-            # ('aucune': 'Aucune'),
-            # ('ponctuelle': 'Ponctuelle'),
-            # ('temps réel': "Temps réel"),
-            # ('quotidienne': 'Quotidienne'),
-            # ('hebdomadaire': 'Hebdomadaire'),
-            # ('bimensuelle': 'Bimensuelle'),
-            # ('mensuelle': 'Mensuelle'),
-            # ('bimestrielle': 'Bimestrielle'),
-            # ('trimestrielle': 'Trimestrielle'),
-            # ('semestrielle': 'Semestrielle'),
-            # ('annuelle': 'Annuelle'),
-            # ("triennale": "Triennale"),
-            # ("quinquennale": "Quinquennale"),
-        )
-    )
-
-class DatasetExtrasForm(Form):
-    extras = KeyValueField(_('Additional data'))

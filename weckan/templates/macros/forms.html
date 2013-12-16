@@ -12,6 +12,8 @@
         {{ publish_as(field, user) }}
         {% elif field.type == 'RadioField' %}
         {{ radio(field, user) }}
+        {% elif field.type == 'BooleanField' %}
+        {{ checkbox(field, user) }}
         {% elif field.type == 'KeyValueField' %}
         {{ key_values(field, user) }}
         {% else %}
@@ -46,11 +48,38 @@
 {% for value, label, selected in field.iter_choices() %}
 <div class="radio">
     <label>
-        <input type="radio" name="{{ field.name }}" id="{{ field.id }}" value="{{ value }}">
+        <input type="radio" name="{{ field.name }}" id="{{ field.id }}" value="{{ value }}"
+            {% if selected %}checked="checked"{% endif %}>
         {{ _(label) }}
     </label>
 </div>
 {% endfor %}
+{% endmacro %}
+
+{% macro checkbox(field, user) %}
+{% if field.stacked %}
+{{ checkbox_stacked(field, user) }}
+{% else %}
+{{ checkbox_inline(field, user) }}
+{% endif %}
+{% endmacro %}
+
+{% macro checkbox_inline(field, user) %}
+<label class="checkbox-inline">
+    <input type="checkbox" name="{{ field.name }}" id="{{ field.id }}" value="{{ field.data }}"
+        {% if field.checked %}checked="checked"{% endif %}>
+    {{ _(label) }}
+</label>
+{% endmacro %}
+
+{% macro checkbox_stacked(field, user) %}
+<div class="checkbox">
+    <label>
+        <input type="checkbox" name="{{ field.name }}" id="{{ field.id }}" value="{{ field.data }}"
+            {% if field.checked %}checked="checked"{% endif %}>
+        {{ _(label) }}{{selected}}
+    </label>
+</div>
 {% endmacro %}
 
 {% macro publish_as(field, user) %}

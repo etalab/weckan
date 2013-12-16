@@ -17,7 +17,7 @@
     </thead>
     {% for member, user in members %}
     <tr>
-        <td class="text-center">
+        <td class="text-center avatar">
             <a class="avatar" href="{{ sso('user', user.name) }}"
                 title="{{ user.display_name }}">
                 {{ avatar(user, 30) }}
