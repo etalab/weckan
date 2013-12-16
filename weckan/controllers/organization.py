@@ -23,6 +23,15 @@ SEARCH_PAGE_SIZE = 20
 
 NB_DATASETS = 12
 
+EXCLUDED_PATTERNS = (
+    'activity',
+    'delete',
+    'follow',
+    'new',
+    'new_metadata',
+    'new_resource',
+)
+
 
 def get_page_url_pattern(request):
     '''Get a formattable page url pattern from incoming request URL'''
@@ -135,6 +144,16 @@ def create(request):
 
 
 @wsgihelpers.wsgify
+def edit(request):
+    return group.edit_group_or_org(request, True)
+
+
+@wsgihelpers.wsgify
+def members(request):
+    return group.group_or_org_members(request, False)
+
+
+@wsgihelpers.wsgify
 def autocomplete(request):
     query = request.params.get('q', '')
     num = int(request.params.get('num', SEARCH_MAX_ORGANIZATIONS))
@@ -151,3 +170,12 @@ def autocomplete(request):
 
     return wsgihelpers.respond_json(context, data, headers=headers)
 
+
+routes = (
+    ('GET', r'^(/(?P<lang>\w{2}))?/organizations?/?$', search_more),
+    ('GET', r'^(/(?P<lang>\w{2}))?/organizations?/autocomplete/?$', autocomplete),
+    (('GET', 'POST'), r'^(/(?P<lang>\w{2}))?/organization/new/?$', create),
+    (('GET', 'POST'), r'^(/(?P<lang>\w{2}))?/organization/edit/(?P<name>[\w_-]+)/?$', edit),
+    (('GET', 'POST'), r'^(/(?P<lang>\w{2}))?/organization/members/(?P<name>[\w_-]+)/?$', members),
+    ('GET', r'^(/(?P<lang>\w{{2}}))?/organization/(?!{0}(/|$))(?P<name>[\w_-]+)/?$'.format('|'.join(EXCLUDED_PATTERNS)), display),
+)

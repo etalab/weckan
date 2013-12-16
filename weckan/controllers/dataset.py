@@ -28,6 +28,16 @@ QA_CEILS = {
     'criticals': 1,
 }
 
+EXCLUDED_PATTERNS = (
+    'activity',
+    'delete',
+    'edit',
+    'follow',
+    'new',
+    'new_metadata',
+    'new_resource',
+)
+
 
 def build_territorial_coverage(dataset):
     return {
@@ -274,3 +284,11 @@ def fork(request):
     # fork_url = urls.get_url(rlang, 'dataset/edit', forked['name'])
 
     return wsgihelpers.redirect(context, location=fork_url)
+
+
+routes = (
+    ('GET', r'^(/(?P<lang>\w{2}))?/dataset/?$', search_more),
+    ('GET', r'^(/(?P<lang>\w{2}))?/dataset/autocomplete/?$', autocomplete),
+    ('GET', r'^(/(?P<lang>\w{2}))?/dataset/(?P<name>[\w_-]+)/fork/?$', fork),
+    ('GET', r'^(/(?P<lang>\w{{2}}))?/dataset/(?!{0}(/|$))(?P<name>[\w_-]+)/?$'.format('|'.join(EXCLUDED_PATTERNS)), display),
+)

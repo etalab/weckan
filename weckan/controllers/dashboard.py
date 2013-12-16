@@ -47,3 +47,8 @@ def metrics(request):
         ('datasets_median_weight', _('Median quality'), '...'),
         ('formats_count', _('File formats'), file_formats),
     ))
+
+
+routes = (
+    ('GET', r'^(/(?P<lang>\w{2}))?/metrics/?$', metrics),
+)

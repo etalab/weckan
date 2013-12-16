@@ -43,3 +43,15 @@ def to_account(request):
 
     account_url = '{0}/my/profile/'.format(conf['sso_url'])
     return wsgihelpers.redirect(context, location=account_url)
+
+routes = (
+    # Override some CKAN URLs
+    ('GET', r'^(/(?P<lang>\w{2}))?/user/_?logout/?$', to_logout),
+    ('GET', r'^(/(?P<lang>\w{2}))?/user/register/?$', to_login),
+    ('GET', r'^(/(?P<lang>\w{2}))?/user/login/?$', to_login),
+    ('GET', r'^(/(?P<lang>\w{2}))?/register/?$', to_login),
+    ('GET', r'^(/(?P<lang>\w{2}))?/login/?$', to_login),
+    ('GET', r'^(/(?P<lang>\w{2}))?/user/(?P<username>[\w_-]+)/?$', to_profile),
+    ('GET', r'^(/(?P<lang>\w{2}))?/user/edit/(?P<username>[\w_-]+)/?$', to_account),
+    ('GET', r'^(/(?P<lang>\w{2}))?/about/?$', to_home),
+)

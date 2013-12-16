@@ -12,16 +12,6 @@ from weckan.controllers import dashboard, dataset, group, organization, redirect
 log = logging.getLogger(__name__)
 router = None
 
-EXCLUDED_PATTERNS = (
-    'activity',
-    'delete',
-    'edit',
-    'follow',
-    'new',
-    'new_metadata',
-    'new_resource',
-)
-
 NB_DATASETS = 12
 
 
@@ -69,49 +59,14 @@ def forbidden(request):
 def make_router(app):
     """Return a WSGI application that searches requests to controllers """
     global router
+    controllers = group, organization, dashboard, dataset, redirect, resource, reuse
+    routes = (controller.routes for controller in controllers)
+    routes = sum(routes, tuple())
     router = urls.make_router(app,
         ('GET', r'^(/(?P<lang>\w{2}))?/?$', home),
         ('GET', r'^(/(?P<lang>\w{2}))?/search/?$', search_results),
-        ('GET', r'^(/(?P<lang>\w{2}))?/metrics/?$', dashboard.metrics),
-
-        ('GET', r'^(/(?P<lang>\w{2}))?/dataset/?$', dataset.search_more),
-
-        ('GET', r'^(/(?P<lang>\w{2}))?/dataset/autocomplete/?$', dataset.autocomplete),
-        ('GET', r'^(/(?P<lang>\w{2}))?/dataset/(?P<name>[\w_-]+)/fork/?$', dataset.fork),
-        ('GET', r'^(/(?P<lang>\w{2}))?/dataset/(?P<name>[\w_-]+)/reuse/(?P<reuse>[\w_-]+)/featured/?$', reuse.toggle_featured),
-        ('GET', r'^(/(?P<lang>\w{{2}}))?/dataset/(?!{0}(/|$))(?P<name>[\w_-]+)/?$'.format('|'.join(EXCLUDED_PATTERNS)), dataset.display),
-
-        (('GET', 'POST'), r'^(/(?P<lang>\w{2}))?/dataset/(?P<name>[\w_-]+)/related/new?$', reuse.create),
-        (('GET', 'POST'), r'^(/(?P<lang>\w{2}))?/dataset/(?P<name>[\w_-]+)/related/edit/(?P<reuse>[\w_-]+)/?$', reuse.edit),
-
-        (('GET', 'POST'), r'^(/(?P<lang>\w{2}))?/dataset/new_resource/(?P<name>[\w_-]+)/?$', resource.create),
-        (('GET', 'POST'), r'^(/(?P<lang>\w{2}))?/dataset/(?P<name>[\w_-]+)/resource_edit/(?P<resource>[\w_-]+)/?$', resource.edit),
-        (('GET', 'POST'), r'^(/(?P<lang>\w{2}))?/dataset/(?P<name>[\w_-]+)/community/resource/new/?$', resource.create_community),
-        (('GET', 'POST'), r'^(/(?P<lang>\w{2}))?/dataset/(?P<name>[\w_-]+)/community/resource/(?P<resource>[\w_-]+)/edit/?$', resource.edit_community),
-        ('POST', r'^(/(?P<lang>\w{2}))?/dataset/(?P<name>[\w_-]+)/community/resource/(?P<resource>[\w_-]+)/delete/?$', resource.delete_community),
-
-        ('GET', r'^(/(?P<lang>\w{2}))?/organizations?/?$', organization.search_more),
-        ('GET', r'^(/(?P<lang>\w{2}))?/organizations?/autocomplete/?$', organization.autocomplete),
-        (('GET', 'POST'), r'^(/(?P<lang>\w{2}))?/organization/new/?$', organization.create),
-        ('GET', r'^(/(?P<lang>\w{{2}}))?/organization/(?!{0}(/|$))(?P<name>[\w_-]+)/?$'.format('|'.join(EXCLUDED_PATTERNS)), organization.display),
-
-        (('GET', 'POST'), r'^(/(?P<lang>\w{2}))?/group/new/?$', group.create),
-        ('GET', r'^(/(?P<lang>\w{{2}}))?/groups?/(?!{0}(/|$))(?P<name>[\w_-]+)/?$'.format('|'.join(EXCLUDED_PATTERNS)), group.display),
-
-        ('GET', r'^(/(?P<lang>\w{2}))?/unfeature/(?P<reuse>[\w_-]+)/?$', reuse.unfeature),
-
-        ('GET', r'^(/(?P<lang>\w{2}))?/format/autocomplete/?$', resource.autocomplete_formats),
-
-        # Override some CKAN URLs
-        ('GET', r'^(/(?P<lang>\w{2}))?/user/_?logout/?$', redirect.to_logout),
-        ('GET', r'^(/(?P<lang>\w{2}))?/user/register/?$', redirect.to_login),
-        ('GET', r'^(/(?P<lang>\w{2}))?/user/login/?$', redirect.to_login),
-        ('GET', r'^(/(?P<lang>\w{2}))?/register/?$', redirect.to_login),
-        ('GET', r'^(/(?P<lang>\w{2}))?/login/?$', redirect.to_login),
-        ('GET', r'^(/(?P<lang>\w{2}))?/user/(?P<username>[\w_-]+)/?$', redirect.to_profile),
-        ('GET', r'^(/(?P<lang>\w{2}))?/user/edit/(?P<username>[\w_-]+)/?$', redirect.to_account),
         ('GET', r'^(/(?P<lang>\w{2}))?/users/?$', forbidden),
-        ('GET', r'^(/(?P<lang>\w{2}))?/about/?$', redirect.to_home),
+        *routes
     )
 
     return router

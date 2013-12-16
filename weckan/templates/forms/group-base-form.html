@@ -1,0 +1,90 @@
+{% extends "site.html" %}
+{% import "macros/forms.html" as forms %}
+
+{% block title %}{{title}}{% endblock %}
+
+{% block extra_head %}
+{{ super() }}
+{% assets 'forms-css' %}
+<link rel="stylesheet" media="screen" href="{{ ASSET_URL }}"/>
+{% endassets %}
+{% endblock %}
+
+{% block content %}
+<section class="form">
+    <div class="animation"></div>
+    <div class="container">
+
+        <div class="row animover">
+            {% if group %}
+            <div class="card text-center col-sm-4 col-md-3 col-lg-2">
+                {% if group.certified_public_service %}
+                <img src="{{static('/img/certified-stamp.png')}}" alt="certified"
+                    class="certified" rel="popover"
+                    data-title="{% trans %}Certified public service{% endtrans %}"
+                    data-content="{% trans %}The identity of this public service public is certified by Etalab{% endtrans %}"
+                    data-container="body" data-placement="left" data-trigger="hover"/>
+                {% endif %}
+                <a href="{{ group_base_url }}/{{ group.name }}"
+                    title="{{ group.title }}">
+                    <img src="{{ group.image_url or static('/base/images/placeholder-group.png') }}"
+                        alt="{{ group.title }}" class="img-responsive" />
+                </a>
+                <h3>{{ group.title }}</h3>
+                <div class="caption text-left">
+                    {{ markdown(group.description) }}
+                </div>
+            </div>
+            <div class="col-sm-8 col-md-9 col-lg-10">
+                <ul class="nav nav-pills col-xs-12  col-lg-offset-1 col-lg-10">
+                    {% for tab, label, form_url in (
+                        ('description', _('Description'), 'edit'),
+                        ('members', _('Members'), 'members'),
+                        ('requests', _('Membership requests'), 'requests'),
+                    ) %}
+                    <li {% if active_tab == tab %}class="active"{% endif %}>
+                        <a href="{{ group_base_url }}/{{ form_url }}/{{ group.name }}">{{ label }}</a>
+                    </li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+            <div class="page-header col-lg-offset-1 col-lg-10">
+                <h1>{{ title }}</h1>
+            </div>
+            {% endif %}
+
+            {% block formcontent %}
+            <form class="form-horizontal validation col-lg-offset-1 col-lg-10" role="form" method="post">
+
+                {% for field in form %}
+                {{ forms.field(field, owner or user) }}
+                {% endfor %}
+
+                {{ forms.required_disclaimer() }}
+
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10 text-center">
+                        <button type="submit" class="btn btn-primary" title="{{ title }}">
+                            {{ _('Save') if group else _('Create') }}
+                        </button>
+                        <a href="{{ back_url }}" class="btn btn-warning" title="{{ _('Cancel') }}">
+                            {{ _('Cancel') }}
+                        </a>
+                    </div>
+                </div>
+
+            </form>
+            {% endblock %}
+            {% if group %}</div>{% endif %}
+
+        </div>
+
+    </div>
+</section>
+{% endblock %}
+
+{% block javascript %}
+{% assets "forms-js" %}
+<script src="{{ ASSET_URL}}"></script>
+{% endassets %}
+{% endblock %}

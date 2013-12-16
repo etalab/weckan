@@ -19,20 +19,38 @@ class Form(WTForm):
 
 
 class FieldHelper(object):
-    def __init__(self, *args, **kwargs):
-        # Suffix name with _id for id
-        id = kwargs.pop('id', None)
-        if not id and '_name' in kwargs:
-            id = '{_name}_id'.format(**kwargs)
-        super(FieldHelper, self).__init__(*args, id=id, **kwargs)
+    @property
+    def id(self):
+        return '{0}-id'.format(self.name)
+
+    @id.setter
+    def id(self, value):
+        pass
 
     def is_visible(self, user):
         return True
 
 
+class RequiredIf(validators.Required):
+    '''
+    A validator which makes a field required
+    only if another field is set and has a truthy value.
+    '''
+    def __init__(self, other_field_name, *args, **kwargs):
+        self.other_field_name = other_field_name
+        super(RequiredIf, self).__init__(*args, **kwargs)
+
+    def __call__(self, form, field):
+        other_field = form._fields.get(self.other_field_name)
+        if other_field is None:
+            raise Exception('no field named "%s" in form' % self.other_field_name)
+        if bool(other_field.data):
+            super(RequiredIf, self).__call__(form, field)
+
+
 class WidgetHelper(object):
     classes = []
-    defaults = {}
+    attributes = {}
 
     def __call__(self, field, **kwargs):
         # Handle extra classes
@@ -42,7 +60,7 @@ class WidgetHelper(object):
         kwargs['class'] = ' '.join(classes)
 
         # Handle defaults
-        for key, value in self.defaults.items():
+        for key, value in self.attributes.items():
             kwargs.setdefault(key, value)
 
         return super(WidgetHelper, self).__call__(field, **kwargs)
@@ -54,15 +72,25 @@ class SelectPicker(WidgetHelper, widgets.Select):
 
 class MarkdownEditor(WidgetHelper, widgets.TextArea):
     classes = 'md'
-    defaults = {'rows': 8}
+    attributes = {'rows': 8}
 
 
 class FormatAutocompleter(WidgetHelper, widgets.TextInput):
     classes = 'format-completer'
 
 
+class KeyValueWidget(WidgetHelper, widgets.TextInput):
+    pass
+
+
 class StringField(FieldHelper, fields.StringField):
     pass
+
+
+class RadioField(FieldHelper, fields.RadioField):
+    def __init__(self, *args, **kwargs):
+        self.stacked = kwargs.pop('stacked', False)
+        super(RadioField, self).__init__(*args, **kwargs)
 
 
 class URLField(FieldHelper, html5.URLField):
@@ -98,6 +126,47 @@ class PublishAsField(FieldHelper, Field):
             setattr(obj, name, model.Group.get(self.data))
 
 
+class KeyValueForm(WTForm):
+    key = StringField(_('Key'), [RequiredIf('value')])
+    value = StringField(_('Value'))
+
+
+class KeyValueField(FieldHelper, fields.FieldList):
+    # widget = KeyValueWidget()
+    def __init__(self, *args, **kwargs):
+        kwargs['min_entries'] = kwargs.pop('min_entries', 1)
+        super(KeyValueField, self).__init__(fields.FormField(KeyValueForm), *args, **kwargs)
+
+    def process_data(self, values):
+        print 'process_data', values
+        return super(KeyValueField, self).process_data(values)
+
+    def process(self, formdata, data=object()):
+        print 'process', formdata, data
+        return super(KeyValueField, self).process(formdata, data)
+
+    @property
+    def data(self):
+        for f in self.entries:
+            print f
+        return [f.data for f in self.entries]
+
+
+
+    # def process_data(self, values):
+    #     if isinstance(values, dict):
+    #         self.data = [(key, value) for key, value in values.items()]
+    #     else:
+    #         self.data = values
+
+    # def _value(self):
+    #     return self.data
+        # if self.data:
+        #     return u', '.join(self.data)
+        # else:
+        #     return u''
+
+
 class ReuseForm(Form):
     title = StringField(_('Title'), [validators.required()])
     url = URLField(_('URL'), [validators.required()])
@@ -117,16 +186,34 @@ class ReuseForm(Form):
 
 class ResourceForm(Form):
     name = StringField(_('Name'), [validators.required()])
+    resource_type = RadioField(_('Type'), [validators.required()], choices=(
+        ('file', _('Link to a file')),
+        ('api', _('Link to an API')),
+        ('file.upload', _('Upload a file from your computer')),
+    ))
     url = URLField(_('URL'), [validators.required()])
     format = StringField(_('Format'), widget=FormatAutocompleter())
     description = MarkdownField(_('Description'), [validators.required()])
 
 
-class CommunityResourceForm(ResourceForm):
+class CommunityResourceForm(Form):
+    name = StringField(_('Name'), [validators.required()])
+    url = URLField(_('URL'), [validators.required()])
+    format = StringField(_('Format'), widget=FormatAutocompleter())
+    description = MarkdownField(_('Description'), [validators.required()])
     publish_as = PublishAsField(_('Publish as'))
 
 
-class GroupCreateForm(Form):
+class GroupForm(Form):
     title = StringField(_('Title'), [validators.required()])
     description = MarkdownField(_('Description'), [validators.required()])
     image_url = URLField(_('Image URL'), [validators.required()])
+
+
+class GroupExtrasForm(Form):
+    extras = KeyValueField(_('Additional data'))
+
+
+class MembersForm(Form):
+    pass
+

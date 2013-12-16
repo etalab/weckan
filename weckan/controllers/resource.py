@@ -166,3 +166,14 @@ def autocomplete_formats(request):
     data = [row[0] for row in query]
     headers = wsgihelpers.handle_cross_origin_resource_sharing(context)
     return wsgihelpers.respond_json(context, data, headers=headers)
+
+
+routes = (
+    (('GET', 'POST'), r'^(/(?P<lang>\w{2}))?/dataset/new_resource/(?P<name>[\w_-]+)/?$', create),
+    (('GET', 'POST'), r'^(/(?P<lang>\w{2}))?/dataset/(?P<name>[\w_-]+)/resource_edit/(?P<resource>[\w_-]+)/?$', edit),
+    (('GET', 'POST'), r'^(/(?P<lang>\w{2}))?/dataset/(?P<name>[\w_-]+)/community/resource/new/?$', create_community),
+    (('GET', 'POST'), r'^(/(?P<lang>\w{2}))?/dataset/(?P<name>[\w_-]+)/community/resource/(?P<resource>[\w_-]+)/edit/?$', edit_community),
+    ('POST', r'^(/(?P<lang>\w{2}))?/dataset/(?P<name>[\w_-]+)/community/resource/(?P<resource>[\w_-]+)/delete/?$', delete_community),
+
+    ('GET', r'^(/(?P<lang>\w{2}))?/format/autocomplete/?$', autocomplete_formats),
+)

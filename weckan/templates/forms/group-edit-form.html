@@ -1,0 +1,5 @@
+{% extends "forms/group-base-form.html" %}
+{% import "macros/forms.html" as forms %}
+
+{% set title = _('Edit an organization') if is_org else _('Edit a group') %}
+{% set active_tab = 'description' %}

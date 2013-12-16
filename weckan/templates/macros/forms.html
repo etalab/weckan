@@ -10,6 +10,10 @@
     <div class="{{ cols.control }}">
         {% if field.type == 'PublishAsField' %}
         {{ publish_as(field, user) }}
+        {% elif field.type == 'RadioField' %}
+        {{ radio(field, user) }}
+        {% elif field.type == 'KeyValueField' %}
+        {{ key_values(field, user) }}
         {% else %}
         {{ field(class_='form-control', placeholder=_(field.label.text), required=field.flags.required) }}
         {% endif %}
@@ -21,6 +25,33 @@
 {% endif %}
 {% endmacro %}
 
+{% macro radio(field, user) %}
+{% if field.stacked %}
+{{ radio_stacked(field, user) }}
+{% else %}
+{{ radio_inline(field, user) }}
+{% endif %}
+{% endmacro %}
+
+{% macro radio_inline(field, user) %}
+{% for value, label, selected in field.iter_choices() %}
+<label class="radio-inline">
+    <input type="radio" name="{{ field.name }}" id="{{ field.id }}" value="{{ value }}">
+    {{ _(label) }}
+</label>
+{% endfor %}
+{% endmacro %}
+
+{% macro radio_stacked(field, user) %}
+{% for value, label, selected in field.iter_choices() %}
+<div class="radio">
+    <label>
+        <input type="radio" name="{{ field.name }}" id="{{ field.id }}" value="{{ value }}">
+        {{ _(label) }}
+    </label>
+</div>
+{% endfor %}
+{% endmacro %}
 
 {% macro publish_as(field, user) %}
 {% if user.organizations %}
@@ -46,6 +77,43 @@
 </ul>
 <div class="clearfix"></div>
 {% endif %}
+{% endmacro %}
+
+{% macro key_values(field, user) %}
+{% for subfield in field %}
+{% set keyfield = subfield.key %}
+{% set valuefield = subfield.value %}
+<div class="row">
+    <div class="col-sm-5">
+        <div class="input-group">
+            <span class="input-group-addon">{{ _(keyfield.label.text) }}</span>
+            <input id="{{ keyfield.id }}" type="text" class="form-control" autocomplete="off" autofocus
+                name="{{ keyfield.name }}" placeholder="{{ _(keyfield.label.text) }}"
+                {% if keyfield.data %}value="{{ keyfield.data }}"{% endif %}/>
+        </div>
+    </div>
+    <div class="col-sm-7">
+        <div class="input-group">
+            <span class="input-group-addon">{{ _(valuefield.label.text) }}</span>
+            <input id="{{ valuefield.id }}" type="text" class="form-control" autocomplete="off" autofocus
+                name="{{ valuefield.name }}" placeholder="{{ _(valuefield.label.text) }}"
+                {% if valuefield.data %}value="{{ valuefield.data }}"{% endif %} />
+            <div class="input-group-btn">
+                {% if loop.last %}
+                <button class="btn btn-success btn-add" title="{{ _('Add') }}">
+                    <span class="glyphicon glyphicon-plus"></span>
+                </button>
+                {% else %}
+                <button class="btn btn-danger btn-remove" title="{{ _('Remove') }}">
+                    <span class="glyphicon glyphicon-minus"></span>
+                </button>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endfor %}
+<div class="clearfix"></div>
 {% endmacro %}
 
 
