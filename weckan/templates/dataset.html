@@ -443,7 +443,7 @@
 
             <h3>{{ _('Resources') }}</h3>
             <div class="row">
-                <div class="col-sm-9 list-group resources-list">
+                <div class="col-sm-9 list-group resources-list smaller">
                 {% for resource in dataset.community_resources %}
                     {% set resource_name = resource.name or resource.description or _('Nameless resource') %}
                     {% set resource_format = resource.format|trim|lower or 'data' %}
@@ -501,7 +501,7 @@
 
             <h3>{{ _('Reuses') }}</h3>
             <div class="row">
-                <div class="col-sm-9 reuses-list">
+                <div class="col-sm-9 reuses-list smaller">
                     <div class="row">
                         {% for reuse in dataset.related %}
                         {% set owner = user_by_id(reuse.owner_id) %}
