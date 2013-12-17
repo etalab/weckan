@@ -15,7 +15,10 @@
         {% elif field.type == 'BooleanField' %}
         {{ checkbox(field, user) }}
         {% elif field.type == 'KeyValueField' %}
-        {{ key_values(field, user) }}
+        {{ checkbox(field, user) }}
+        {% elif field.type == 'TagField' or field.type == 'TerritoryField' %}
+        <div class="tag-container"></div>
+        {{ field(class_='form-control', placeholder=_(field.label.text), required=field.flags.required) }}
         {% else %}
         {{ field(class_='form-control', placeholder=_(field.label.text), required=field.flags.required) }}
         {% endif %}

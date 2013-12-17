@@ -60,7 +60,7 @@ class DatasetForm(forms.Form):
     tags = forms.TagField(_('Tags'))
     temporal_coverage_from = forms.StringField(_('Temporal coverage start'))
     temporal_coverage_to = forms.StringField(_('Temporal coverage end'))
-    territorial_coverage = forms.StringField(_('Territorial coverage'), widget=forms.TerritoryAutocompleter())
+    territorial_coverage = forms.TerritoryField(_('Territorial coverage'))
     territorial_coverage_granularity = forms.SelectField(_('Territorial coverage granularity'),
         # description=_('Dataset update periodicity'),
         choices=(
@@ -419,13 +419,13 @@ def edit(request):
 
     dataset_name = request.urlvars.get('name')
     dataset = Package.by_name(dataset_name)
-    import ipdb; ipdb.set_trace()
     form = DatasetForm(request.POST, dataset,
         frequency=dataset.extras.get('"dct:accrualPeriodicity"'),
-        territorial_coverage=dataset.extras.get('territorial_coverage'),
+        territorial_coverage=dataset.extras.get('territorial_coverage', '').split(','),
         territorial_coverage_granularity=dataset.extras.get('territorial_coverage_granularity'),
         temporal_coverage_from=dataset.extras.get('temporal_coverage_from'),
         temporal_coverage_to=dataset.extras.get('temporal_coverage_to'),
+        tags=[package_tag.tag.name for package_tag in dataset.package_tag_all],
         i18n=context.translator
     )
 

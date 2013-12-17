@@ -178,6 +178,10 @@ class TagField(StringField):
             self.data = []
 
 
+class TerritoryField(TagField):
+    widget = TerritoryAutocompleter()
+
+
 class MarkdownField(FieldHelper, fields.TextAreaField):
     widget = MarkdownEditor()
 
@@ -221,8 +225,6 @@ class KeyValueField(FieldHelper, fields.FieldList):
         for f in self.entries:
             print f
         return [f.data for f in self.entries]
-
-
 
     # def process_data(self, values):
     #     if isinstance(values, dict):

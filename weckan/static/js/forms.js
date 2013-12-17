@@ -64,7 +64,8 @@
                 prefetch: '/tags/autocomplete'
             })
             .tagsManager({
-                tagsContainer: $(this).closest('div'),
+                tagsContainer: $(this).closest('div').find('.tag-container'),
+                prefilled: $(this).val(),
                 replace: true,
             })
             .on('typeahead:selected', function (e, data) {
@@ -76,7 +77,8 @@
         $('.territory-completer').each(function() {
             $(this).typeahead(Config.typeahead.territories)
             .tagsManager({
-                tagsContainer: $(this).closest('div'),
+                tagsContainer: $(this).closest('div').find('.tag-container'),
+                prefilled: $(this).val(),
                 replace: true,
             })
             .on('typeahead:selected', function (e, data) {
