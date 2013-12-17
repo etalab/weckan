@@ -57,26 +57,26 @@
                     </button>
                     <ul class="dropdown-menu">
                         <li>
-                            <a href="{{ sso('user', user.name) }}", title="{% trans %}Profile{% endtrans %}">
+                            <a href="{{ sso('user', user.name)|https }}", title="{% trans %}Profile{% endtrans %}">
                                 <span class="glyphicon glyphicon-user"></span>
                                 {% trans %}Profile{% endtrans %}
                             </a>
                         </li>
                         <li>
-                            <a href="{{ url(lang, 'dashboard') }}", title="{% trans %}Dashboard{% endtrans %}">
+                            <a href="{{ url(lang, 'dashboard')|https }}", title="{% trans %}Dashboard{% endtrans %}">
                                 <span class="glyphicon glyphicon-dashboard"></span>
                                 {% trans %}Dashboard{% endtrans %}
                             </a>
                         </li>
                         <li>
-                            <a href="{{ sso('settings') }}" title="{% trans %}Settings{% endtrans %}">
+                            <a href="{{ sso('settings')|https }}" title="{% trans %}Settings{% endtrans %}">
                                 <span class="glyphicon glyphicon-cog"></span>
                                 {% trans %}Settings{% endtrans %}
                             </a>
                         </li>
                         <li class="divider"></li>
                         <li>
-                            <a href="{{ sso('logout') }}" title="{% trans %}Log out{% endtrans %}">
+                            <a href="{{ sso('logout')|https }}" title="{% trans %}Log out{% endtrans %}">
                                 <span class="glyphicon glyphicon-log-out"></span>
                                 {% trans %}Log out{% endtrans %}
                             </a>
@@ -87,7 +87,7 @@
                 <li class="login">
                     <a id="sso-link"
                         title="{% trans %}Sign In / Register{% endtrans %}"
-                        href="{{ sso('login') }}?next={{ full_url|safe }}">
+                        href="{{ sso('login') }}?next={{ full_url|https|safe }}">
                         <span class="glyphicon glyphicon-log-in"></span>
                         {% trans %}Sign In / Register{% endtrans %}
                     </a>

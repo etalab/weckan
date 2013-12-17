@@ -177,6 +177,10 @@ def form_grid(specs):
     }
 
 
+def https(source):
+    return source.replace('http://', 'https://', 1) if conf['https'] and source.startswith('http://') else source
+
+
 def swig(value):
     '''Transform a string into a swig variable'''
     return ''.join(['{{', value, '}}'])
@@ -285,6 +289,7 @@ def get_jinja_env():
         env.filters['datetime'] = format_datetime
         env.filters['date'] = format_date
         env.filters['swig'] = swig
+        env.filters['https'] = https
         env.filters['tooltip_ellipsis'] = tooltip_ellipsis
         env.filters['percent'] = percent_filter
 
