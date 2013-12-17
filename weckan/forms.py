@@ -161,6 +161,10 @@ class TagAutocompleter(WidgetHelper, widgets.TextInput):
     classes = 'tag-completer'
 
 
+class TopicAutocompleter(WidgetHelper, widgets.TextInput):
+    classes = 'topic-completer'
+
+
 class KeyValueWidget(WidgetHelper, widgets.TextInput):
     pass
 
