@@ -297,8 +297,9 @@ def get_jinja_env():
 
 
 def format_topic(topic):
+    home_url = conf['home_url'].replace('http://', '//')
     url = topic['url'].format(
-        group='{0}/{{lang}}/groups'.format(conf['home_url']),
+        group='{0}/{{lang}}/groups'.format(home_url),
         wiki=conf['wiki_url']
     )
     name = topic['url'].split('/')[-1]
