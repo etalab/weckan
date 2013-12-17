@@ -46,11 +46,13 @@ LICENSES = json.load(resource_stream('ckanext.etalab', 'public/licenses.json'))
 
 
 class LicenseField(forms.SelectField):
-    def iter_choices(self):
-        licenses = (license for license in LICENSES if license['status'] == 'active')
-        for license in sorted(licenses, key=lambda l: l['title']):
-            value = license['id']
-            yield (value, self._translations.ugettext(license['title']), self.coerce(value) == self.data)
+    @property
+    def choices(self):
+        return [(license['id'], license['title']) for license in LICENSES if license['status'] == 'active']
+
+    @choices.setter
+    def choices(self, value):
+        pass
 
 
 class DatasetForm(forms.Form):
@@ -109,7 +111,7 @@ class DatasetForm(forms.Form):
         )
     )
     license_id = LicenseField(_('License'), default='notspecified')
-    private = forms.BooleanField(_('Private'), default=False)
+    private = forms.BooleanField(_('Private'), default=False, validators=[forms.Requires('owner')])
 
 
 class DatasetExtrasForm(forms.Form):
@@ -367,15 +369,15 @@ def extras_from_form(form):
     extras = {
         'temporal_coverage_from': form.temporal_coverage_from.data,
         'temporal_coverage_to': form.temporal_coverage_to.data,
-        'territorial_coverage': form.territorial_coverage.data,
+        'territorial_coverage': ','.join(form.territorial_coverage.data),
         'territorial_coverage_granularity': form.territorial_coverage_granularity.data,
-        '"dct:accrualPeriodicity"': form.periodicity.data,
+        '"dct:accrualPeriodicity"': form.frequency.data,
     }
     return [{'key': key, 'value': value} for key, value in extras.items() if value]
 
 
 def tags_from_form(form):
-    return [{'name': tag} for tag in form.tags.data]
+    return [{'name': tag} for tag in form.tags.data if tag]
 
 
 @wsgihelpers.wsgify
@@ -395,7 +397,7 @@ def create(request):
             'name': name,
             'title': form.title.data,
             'notes': form.notes.data,
-            'owner_org': form.publish_as.data,
+            'owner_org': form.owner.data,
             'private': form.private.data,
             'license_id': form.license_id.data,
             'extras': extras_from_form(form),
@@ -436,7 +438,7 @@ def edit(request):
             'name': name,
             'title': form.title.data,
             'notes': form.notes.data,
-            'owner_org': form.publish_as.data,
+            'owner_org': form.owner.data,
             'private': form.private.data,
             'license_id': form.license_id.data,
             'extras': extras_from_form(form),

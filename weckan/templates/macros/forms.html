@@ -18,9 +18,9 @@
         {{ checkbox(field, user) }}
         {% elif field.type == 'TagField' or field.type == 'TerritoryField' %}
         <div class="tag-container"></div>
-        {{ field(class_='form-control', placeholder=_(field.label.text), required=field.flags.required) }}
+        {{ field(class_='form-control') }}
         {% else %}
-        {{ field(class_='form-control', placeholder=_(field.label.text), required=field.flags.required) }}
+        {{ field(class_='form-control') }}
         {% endif %}
         {% for error in field.errors %}
         <label for="{{ field.id }}" class="help-block">{{ error }}</label>

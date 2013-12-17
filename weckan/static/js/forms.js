@@ -54,36 +54,46 @@
         // Formats fields
         $('.format-completer').typeahead({
             name: 'formats',
-            prefetch: '/format/autocomplete'
+            remote: '/format/autocomplete?q=%QUERY'
         });
 
         // Tags
         $('.tag-completer').each(function() {
-            $(this).typeahead({
+            var $this = $(this);
+            $this.typeahead({
                 name: 'tags',
-                prefetch: '/tags/autocomplete'
+                remote: '/tags/autocomplete?q=%QUERY'
             })
             .tagsManager({
-                tagsContainer: $(this).closest('div').find('.tag-container'),
-                prefilled: $(this).val(),
-                replace: true,
+                tagsContainer: $this.closest('div').find('.tag-container'),
+                prefilled: $this.val()
             })
             .on('typeahead:selected', function (e, data) {
-                $(this).tagsManager("pushTag", data.main_postal_distribution);
+                $this.tagsManager("pushTag", data.main_postal_distribution);
             })
+            .closest('form').submit(function() {
+                var hidden_name = 'hidden-' + $this.attr('name');
+                $this.val($this.siblings('input[name="'+hidden_name+'"]').val());
+            });
         });
 
         // Territory fields
         $('.territory-completer').each(function() {
-            $(this).typeahead(Config.typeahead.territories)
+            var $this = $(this);
+            $this.typeahead(Config.typeahead.territories)
             .tagsManager({
-                tagsContainer: $(this).closest('div').find('.tag-container'),
-                prefilled: $(this).val(),
-                replace: true,
+                tagsContainer: $this.closest('div').find('.tag-container'),
+                prefilled: $this.val(),
+                onlyTagList: true
             })
             .on('typeahead:selected', function (e, data) {
-                $(this).tagsManager("pushTag", data.main_postal_distribution);
+                var tag = data.kind + '/' + data.code + '/' + data.main_postal_distribution;
+                $this.tagsManager("pushTag", tag);
             })
+            .closest('form').submit(function() {
+                var hidden_name = 'hidden-' + $this.attr('name');
+                $this.val($this.siblings('input[name="'+hidden_name+'"]').val());
+            });
         });
     });
 

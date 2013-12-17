@@ -51,8 +51,22 @@ class FieldHelper(object):
     def is_visible(self, user):
         return True
 
+    def __call__(self, **kwargs):
+        placeholder = kwargs.pop('placeholder', self._translations.ugettext(self.label.text))
+        if placeholder:
+            kwargs['placeholder'] = placeholder
+        required = kwargs.pop('required', self.flags.required)
+        if required is True:
+            kwargs['required'] = required
+        return super(FieldHelper, self).__call__(**kwargs)
 
-class RequiredIf(validators.Required):
+    def ugettext(self, string):
+        return self._translations.ugettext(string)
+
+    _ = ugettext
+
+
+class RequiredIf(validators.DataRequired):
     '''
     A validator which makes a field required
     only if another field is set and has a truthy value.
@@ -69,7 +83,24 @@ class RequiredIf(validators.Required):
             super(RequiredIf, self).__call__(form, field)
 
 
-class RequiredIfVal(validators.Required):
+class Requires(validators.DataRequired):
+    '''
+    A validator which makes a field required another field.
+    '''
+    def __init__(self, other_field_name, *args, **kwargs):
+        self.other_field_name = other_field_name
+        super(Requires, self).__init__(*args, **kwargs)
+
+    def __call__(self, form, field):
+        other_field = form._fields.get(self.other_field_name)
+        if other_field is None:
+            raise Exception('no field named "%s" in form' % self.other_field_name)
+        if not bool(other_field.data):
+            msg = field._('This field requires "%(name)s" to be set')
+            raise validators.ValidationError(msg % {'name': field._(other_field.label.text)})
+
+
+class RequiredIfVal(validators.DataRequired):
     '''
     A validator which makes a field required
     only if another field is set and has a specified value.
@@ -158,8 +189,12 @@ class SelectField(FieldHelper, fields.SelectField):
     widget = SelectPicker()
 
     def iter_choices(self):
-        for value, label, selected in super(SelectField, self).iter_choices():
-            yield (value, self._translations.ugettext(label) if label else '', selected)
+        localized_choices = [
+            (value, self._(label) if label else '', selected)
+            for value, label, selected in super(SelectField, self).iter_choices()
+        ]
+        for value, label, selected in sorted(localized_choices, key=lambda c: c[1]):
+            yield (value, label, selected)
 
 
 class TagField(StringField):

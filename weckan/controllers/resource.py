@@ -137,7 +137,7 @@ def create(request):
             'resource_type': form.resource_type.data,
         })
         if 'add_another' in request.POST:
-            return wsgihelpers.redirect(context, location=urls.get_url(lang, 'dataset/resource_new', dataset_name))
+            return wsgihelpers.redirect(context, location=urls.get_url(lang, 'dataset/new_resource', dataset_name))
         return wsgihelpers.redirect(context, location=dataset_url)
 
     return templates.render_site('forms/resource-form.html', request, form=form, back_url=dataset_url)
@@ -178,17 +178,22 @@ def edit(request):
 @wsgihelpers.wsgify
 def autocomplete_formats(request):
     context = contexts.Ctx(request)
-    pattern = '{0}%'.format(request.params.get('q', ''))
+    pattern = request.params.get('q', '')
+    headers = wsgihelpers.handle_cross_origin_resource_sharing(context)
+
+    if not pattern:
+        return wsgihelpers.respond_json(context, [], headers=headers)
+
+    pattern = '{0}%'.format(pattern)
     num = int(request.params.get('num', 0))
 
-    query = DB.query(distinct(func.lower(Resource.format)).label('format'))
+    query = DB.query(distinct(func.lower(Resource.format)).label('format'), func.count(Resource.id).label('count'))
     query = query.filter(Resource.format.ilike(pattern))
-    query = query.order_by(func.count(Resource), 'format').group_by('format')
+    query = query.order_by('count', 'format').group_by('format')
     if num:
         query = query.limit(num)
 
     data = [row[0] for row in query]
-    headers = wsgihelpers.handle_cross_origin_resource_sharing(context)
     return wsgihelpers.respond_json(context, data, headers=headers)
 
 
