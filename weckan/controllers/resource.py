@@ -60,7 +60,7 @@ def create_community(request):
         DB.commit()
         return wsgihelpers.redirect(context, location=dataset_url)
 
-    return templates.render_site('forms/resource-form.html', request, new=True, form=form, back_url=dataset_url)
+    return templates.render_site('forms/resource-form.html', request, form=form, back_url=dataset_url)
 
 
 @wsgihelpers.wsgify
@@ -128,7 +128,6 @@ def create(request):
 
     if request.method == 'POST' and form.validate():
         url = forms.handle_upload(request, form.file, user)
-        print url
         ckan_api('resource_create', user, {
             'package_id': dataset_name,
             'name': form.name.data,
@@ -137,9 +136,11 @@ def create(request):
             'format': form.format.data,
             'resource_type': form.resource_type.data,
         })
+        if 'add_another' in request.POST:
+            return wsgihelpers.redirect(context, location=urls.get_url(lang, 'dataset/resource_new', dataset_name))
         return wsgihelpers.redirect(context, location=dataset_url)
 
-    return templates.render_site('forms/resource-form.html', request, new=True, form=form, back_url=dataset_url)
+    return templates.render_site('forms/resource-form.html', request, form=form, back_url=dataset_url)
 
 
 @wsgihelpers.wsgify
@@ -170,7 +171,7 @@ def edit(request):
         })
         return wsgihelpers.redirect(context, location=dataset_url)
 
-    return templates.render_site('forms/resource-form.html', request, new=False, form=form,
+    return templates.render_site('forms/resource-form.html', request, form=form, resource=resource,
             back_url=dataset_url, delete_url=delete_url)
 
 

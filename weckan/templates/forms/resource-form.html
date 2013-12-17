@@ -16,7 +16,7 @@
 
         <div class="animover row">
             <div class="page-header col-lg-offset-1 col-lg-10">
-                <h1>{% if new %}{{ _('Add a resource') }}{% else %}{{ _('Edit resource') }}{% endif %}</h1>
+                <h1>{% if not resource %}{{ _('Add a resource') }}{% else %}{{ _('Edit resource') }}{% endif %}</h1>
             </div>
 
             <form class="form-horizontal validation col-lg-offset-1 col-lg-10" role="form" method="post" enctype="multipart/form-data">
@@ -29,10 +29,16 @@
 
                 <div class="form-group">
                     <div class="col-sm-offset-2 col-sm-10 text-center">
-                        {% set btn_title = _('Add') if new else _('Save') %}
+                        {% set btn_title = _('Add') if not resource else _('Save') %}
                         <button type="submit" class="btn btn-primary" title="{{ btn_title }}">
                             {{ btn_title }}
                         </button>
+                        {% if not resource %}
+                        <button type="submit" class="btn btn-primary" value="add_another"
+                            title="_('Save and add another')">
+                            {{ _('Save and add another') }}
+                        </button>
+                        {% endif %}
                         <a href="{{ back_url }}" class="btn btn-warning" title="{{ _('Cancel') }}">
                             {{ _('Cancel') }}
                         </a>

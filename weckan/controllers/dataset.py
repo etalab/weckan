@@ -57,7 +57,7 @@ class DatasetForm(forms.Form):
     title = forms.StringField(_('Title'), [forms.validators.required()])
     notes = forms.MarkdownField(_('Description'), [forms.validators.required()])
     owner = forms.PublishAsField(_('Publish as'))
-    tags = forms.StringField(_('Tags'), widget=forms.TagAutocompleter())
+    tags = forms.TagField(_('Tags'))
     temporal_coverage_from = forms.StringField(_('Temporal coverage start'))
     temporal_coverage_to = forms.StringField(_('Temporal coverage end'))
     territorial_coverage = forms.StringField(_('Territorial coverage'), widget=forms.TerritoryAutocompleter())
@@ -363,6 +363,21 @@ def fork(request):
     return wsgihelpers.redirect(context, location=fork_url)
 
 
+def extras_from_form(form):
+    extras = {
+        'temporal_coverage_from': form.temporal_coverage_from.data,
+        'temporal_coverage_to': form.temporal_coverage_to.data,
+        'territorial_coverage': form.territorial_coverage.data,
+        'territorial_coverage_granularity': form.territorial_coverage_granularity.data,
+        '"dct:accrualPeriodicity"': form.periodicity.data,
+    }
+    return [{'key': key, 'value': value} for key, value in extras.items() if value]
+
+
+def tags_from_form(form):
+    return [{'name': tag} for tag in form.tags.data]
+
+
 @wsgihelpers.wsgify
 def create(request):
     context = contexts.Ctx(request)
@@ -375,13 +390,19 @@ def create(request):
 
     if request.method == 'POST' and form.validate():
         name = strings.slugify(form.title.data)
+
         ckan_api('package_create', user, {
             'name': name,
             'title': form.title.data,
             'notes': form.notes.data,
+            'owner_org': form.publish_as.data,
+            'private': form.private.data,
+            'license_id': form.license_id.data,
+            'extras': extras_from_form(form),
+            'tags': tags_from_form(form),
         })
 
-        redirect_url = urls.get_url(lang, 'dataset', name, 'resource')
+        redirect_url = urls.get_url(lang, 'dataset/new_resource', name)
         return wsgihelpers.redirect(context, location=redirect_url)
 
     back_url = urls.get_url(lang)
@@ -398,6 +419,7 @@ def edit(request):
 
     dataset_name = request.urlvars.get('name')
     dataset = Package.by_name(dataset_name)
+    import ipdb; ipdb.set_trace()
     form = DatasetForm(request.POST, dataset,
         frequency=dataset.extras.get('"dct:accrualPeriodicity"'),
         territorial_coverage=dataset.extras.get('territorial_coverage'),
@@ -414,6 +436,11 @@ def edit(request):
             'name': name,
             'title': form.title.data,
             'notes': form.notes.data,
+            'owner_org': form.publish_as.data,
+            'private': form.private.data,
+            'license_id': form.license_id.data,
+            'extras': extras_from_form(form),
+            'tags': tags_from_form(form),
         })
 
         redirect_url = urls.get_url(lang, 'dataset', name)

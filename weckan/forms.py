@@ -162,6 +162,22 @@ class SelectField(FieldHelper, fields.SelectField):
             yield (value, self._translations.ugettext(label) if label else '', selected)
 
 
+class TagField(StringField):
+    widget = TagAutocompleter()
+
+    def _value(self):
+        if self.data:
+            return u','.join(self.data)
+        else:
+            return u''
+
+    def process_formdata(self, valuelist):
+        if valuelist:
+            self.data = list(set([x.strip() for x in valuelist[0].split(',')]))
+        else:
+            self.data = []
+
+
 class MarkdownField(FieldHelper, fields.TextAreaField):
     widget = MarkdownEditor()
 
