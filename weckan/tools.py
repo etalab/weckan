@@ -1,10 +1,8 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
-import cgi
 import json
 import logging
-import os
 
 import requests
 

@@ -8,7 +8,7 @@ from datetime import datetime
 from wtforms import Form as WTForm, Field, validators, fields, widgets
 from wtforms.fields import html5
 
-from weckan import model, urls
+from weckan import model, urls, conf
 
 _ = lambda s: s
 
@@ -27,7 +27,9 @@ def handle_upload(request, field, user=None):
         'filename-original': field.data.filename,
         'uploaded-by': user.name if user else '',
     })
-    return urls.get_url(None, 'storage/f', filename)
+    root = conf['home_url'].replace('//', 'https://' if conf['https'] else 'http://', 1)
+    path = urls.get_url(None, 'storage/f', filename)
+    return ''.join([root, path])
 
 
 class Form(WTForm):
