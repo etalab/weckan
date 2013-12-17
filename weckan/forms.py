@@ -83,7 +83,7 @@ class RequiredIf(validators.DataRequired):
             super(RequiredIf, self).__call__(form, field)
 
 
-class Requires(validators.DataRequired):
+class Requires(object):
     '''
     A validator which makes a field required another field.
     '''
@@ -92,6 +92,8 @@ class Requires(validators.DataRequired):
         super(Requires, self).__init__(*args, **kwargs)
 
     def __call__(self, form, field):
+        if not field.data:
+            return
         other_field = form._fields.get(self.other_field_name)
         if other_field is None:
             raise Exception('no field named "%s" in form' % self.other_field_name)
@@ -185,8 +187,15 @@ class URLField(FieldHelper, html5.URLField):
     pass
 
 
+def nullable_text(value):
+    return None if value == 'None' else fields.core.text_type(value)
+
+
 class SelectField(FieldHelper, fields.SelectField):
     widget = SelectPicker()
+
+    def __init__(self, label=None, validators=None, coerce=nullable_text, **kwargs):
+        super(SelectField, self).__init__(label, validators, coerce, **kwargs)
 
     def iter_choices(self):
         localized_choices = [
@@ -233,7 +242,7 @@ class PublishAsField(FieldHelper, Field):
         if hasattr(obj, fkey):
             setattr(obj, fkey, self.data or None)
         else:
-            setattr(obj, name, model.Group.get(self.data))
+            setattr(obj, name, self.data)
 
 
 class KeyValueForm(WTForm):

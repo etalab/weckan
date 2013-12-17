@@ -330,11 +330,11 @@
 
 
                     <div class="tags">
-                        {% for package_tag in dataset.package_tag_all %}
-                        <a href="{{ url(lang, 'dataset', tags=package_tag.tag.name) }}"
+                        {% for tag in dataset.get_tags() %}
+                        <a href="{{ url(lang, 'dataset', tags=tag.name) }}"
                             class="btn btn-primary btn-grey btn-xs"
-                            title="{{ package_tag.tag.name }}">
-                            {{ package_tag.tag.name|truncate(14, True) }}
+                            title="{{ tag.name }}">
+                            {{ tag.name|truncate(14, True) }}
                         </a>
                         {% endfor %}
                     </div>

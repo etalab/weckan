@@ -58,13 +58,14 @@ class LicenseField(forms.SelectField):
 class DatasetForm(forms.Form):
     title = forms.StringField(_('Title'), [forms.validators.required()])
     notes = forms.MarkdownField(_('Description'), [forms.validators.required()])
-    owner = forms.PublishAsField(_('Publish as'))
+    owner_org = forms.PublishAsField(_('Publish as'))
     tags = forms.TagField(_('Tags'))
     temporal_coverage_from = forms.StringField(_('Temporal coverage start'))
     temporal_coverage_to = forms.StringField(_('Temporal coverage end'))
     territorial_coverage = forms.TerritoryField(_('Territorial coverage'))
     territorial_coverage_granularity = forms.SelectField(_('Territorial coverage granularity'),
         # description=_('Dataset update periodicity'),
+        default=None,
         choices=(
             (None, 'None'),
             ('poi', "Point d'intérêt"),
@@ -80,8 +81,9 @@ class DatasetForm(forms.Form):
     )
     frequency = forms.SelectField(_('Frequency'),
         description=_('Dataset update periodicity'),
+        default=None,
         choices=(
-            ('aucune', _('None')),
+            (None, _('None')),
             ('ponctuelle', _('Punctual')),
             ('temps réel', _('Real time')),
             ('quotidienne', _('Daily')),
@@ -111,7 +113,7 @@ class DatasetForm(forms.Form):
         )
     )
     license_id = LicenseField(_('License'), default='notspecified')
-    private = forms.BooleanField(_('Private'), default=False, validators=[forms.Requires('owner')])
+    private = forms.BooleanField(_('Private'), default=False, validators=[forms.Requires('owner_org')])
 
 
 class DatasetExtrasForm(forms.Form):
@@ -397,7 +399,7 @@ def create(request):
             'name': name,
             'title': form.title.data,
             'notes': form.notes.data,
-            'owner_org': form.owner.data,
+            'owner_org': form.owner_org.data,
             'private': form.private.data,
             'license_id': form.license_id.data,
             'extras': extras_from_form(form),
@@ -427,7 +429,7 @@ def edit(request):
         territorial_coverage_granularity=dataset.extras.get('territorial_coverage_granularity'),
         temporal_coverage_from=dataset.extras.get('temporal_coverage_from'),
         temporal_coverage_to=dataset.extras.get('temporal_coverage_to'),
-        tags=[package_tag.tag.name for package_tag in dataset.package_tag_all],
+        tags=[tag.name for tag in dataset.get_tags()],
         i18n=context.translator
     )
 
@@ -438,7 +440,7 @@ def edit(request):
             'name': name,
             'title': form.title.data,
             'notes': form.notes.data,
-            'owner_org': form.owner.data,
+            'owner_org': form.owner_org.data,
             'private': form.private.data,
             'license_id': form.license_id.data,
             'extras': extras_from_form(form),
