@@ -12,7 +12,8 @@
     "tests"
   ],
   "dependencies": {
-    "etalab-assets": "0.2.53"
+    "etalab-assets": "0.2.53",
+    "x-editable": "~1.5.1"
   },
   "resolutions": {
     "jquery": "~2.0.3"
