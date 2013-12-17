@@ -212,6 +212,18 @@ class SelectField(FieldHelper, fields.SelectField):
             yield (value, label, selected)
 
 
+class SelectMultipleField(FieldHelper, fields.SelectMultipleField):
+    widget = SelectPicker(multiple=True)
+
+    def iter_choices(self):
+        localized_choices = [
+            (value, self._(label) if label else '', selected)
+            for value, label, selected in super(SelectMultipleField, self).iter_choices()
+        ]
+        for value, label, selected in sorted(localized_choices, key=lambda c: c[1]):
+            yield (value, label, selected)
+
+
 class TagField(StringField):
     widget = TagAutocompleter()
 

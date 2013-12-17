@@ -14,7 +14,7 @@ from pkg_resources import resource_stream
 from sqlalchemy.sql import func
 
 from weckan import templates, urls, wsgihelpers, conf, contexts, auth, queries, territories, forms
-from weckan.model import Activity, meta, Package, Group, UserFollowingDataset, UserFollowingGroup
+from weckan.model import Activity, meta, Package, Group, UserFollowingDataset, UserFollowingGroup, Member, repo
 from weckan.tools import ckan_api
 
 _ = lambda s: s
@@ -55,11 +55,23 @@ class LicenseField(forms.SelectField):
         pass
 
 
+class GroupsField(forms.SelectMultipleField):
+    @property
+    def choices(self):
+        groups = DB.query(Group).filter(Group.state == 'active', ~Group.is_organization)
+        return [(group.id, group.display_name) for group in groups]
+
+    @choices.setter
+    def choices(self, value):
+        pass
+
+
 class DatasetForm(forms.Form):
     title = forms.StringField(_('Title'), [forms.validators.required()])
     notes = forms.MarkdownField(_('Description'), [forms.validators.required()])
     owner_org = forms.PublishAsField(_('Publish as'))
     tags = forms.TagField(_('Tags'))
+    groups = GroupsField(_('Topics'))
     temporal_coverage_from = forms.StringField(_('Temporal coverage start'))
     temporal_coverage_to = forms.StringField(_('Temporal coverage end'))
     territorial_coverage = forms.TerritoryField(_('Territorial coverage'))
@@ -382,6 +394,29 @@ def tags_from_form(form):
     return [{'name': tag} for tag in form.tags.data if tag]
 
 
+def fix_groups(dataset, group_ids):
+    repo.new_revision()
+    groups = dataset.get_groups('group')
+    for group_id in group_ids:
+        group = Group.get(group_id)
+        if not group in groups:
+            member = Member(group=group, table_id=dataset.id, table_name='package')
+            DB.add(member)
+    for group in groups:
+        if group.id in group_ids:
+            continue
+        member = DB.query(Member).filter(
+            Member.group == group,
+            Member.table_name == 'package',
+            Member.table_id == dataset.id,
+            Member.state == 'active'
+        ).first()
+        if member:
+            member.state = 'deleted'
+            DB.add(member)
+    DB.commit()
+
+
 @wsgihelpers.wsgify
 def create(request):
     context = contexts.Ctx(request)
@@ -405,6 +440,9 @@ def create(request):
             'extras': extras_from_form(form),
             'tags': tags_from_form(form),
         })
+
+        dataset = Package.by_name(name)
+        fix_groups(dataset, form.groups.data)
 
         redirect_url = urls.get_url(lang, 'dataset/new_resource', name)
         return wsgihelpers.redirect(context, location=redirect_url)
@@ -430,6 +468,7 @@ def edit(request):
         temporal_coverage_from=dataset.extras.get('temporal_coverage_from'),
         temporal_coverage_to=dataset.extras.get('temporal_coverage_to'),
         tags=[tag.name for tag in dataset.get_tags()],
+        groups=[group.id for group in dataset.get_groups('group')],
         i18n=context.translator
     )
 
@@ -446,6 +485,9 @@ def edit(request):
             'extras': extras_from_form(form),
             'tags': tags_from_form(form),
         })
+
+        dataset = Package.by_name(name)
+        fix_groups(dataset, form.groups.data)
 
         redirect_url = urls.get_url(lang, 'dataset', name)
         return wsgihelpers.redirect(context, location=redirect_url)
