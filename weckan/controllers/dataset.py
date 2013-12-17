@@ -79,16 +79,16 @@ class DatasetForm(forms.Form):
         # description=_('Dataset update periodicity'),
         default=None,
         choices=(
-            (None, 'None'),
-            ('poi', "Point d'intérêt"),
-            ('iris', 'Iris (quartier Insee)'),
-            ('commune', 'Commune'),
-            ('canton', 'Canton'),
-            ('epci', 'Intercommunalité (EPCI)'),
-            ('department', 'Département'),
-            ('region', 'Région'),
-            ('pays', 'Pays'),
-            ('other', "Autre"),
+            (None, _('None')),
+            ('poi', _('POI')),
+            ('iris', _('Iris (Insee districts)')),
+            ('commune', _('Town')),
+            ('canton', _('Canton')),
+            ('epci', _('Intermunicipal (EPCI)')),
+            ('department', _('County')),
+            ('region', _('Region')),
+            ('pays', _('Country')),
+            ('other', _('Other')),
         )
     )
     frequency = forms.SelectField(_('Frequency'),
@@ -108,20 +108,6 @@ class DatasetForm(forms.Form):
             ('annuelle', _('Annual')),
             ('triennale', _('Triennial')),
             ('quinquennale', _('Quinquennial')),
-
-            # ('aucune': 'Aucune'),
-            # ('ponctuelle': 'Ponctuelle'),
-            # ('temps réel': "Temps réel"),
-            # ('quotidienne': 'Quotidienne'),
-            # ('hebdomadaire': 'Hebdomadaire'),
-            # ('bimensuelle': 'Bimensuelle'),
-            # ('mensuelle': 'Mensuelle'),
-            # ('bimestrielle': 'Bimestrielle'),
-            # ('trimestrielle': 'Trimestrielle'),
-            # ('semestrielle': 'Semestrielle'),
-            # ('annuelle': 'Annuelle'),
-            # ("triennale": "Triennale"),
-            # ("quinquennale": "Quinquennale"),
         )
     )
     license_id = LicenseField(_('License'), default='notspecified')
