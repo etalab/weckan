@@ -56,12 +56,21 @@ def forbidden(request):
     return wsgihelpers.forbidden(contexts.Ctx(request))
 
 
+@wsgihelpers.wsgify
+def error404(request):
+    return wsgihelpers.error(contexts.Ctx(request), 404)
+
+
 def make_router(app):
     """Return a WSGI application that searches requests to controllers """
     global router
     controllers = group, organization, dashboard, dataset, redirect, resource, reuse, tags
     routes = (controller.routes for controller in controllers)
     routes = sum(routes, tuple())
+    catchall = (
+        ('GET', r'^(/(?P<lang>\w{2}))?/[\w\d_-]+/?$', error404),
+    )
+    routes = routes + catchall
     router = urls.make_router(app,
         ('GET', r'^(/(?P<lang>\w{2}))?/?$', home),
         ('GET', r'^(/(?P<lang>\w{2}))?/search/?$', search_results),
