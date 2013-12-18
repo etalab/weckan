@@ -29,7 +29,7 @@
                     </a>
                 </li>
                 <li><a href="{{ url(lang, 'metrics') }}">{% trans %}Metrics{% endtrans %}</a></li>
-                <li><a href="http://pfee.leaftr.com">Activiz</a></li>
+                {# <li><a href="http://pfee.leaftr.com">Activiz</a></li> #}
                 <li><a href="http://www.etalab.gouv.fr/">Etalab</a></li>
             </ul>
 
@@ -62,12 +62,12 @@
                                 {% trans %}Profile{% endtrans %}
                             </a>
                         </li>
-                        <li>
+                        {# <li>
                             <a href="{{ url(lang, 'dashboard') }}", title="{% trans %}Dashboard{% endtrans %}">
                                 <span class="glyphicon glyphicon-dashboard"></span>
                                 {% trans %}Dashboard{% endtrans %}
                             </a>
-                        </li>
+                        </li> #}
                         <li>
                             <a href="{{ sso('settings')|https }}" title="{% trans %}Settings{% endtrans %}">
                                 <span class="glyphicon glyphicon-cog"></span>
