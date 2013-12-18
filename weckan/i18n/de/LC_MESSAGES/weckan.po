@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version:  weckan\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2013-12-17 23:12+0100\n"
+"POT-Creation-Date: 2013-12-18 04:15+0100\n"
 "PO-Revision-Date: 2013-12-12 15:54+0000\n"
 "Last-Translator: noirbizarre\n"
 "Language-Team: German "
@@ -297,6 +297,19 @@ msgstr ""
 #: weckan/controllers/dataset.py:118 weckan/controllers/group.py:39
 msgid "Additional data"
 msgstr ""
+
+#: weckan/controllers/dataset.py:328
+#, fuzzy, python-format
+#| msgid "%(nb)s dataset"
+#| msgid_plural "%(nb)s datasets"
+msgid "Recent datasets"
+msgstr ""
+
+#: weckan/controllers/dataset.py:348
+#, fuzzy
+#| msgid "Publish a dataset !"
+msgid "Popular datasets"
+msgstr "Datensatz veröffentlichen !"
 
 #: weckan/controllers/group.py:35 weckan/controllers/reuse.py:21
 msgid "Image URL"
@@ -640,19 +653,19 @@ msgid ""
 " your visibility."
 msgstr ""
 
-#: weckan/templates/dataset.html:583 weckan/templates/organization.html:213
+#: weckan/templates/dataset.html:583 weckan/templates/organization.html:221
 msgid "You need to be logged in to follow an organization"
 msgstr ""
 
-#: weckan/templates/dataset.html:584 weckan/templates/organization.html:226
+#: weckan/templates/dataset.html:584 weckan/templates/organization.html:234
 msgid "You are now following {org}"
 msgstr ""
 
-#: weckan/templates/dataset.html:585 weckan/templates/organization.html:227
+#: weckan/templates/dataset.html:585 weckan/templates/organization.html:235
 msgid "You are not following {org} anymore"
 msgstr ""
 
-#: weckan/templates/dataset.html:586 weckan/templates/organization.html:228
+#: weckan/templates/dataset.html:586 weckan/templates/organization.html:236
 msgid "Error while toggling follower status"
 msgstr ""
 
@@ -736,13 +749,19 @@ msgstr "Diskussionsthema"
 msgid "Best reuse cases"
 msgstr "Beste Wiederverwendungsmöglichkeiten"
 
-#: weckan/templates/home.html:123
+#: weckan/templates/home.html:113 weckan/templates/organization.html:149
+#, fuzzy
+#| msgid "more"
+msgid "See more"
+msgstr "mehr"
+
+#: weckan/templates/home.html:128
 msgid ""
 "This reuse is no more featured and will not be visible anymore at page "
 "reload"
 msgstr ""
 
-#: weckan/templates/home.html:124
+#: weckan/templates/home.html:129
 msgid "Error while removing featured state"
 msgstr ""
 
@@ -840,72 +859,73 @@ msgstr ""
 msgid "Membership requests"
 msgstr ""
 
-#: weckan/templates/organization.html:148
+#: weckan/templates/organization.html:156
+#: weckan/templates/search-datasets.html:31
 msgid "No dataset"
 msgstr ""
 
-#: weckan/templates/organization.html:182
+#: weckan/templates/organization.html:190
 #: weckan/templates/forms/group-membership-requests-form.html:36
 msgid "Accept"
 msgstr ""
 
-#: weckan/templates/organization.html:189
-#: weckan/templates/organization.html:284
+#: weckan/templates/organization.html:197
+#: weckan/templates/organization.html:292
 #: weckan/templates/forms/group-membership-requests-form.html:40
 #: weckan/templates/forms/group-membership-requests-form.html:81
 msgid "Refuse"
 msgstr ""
 
-#: weckan/templates/organization.html:214
+#: weckan/templates/organization.html:222
 msgid "You need to be logged in to request membership to an organization"
 msgstr ""
 
-#: weckan/templates/organization.html:215
+#: weckan/templates/organization.html:223
 msgid "You need to be logged in to accept or refuse a membership request"
 msgstr ""
 
-#: weckan/templates/organization.html:218
+#: weckan/templates/organization.html:226
 msgid "A request has been sent to the administrators"
 msgstr ""
 
-#: weckan/templates/organization.html:219
+#: weckan/templates/organization.html:227
 msgid "Error while requesting membership to {org}"
 msgstr ""
 
-#: weckan/templates/organization.html:222
+#: weckan/templates/organization.html:230
 #: weckan/templates/forms/group-membership-requests-form.html:57
 msgid "Membership request has been accepted"
 msgstr ""
 
-#: weckan/templates/organization.html:223
+#: weckan/templates/organization.html:231
 #: weckan/templates/forms/group-membership-requests-form.html:58
 msgid "Membership request has been refused"
 msgstr ""
 
-#: weckan/templates/organization.html:224
+#: weckan/templates/organization.html:232
 #: weckan/templates/forms/group-membership-requests-form.html:59
 msgid "Error while responding to membership request"
 msgstr ""
 
-#: weckan/templates/organization.html:237
+#: weckan/templates/organization.html:245
 msgid "Membership request"
 msgstr ""
 
-#: weckan/templates/organization.html:240
+#: weckan/templates/organization.html:248
 msgid "Your can add some details here for your membership request."
 msgstr ""
 
-#: weckan/templates/organization.html:243
+#: weckan/templates/organization.html:251
 #: weckan/templates/forms/group-membership-requests-form.html:13
 msgid "Details"
 msgstr ""
 
-#: weckan/templates/organization.html:251
+#: weckan/templates/organization.html:259
 msgid "Send request"
 msgstr ""
 
-#: weckan/templates/organization.html:255
-#: weckan/templates/organization.html:288
+#: weckan/templates/organization.html:263
+#: weckan/templates/organization.html:296
 #: weckan/templates/forms/dataset-base-form.html:64
 #: weckan/templates/forms/dataset-base-form.html:65
 #: weckan/templates/forms/dataset-extras-form.html:17
@@ -922,27 +942,27 @@ msgstr ""
 msgid "Cancel"
 msgstr "Abbrechen"
 
-#: weckan/templates/organization.html:270
+#: weckan/templates/organization.html:278
 #: weckan/templates/forms/group-membership-requests-form.html:67
 msgid "Membership refusal"
 msgstr ""
 
-#: weckan/templates/organization.html:273
+#: weckan/templates/organization.html:281
 #: weckan/templates/forms/group-membership-requests-form.html:70
 msgid "Please add your refusal reason here."
 msgstr ""
 
-#: weckan/templates/organization.html:276
+#: weckan/templates/organization.html:284
 #: weckan/templates/forms/group-membership-requests-form.html:73
 msgid "Refusal reason"
 msgstr ""
 
 #: weckan/templates/search-datasets.html:6
-#: weckan/templates/search-datasets.html:17
+#: weckan/templates/search-datasets.html:18
 msgid "Datasets search"
 msgstr "Suche nach Datensatz"
 
-#: weckan/templates/search-datasets.html:18
+#: weckan/templates/search-datasets.html:19
 #: weckan/templates/search-organizations.html:27
 #, python-format
 msgid "results %(start)s to %(end)s of %(total)s"
