@@ -22,11 +22,6 @@ def ckan_api(action, user, data, timeout=None):
         response = requests.post(url, headers=headers, data=json.dumps(data), timeout=timeout)
         response.raise_for_status()
     except requests.RequestException as e:
-        msg = 'No details'
-        try:
-            msg = response.json()['error']
-        except:
-            pass
-        log.exception('Error on CKAN API for action %s: %s', action, msg)
-        raise e
+        log.exception('Error on CKAN API for action %s: %s', action)
+        raise
     return response.json()
