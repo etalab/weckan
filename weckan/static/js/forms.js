@@ -5,6 +5,9 @@
 
     "use strict";
 
+    $.fn.selectpicker.defaults.noneSelectedText = Utils.i18n('none-selected'),
+    $.fn.selectpicker.defaults.countSelectedText = Utils.i18n('count-selected'),
+
     $(function() {
         // jQuery validate
         $('form.validation').validate(Config.rules);

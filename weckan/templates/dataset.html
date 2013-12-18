@@ -188,9 +188,10 @@
                         </div>
 
                         <div class="btn-group">
-                            <a class="btn btn-danger btn-report btn-punch"
+                            <a class="btn btn-danger btn-report btn-punch send-alert"
                                 rel="tooltip" data-placement="top" data-trigger="hover"
-                                title="{{ _('Report') }}" data-container="body">
+                                title="{{ _('Report') }}" data-container="body"
+                                data-api="{{ url('youckan/dataset', dataset.name, 'alert') }}">
                                 <span class="glyphicon glyphicon-warning-sign"></span>
                             </a>
                         </div>
@@ -587,6 +588,65 @@
 <meta name="is-featured-i18n" content="{{ _('This reuse is now featured') }}">
 <meta name="is-unfeatured-i18n" content="{{ _('This reuse is no more featured') }}">
 <meta name="featured-error-i18n" content="{{ _('Error while toggling featured state') }}">
+
+<meta name="login-to-alert-i18n" content="{{ _('You need to be logged in to send an alert') }}">
+<meta name="alert-sent-i18n" content="{{ _('An alert has been sent to the team') }}">
+<meta name="alert-send-error-i18n" content="{{ _('Error while sending alert') }}">
+
+
+{# Send alert request modal #}
+{% if user %}
+<div class="modal fade" id="alert-modal" tabindex="-1" role="dialog" aria-labelledby="alert-modal-title" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 id="alert-modal-title" class="modal-title">{{ _("Alert") }}</h4>
+            </div>
+            <div class="modal-body">
+                <p><strong>{% trans %}Please provide alert details{% endtrans %}</strong></p>
+                <form role="form">
+                    <div class="form-group">
+                        <div class="radio">
+                            <label>
+                                <input type="radio" name="type" value="illegal" />
+                            {% trans %}Illegal content: licence concern, privacy concern, defamatory statements ..{% endtrans %}
+                            </label>
+                        </div>
+                        <div class="radio">
+                            <label>
+                                <input type="radio" name="type" value="tendencious" />
+                            {% trans %}Tendencious content: data alteration, partial or truncated data{% endtrans %}
+                            </label>
+                        </div>
+                        <div class="radio">
+                            <label>
+                                <input type="radio" name="type" value="other" />
+                            {% trans %}Other{% endtrans %}
+                            </label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+
+                        <label for="comment">{{ _('Details') }}</label>
+                        <textarea id="comment" name="comment" class="form-control" rows="3" required></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <a id="alert-submit" class="btn btn-primary" href>
+                    <span class="glyphicon glyphicon-envelope"></span>
+                    {{ _("Send alert") }}
+                </a>
+                <button type="button" class="btn btn-warning" data-dismiss="modal">
+                    <span class="glyphicon glyphicon-remove"></span>
+                    {{ _("Cancel") }}
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
 {% endblock %}
 
 {% block javascript %}
