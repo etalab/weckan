@@ -484,6 +484,10 @@ def edit(request):
 
     dataset_name = request.urlvars.get('name')
     dataset = Package.by_name(dataset_name)
+
+    if not dataset:
+        return wsgihelpers.not_found(context)
+
     form = DatasetForm(request.POST, dataset,
         frequency=dataset.extras.get('"dct:accrualPeriodicity"'),
         territorial_coverage=dataset.extras.get('territorial_coverage', '').split(','),
@@ -531,6 +535,9 @@ def extras(request):
 
     dataset_name = request.urlvars.get('name')
     dataset = Package.by_name(dataset_name)
+    if not dataset:
+        return wsgihelpers.not_found(context)
+
     form = DatasetExtrasForm(request.POST, dataset, i18n=context.translator)
 
     if request.method == 'POST' and form.validate():

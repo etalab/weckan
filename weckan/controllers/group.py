@@ -91,6 +91,8 @@ def edit_group_or_org(request, is_org):
 
     group_name = request.urlvars.get('name')
     group = Group.by_name(group_name)
+    if not group:
+        return wsgihelpers.not_found(context)
     form = GroupForm(request.POST, group, i18n=context.translator)
 
     if request.method == 'POST' and form.validate():
@@ -121,6 +123,9 @@ def group_or_org_extras(request, is_org):
 
     group_name = request.urlvars.get('name')
     group = Group.by_name(group_name)
+    if not group:
+        return wsgihelpers.not_found(context)
+
     form = GroupExtrasForm(request.POST, group, i18n=context.translator)
 
     if request.method == 'POST' and form.validate():
@@ -147,6 +152,8 @@ def group_or_org_members(request, is_org):
 
     group_name = request.urlvars.get('name')
     group = Group.by_name(group_name)
+    if not group:
+        return wsgihelpers.not_found(context)
 
     if request.method == 'POST':
         form = GroupRoleForm(request.POST)
@@ -190,6 +197,8 @@ def group_or_org_membership_requests(request, is_org):
 
     group_name = request.urlvars.get('name')
     group = Group.by_name(group_name)
+    if not group:
+        return wsgihelpers.not_found(context)
     pending_requests = MembershipRequest.pending_for(group)
 
     group_base_url = urls.get_url(lang, 'organization' if is_org else 'group')
@@ -232,6 +241,8 @@ def membership_requests(request):
 def display(request):
     group_name = request.urlvars.get('name')
     group = Group.by_name(group_name)
+    if not group:
+        return wsgihelpers.not_found(context)
     page = int(request.params.get('page', 1))
     _, results = dataset.search('', request, page, SEARCH_PAGE_SIZE, group)
     main_groups = [t['name'] for t in templates.main_topics()]

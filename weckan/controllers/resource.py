@@ -50,10 +50,13 @@ def create_community(request):
     dataset_name = request.urlvars.get('name')
     dataset_url = urls.get_url(lang, 'dataset', dataset_name)
 
+    dataset = Package.get(dataset_name)
+    if not dataset:
+        return wsgihelpers.not_found(context)
+
     form = CommunityResourceForm(request.POST, i18n=context.translator)
 
     if request.method == 'POST' and form.validate():
-        dataset = Package.get(dataset_name)
         resource = CommunityResource(dataset.id, user.id)
         form.populate_obj(resource)
         DB.add(resource)
@@ -76,6 +79,9 @@ def edit_community(request):
 
     resource_id = request.urlvars.get('resource')
     resource = CommunityResource.get(resource_id)
+    if not resource:
+        return wsgihelpers.not_found(context)
+
     delete_url = urls.get_url(lang, 'dataset', dataset_name, 'community/resource', resource_id, 'delete')
 
     form = CommunityResourceForm(request.POST, resource, i18n=context.translator)
