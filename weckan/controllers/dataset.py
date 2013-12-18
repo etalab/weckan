@@ -315,6 +315,43 @@ def search_more(request):
 
 
 @wsgihelpers.wsgify
+def recent_datasets(request):
+    ctx = contexts.Ctx(request)
+    page = int(request.params.get('page', 1))
+
+    last_datasets = queries.last_datasets()
+    count = last_datasets.count()
+    end = (page * NB_DATASETS) + 1
+    start = end - NB_DATASETS
+
+    return templates.render_site('search-datasets.html', request,
+        title = ctx._('Recent datasets'),
+        url_pattern=get_page_url_pattern(request),
+        datasets={
+            'total': count,
+            'page': page,
+            'page_size': NB_DATASETS,
+            'total_pages': count / NB_DATASETS,
+            'results': serialize(last_datasets[start:end])
+            }
+        )
+
+
+@wsgihelpers.wsgify
+def popular_datasets(request):
+    ctx = contexts.Ctx(request)
+    page = int(request.params.get('page', 1))
+
+    ident, results = search(None, request, page, SEARCH_PAGE_SIZE)
+
+    return templates.render_site('search-datasets.html', request,
+        title=ctx._('Popular datasets'),
+        url_pattern=get_page_url_pattern(request),
+        datasets=results
+        )
+
+
+@wsgihelpers.wsgify
 def autocomplete(request):
     query = request.params.get('q', '')
     num = int(request.params.get('num', NB_DATASETS))
@@ -509,7 +546,9 @@ def extras(request):
 
 routes = (
     ('GET', r'^(/(?P<lang>\w{2}))?/dataset/?$', search_more),
-    ('GET', r'^(/(?P<lang>\w{2}))?/dataset/autocomplete/?$', autocomplete),
+    ('GET', r'^(/(?P<lang>\w{2}))?/datasets?/autocomplete/?$', autocomplete),
+    ('GET', r'^(/(?P<lang>\w{2}))?/datasets?/popular/?$', popular_datasets),
+    ('GET', r'^(/(?P<lang>\w{2}))?/datasets?/recent/?$', recent_datasets),
     (('GET','POST'), r'^(/(?P<lang>\w{2}))?/dataset/new/?$', create),
     (('GET','POST'), r'^(/(?P<lang>\w{2}))?/dataset/edit/(?P<name>[\w_-]+)/?$', edit),
     (('GET','POST'), r'^(/(?P<lang>\w{2}))?/dataset/extras/(?P<name>[\w_-]+)/?$', extras),

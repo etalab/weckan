@@ -137,6 +137,62 @@ def display(request):
 
 
 @wsgihelpers.wsgify
+def popular_datasets(request):
+    organization_name = request.urlvars.get('name')
+    page = int(request.params.get('page', 1))
+    context = contexts.Ctx(request)
+
+    query = queries.organizations_and_counters()
+    query = query.filter(Group.name == organization_name)
+
+    if not query.count():
+        return wsgihelpers.not_found(context)
+
+    organization, nb_datasets, nb_members = query.first()
+
+    fake, results = dataset.search(None, request, page=page, page_size=NB_DATASETS, organization=organization)
+    return templates.render_site('search-datasets.html', request,
+        title = organization.title,
+        url_pattern=get_page_url_pattern(request),
+        datasets=results,
+        )
+
+
+@wsgihelpers.wsgify
+def recent_datasets(request):
+    organization_name = request.urlvars.get('name')
+    page = int(request.params.get('page', 1))
+    context = contexts.Ctx(request)
+
+    query = queries.organizations_and_counters()
+    query = query.filter(Group.name == organization_name)
+
+    if not query.count():
+        return wsgihelpers.not_found(context)
+
+    organization, nb_datasets, nb_members = query.first()
+
+    last_datasets = queries.last_datasets()
+    last_datasets = last_datasets.filter(Package.owner_org == organization.id)
+
+    count = last_datasets.count()
+    end = (page * NB_DATASETS) + 1
+    start = end - NB_DATASETS
+
+    return templates.render_site('search-datasets.html', request,
+        title = organization.title,
+        url_pattern=get_page_url_pattern(request),
+        datasets={
+            'total': count,
+            'page': page,
+            'page_size': NB_DATASETS,
+            'total_pages': count / NB_DATASETS,
+            'results': dataset.serialize(last_datasets[start:end])
+            }
+        )
+
+
+@wsgihelpers.wsgify
 def create(request):
     return group.create_group_or_org(request, True)
 
@@ -187,5 +243,7 @@ routes = (
     (('GET', 'POST'), r'^(/(?P<lang>\w{2}))?/organization/extras/(?P<name>[\w_-]+)/?$', extras),
     (('GET', 'POST'), r'^(/(?P<lang>\w{2}))?/organization/members/(?P<name>[\w_-]+)/?$', members),
     ('GET', r'^(/(?P<lang>\w{2}))?/organization/requests/(?P<name>[\w_-]+)/?$', membership_requests),
+    ('GET', r'^(/(?P<lang>\w{2}))?/organization/(?P<name>[\w_-]+)/popular?$', popular_datasets),
+    ('GET', r'^(/(?P<lang>\w{2}))?/organization/(?P<name>[\w_-]+)/recents?$', recent_datasets),
     ('GET', r'^(/(?P<lang>\w{{2}}))?/organization/(?!{0}(/|$))(?P<name>[\w_-]+)/?$'.format('|'.join(EXCLUDED_PATTERNS)), display),
 )

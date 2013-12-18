@@ -36,6 +36,7 @@
         $('.form-help').popover({
             placement: 'top',
             trigger: 'hover',
+            container: 'body',
             html: true
         });
 

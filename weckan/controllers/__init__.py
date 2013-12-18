@@ -25,7 +25,7 @@ def home(request):
 
     dataset_tabs = (
         ('popular', _('Most popular'), results['results']),
-        ('recents', _('Latest'), dataset.serialize(last_datasets)),
+        ('recent', _('Latest'), dataset.serialize(last_datasets)),
     )
 
     return templates.render_site('home.html', context,

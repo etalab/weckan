@@ -107,9 +107,14 @@
                         {% endfor %}
 
                     </ul>
+                    <p class="text-center">
+                        <a href="{{ url(lang, 'datasets', tab_id) }}" class="btn btn-default">
+                            <span class="glyphicon glyphicon-list" ></span>
+                            {{ _('See more') }}
+                        </a>
+                    </p>
                 </div>
                 {% endfor %}
-
             </div>
         </div>
         {# end Dataset tabs #}

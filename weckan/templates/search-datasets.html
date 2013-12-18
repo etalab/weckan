@@ -3,7 +3,7 @@
 
 {% set style = 'search' %}
 
-{% block title %}{% trans %}Datasets search{% endtrans %}{% endblock %}
+{% block title %}{{ title or _('Datasets search') }}{% endblock %}
 
 {% block content %}
 <section class="default">
@@ -12,12 +12,14 @@
         {% if datasets.results %}
         {% set start = ((datasets.page - 1) * datasets.page_size) + 1 %}
         {% set end = start - 1 + datasets.results|length %}
+
         <div class="page-header">
             <h1>
-                {% trans %}Datasets search{% endtrans %}
+                {{ title or _('Datasets search') }}
                 <small>{% trans total=datasets.total %}results {{start}} to {{end}} of {{total}}{% endtrans %}</small>
             </h1>
         </div>
+
         <ul class="search-results">
             {% for dataset in datasets.results %}
             {% include "widgets/dataset-search-result.html" %}
@@ -25,6 +27,8 @@
         </ul>
 
         {{ paginator(datasets.page, datasets.total_pages, url_pattern) }}
+        {% else %}
+        {{ _('No dataset') }}
         {% endif %}
 
     </div>
