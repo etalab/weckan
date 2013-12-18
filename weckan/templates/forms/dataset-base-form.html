@@ -61,9 +61,18 @@
                             <button type="submit" class="btn btn-primary" title="{{ title }}">
                                 {{ _('Save') }}
                             </button>
+
                             <a href="{{ back_url }}" class="btn btn-warning" title="{{ _('Cancel') }}">
                                 {{ _('Cancel') }}
                             </a>
+
+                            {% if dataset %}
+                            <button class="btn btn-danger pull-right" title="{{ _('Delete') }}"
+                                data-toggle="modal" data-target="#confirm-delete-modal">
+                                {{ _('Delete') }}
+                            </button>
+                            {% endif %}
+
                         </div>
                     </div>
 
@@ -74,6 +83,32 @@
 
     </div>
 </section>
+{% endblock %}
+
+{% block hiddens %}
+{# Confirm delete modal #}
+<div class="modal fade" id="confirm-delete-modal" tabindex="-1" role="dialog"
+    aria-labelledby="confirm-delete-modal-label" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="confirm-delete-modal-label">{{ _('Confirm deletion') }}</h4>
+            </div>
+            <div class="modal-body">
+                <p>
+                {{ _('You are about to delete this dataset.') }}<br/>
+                {{ _('This operation is unreversible') }}
+                </p>
+                <p><strong>{{ _('Are you sure ?') }}</strong></p>
+            </div>
+            <div class="modal-footer">
+                <a href="{{ delete_url }}" class="btn btn-primary postable">{{ _('Yes') }}</a>
+                <button type="button" class="btn btn-warning" data-dismiss="modal">{{ _('No') }}</button>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}
 
 {% block javascript %}

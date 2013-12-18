@@ -515,8 +515,10 @@ def edit(request):
         redirect_url = urls.get_url(lang, 'dataset', name)
         return wsgihelpers.redirect(context, location=redirect_url)
 
+    delete_url = urls.get_url(lang, 'dataset/delete', dataset.name)
     back_url = urls.get_url(lang, 'dataset', dataset.name)
-    return templates.render_site('forms/dataset-edit-form.html', request, dataset=dataset, form=form, back_url=back_url)
+    return templates.render_site('forms/dataset-edit-form.html', request,
+            dataset=dataset, form=form, back_url=back_url, delete_url=delete_url)
 
 
 @wsgihelpers.wsgify

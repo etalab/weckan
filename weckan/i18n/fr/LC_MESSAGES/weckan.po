@@ -12,8 +12,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: weckan\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2013-12-18 09:41+0100\n"
-"PO-Revision-Date: 2013-12-18 08:42+0000\n"
+"POT-Creation-Date: 2013-12-18 10:37+0100\n"
+"PO-Revision-Date: 2013-12-18 09:42+0000\n"
 "Last-Translator: noirbizarre\n"
 "Language-Team: French (http://www.transifex.com/projects/p/weckan/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -712,8 +712,8 @@ msgstr "Envoyer le signalement"
 
 #: weckan/templates/dataset.html:643 weckan/templates/organization.html:263
 #: weckan/templates/organization.html:296
-#: weckan/templates/forms/dataset-base-form.html:64
 #: weckan/templates/forms/dataset-base-form.html:65
+#: weckan/templates/forms/dataset-base-form.html:66
 #: weckan/templates/forms/dataset-extras-form.html:17
 #: weckan/templates/forms/dataset-extras-form.html:18
 #: weckan/templates/forms/group-base-form.html:71
@@ -821,10 +821,6 @@ msgstr "Plateforme ouverte des données publiques françaises"
 #: weckan/templates/navbar.html:60 weckan/templates/navbar.html:62
 msgid "Profile"
 msgstr "Profil"
-
-#: weckan/templates/navbar.html:66 weckan/templates/navbar.html:68
-msgid "Dashboard"
-msgstr "Tableau de bord"
 
 #: weckan/templates/navbar.html:72 weckan/templates/navbar.html:74
 msgid "Settings"
@@ -1164,6 +1160,49 @@ msgstr "Informations additionnelles"
 msgid "Save"
 msgstr "Enregistrer"
 
+#: weckan/templates/forms/dataset-base-form.html:70
+#: weckan/templates/forms/dataset-base-form.html:72
+#: weckan/templates/forms/resource-form.html:46
+#: weckan/templates/forms/resource-form.html:48
+#: weckan/templates/forms/reuse-form.html:40
+#: weckan/templates/forms/reuse-form.html:42
+msgid "Delete"
+msgstr "Supprimer"
+
+#: weckan/templates/forms/dataset-base-form.html:96
+#: weckan/templates/forms/resource-form.html:69
+#: weckan/templates/forms/reuse-form.html:64
+msgid "Confirm deletion"
+msgstr "Confirmer la suppression"
+
+#: weckan/templates/forms/dataset-base-form.html:100
+msgid "You are about to delete this dataset."
+msgstr "Vous êtes sur le point de supprimer ce jeu de données."
+
+#: weckan/templates/forms/dataset-base-form.html:101
+#: weckan/templates/forms/resource-form.html:74
+#: weckan/templates/forms/reuse-form.html:69
+msgid "This operation is unreversible"
+msgstr "Cette opération est irréversible."
+
+#: weckan/templates/forms/dataset-base-form.html:103
+#: weckan/templates/forms/resource-form.html:76
+#: weckan/templates/forms/reuse-form.html:71
+msgid "Are you sure ?"
+msgstr "Êtes-vous sûr ?"
+
+#: weckan/templates/forms/dataset-base-form.html:106
+#: weckan/templates/forms/resource-form.html:79
+#: weckan/templates/forms/reuse-form.html:74
+msgid "Yes"
+msgstr "Oui"
+
+#: weckan/templates/forms/dataset-base-form.html:107
+#: weckan/templates/forms/resource-form.html:80
+#: weckan/templates/forms/reuse-form.html:75
+msgid "No"
+msgstr "Non"
+
 #: weckan/templates/forms/dataset-create-form.html:4
 msgid "Add a new dataset"
 msgstr "Ajouter un nouveau jeu de données"
@@ -1230,41 +1269,9 @@ msgstr "Edition de la ressource"
 msgid "Save and add another"
 msgstr "Enregistrer et ajouter une autre"
 
-#: weckan/templates/forms/resource-form.html:46
-#: weckan/templates/forms/resource-form.html:48
-#: weckan/templates/forms/reuse-form.html:40
-#: weckan/templates/forms/reuse-form.html:42
-msgid "Delete"
-msgstr "Supprimer"
-
-#: weckan/templates/forms/resource-form.html:69
-#: weckan/templates/forms/reuse-form.html:64
-msgid "Confirm deletion"
-msgstr "Confirmer la suppression"
-
 #: weckan/templates/forms/resource-form.html:73
 msgid "You are about to delete this resource."
 msgstr "Vous êtes sur le point de supprimer cette ressource."
-
-#: weckan/templates/forms/resource-form.html:74
-#: weckan/templates/forms/reuse-form.html:69
-msgid "This operation is unreversible"
-msgstr "Cette opération est irréversible."
-
-#: weckan/templates/forms/resource-form.html:76
-#: weckan/templates/forms/reuse-form.html:71
-msgid "Are you sure ?"
-msgstr "Êtes-vous sûr ?"
-
-#: weckan/templates/forms/resource-form.html:79
-#: weckan/templates/forms/reuse-form.html:74
-msgid "Yes"
-msgstr "Oui"
-
-#: weckan/templates/forms/resource-form.html:80
-#: weckan/templates/forms/reuse-form.html:75
-msgid "No"
-msgstr "Non"
 
 #: weckan/templates/forms/reuse-form.html:4
 #: weckan/templates/forms/reuse-form.html:19
