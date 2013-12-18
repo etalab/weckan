@@ -162,7 +162,17 @@
                         </p>
                         {% endif %}
                     {% else %}
-                    <p class="text-center">{{ _('No resources') }}</p>
+                        {% if can_edit %}
+                        <a class="list-group-item add"
+                            href="{{ url(lang, 'dataset/new_resource', dataset.name) }}">
+                            <div class="format-label pull-left">+</div>
+                            <h4 class="list-group-item-heading">
+                                {{ _('Add a resource') }}
+                            </h4>
+                        </a>
+                        {% else %}
+                        <p class="text-center">{{ _('No resources') }}</p>
+                        {% endif %}
                     {% endif %}
                 </div>
 
