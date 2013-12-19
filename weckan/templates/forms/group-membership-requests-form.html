@@ -15,40 +15,41 @@
             <td width="80px">{{ _('Actions') }}</td>
         </tr>
     </thead>
-    {% for request in pending_requests %}
-    <tr>
-        <td class="text-center avatar">
-            <a class="avatar" href="{{ sso('user', request.user.name) }}"
-                title="{{ request.user.display_name }}">
-                {{ avatar(request.user, 30) }}
-            </a>
-        </td>
-        <td>
-            <a class="user" href="{{ sso('user', request.user.name) }}"
-                title="{{ request.user.display_name }}">
-                {{ request.user.fullname }}
-            </a>
-        </td>
-        <td>{{ request.comment }}</td>
-        <td>{{ request.created|date(format='long', locale=lang) }}</td>
-        <td>
-            <div class="btn-group btn-group-sm">
-                <a class="btn btn-success membership-accept" title="{{ _('Accept') }}"
-                    data-api="{{ url('youckan/membership', request.id, 'accept') }}">
-                    <span class="glyphicon glyphicon-ok"></span>
+    <tbody>
+        {% for request in pending_requests %}
+        <tr class="pending-request">
+            <td class="text-center avatar">
+                <a class="avatar" href="{{ sso('user', request.user.name) }}"
+                    title="{{ request.user.display_name }}">
+                    {{ avatar(request.user, 30) }}
                 </a>
-                <a class="btn btn-danger membership-refuse" title="{{ _('Refuse') }}"
-                    data-api="{{ url('youckan/membership', request.id, 'refuse') }}">
-                    <span class="glyphicon glyphicon-remove"></span>
+            </td>
+            <td>
+                <a class="user" href="{{ sso('user', request.user.name) }}"
+                    title="{{ request.user.display_name }}">
+                    {{ request.user.fullname }}
                 </a>
-            </div>
-        </td>
-    </tr>
-    {% else %}
-    <tr>
-        <td colspan="5" class="text-center">{{ _('No pending requests') }}</td>
-    </tr>
-    {% endfor %}
+            </td>
+            <td>{{ request.comment }}</td>
+            <td>{{ request.created|date(format='long', locale=lang) }}</td>
+            <td>
+                <div class="btn-group btn-group-sm">
+                    <a class="btn btn-success membership-accept" title="{{ _('Accept') }}"
+                        data-api="{{ url('youckan/membership', request.id, 'accept') }}">
+                        <span class="glyphicon glyphicon-ok"></span>
+                    </a>
+                    <a class="btn btn-danger membership-refuse" title="{{ _('Refuse') }}"
+                        data-api="{{ url('youckan/membership', request.id, 'refuse') }}">
+                        <span class="glyphicon glyphicon-remove"></span>
+                    </a>
+                </div>
+            </td>
+        </tr>
+        {% endfor %}
+        <tr class="empty {% if pending_requests %}hide{% endif %}">
+            <td colspan="5" class="text-center">{{ _('No pending requests') }}</td>
+        </tr>
+    </tbody>
 </table>
 {% endblock %}
 

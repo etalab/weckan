@@ -21,6 +21,9 @@
                 var msg = Utils.i18n('membership-accepted', mapping);
                 Utils.success(msg, msg_container);
                 $this.closest('.pending-request').remove();
+                if ($('.pending-request').length == 0) {
+                    $('.empty').removeClass('hide');
+                }
             }).error(function(e) {
                 var msg = Utils.i18n('membership-response-error', mapping);
                 console.error(e.responseJSON);
@@ -48,6 +51,9 @@
                         var msg = Utils.i18n('membership-refused', mapping);
                         Utils.success(msg, msg_container);
                         $this.closest('.pending-request').remove();
+                        if ($('.pending-request').length == 0) {
+                            $('.empty').removeClass('hide');
+                        }
                     }).error(function(e) {
                         var msg = Utils.i18n('membership-response-error', mapping);
                         Utils.error(msg, msg_container);
