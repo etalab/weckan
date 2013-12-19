@@ -142,7 +142,7 @@
                         </li>
                         {% endfor %}
                     </ul>
-                    {% if nb_datasets >= loop.index %}
+                    {% if nb_datasets > loop.index %}
                     <p class="text-center">
                         <a href="{{ url(lang, 'organization', organization.name, tab_id) }}" class="btn btn-default">
                             <span class="glyphicon glyphicon-list" ></span>
