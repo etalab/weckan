@@ -13,7 +13,7 @@ from pkg_resources import resource_stream
 
 from sqlalchemy.sql import func
 
-from weckan import templates, urls, wsgihelpers, conf, contexts, auth, queries, territories, forms
+from weckan import templates, urls, wsgihelpers, conf, contexts, auth, queries, territories, forms, model
 from weckan.model import Activity, meta, Package, Group, UserFollowingDataset, UserFollowingGroup, Member, repo
 from weckan.tools import ckan_api
 
@@ -511,6 +511,15 @@ def edit(request):
             'license_id': form.license_id.data,
             'extras': extras_from_form(form),
             'tags': tags_from_form(form),
+            'resources': [{
+                'id': resource.id,
+                'url': resource.url,
+                'description': resource.description,
+                'format': resource.format,
+                'name': resource.name,
+                'resource_type': resource.resource_type,
+                } for resource in dataset.active_resources
+            ],
         })
 
         dataset = Package.by_name(name)
