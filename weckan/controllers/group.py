@@ -111,7 +111,7 @@ def edit_group_or_org(request, is_org):
     group_base_url = urls.get_url(lang, 'organization' if is_org else 'group')
     back_url = urls.get_url(lang, 'group', group.name)
     return templates.render_site('forms/group-edit-form.html', request,
-        is_new=False, is_org=is_org, form=form, group_base_url=group_base_url, back_url=back_url, group=group)
+        is_org=is_org, form=form, group_base_url=group_base_url, back_url=back_url, group=group)
 
 
 def group_or_org_extras(request, is_org):
@@ -239,6 +239,7 @@ def membership_requests(request):
 
 @wsgihelpers.wsgify
 def display(request):
+    context = contexts.Ctx(request)
     group_name = request.urlvars.get('name')
     group = Group.by_name(group_name)
     if not group:
