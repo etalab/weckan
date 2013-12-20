@@ -167,12 +167,13 @@ def edit(request):
     form = ResourceForm(request.POST, resource, i18n=context.translator)
 
     if request.method == 'POST' and form.validate():
+        url = forms.handle_upload(request, form.file, user)
         ckan_api('resource_update', user, {
             'id': resource_id,
             'package_id': dataset_name,
             'name': form.name.data,
             'description': form.description.data,
-            'url': form.url.data,
+            'url': url or form.url.data,
             'format': form.format.data,
         })
         return wsgihelpers.redirect(context, location=dataset_url)
