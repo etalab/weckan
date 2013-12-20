@@ -145,6 +145,20 @@ def build_temporal_coverage(dataset):
     return temporal_coverage
 
 
+def build_slug(title):
+    base_slug = strings.slugify(title)
+    exists_query = DB.query(Package.name)
+    slug_exists = lambda s: exists_query.filter(Package.name == s).count() > 0
+    if not slug_exists(base_slug):
+        return base_slug
+    suffix = 0
+    while True:
+        slug = '-'.join([base_slug, bytes(suffix)])
+        if not slug_exists(slug):
+            return slug
+        suffix += 1
+
+
 def serialize(query):
     '''Build datasets for display from a queryset'''
     datasets = []
@@ -451,7 +465,7 @@ def create(request):
     form = DatasetForm(request.POST, i18n=context.translator)
 
     if request.method == 'POST' and form.validate():
-        name = strings.slugify(form.title.data)
+        name = build_slug(form.title.data)
 
         ckan_api('package_create', user, {
             'name': name,
@@ -500,7 +514,7 @@ def edit(request):
     )
 
     if request.method == 'POST' and form.validate():
-        name = strings.slugify(form.title.data)
+        name = build_slug(form.title.data)
         ckan_api('package_update', user, {
             'id': dataset.id,
             'name': name,
