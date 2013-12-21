@@ -50,6 +50,7 @@
             $('<form/>', {method: 'post', action: $a.attr('href')})
                 .append($('<input/>', {name: $a.data('field-name'), value: $a.data('field-value')}))
                 .append($('<input/>', {name: 'csrfmiddlewaretoken', value: $.cookie('csrftoken')}))
+                .appendTo('body')
                 .submit();
 
             return false;
