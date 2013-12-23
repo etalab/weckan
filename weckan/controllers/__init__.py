@@ -61,6 +61,13 @@ def error404(request):
     return wsgihelpers.error(contexts.Ctx(request), 404)
 
 
+@wsgihelpers.wsgify
+def error(request):
+    context = contexts.Ctx(request)
+    code = int(request.urlvars.get('code', 500) or 500)
+    return wsgihelpers.error(context, code)
+
+
 def make_router(app):
     """Return a WSGI application that searches requests to controllers """
     global router
@@ -73,6 +80,7 @@ def make_router(app):
     routes = routes + catchall
     router = urls.make_router(app,
         ('GET', r'^(/(?P<lang>\w{2}))?/?$', home),
+        ('GET', r'^(/(?P<lang>\w{2}))?/error(/(?P<code>\d{3}))?/?$', error),
         ('GET', r'^(/(?P<lang>\w{2}))?/search/?$', search_results),
         ('GET', r'^(/(?P<lang>\w{2}))?/users/?$', forbidden),
         *routes
