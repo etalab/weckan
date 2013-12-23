@@ -145,16 +145,16 @@ def build_temporal_coverage(dataset):
     return temporal_coverage
 
 
-def build_slug(title):
+def build_slug(title, previous=None):
     base_slug = strings.slugify(title)
     exists_query = DB.query(Package.name)
     slug_exists = lambda s: exists_query.filter(Package.name == s).count() > 0
-    if not slug_exists(base_slug):
+    if base_slug == previous or not slug_exists(base_slug):
         return base_slug
     suffix = 0
     while True:
         slug = '-'.join([base_slug, bytes(suffix)])
-        if not slug_exists(slug):
+        if slug == previous or not slug_exists(slug):
             return slug
         suffix += 1
 
@@ -514,7 +514,7 @@ def edit(request):
     )
 
     if request.method == 'POST' and form.validate():
-        name = build_slug(form.title.data)
+        name = build_slug(form.title.data, dataset.name)
         ckan_api('package_update', user, {
             'id': dataset.id,
             'name': name,
