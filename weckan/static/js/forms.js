@@ -5,8 +5,23 @@
 
     "use strict";
 
-    $.fn.selectpicker.defaults.noneSelectedText = Utils.i18n('none-selected'),
-    $.fn.selectpicker.defaults.countSelectedText = Utils.i18n('count-selected'),
+    var sso_url = $('link[rel="sso"]').attr('href'),
+        user_template = [
+            '<div class="logo">',
+            '<img src="{{profile.avatar}}">',
+            '</div>',
+            '<p>{{fullname}}</p>'
+        ].join('');
+
+    $.fn.selectpicker.defaults.noneSelectedText = Utils.i18n('none-selected');
+    $.fn.selectpicker.defaults.countSelectedText = Utils.i18n('count-selected');
+
+    $.ajaxSetup({
+        crossDomain: true,
+        xhrFields: {
+            withCredentials: true
+        }
+    });
 
     $(function() {
         // jQuery validate
@@ -100,6 +115,22 @@
                 $this.val($this.siblings('input[name="'+hidden_name+'"]').val());
             });
         });
+
+        // User autocomplete
+        $('.user-completer').each(function() {
+            var $this = $(this);
+            $this.typeahead({
+                name: 'Users',
+                limit: 8,
+                valueKey: 'fullname',
+                engine: Config.typeahead.organizations.engine,
+                template: user_template,
+                remote: {
+                    url: [sso_url, '/api/users/?search=%QUERY'].join('')
+                }
+            });
+        });
+
     });
 
 }(window.jQuery, window.Utils, window.EtalabConfig));

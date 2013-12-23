@@ -41,7 +41,7 @@ class GroupExtrasForm(forms.Form):
 
 class GroupRoleForm(forms.Form):
     pk = forms.StringField(validators=[forms.validators.required()])
-    value = forms.StringField(validators=[forms.validators.required()])
+    value = forms.StringField(default='member')
 
 
 def get_page_url_pattern(request):
@@ -188,6 +188,29 @@ def group_or_org_members(request, is_org):
         is_org=is_org, members=members, group_base_url=group_base_url, back_url=back_url, group=group, roles=roles)
 
 
+def group_or_org_delete_member(request, is_org):
+    context = contexts.Ctx(request)
+    user = auth.get_user_from_request(request)
+    if not user:
+        return wsgihelpers.unauthorized(context)  # redirect to login/register ?
+
+    group_name = request.urlvars.get('name')
+    group = Group.by_name(group_name)
+    if not group:
+        return wsgihelpers.not_found(context)
+
+    username = request.urlvars.get('username')
+    headers = wsgihelpers.handle_cross_origin_resource_sharing(context)
+    data = ckan_api('member_delete', user, {
+        'id': group.id,
+        'object': username,
+        'object_type': 'user',
+    })
+    if data['success']:
+        return wsgihelpers.respond_json(context, {}, headers=headers, code=200)
+    return wsgihelpers.respond_json(context, {}, headers=headers, code=400)
+
+
 def group_or_org_membership_requests(request, is_org):
     context = contexts.Ctx(request)
     lang = request.urlvars.get('lang', templates.DEFAULT_LANG)
@@ -220,6 +243,11 @@ def edit(request):
 @wsgihelpers.wsgify
 def members(request):
     return group_or_org_members(request, False)
+
+
+@wsgihelpers.wsgify
+def delete_member(request):
+    return group_or_org_delete_member(request, False)
 
 
 @wsgihelpers.wsgify
@@ -260,6 +288,7 @@ routes = (
     (('GET', 'POST'), r'^(/(?P<lang>\w{2}))?/group/edit/(?P<name>[\w_-]+)/?$', edit),
     (('GET', 'POST'), r'^(/(?P<lang>\w{2}))?/group/extras/(?P<name>[\w_-]+)/?$', extras),
     (('GET', 'POST'), r'^(/(?P<lang>\w{2}))?/group/members/(?P<name>[\w_-]+)/?$', members),
+    (('DELETE'), r'^(/(?P<lang>\w{2}))?/group/members/(?P<name>[\w_-]+)/(?P<username>[\w_-]+)/?$', delete_member),
     ('GET', r'^(/(?P<lang>\w{2}))?/group/requests/(?P<name>[\w_-]+)/?$', membership_requests),
     ('GET', r'^(/(?P<lang>\w{{2}}))?/groups?/(?!{0}(/|$))(?P<name>[\w_-]+)/?$'.format('|'.join(EXCLUDED_PATTERNS)), display),
 )

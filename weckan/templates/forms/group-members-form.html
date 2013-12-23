@@ -5,18 +5,19 @@
 {% set active_tab = 'members' %}
 
 {% block formcontent %}
-<table class="table table-stripped">
+<table class="table table-stripped members-table">
     <thead>
         <tr>
             <td width="40px" class="text-center">
                 <span class="glyphicon glyphicon-user"></span>
             </td>
-            <td>{{ _('Name') }}</td>
+            <td>{{ _('User') }}</td>
             <td>{{ _('Role') }}</td>
+            <td width="40px"></td>
         </tr>
     </thead>
     {% for member, user in members %}
-    <tr>
+    <tr class="member" data-username="{{user.name}}">
         <td class="text-center avatar">
             <a class="avatar" href="{{ sso('user', user.name) }}"
                 title="{{ user.display_name }}">
@@ -31,19 +32,142 @@
         </td>
         <td>
             <a class="member-role" data-type="select" href
-                data-pk="{{ user.id }}" data-title ="{{ _('Role') }}" data-value="{{member.capacity}}">
+                data-pk="{{ user.id }}" data-title ="{{ _('Role') }}" data-value="{{member.capacity or 'member'}}">
                 {{ roles[member.capacity] }}
             </a>
         </td>
+        <td>
+            <div class="btn-group btn-group-xs">
+                <a class="btn btn-danger member-remove" title="{{ _('Remove') }}">
+                    <span class="glyphicon glyphicon-remove"></span>
+                </a>
+            </div>
+        </td>
     </tr>
     {% endfor %}
+    <tr class="empty {% if members %}hide{% endif %}">
+        <td colspan="5" class="text-center">{{ _('No members') }}</td>
+    </tr>
 </table>
+
+<div class="row">
+    <div class="input-group col-xs-12 col-sm-offset-1 col-sm-10 col-md-offset-2 col-md-8 col-lg-offset-4 col-lg-4">
+        <span class="input-group-addon">
+            <span class="glyphicon glyphicon-user"></span>
+        </span>
+        <input id="user-picker" name="user" type="text" class="user-completer form-control"
+            placeholder="{{ _('Add a member') }}" />
+    </div>
+</div>
 {% endblock %}
+
 
 {% block hiddens %}
 <meta name="role-admin-i18n" content="{{ roles['admin'] }}">
 <meta name="role-editor-i18n" content="{{ roles['editor'] }}">
 <meta name="role-member-i18n" content="{{ roles['member'] }}">
+<meta name="login-for-members-i18n" content="{{ _('You need to be authenticated to edit members') }}">
+<meta name="member-error-i18n" content="{{ _('An error occured while editing members') }}">
+<meta name="member-deleted-i18n" content="{{ _('The member has been deleted') }}">
+
+<script id="member-row-template" type="text/x-swig-template">
+<tr class="member" data-username="{{'slug'|swig}}">
+    <td class="text-center avatar">
+        <a class="avatar" href="{{ sso('user', 'slug'|swig) }}"
+            title="{{ 'fullname'|swig }}">
+            <img src="{{ 'profile.avatar'|swig }}" alt="{{ 'fullname'|swig }} avatar"
+                width="30px" height="30px" class="avatar"/>
+        </a>
+    </td>
+    <td>
+        <a class="avatar" href="{{ sso('user', 'slug'|swig) }}"
+            title="{{ 'fullname'|swig }}">
+            {{ 'fullname'|swig }}
+        </a>
+    </td>
+    <td>
+        <a class="member-role" data-type="select" href
+            data-pk="{{ 'slug'|swig }}" data-title="{{ _('Role') }}" data-value="member">
+            {{ roles['member'] }}
+        </a>
+    </td>
+    <td>
+        <div class="btn-group btn-group-xs">
+            <a class="btn btn-danger member-remove" title="{{ _('Remove') }}">
+                <span class="glyphicon glyphicon-remove"></span>
+            </a>
+        </div>
+    </td>
+</tr>
+</script>
+
+<script id="member-add-template" type="text/x-swig-template">
+<p>{{ _('Do you want to add this user as a member of your organization ?') }}</p>
+<div class="row">
+    <div class="card user-card col-lg-offset-3 col-lg-6">
+        <div class="avatar">
+            <a href="{{ sso('user', 'slug'|swig) }}" title="{{ 'fullname'|swig }}">
+                <img src="{{ 'profile.avatar'|swig }}" alt="{{ 'fullname'|swig }} avatar" />
+            </a>
+        </div>
+        <div class="caption">
+            <h3>
+                <a href="{{ sso('user', 'slug'|swig) }}"
+                    title="{{ 'fullname'|swig }}">
+                    {{ 'fullname'|swig }}
+                </a>
+            </h3>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+</div>
+</script>
+
+{# Add members modal #}
+<div class="modal fade" id="add-member-modal" tabindex="-1" role="dialog" aria-labelledby="add-member-modal-title" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 id="add-member-modal-title" class="modal-title">{{ _("Add member") }}</h4>
+            </div>
+            <div class="modal-body"></div>
+            <div class="modal-footer">
+                <a id="add-button" class="btn btn-primary" href>
+                    <span class="glyphicon glyphicon-plus-sign"></span>
+                    {{ _("Add") }}
+                </a>
+                <button type="button" class="btn btn-warning" data-dismiss="modal">
+                    <span class="glyphicon glyphicon-remove"></span>
+                    {{ _("Cancel") }}
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+{# Confirm delete modal #}
+<div class="modal fade" id="confirm-delete-modal" tabindex="-1" role="dialog"
+    aria-labelledby="confirm-delete-modal-label" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="confirm-delete-modal-label">{{ _('Confirm deletion') }}</h4>
+            </div>
+            <div class="modal-body">
+                <p>
+                {{ _('You are about to delete this member.') }}<br/>
+                </p>
+                <p><strong>{{ _('Are you sure ?') }}</strong></p>
+            </div>
+            <div class="modal-footer">
+                <a href class="btn btn-primary">{{ _('Yes') }}</a>
+                <button type="button" class="btn btn-warning" data-dismiss="modal">{{ _('No') }}</button>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}
 
 {% block javascript %}

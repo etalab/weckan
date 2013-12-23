@@ -208,6 +208,11 @@ def members(request):
 
 
 @wsgihelpers.wsgify
+def delete_member(request):
+    return group.group_or_org_delete_member(request, True)
+
+
+@wsgihelpers.wsgify
 def extras(request):
     return group.group_or_org_extras(request, True)
 
@@ -242,6 +247,7 @@ routes = (
     (('GET', 'POST'), r'^(/(?P<lang>\w{2}))?/organization/edit/(?P<name>[\w_-]+)/?$', edit),
     (('GET', 'POST'), r'^(/(?P<lang>\w{2}))?/organization/extras/(?P<name>[\w_-]+)/?$', extras),
     (('GET', 'POST'), r'^(/(?P<lang>\w{2}))?/organization/members/(?P<name>[\w_-]+)/?$', members),
+    (('DELETE'), r'^(/(?P<lang>\w{2}))?/organization/members/(?P<name>[\w_-]+)/(?P<username>[\w_-]+)/?$', delete_member),
     ('GET', r'^(/(?P<lang>\w{2}))?/organization/requests/(?P<name>[\w_-]+)/?$', membership_requests),
     ('GET', r'^(/(?P<lang>\w{2}))?/organization/(?P<name>[\w_-]+)/popular?$', popular_datasets),
     ('GET', r'^(/(?P<lang>\w{2}))?/organization/(?P<name>[\w_-]+)/recents?$', recent_datasets),
