@@ -42,6 +42,14 @@ EXCLUDED_PATTERNS = (
     'new_resource',
 )
 
+SPECIAL_EXTRAS = (
+    'temporal_coverage_from',
+    'temporal_coverage_to',
+    'territorial_coverage',
+    'territorial_coverage_granularity',
+    '"dct:accrualPeriodicity"',
+)
+
 LICENSES = json.load(resource_stream('ckanext.etalab', 'public/licenses.json'))
 
 
@@ -115,7 +123,9 @@ class DatasetForm(forms.Form):
 
 
 class DatasetExtrasForm(forms.Form):
-    extras = forms.KeyValueField(_('Additional data'))
+    key = forms.StringField(_('Key'), [forms.validators.required()])
+    value = forms.StringField(_('Value'), [forms.validators.required()])
+    old_key = forms.StringField(_('Old key'))
 
 
 def build_territorial_coverage(dataset):
@@ -515,6 +525,8 @@ def edit(request):
 
     if request.method == 'POST' and form.validate():
         name = build_slug(form.title.data, dataset.name)
+        extras = [{'key': key, 'value': value} for key, value in dataset.extras.items() if key not in SPECIAL_EXTRAS]
+        extras.extend(extras_from_form(form))
         ckan_api('package_update', user, {
             'id': dataset.id,
             'name': name,
@@ -523,7 +535,7 @@ def edit(request):
             'owner_org': form.owner_org.data,
             'private': form.private.data,
             'license_id': form.license_id.data,
-            'extras': extras_from_form(form),
+            'extras': extras,
             'tags': tags_from_form(form),
             'resources': [{
                 'id': resource.id,
@@ -561,19 +573,91 @@ def extras(request):
     if not dataset:
         return wsgihelpers.not_found(context)
 
-    form = DatasetExtrasForm(request.POST, dataset, i18n=context.translator)
-
-    if request.method == 'POST' and form.validate():
-        ckan_api('package_update', user, {
-            'id': dataset.id,
-            'extras': form.extras.data,
-        })
+    if request.method == 'POST':
+        headers = wsgihelpers.handle_cross_origin_resource_sharing(context)
+        form = DatasetExtrasForm(request.POST)
+        if form.validate():
+            extras = [
+                {'key': key, 'value': value}
+                for key, value in dataset.extras.items()
+                if not key == (form.old_key.data or form.key.data)
+            ]
+            extras.append({'key': form.key.data, 'value': form.value.data})
+            data = ckan_api('package_update', user, {
+                'id': dataset.id,
+                'name': dataset.name,
+                'title': dataset.title,
+                'notes': dataset.notes,
+                'owner_org': dataset.owner_org,
+                'private': dataset.private,
+                'license_id': dataset.license_id,
+                'extras': extras,
+                'tags': [{'name': package_tag.tag.name} for package_tag in dataset.package_tag_all],
+                'resources': [{
+                    'id': resource.id,
+                    'url': resource.url,
+                    'description': resource.description,
+                    'format': resource.format,
+                    'name': resource.name,
+                    'resource_type': resource.resource_type,
+                    } for resource in dataset.active_resources
+                ],
+            })
+            if data['success']:
+                return wsgihelpers.respond_json(context, {'key': form.key.data, 'value': form.value.data}, headers=headers, code=200)
+        return wsgihelpers.respond_json(context, {}, headers=headers, code=400)
 
         redirect_url = urls.get_url(lang, 'dataset', dataset.name)
         return wsgihelpers.redirect(context, location=redirect_url)
 
+    extras = [(key, value) for key, value in dataset.extras.items() if key not in SPECIAL_EXTRAS]
     back_url = urls.get_url(lang, 'dataset', dataset.name)
-    return templates.render_site('forms/dataset-extras-form.html', request, dataset=dataset, form=form, back_url=back_url)
+    return templates.render_site('forms/dataset-extras-form.html', request, dataset=dataset, extras=extras, back_url=back_url)
+
+
+@wsgihelpers.wsgify
+def delete_extra(request):
+    context = contexts.Ctx(request)
+    headers = wsgihelpers.handle_cross_origin_resource_sharing(context)
+
+    user = auth.get_user_from_request(request)
+    if not user:
+        return wsgihelpers.unauthorized(context)  # redirect to login/register ?
+
+    dataset_name = request.urlvars.get('name')
+    dataset = Package.by_name(dataset_name)
+    if not dataset:
+        return wsgihelpers.not_found(context)
+
+    extra_key = request.urlvars.get('key', '').strip()
+    if not extra_key in dataset.extras.keys():
+        return wsgihelpers.not_found(context)
+
+    extras = [{'key': key, 'value': value} for key, value in dataset.extras.items() if not key == extra_key]
+    extras.append({'key': extra_key, 'value': dataset.extras.get(extra_key), 'deleted': True})
+    data = ckan_api('package_update', user, {
+        'id': dataset.id,
+        'name': dataset.name,
+        'title': dataset.title,
+        'notes': dataset.notes,
+        'owner_org': dataset.owner_org,
+        'private': dataset.private,
+        'license_id': dataset.license_id,
+        'extras': extras,
+        'tags': [{'name': package_tag.tag.name} for package_tag in dataset.package_tag_all],
+        'resources': [{
+            'id': resource.id,
+            'url': resource.url,
+            'description': resource.description,
+            'format': resource.format,
+            'name': resource.name,
+            'resource_type': resource.resource_type,
+            } for resource in dataset.active_resources
+        ],
+    })
+    if data['success']:
+        return wsgihelpers.respond_json(context, {}, headers=headers, code=200)
+    return wsgihelpers.respond_json(context, {}, headers=headers, code=400)
 
 
 routes = (
@@ -584,6 +668,7 @@ routes = (
     (('GET','POST'), r'^(/(?P<lang>\w{2}))?/dataset/new/?$', create),
     (('GET','POST'), r'^(/(?P<lang>\w{2}))?/dataset/edit/(?P<name>[\w_-]+)/?$', edit),
     (('GET','POST'), r'^(/(?P<lang>\w{2}))?/dataset/extras/(?P<name>[\w_-]+)/?$', extras),
+    ('DELETE', r'^(/(?P<lang>\w{2}))?/dataset/extras/(?P<name>[\w_-]+)/(?P<key>.+)/?$', delete_extra),
     ('GET', r'^(/(?P<lang>\w{2}))?/dataset/(?P<name>[\w_-]+)/fork/?$', fork),
     ('GET', r'^(/(?P<lang>\w{{2}}))?/dataset/(?!{0}(/|$))(?P<name>[\w_-]+)/?$'.format('|'.join(EXCLUDED_PATTERNS)), display),
 )

@@ -73,7 +73,9 @@
             Utils.ensure_user(Utils.i18n('login-for-members'));
 
             $modal.find('.modal-body').html(add_modal_tpl(user));
-            $modal.modal();
+            $modal.modal().off('hide.bs.modal').on('hide.bs.modal', function() {
+                $completer.val('');
+            });
 
             $modal.find('#add-button').off('click').click(function() {
                 $.post(window.location, {pk: user.slug}, function(data) {
@@ -86,7 +88,6 @@
                     Utils.error(msg, msg_container);
                     console.error(e.responseJSON);
                 }).always(function() {
-                    $completer.val('');
                     toggleEmpty();
                     $modal.modal('hide');
                 });

@@ -36,7 +36,9 @@ class GroupForm(forms.Form):
 
 
 class GroupExtrasForm(forms.Form):
-    extras = forms.KeyValueField(_('Additional data'))
+    key = forms.StringField(_('Key'), [forms.validators.required()])
+    value = forms.StringField(_('Value'), [forms.validators.required()])
+    old_key = forms.StringField(_('Old key'))
 
 
 class GroupRoleForm(forms.Form):
@@ -97,12 +99,14 @@ def edit_group_or_org(request, is_org):
 
     if request.method == 'POST' and form.validate():
         name = strings.slugify(form.title.data)
+        extras = [{'key': key, 'value': value} for key, value in group.extras.items()]
         ckan_api('organization_update' if is_org else 'group_update', user, {
             'id': group.id,
             'name': name,
             'title': form.title.data,
             'description': form.description.data,
             'image_url': form.image_url.data,
+            'extras': extras,
         })
 
         redirect_url = urls.get_url(lang, 'organization' if is_org else 'group', name)
@@ -126,21 +130,64 @@ def group_or_org_extras(request, is_org):
     if not group:
         return wsgihelpers.not_found(context)
 
-    form = GroupExtrasForm(request.POST, group, i18n=context.translator)
-
-    if request.method == 'POST' and form.validate():
-        ckan_api('organization_update' if is_org else 'group_update', user, {
-            'id': group.id,
-            'extras': form.extras.data,
-        })
-
-        redirect_url = urls.get_url(lang, 'organization' if is_org else 'group', group.name)
-        return wsgihelpers.redirect(context, location=redirect_url)
+    if request.method == 'POST':
+        headers = wsgihelpers.handle_cross_origin_resource_sharing(context)
+        form = GroupExtrasForm(request.POST)
+        if form.validate():
+            extras = [
+                {'key': key, 'value': value}
+                for key, value in group.extras.items()
+                if not key == (form.old_key.data or form.key.data)
+            ]
+            extras.append({'key': form.key.data, 'value': form.value.data})
+            data = ckan_api('organization_update' if is_org else 'group_update', user, {
+                'id': group.id,
+                'name': group.name,
+                'title': group.title,
+                'description': group.description,
+                'image_url': group.image_url,
+                'extras': extras,
+            })
+            if data['success']:
+                return wsgihelpers.respond_json(context, {'key': form.key.data, 'value': form.value.data}, headers=headers, code=200)
+        return wsgihelpers.respond_json(context, {}, headers=headers, code=400)
 
     group_base_url = urls.get_url(lang, 'organization' if is_org else 'group')
     back_url = urls.get_url(lang, 'group', group.name)
     return templates.render_site('forms/group-extras-form.html', request,
-        is_org=is_org, form=form, group_base_url=group_base_url, back_url=back_url, group=group)
+        is_org=is_org, extras=group.extras.items(), group_base_url=group_base_url, back_url=back_url, group=group)
+
+
+def group_or_org_delete_extra(request, is_org):
+    context = contexts.Ctx(request)
+    headers = wsgihelpers.handle_cross_origin_resource_sharing(context)
+
+    user = auth.get_user_from_request(request)
+    if not user:
+        return wsgihelpers.unauthorized(context)  # redirect to login/register ?
+
+    group_name = request.urlvars.get('name')
+    group = Group.by_name(group_name)
+    if not group:
+        return wsgihelpers.not_found(context)
+
+    extra_key = request.urlvars.get('key', '').strip()
+    if not extra_key in group.extras.keys():
+        return wsgihelpers.not_found(context)
+
+    extras = [{'key': key, 'value': value} for key, value in group.extras.items() if not key == extra_key]
+    extras.append({'key': extra_key, 'value': group.extras.get(extra_key), 'deleted': True})
+    data = ckan_api('organization_update' if is_org else 'group_update', user, {
+        'id': group.id,
+        'name': group.name,
+        'title': group.title,
+        'description': group.description,
+        'image_url': group.image_url,
+        'extras': extras,
+    })
+    if data['success']:
+        return wsgihelpers.respond_json(context, {}, headers=headers, code=200)
+    return wsgihelpers.respond_json(context, {}, headers=headers, code=400)
 
 
 def group_or_org_members(request, is_org):
@@ -261,6 +308,11 @@ def extras(request):
 
 
 @wsgihelpers.wsgify
+def delete_extra(request):
+    return group_or_org_delete_extra(request, False)
+
+
+@wsgihelpers.wsgify
 def membership_requests(request):
     return group_or_org_membership_requests(request, False)
 
@@ -288,7 +340,8 @@ routes = (
     (('GET', 'POST'), r'^(/(?P<lang>\w{2}))?/group/edit/(?P<name>[\w_-]+)/?$', edit),
     (('GET', 'POST'), r'^(/(?P<lang>\w{2}))?/group/extras/(?P<name>[\w_-]+)/?$', extras),
     (('GET', 'POST'), r'^(/(?P<lang>\w{2}))?/group/members/(?P<name>[\w_-]+)/?$', members),
-    (('DELETE'), r'^(/(?P<lang>\w{2}))?/group/members/(?P<name>[\w_-]+)/(?P<username>[\w_-]+)/?$', delete_member),
+    ('DELETE', r'^(/(?P<lang>\w{2}))?/group/members/(?P<name>[\w_-]+)/(?P<username>[\w_-]+)/?$', delete_member),
+    ('DELETE', r'^(/(?P<lang>\w{2}))?/group/extras/(?P<name>[\w_-]+)/(?P<key>.+)/?$', delete_extra),
     ('GET', r'^(/(?P<lang>\w{2}))?/group/requests/(?P<name>[\w_-]+)/?$', membership_requests),
     ('GET', r'^(/(?P<lang>\w{{2}}))?/groups?/(?!{0}(/|$))(?P<name>[\w_-]+)/?$'.format('|'.join(EXCLUDED_PATTERNS)), display),
 )

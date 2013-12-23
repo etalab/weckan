@@ -8,46 +8,48 @@
 <table class="table table-stripped members-table">
     <thead>
         <tr>
-            <td width="40px" class="text-center">
+            <th width="40px" class="text-center">
                 <span class="glyphicon glyphicon-user"></span>
-            </td>
-            <td>{{ _('User') }}</td>
-            <td>{{ _('Role') }}</td>
-            <td width="40px"></td>
+            </th>
+            <th>{{ _('User') }}</th>
+            <th>{{ _('Role') }}</th>
+            <th width="40px"></th>
         </tr>
     </thead>
-    {% for member, user in members %}
-    <tr class="member" data-username="{{user.name}}">
-        <td class="text-center avatar">
-            <a class="avatar" href="{{ sso('user', user.name) }}"
-                title="{{ user.display_name }}">
-                {{ avatar(user, 30) }}
-            </a>
-        </td>
-        <td>
-            <a class="avatar" href="{{ sso('user', user.name) }}"
-                title="{{ user.display_name }}">
-                {{ user.fullname }}
-            </a>
-        </td>
-        <td>
-            <a class="member-role" data-type="select" href
-                data-pk="{{ user.id }}" data-title ="{{ _('Role') }}" data-value="{{member.capacity or 'member'}}">
-                {{ roles[member.capacity] }}
-            </a>
-        </td>
-        <td>
-            <div class="btn-group btn-group-xs">
-                <a class="btn btn-danger member-remove" title="{{ _('Remove') }}">
-                    <span class="glyphicon glyphicon-remove"></span>
+    <tbody>
+        {% for member, user in members %}
+        <tr class="member" data-username="{{user.name}}">
+            <td class="text-center avatar">
+                <a class="avatar" href="{{ sso('user', user.name) }}"
+                    title="{{ user.display_name }}">
+                    {{ avatar(user, 30) }}
                 </a>
-            </div>
-        </td>
-    </tr>
-    {% endfor %}
-    <tr class="empty {% if members %}hide{% endif %}">
-        <td colspan="5" class="text-center">{{ _('No members') }}</td>
-    </tr>
+            </td>
+            <td>
+                <a class="avatar" href="{{ sso('user', user.name) }}"
+                    title="{{ user.display_name }}">
+                    {{ user.fullname }}
+                </a>
+            </td>
+            <td>
+                <a class="member-role" data-type="select" href
+                    data-pk="{{ user.id }}" data-title ="{{ _('Role') }}" data-value="{{member.capacity or 'member'}}">
+                    {{ roles[member.capacity] }}
+                </a>
+            </td>
+            <td>
+                <div class="btn-group btn-group-xs">
+                    <a class="btn btn-danger member-remove" title="{{ _('Remove') }}">
+                        <span class="glyphicon glyphicon-remove"></span>
+                    </a>
+                </div>
+            </td>
+        </tr>
+        {% endfor %}
+        <tr class="empty {% if members %}hide{% endif %}">
+            <td colspan="5" class="text-center">{{ _('No members') }}</td>
+        </tr>
+    </tbody>
 </table>
 
 <div class="row">

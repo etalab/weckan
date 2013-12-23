@@ -144,6 +144,12 @@ group-members-js:
     contents:
         - js/group/members.js
 
+extras-js:
+    filters: uglifyjs
+    output: js/form-extras.min.js
+    contents:
+        - js/form-extras.js
+
 group-membership-requests-js:
     filters: uglifyjs
     output: js/group/membership-requests.min.js
