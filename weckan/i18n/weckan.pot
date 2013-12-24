@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Weckan 0.2.0.dev\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2013-12-23 12:57+0100\n"
+"POT-Creation-Date: 2013-12-24 04:33+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -30,11 +30,25 @@ msgstr ""
 msgid "This field requires \"%(name)s\" to be set"
 msgstr ""
 
-#: weckan/forms.py:267
+#: weckan/forms.py:267 weckan/controllers/dataset.py:126
+#: weckan/controllers/group.py:39
+#: weckan/templates/forms/dataset-extras-form.html:11
+#: weckan/templates/forms/dataset-extras-form.html:20
+#: weckan/templates/forms/dataset-extras-form.html:68
+#: weckan/templates/forms/group-extras-form.html:11
+#: weckan/templates/forms/group-extras-form.html:20
+#: weckan/templates/forms/group-extras-form.html:68
 msgid "Key"
 msgstr ""
 
-#: weckan/forms.py:268
+#: weckan/forms.py:268 weckan/controllers/dataset.py:127
+#: weckan/controllers/group.py:40
+#: weckan/templates/forms/dataset-extras-form.html:12
+#: weckan/templates/forms/dataset-extras-form.html:25
+#: weckan/templates/forms/dataset-extras-form.html:73
+#: weckan/templates/forms/group-extras-form.html:12
+#: weckan/templates/forms/group-extras-form.html:25
+#: weckan/templates/forms/group-extras-form.html:73
 msgid "Value"
 msgstr ""
 
@@ -135,166 +149,166 @@ msgstr ""
 msgid "File formats"
 msgstr ""
 
-#: weckan/controllers/dataset.py:70 weckan/controllers/group.py:33
+#: weckan/controllers/dataset.py:78 weckan/controllers/group.py:33
 #: weckan/controllers/reuse.py:19
 msgid "Title"
 msgstr ""
 
-#: weckan/controllers/dataset.py:71 weckan/controllers/group.py:34
+#: weckan/controllers/dataset.py:79 weckan/controllers/group.py:34
 #: weckan/controllers/resource.py:31 weckan/controllers/resource.py:38
 #: weckan/controllers/reuse.py:31 weckan/templates/forms/dataset-base-form.html:35
 #: weckan/templates/forms/group-base-form.html:41
 msgid "Description"
 msgstr ""
 
-#: weckan/controllers/dataset.py:72 weckan/controllers/resource.py:39
+#: weckan/controllers/dataset.py:80 weckan/controllers/resource.py:39
 #: weckan/controllers/reuse.py:32
 msgid "Publish as"
 msgstr ""
 
-#: weckan/controllers/dataset.py:73
+#: weckan/controllers/dataset.py:81
 msgid "Tags"
 msgstr ""
 
-#: weckan/controllers/dataset.py:74 weckan/templates/footer.html:23
+#: weckan/controllers/dataset.py:82 weckan/templates/footer.html:23
 #: weckan/templates/search.html:63 weckan/templates/subnav-s.html:33
 msgid "Topics"
 msgstr ""
 
-#: weckan/controllers/dataset.py:75
+#: weckan/controllers/dataset.py:83
 msgid "Temporal coverage start"
 msgstr ""
 
-#: weckan/controllers/dataset.py:76
+#: weckan/controllers/dataset.py:84
 msgid "Temporal coverage end"
 msgstr ""
 
-#: weckan/controllers/dataset.py:77 weckan/templates/dataset.html:313
+#: weckan/controllers/dataset.py:85 weckan/templates/dataset.html:313
 #: weckan/templates/cards/dataset-card.html:71
 #: weckan/templates/widgets/dataset-search-result.html:59
 msgid "Territorial coverage"
 msgstr ""
 
-#: weckan/controllers/dataset.py:78 weckan/templates/dataset.html:323
+#: weckan/controllers/dataset.py:86 weckan/templates/dataset.html:323
 #: weckan/templates/cards/dataset-card.html:82
 #: weckan/templates/widgets/dataset-search-result.html:69
 msgid "Territorial coverage granularity"
 msgstr ""
 
-#: weckan/controllers/dataset.py:82 weckan/controllers/dataset.py:98
+#: weckan/controllers/dataset.py:90 weckan/controllers/dataset.py:106
 msgid "None"
 msgstr ""
 
-#: weckan/controllers/dataset.py:83
+#: weckan/controllers/dataset.py:91
 msgid "POI"
 msgstr ""
 
-#: weckan/controllers/dataset.py:84
+#: weckan/controllers/dataset.py:92
 msgid "Iris (Insee districts)"
 msgstr ""
 
-#: weckan/controllers/dataset.py:85
+#: weckan/controllers/dataset.py:93
 msgid "Town"
 msgstr ""
 
-#: weckan/controllers/dataset.py:86
+#: weckan/controllers/dataset.py:94
 msgid "Canton"
 msgstr ""
 
-#: weckan/controllers/dataset.py:87
+#: weckan/controllers/dataset.py:95
 msgid "Intermunicipal (EPCI)"
 msgstr ""
 
-#: weckan/controllers/dataset.py:88
+#: weckan/controllers/dataset.py:96
 msgid "County"
 msgstr ""
 
-#: weckan/controllers/dataset.py:89
+#: weckan/controllers/dataset.py:97
 msgid "Region"
 msgstr ""
 
-#: weckan/controllers/dataset.py:90
+#: weckan/controllers/dataset.py:98
 msgid "Country"
 msgstr ""
 
-#: weckan/controllers/dataset.py:91 weckan/templates/dataset.html:635
+#: weckan/controllers/dataset.py:99 weckan/templates/dataset.html:635
 msgid "Other"
 msgstr ""
 
-#: weckan/controllers/dataset.py:94
+#: weckan/controllers/dataset.py:102
 msgid "Frequency"
 msgstr ""
 
-#: weckan/controllers/dataset.py:95
+#: weckan/controllers/dataset.py:103
 msgid "Dataset update periodicity"
 msgstr ""
 
-#: weckan/controllers/dataset.py:99
+#: weckan/controllers/dataset.py:107
 msgid "Punctual"
 msgstr ""
 
-#: weckan/controllers/dataset.py:100
+#: weckan/controllers/dataset.py:108
 msgid "Real time"
 msgstr ""
 
-#: weckan/controllers/dataset.py:101
+#: weckan/controllers/dataset.py:109
 msgid "Daily"
 msgstr ""
 
-#: weckan/controllers/dataset.py:102
+#: weckan/controllers/dataset.py:110
 msgid "Weekly"
 msgstr ""
 
-#: weckan/controllers/dataset.py:103
+#: weckan/controllers/dataset.py:111
 msgid "Fortnighly"
 msgstr ""
 
-#: weckan/controllers/dataset.py:104
+#: weckan/controllers/dataset.py:112
 msgid "Mensuelle"
 msgstr ""
 
-#: weckan/controllers/dataset.py:105
+#: weckan/controllers/dataset.py:113
 msgid "Bimonthly"
 msgstr ""
 
-#: weckan/controllers/dataset.py:106
+#: weckan/controllers/dataset.py:114
 msgid "Quaterly"
 msgstr ""
 
-#: weckan/controllers/dataset.py:107
+#: weckan/controllers/dataset.py:115
 msgid "Biannual"
 msgstr ""
 
-#: weckan/controllers/dataset.py:108
+#: weckan/controllers/dataset.py:116
 msgid "Annual"
 msgstr ""
 
-#: weckan/controllers/dataset.py:109
+#: weckan/controllers/dataset.py:117
 msgid "Triennial"
 msgstr ""
 
-#: weckan/controllers/dataset.py:110
+#: weckan/controllers/dataset.py:118
 msgid "Quinquennial"
 msgstr ""
 
-#: weckan/controllers/dataset.py:113 weckan/templates/dataset.html:276
+#: weckan/controllers/dataset.py:121 weckan/templates/dataset.html:276
 msgid "License"
 msgstr ""
 
-#: weckan/controllers/dataset.py:114 weckan/templates/dataset.html:62
+#: weckan/controllers/dataset.py:122 weckan/templates/dataset.html:62
 #: weckan/templates/dataset.html:64
 msgid "Private"
 msgstr ""
 
-#: weckan/controllers/dataset.py:118 weckan/controllers/group.py:39
-msgid "Additional data"
+#: weckan/controllers/dataset.py:128 weckan/controllers/group.py:41
+msgid "Old key"
 msgstr ""
 
-#: weckan/controllers/dataset.py:342
+#: weckan/controllers/dataset.py:352
 msgid "Recent datasets"
 msgstr ""
 
-#: weckan/controllers/dataset.py:362
+#: weckan/controllers/dataset.py:372
 msgid "Popular datasets"
 msgstr ""
 
@@ -302,15 +316,15 @@ msgstr ""
 msgid "Image URL"
 msgstr ""
 
-#: weckan/controllers/group.py:180 weckan/templates/organization.html:76
+#: weckan/controllers/group.py:227 weckan/templates/organization.html:76
 msgid "Administrator"
 msgstr ""
 
-#: weckan/controllers/group.py:181 weckan/templates/organization.html:83
+#: weckan/controllers/group.py:228 weckan/templates/organization.html:83
 msgid "Editor"
 msgstr ""
 
-#: weckan/controllers/group.py:182 weckan/templates/organization.html:90
+#: weckan/controllers/group.py:229 weckan/templates/organization.html:90
 msgid "Member"
 msgstr ""
 
@@ -700,13 +714,9 @@ msgstr ""
 #: weckan/templates/organization.html:296
 #: weckan/templates/forms/dataset-base-form.html:65
 #: weckan/templates/forms/dataset-base-form.html:66
-#: weckan/templates/forms/dataset-extras-form.html:17
-#: weckan/templates/forms/dataset-extras-form.html:18
 #: weckan/templates/forms/group-base-form.html:71
 #: weckan/templates/forms/group-base-form.html:72
-#: weckan/templates/forms/group-extras-form.html:17
-#: weckan/templates/forms/group-extras-form.html:18
-#: weckan/templates/forms/group-members-form.html:142
+#: weckan/templates/forms/group-members-form.html:144
 #: weckan/templates/forms/group-membership-requests-form.html:86
 #: weckan/templates/forms/resource-form.html:42
 #: weckan/templates/forms/resource-form.html:43
@@ -983,7 +993,9 @@ msgid "Your organization does not exists ? Create it !"
 msgstr ""
 
 #: weckan/templates/search-organizations.html:22
-#: weckan/templates/forms/group-members-form.html:138
+#: weckan/templates/forms/dataset-extras-form.html:49
+#: weckan/templates/forms/group-extras-form.html:49
+#: weckan/templates/forms/group-members-form.html:140
 #: weckan/templates/forms/resource-form.html:32
 #: weckan/templates/forms/reuse-form.html:32 weckan/templates/macros/forms.html:134
 msgid "Add"
@@ -1134,9 +1146,7 @@ msgid "Additional informations"
 msgstr ""
 
 #: weckan/templates/forms/dataset-base-form.html:62
-#: weckan/templates/forms/dataset-extras-form.html:15
 #: weckan/templates/forms/group-base-form.html:69
-#: weckan/templates/forms/group-extras-form.html:15
 #: weckan/templates/forms/resource-form.html:32
 #: weckan/templates/forms/reuse-form.html:32
 msgid "Save"
@@ -1152,7 +1162,9 @@ msgid "Delete"
 msgstr ""
 
 #: weckan/templates/forms/dataset-base-form.html:96
-#: weckan/templates/forms/group-members-form.html:156
+#: weckan/templates/forms/dataset-extras-form.html:94
+#: weckan/templates/forms/group-extras-form.html:94
+#: weckan/templates/forms/group-members-form.html:158
 #: weckan/templates/forms/resource-form.html:69
 #: weckan/templates/forms/reuse-form.html:64
 msgid "Confirm deletion"
@@ -1163,27 +1175,35 @@ msgid "You are about to delete this dataset."
 msgstr ""
 
 #: weckan/templates/forms/dataset-base-form.html:101
+#: weckan/templates/forms/dataset-extras-form.html:99
+#: weckan/templates/forms/group-extras-form.html:99
 #: weckan/templates/forms/resource-form.html:74
 #: weckan/templates/forms/reuse-form.html:69
 msgid "This operation is unreversible"
 msgstr ""
 
 #: weckan/templates/forms/dataset-base-form.html:103
-#: weckan/templates/forms/group-members-form.html:162
+#: weckan/templates/forms/dataset-extras-form.html:101
+#: weckan/templates/forms/group-extras-form.html:101
+#: weckan/templates/forms/group-members-form.html:164
 #: weckan/templates/forms/resource-form.html:76
 #: weckan/templates/forms/reuse-form.html:71
 msgid "Are you sure ?"
 msgstr ""
 
 #: weckan/templates/forms/dataset-base-form.html:106
-#: weckan/templates/forms/group-members-form.html:165
+#: weckan/templates/forms/dataset-extras-form.html:104
+#: weckan/templates/forms/group-extras-form.html:104
+#: weckan/templates/forms/group-members-form.html:167
 #: weckan/templates/forms/resource-form.html:79
 #: weckan/templates/forms/reuse-form.html:74
 msgid "Yes"
 msgstr ""
 
 #: weckan/templates/forms/dataset-base-form.html:107
-#: weckan/templates/forms/group-members-form.html:166
+#: weckan/templates/forms/dataset-extras-form.html:105
+#: weckan/templates/forms/group-extras-form.html:105
+#: weckan/templates/forms/group-members-form.html:168
 #: weckan/templates/forms/resource-form.html:80
 #: weckan/templates/forms/reuse-form.html:75
 msgid "No"
@@ -1195,6 +1215,46 @@ msgstr ""
 
 #: weckan/templates/forms/dataset-edit-form.html:4
 msgid "Edit dataset"
+msgstr ""
+
+#: weckan/templates/forms/dataset-extras-form.html:31
+#: weckan/templates/forms/dataset-extras-form.html:79
+#: weckan/templates/forms/group-extras-form.html:31
+#: weckan/templates/forms/group-extras-form.html:79
+#: weckan/templates/forms/group-members-form.html:42
+#: weckan/templates/forms/group-members-form.html:98
+#: weckan/templates/macros/forms.html:138
+msgid "Remove"
+msgstr ""
+
+#: weckan/templates/forms/dataset-extras-form.html:42
+#: weckan/templates/forms/group-extras-form.html:42
+msgid "New key"
+msgstr ""
+
+#: weckan/templates/forms/dataset-extras-form.html:45
+#: weckan/templates/forms/group-extras-form.html:45
+msgid "New value"
+msgstr ""
+
+#: weckan/templates/forms/dataset-extras-form.html:61
+#: weckan/templates/forms/group-extras-form.html:61
+msgid "You need to be authenticated to edit additional informations"
+msgstr ""
+
+#: weckan/templates/forms/dataset-extras-form.html:62
+#: weckan/templates/forms/group-extras-form.html:62
+msgid "An error occured while editing additional informations"
+msgstr ""
+
+#: weckan/templates/forms/dataset-extras-form.html:63
+#: weckan/templates/forms/group-extras-form.html:63
+msgid "The additional information has been deleted"
+msgstr ""
+
+#: weckan/templates/forms/dataset-extras-form.html:98
+#: weckan/templates/forms/group-extras-form.html:98
+msgid "You are about to delete this information."
 msgstr ""
 
 #: weckan/templates/forms/group-base-form.html:43
@@ -1235,46 +1295,40 @@ msgid "User"
 msgstr ""
 
 #: weckan/templates/forms/group-members-form.html:15
-#: weckan/templates/forms/group-members-form.html:35
-#: weckan/templates/forms/group-members-form.html:90
+#: weckan/templates/forms/group-members-form.html:36
+#: weckan/templates/forms/group-members-form.html:92
 msgid "Role"
 msgstr ""
 
-#: weckan/templates/forms/group-members-form.html:41
-#: weckan/templates/forms/group-members-form.html:96
-#: weckan/templates/macros/forms.html:138
-msgid "Remove"
-msgstr ""
-
-#: weckan/templates/forms/group-members-form.html:49
+#: weckan/templates/forms/group-members-form.html:50
 msgid "No members"
 msgstr ""
 
-#: weckan/templates/forms/group-members-form.html:59
+#: weckan/templates/forms/group-members-form.html:61
 msgid "Add a member"
 msgstr ""
 
-#: weckan/templates/forms/group-members-form.html:69
+#: weckan/templates/forms/group-members-form.html:71
 msgid "You need to be authenticated to edit members"
 msgstr ""
 
-#: weckan/templates/forms/group-members-form.html:70
+#: weckan/templates/forms/group-members-form.html:72
 msgid "An error occured while editing members"
 msgstr ""
 
-#: weckan/templates/forms/group-members-form.html:71
+#: weckan/templates/forms/group-members-form.html:73
 msgid "The member has been deleted"
 msgstr ""
 
-#: weckan/templates/forms/group-members-form.html:105
+#: weckan/templates/forms/group-members-form.html:107
 msgid "Do you want to add this user as a member of your organization ?"
 msgstr ""
 
-#: weckan/templates/forms/group-members-form.html:132
+#: weckan/templates/forms/group-members-form.html:134
 msgid "Add member"
 msgstr ""
 
-#: weckan/templates/forms/group-members-form.html:160
+#: weckan/templates/forms/group-members-form.html:162
 msgid "You are about to delete this member."
 msgstr ""
 
