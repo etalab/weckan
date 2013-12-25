@@ -86,6 +86,9 @@ setup(
         'futures',
         'wtforms',
         ],
+    extras_require={
+        'sentry': ['raven'],
+    },
     message_extractors = {'weckan': [
         ('**.py', 'python', None),
         ('**/templates/**.html', 'jinja2', {

@@ -100,6 +100,7 @@ def load_environment(global_conf, app_conf):
             'territory_api_url': conv.default('http://ou.comarquage.fr/api/v1'),
             'bot_name': conv.default('bot-at-data-gouv-fr'),
             'https': conv.pipe(conv.guess_bool, conv.default(False)),
+            'sentry': conv.default(False),
             },
         default = 'drop',
         ))(conf))

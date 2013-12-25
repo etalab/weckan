@@ -154,6 +154,14 @@ def make_filter_app(app, global_conf, **app_conf):
         static_app = StaticURLParser(conf['static_files_dir'])
         app = Cascade([static_app, app])
 
+    if conf['sentry']:
+        from raven import Client
+        from raven.middleware import Sentry
+
+        client = Client(conf['sentry'])
+        app = Sentry(app, client=client)
+
+
     return app
 
 
