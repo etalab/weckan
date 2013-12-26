@@ -154,13 +154,15 @@ def make_filter_app(app, global_conf, **app_conf):
         static_app = StaticURLParser(conf['static_files_dir'])
         app = Cascade([static_app, app])
 
-    if conf['sentry']:
+    if conf['sentry.dsn']:
         from raven import Client
         from raven.middleware import Sentry
 
-        client = Client(conf['sentry'])
+        client = Client(
+            dsn=conf.get('sentry.dsn'),
+            site=conf.get('sentry.site'),
+        )
         app = Sentry(app, client=client)
-
 
     return app
 
