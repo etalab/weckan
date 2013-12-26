@@ -55,6 +55,7 @@ def search(query, page=1, page_size=SEARCH_MAX_ORGANIZATIONS):
             # GroupRevision.description.ilike(like),
         ))
 
+    page = min(page, 1)
     total = organizations.count()
     start = (page - 1) * page_size
     end = start + page_size

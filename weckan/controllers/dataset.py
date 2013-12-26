@@ -200,6 +200,7 @@ def search(query, request, page=1, page_size=SEARCH_PAGE_SIZE, group=None, organ
     else:
         territory = {}
 
+    page = min(page, 1)
     page_zero = page - 1
     params = {
         'bf': u'{}^2'.format(
