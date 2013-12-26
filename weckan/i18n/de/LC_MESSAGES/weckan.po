@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version:  weckan\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2013-12-24 04:33+0100\n"
+"POT-Creation-Date: 2013-12-26 02:41+0100\n"
 "PO-Revision-Date: 2013-12-12 15:54+0000\n"
 "Last-Translator: noirbizarre\n"
 "Language-Team: German "
@@ -1281,7 +1281,6 @@ msgstr ""
 #: weckan/templates/forms/dataset-extras-form.html:63
 #: weckan/templates/forms/group-extras-form.html:63
 #, fuzzy
-#| msgid "Additional informations"
 msgid "The additional information has been deleted"
 msgstr "Informationen"
 
@@ -1439,7 +1438,4 @@ msgstr ""
 #: weckan/templates/widgets/organization-search-result.html:31
 msgid "Number of members"
 msgstr ""
-
-#~ msgid "Additional data"
-#~ msgstr ""
 
