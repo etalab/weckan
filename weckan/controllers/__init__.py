@@ -21,7 +21,7 @@ def home(request):
     _ = context.translator.ugettext
 
     fake, results = dataset.search(None, request, page_size=NB_DATASETS)
-    last_datasets = queries.last_datasets().limit(NB_DATASETS)
+    last_datasets = queries.last_datasets(False).limit(NB_DATASETS)
 
     dataset_tabs = (
         ('popular', _('Most popular'), results['results']),

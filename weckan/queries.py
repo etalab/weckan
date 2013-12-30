@@ -64,11 +64,22 @@ def organizations_and_counters():
     return query
 
 
-def last_datasets():
-    '''Get the ``num`` latest created datasets'''
+def last_datasets(empties=True):
+    '''
+    Get the ``num`` latest created datasets.
+
+    :param empties: weither include or not the datasets without resources.
+    '''
     query = datasets()
     query = query.outerjoin(model.PackageRevision, model.PackageRevision.id == Package.id)
+    if not empties:
+        query = query.join(model.ResourceGroup)
+        query = query.join(model.ResourceRevision, model.ResourceRevision.resource_group_id == model.ResourceGroup.id)
     query = query.group_by(Package, Group)
+    if not empties:
+        query = query.filter(model.ResourceRevision.current==True)
+        query = query.filter(model.ResourceRevision.state=='active')
+        query = query.having(func.count(model.ResourceRevision.id) > 0)
     query = query.order_by(desc(func.min(model.PackageRevision.revision_timestamp)))
     return query
 

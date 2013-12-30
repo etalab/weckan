@@ -344,7 +344,7 @@ def recent_datasets(request):
     ctx = contexts.Ctx(request)
     page = int(request.params.get('page', 1))
 
-    last_datasets = queries.last_datasets()
+    last_datasets = queries.last_datasets(False)
     count = last_datasets.count()
     end = (page * NB_DATASETS) + 1
     start = end - NB_DATASETS
