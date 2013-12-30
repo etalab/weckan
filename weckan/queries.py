@@ -29,7 +29,7 @@ def datasets(private=False):
         query = query.filter(Package.private == True)
     else:
         query = query.filter(~Package.private)
-    query = query.options(orm.joinedload(Group.certified_public_service))
+    query = query.options(orm.contains_eager(Group.certified_public_service))
     return query
 
 
@@ -75,7 +75,7 @@ def last_datasets(empties=True):
     if not empties:
         query = query.join(model.ResourceGroup)
         query = query.join(model.ResourceRevision, model.ResourceRevision.resource_group_id == model.ResourceGroup.id)
-    query = query.group_by(Package, Group)
+    query = query.group_by(Package, Group, CertifiedPublicService)
     if not empties:
         query = query.filter(model.ResourceRevision.current==True)
         query = query.filter(model.ResourceRevision.state=='active')
@@ -88,7 +88,7 @@ def popular_datasets():
     '''Get the ``num`` most popular (ie. with the most related) datasets'''
     query = datasets()
     query = query.outerjoin(RelatedDataset)
-    query = query.group_by(Package, Group)
+    query = query.group_by(Package, Group, CertifiedPublicService)
     query = query.order_by(desc(func.count(RelatedDataset.related_id)))
     return query
 
