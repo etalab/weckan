@@ -337,11 +337,11 @@ def render_site(name, request_or_context, **kwargs):
     - fix CKAN translations
     '''
     context = request_or_context if isinstance(request_or_context, contexts.Ctx) else contexts.Ctx(request_or_context)
-    lang = context.req.urlvars.get('lang', None)
+    lang = unicode(context.req.urlvars.get('lang', '')) or None
 
     # Locale-less location
-    current_location = context.req.path_qs
-    base_location = current_location.replace('/{0}'.format(lang), '')
+    current_location = unicode(context.req.path_qs)
+    base_location = current_location.replace('/{0}'.format(lang), '') if lang else current_location
 
     # Override browser language
     if not lang:
