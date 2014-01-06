@@ -337,17 +337,18 @@ def render_site(name, request_or_context, **kwargs):
     - fix CKAN translations
     '''
     context = request_or_context if isinstance(request_or_context, contexts.Ctx) else contexts.Ctx(request_or_context)
-    lang = unicode(context.req.urlvars.get('lang', '')) or None
+    lang = context.req.urlvars.get('lang')
 
     # Locale-less location
     current_location = unicode(context.req.path_qs)
-    base_location = current_location.replace('/{0}'.format(lang), '') if lang else current_location
+    base_location = current_location.replace('/{0}'.format(unicode(lang)), '')
 
     # Override browser language
     if not lang:
         lang = DEFAULT_LANG
     elif lang not in LANGUAGES:
         from weckan import wsgihelpers
+        context.req.urlvars.pop('lang', None)
         return wsgihelpers.redirect(context, location=base_location)
 
     fix_pylons_translations(context)
