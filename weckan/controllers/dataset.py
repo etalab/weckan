@@ -50,7 +50,7 @@ SPECIAL_EXTRAS = (
     'temporal_coverage_to',
     'territorial_coverage',
     'territorial_coverage_granularity',
-    '"dct:accrualPeriodicity"',
+    'frequency',
 )
 
 LICENSES = json.load(resource_stream('ckanext.etalab', 'public/licenses.json'))
@@ -212,7 +212,7 @@ def serialize(query):
             'organization': organization,
             'temporal_coverage': build_temporal_coverage(dataset),
             'territorial_coverage': build_territorial_coverage(dataset),
-            'periodicity': dataset.extras.get('"dct:accrualPeriodicity"', None),
+            'periodicity': dataset.extras.get('frequency', None),
             'original': queries.forked_from(dataset).first(),
             'nb_reuses': len(dataset.related),
         })
@@ -330,7 +330,7 @@ def display(request):
 
     dataset, organization, timestamp = query.first()
 
-    periodicity = dataset.extras.get('"dct:accrualPeriodicity"', None)
+    periodicity = dataset.extras.get('frequency', None)
 
     supplier_id = dataset.extras.get('supplier_id', None)
     supplier = DB.query(Group).filter(Group.id == supplier_id).first() if supplier_id else None
@@ -463,7 +463,7 @@ def extras_from_form(form):
         'temporal_coverage_to': form.temporal_coverage_to.data,
         'territorial_coverage': ','.join(form.territorial_coverage.data),
         'territorial_coverage_granularity': form.territorial_coverage_granularity.data,
-        '"dct:accrualPeriodicity"': form.frequency.data,
+        'frequency': form.frequency.data,
     }
     return [{'key': key, 'value': value} for key, value in extras.items() if value]
 
@@ -544,7 +544,7 @@ def edit(request):
         return wsgihelpers.not_found(context)
 
     form = DatasetForm(request.POST, dataset,
-        frequency=dataset.extras.get('"dct:accrualPeriodicity"'),
+        frequency=dataset.extras.get('frequency'),
         territorial_coverage=dataset.extras.get('territorial_coverage', '').split(','),
         territorial_coverage_granularity=dataset.extras.get('territorial_coverage_granularity'),
         temporal_coverage_from=dataset.extras.get('temporal_coverage_from'),
