@@ -17,6 +17,7 @@ from ckanext.etalab.plugins import year_or_month_or_day_re
 
 from weckan import templates, urls, wsgihelpers, conf, contexts, auth, queries, territories, forms, model
 from weckan.model import Activity, meta, Package, Group, UserFollowingDataset, UserFollowingGroup, Member, repo
+from weckan.model import PACKAGE_NAME_MAX_LENGTH, PACKAGE_NAME_MAX_LENGTH
 from weckan.tools import ckan_api
 
 _ = lambda s: s
@@ -184,17 +185,18 @@ def build_temporal_coverage(dataset):
 
 
 def build_slug(title, previous=None):
-    base_slug = strings.slugify(title)
+    base_slug = strings.slugify(title)[:PACKAGE_NAME_MAX_LENGTH]
     exists_query = DB.query(Package.name)
     slug_exists = lambda s: exists_query.filter(Package.name == s).count() > 0
     if base_slug == previous or not slug_exists(base_slug):
         return base_slug
-    suffix = 0
+    idx = 0
     while True:
-        slug = '-'.join([base_slug, bytes(suffix)])
+        suffix = '-{0}'.format(idx)
+        slug = ''.join([base_slug[:-len(suffix)], suffix])
         if slug == previous or not slug_exists(slug):
             return slug
-        suffix += 1
+        idx += 1
 
 
 def serialize(query):
