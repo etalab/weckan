@@ -95,7 +95,7 @@ class YMDField(forms.StringField):
 
 def year_or_month_or_day(form, field):
     if not year_or_month_or_day_re.match(field.data):
-        raise forms.validators.ValidationError(_('Should be either year, a month or a day'))
+        raise forms.validators.ValidationError(field._('Should be either year, a month or a day'))
 
 
 class DatasetForm(forms.Form):
