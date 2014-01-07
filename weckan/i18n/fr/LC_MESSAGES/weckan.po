@@ -1,26 +1,27 @@
-# French translations for Weckan.
-# Copyright (C) 2013 ORGANIZATION
+# Translations template for Weckan.
+# Copyright (C) 2014 ORGANIZATION
 # This file is distributed under the same license as the Weckan project.
-#
+# 
 # Translators:
-# noirbizarre, 2013
+# noirbizarre, 2013-2014
 # Emmanuel <emmanuel@raviart.com>, 2013
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2013
+# noirbizarre, 2013
 # ppezziardi <pierre@pezziardi.net>, 2013
 msgid ""
 msgstr ""
-"Project-Id-Version:  weckan\n"
+"Project-Id-Version: weckan\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2013-12-26 02:41+0100\n"
-"PO-Revision-Date: 2013-12-24 03:36+0000\n"
+"POT-Creation-Date: 2014-01-07 08:39+0100\n"
+"PO-Revision-Date: 2014-01-07 07:41+0000\n"
 "Last-Translator: noirbizarre\n"
-"Language-Team: French "
-"(http://www.transifex.com/projects/p/weckan/language/fr/)\n"
-"Plural-Forms: nplurals=2; plural=(n > 1)\n"
+"Language-Team: French (http://www.transifex.com/projects/p/weckan/language/fr/)\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 0.9.6\n"
+"Language: fr\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 #: weckan/application.py:55
 msgid "Web site not found."
@@ -35,7 +36,7 @@ msgstr "URL externe"
 msgid "This field requires \"%(name)s\" to be set"
 msgstr "Ce champ requiert \"%(name)s\""
 
-#: weckan/forms.py:267 weckan/controllers/dataset.py:126
+#: weckan/forms.py:267 weckan/controllers/dataset.py:154
 #: weckan/controllers/group.py:39
 #: weckan/templates/forms/dataset-extras-form.html:11
 #: weckan/templates/forms/dataset-extras-form.html:20
@@ -46,7 +47,7 @@ msgstr "Ce champ requiert \"%(name)s\""
 msgid "Key"
 msgstr "Clé"
 
-#: weckan/forms.py:268 weckan/controllers/dataset.py:127
+#: weckan/forms.py:268 weckan/controllers/dataset.py:155
 #: weckan/controllers/group.py:40
 #: weckan/templates/forms/dataset-extras-form.html:12
 #: weckan/templates/forms/dataset-extras-form.html:25
@@ -105,11 +106,11 @@ msgstr "Vous allez être redirigé vers la page <a href=\"{0}\">{0}</a>."
 msgid "Redirection in progress..."
 msgstr "Redirection en cours..."
 
-#: weckan/controllers/__init__.py:27 weckan/controllers/organization.py:105
+#: weckan/controllers/__init__.py:27 weckan/controllers/organization.py:106
 msgid "Most popular"
 msgstr "Les plus populaires"
 
-#: weckan/controllers/__init__.py:28 weckan/controllers/organization.py:106
+#: weckan/controllers/__init__.py:28 weckan/controllers/organization.py:107
 msgid "Latest"
 msgstr "Les plus récents"
 
@@ -154,12 +155,16 @@ msgstr "Qualité médiane"
 msgid "File formats"
 msgstr "Formats de fichiers"
 
-#: weckan/controllers/dataset.py:78 weckan/controllers/group.py:33
+#: weckan/controllers/dataset.py:98
+msgid "Should be either year, a month or a day"
+msgstr "Doit-être au choix, une année, un mois ou un jour"
+
+#: weckan/controllers/dataset.py:102 weckan/controllers/group.py:33
 #: weckan/controllers/reuse.py:19
 msgid "Title"
 msgstr "Titre"
 
-#: weckan/controllers/dataset.py:79 weckan/controllers/group.py:34
+#: weckan/controllers/dataset.py:103 weckan/controllers/group.py:34
 #: weckan/controllers/resource.py:31 weckan/controllers/resource.py:38
 #: weckan/controllers/reuse.py:31
 #: weckan/templates/forms/dataset-base-form.html:35
@@ -167,154 +172,158 @@ msgstr "Titre"
 msgid "Description"
 msgstr "Description"
 
-#: weckan/controllers/dataset.py:80 weckan/controllers/resource.py:39
+#: weckan/controllers/dataset.py:104 weckan/controllers/resource.py:39
 #: weckan/controllers/reuse.py:32
 msgid "Publish as"
 msgstr "Publier en tant que"
 
-#: weckan/controllers/dataset.py:81
+#: weckan/controllers/dataset.py:105
 msgid "Tags"
 msgstr "Mots-clés"
 
-#: weckan/controllers/dataset.py:82 weckan/templates/footer.html:23
+#: weckan/controllers/dataset.py:106 weckan/templates/footer.html:23
 #: weckan/templates/search.html:63 weckan/templates/subnav-s.html:33
 msgid "Topics"
 msgstr "Thématiques"
 
-#: weckan/controllers/dataset.py:83
+#: weckan/controllers/dataset.py:107
 msgid "Temporal coverage start"
 msgstr "Début de la couverture temporelle"
 
-#: weckan/controllers/dataset.py:84
+#: weckan/controllers/dataset.py:109 weckan/controllers/dataset.py:112
+msgid "A year (YYYY), a month (MM/YYYY) or a day (DD/MM/YYYY)"
+msgstr "Une année (AAAA), un mois (MM/AAAA) ou un jour (JJ/MM/AAAA)"
+
+#: weckan/controllers/dataset.py:110
 msgid "Temporal coverage end"
 msgstr "Fin de la couverture temporelle"
 
-#: weckan/controllers/dataset.py:85 weckan/templates/dataset.html:313
+#: weckan/controllers/dataset.py:113 weckan/templates/dataset.html:313
 #: weckan/templates/cards/dataset-card.html:71
 #: weckan/templates/widgets/dataset-search-result.html:59
 msgid "Territorial coverage"
 msgstr "Couverture territoriale"
 
-#: weckan/controllers/dataset.py:86 weckan/templates/dataset.html:323
+#: weckan/controllers/dataset.py:114 weckan/templates/dataset.html:323
 #: weckan/templates/cards/dataset-card.html:82
 #: weckan/templates/widgets/dataset-search-result.html:69
 msgid "Territorial coverage granularity"
 msgstr "Granularité de la couverture territoriale"
 
-#: weckan/controllers/dataset.py:90 weckan/controllers/dataset.py:106
+#: weckan/controllers/dataset.py:118 weckan/controllers/dataset.py:134
 msgid "None"
 msgstr "Aucune"
 
-#: weckan/controllers/dataset.py:91
+#: weckan/controllers/dataset.py:119
 msgid "POI"
 msgstr "Point d'intérêt"
 
-#: weckan/controllers/dataset.py:92
+#: weckan/controllers/dataset.py:120
 msgid "Iris (Insee districts)"
 msgstr "Iris (quartier Insee)"
 
-#: weckan/controllers/dataset.py:93
+#: weckan/controllers/dataset.py:121
 msgid "Town"
 msgstr "Commune"
 
-#: weckan/controllers/dataset.py:94
+#: weckan/controllers/dataset.py:122
 msgid "Canton"
 msgstr "Canton"
 
-#: weckan/controllers/dataset.py:95
+#: weckan/controllers/dataset.py:123
 msgid "Intermunicipal (EPCI)"
 msgstr "Intercommunalité (EPCI)"
 
-#: weckan/controllers/dataset.py:96
+#: weckan/controllers/dataset.py:124
 msgid "County"
 msgstr "Département"
 
-#: weckan/controllers/dataset.py:97
+#: weckan/controllers/dataset.py:125
 msgid "Region"
 msgstr "Région"
 
-#: weckan/controllers/dataset.py:98
+#: weckan/controllers/dataset.py:126
 msgid "Country"
 msgstr "Pays"
 
-#: weckan/controllers/dataset.py:99 weckan/templates/dataset.html:635
+#: weckan/controllers/dataset.py:127 weckan/templates/dataset.html:635
 msgid "Other"
 msgstr "Autre"
 
-#: weckan/controllers/dataset.py:102
+#: weckan/controllers/dataset.py:130
 msgid "Frequency"
 msgstr "Fréquence"
 
-#: weckan/controllers/dataset.py:103
+#: weckan/controllers/dataset.py:131
 msgid "Dataset update periodicity"
 msgstr "Périodicité des mises à jours du jeu de données"
 
-#: weckan/controllers/dataset.py:107
+#: weckan/controllers/dataset.py:135
 msgid "Punctual"
 msgstr "Ponctuelle"
 
-#: weckan/controllers/dataset.py:108
+#: weckan/controllers/dataset.py:136
 msgid "Real time"
 msgstr "Temps réel"
 
-#: weckan/controllers/dataset.py:109
+#: weckan/controllers/dataset.py:137
 msgid "Daily"
 msgstr "Quotidienne"
 
-#: weckan/controllers/dataset.py:110
+#: weckan/controllers/dataset.py:138
 msgid "Weekly"
 msgstr "Hebdomadaire"
 
-#: weckan/controllers/dataset.py:111
+#: weckan/controllers/dataset.py:139
 msgid "Fortnighly"
 msgstr "Bimensuelle"
 
-#: weckan/controllers/dataset.py:112
+#: weckan/controllers/dataset.py:140
 msgid "Mensuelle"
 msgstr "Mensuelle"
 
-#: weckan/controllers/dataset.py:113
+#: weckan/controllers/dataset.py:141
 msgid "Bimonthly"
 msgstr "Bimestrielle"
 
-#: weckan/controllers/dataset.py:114
+#: weckan/controllers/dataset.py:142
 msgid "Quaterly"
 msgstr "Trimestrielle"
 
-#: weckan/controllers/dataset.py:115
+#: weckan/controllers/dataset.py:143
 msgid "Biannual"
 msgstr "Semestrielle"
 
-#: weckan/controllers/dataset.py:116
+#: weckan/controllers/dataset.py:144
 msgid "Annual"
 msgstr "Annuelle"
 
-#: weckan/controllers/dataset.py:117
+#: weckan/controllers/dataset.py:145
 msgid "Triennial"
 msgstr "Triennale"
 
-#: weckan/controllers/dataset.py:118
+#: weckan/controllers/dataset.py:146
 msgid "Quinquennial"
 msgstr "Quinquennale"
 
-#: weckan/controllers/dataset.py:121 weckan/templates/dataset.html:276
+#: weckan/controllers/dataset.py:149 weckan/templates/dataset.html:276
 msgid "License"
 msgstr "License"
 
-#: weckan/controllers/dataset.py:122 weckan/templates/dataset.html:62
+#: weckan/controllers/dataset.py:150 weckan/templates/dataset.html:62
 #: weckan/templates/dataset.html:64
 msgid "Private"
 msgstr "Privé"
 
-#: weckan/controllers/dataset.py:128 weckan/controllers/group.py:41
+#: weckan/controllers/dataset.py:156 weckan/controllers/group.py:41
 msgid "Old key"
 msgstr "Ancienne clé"
 
-#: weckan/controllers/dataset.py:352
+#: weckan/controllers/dataset.py:381
 msgid "Recent datasets"
 msgstr "Jeux de données récents"
 
-#: weckan/controllers/dataset.py:372
+#: weckan/controllers/dataset.py:401
 msgid "Popular datasets"
 msgstr "Jeux de données populaires"
 
@@ -334,7 +343,7 @@ msgstr "Éditeur"
 msgid "Member"
 msgstr "Membre"
 
-#: weckan/controllers/organization.py:119
+#: weckan/controllers/organization.py:120
 msgid "Privates"
 msgstr "Privés"
 
@@ -425,19 +434,14 @@ msgstr "Publié le %(date)s"
 msgid ""
 "Published on %(date)s by <a href=\"%(url)s\" "
 "title=\"%(author)s\">%(author)s</a>"
-msgstr ""
-"Publié le %(date)s par <a href=\"%(url)s\" "
-"title=\"%(author)s\">%(author)s</a>"
+msgstr "Publié le %(date)s par <a href=\"%(url)s\" title=\"%(author)s\">%(author)s</a>"
 
 #: weckan/templates/dataset.html:47
 #, python-format
 msgid ""
-"This dataset has been published on %(date)s on the initiative and under "
-"the responsibility of <a href=\"%(url)s\" "
-"title=\"%(author)s\">%(author)s</a>"
-msgstr ""
-"Ce jeu de données a été publié le %(date)s à l'initiative et sous la "
-"responsabilité de <a href=\"%(url)s\" title=\"%(author)s\">%(author)s</a>"
+"This dataset has been published on %(date)s on the initiative and under the "
+"responsibility of <a href=\"%(url)s\" title=\"%(author)s\">%(author)s</a>"
+msgstr "Ce jeu de données a été publié le %(date)s à l'initiative et sous la responsabilité de <a href=\"%(url)s\" title=\"%(author)s\">%(author)s</a>"
 
 #: weckan/templates/dataset.html:56 weckan/templates/dataset.html:58
 msgid "Not certified"
@@ -449,9 +453,7 @@ msgstr "Ce jeu de données n'est pas fourni par un service public certifié"
 
 #: weckan/templates/dataset.html:63
 msgid "This dataset is private and will not be visible by other users"
-msgstr ""
-"Ce jeu de données est privé et ne sera pas visible par les autres "
-"utilisateurs"
+msgstr "Ce jeu de données est privé et ne sera pas visible par les autres utilisateurs"
 
 #: weckan/templates/dataset.html:68 weckan/templates/dataset.html:70
 #: weckan/templates/cards/dataset-card.html:23
@@ -461,7 +463,8 @@ msgstr ""
 msgid "Forked"
 msgstr "Dupliqué"
 
-#: weckan/templates/dataset.html:69 weckan/templates/cards/dataset-card.html:24
+#: weckan/templates/dataset.html:69
+#: weckan/templates/cards/dataset-card.html:24
 #: weckan/templates/widgets/dataset-search-result.html:91
 msgid "This dataset is a fork of another existing dataset"
 msgstr "Ce jeu de données a été dupliqué depuis un autre jeu de donnée existant"
@@ -637,11 +640,9 @@ msgstr "Explorer avec Datagouv"
 
 #: weckan/templates/dataset.html:509
 msgid ""
-"You have built a more comprehensive database than those presented here? "
-"This is the time to share it!"
-msgstr ""
-"Vous avez construit une base de données plus complète que celles "
-"présentées ici ? C'est le moment de la partager !"
+"You have built a more comprehensive database than those presented here? This"
+" is the time to share it!"
+msgstr "Vous avez construit une base de données plus complète que celles présentées ici ? C'est le moment de la partager !"
 
 #: weckan/templates/dataset.html:556 weckan/templates/dataset.html:560
 #: weckan/templates/home.html:61
@@ -659,16 +660,10 @@ msgstr "Ajouter une réutilisation"
 
 #: weckan/templates/dataset.html:582
 msgid ""
-"You reused these data and published an article, a computer graphics, or "
-"an application?\n"
+"You reused these data and published an article, a computer graphics, or an application?\n"
 "                    It's time to let you know!\n"
-"                    Reference your work in just a few clicks and increase"
-" your visibility."
-msgstr ""
-"Vous avez réutilisé ces données et publié un article, une infographie, ou"
-" une application ?\n"
-"C'est le moment de vous faire connaître !\n"
-"Référencez votre travail en quelques clics et augmentez votre visibilité."
+"                    Reference your work in just a few clicks and increase your visibility."
+msgstr "Vous avez réutilisé ces données et publié un article, une infographie, ou une application ?\nC'est le moment de vous faire connaître !\nRéférencez votre travail en quelques clics et augmentez votre visibilité."
 
 #: weckan/templates/dataset.html:594 weckan/templates/organization.html:221
 msgid "You need to be logged in to follow an organization"
@@ -720,17 +715,12 @@ msgstr "Fournissez les détails du signalement"
 
 #: weckan/templates/dataset.html:623
 msgid ""
-"Illegal content: licence concern, privacy concern, defamatory statements "
-".."
-msgstr ""
-"Contenu illégal : problème de licence, propos diffamatoires, atteinte à "
-"la vie privée .."
+"Illegal content: licence concern, privacy concern, defamatory statements .."
+msgstr "Contenu illégal : problème de licence, propos diffamatoires, atteinte à la vie privée .."
 
 #: weckan/templates/dataset.html:629
 msgid "Tendencious content: data alteration, partial or truncated data"
-msgstr ""
-"Contenu tendencieux : altération de données, données partielles ou "
-"tronquées .."
+msgstr "Contenu tendencieux : altération de données, données partielles ou tronquées .."
 
 #: weckan/templates/dataset.html:641 weckan/templates/organization.html:251
 #: weckan/templates/forms/group-membership-requests-form.html:13
@@ -832,9 +822,7 @@ msgstr "Voir plus"
 msgid ""
 "This reuse is no more featured and will not be visible anymore at page "
 "reload"
-msgstr ""
-"Cette réutilisation n'est plus mise en avant et ne sera plus visible au "
-"rechargement de la page"
+msgstr "Cette réutilisation n'est plus mise en avant et ne sera plus visible au rechargement de la page"
 
 #: weckan/templates/home.html:129
 msgid "Error while removing featured state"
@@ -953,9 +941,7 @@ msgstr "Vous devez être authentifié pour demander une adhésion à une organis
 
 #: weckan/templates/organization.html:223
 msgid "You need to be logged in to accept or refuse a membership request"
-msgstr ""
-"Vous devez être authentifié pour accepter ou refuser une demande "
-"d'adhésion"
+msgstr "Vous devez être authentifié pour accepter ou refuser une demande d'adhésion"
 
 #: weckan/templates/organization.html:226
 msgid "A request has been sent to the administrators"
@@ -1363,9 +1349,7 @@ msgstr "Le membre a été supprimé"
 
 #: weckan/templates/forms/group-members-form.html:107
 msgid "Do you want to add this user as a member of your organization ?"
-msgstr ""
-"Voulez-vous ajouter cet utilisateur en tant que membre de votre "
-"organisation ?"
+msgstr "Voulez-vous ajouter cet utilisateur en tant que membre de votre organisation ?"
 
 #: weckan/templates/forms/group-members-form.html:134
 msgid "Add member"
@@ -1441,4 +1425,3 @@ msgstr "Nombre de jeux de données"
 #: weckan/templates/widgets/organization-search-result.html:31
 msgid "Number of members"
 msgstr "Nombre de membres"
-

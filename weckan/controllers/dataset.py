@@ -13,6 +13,8 @@ from pkg_resources import resource_stream
 
 from sqlalchemy.sql import func
 
+from ckanext.etalab.plugins import year_or_month_or_day_re
+
 from weckan import templates, urls, wsgihelpers, conf, contexts, auth, queries, territories, forms, model
 from weckan.model import Activity, meta, Package, Group, UserFollowingDataset, UserFollowingGroup, Member, repo
 from weckan.tools import ckan_api
@@ -74,14 +76,40 @@ class GroupsField(forms.SelectMultipleField):
         pass
 
 
+class YMDField(forms.StringField):
+    '''
+    A field accepting a date as a day, a month or a year.
+    '''
+    def _value(self):
+        if self.data:
+            return '/'.join(reversed(self.data.split('-')))
+        else:
+            return ''
+
+    def process_formdata(self, valuelist):
+        if valuelist:
+            self.data = '-'.join(reversed(valuelist[0].split('/')))
+        else:
+            self.data = None
+
+
+def year_or_month_or_day(form, field):
+    if not year_or_month_or_day_re.match(field.data):
+        raise forms.validators.ValidationError(_('Should be either year, a month or a day'))
+
+
 class DatasetForm(forms.Form):
     title = forms.StringField(_('Title'), [forms.validators.required()])
     notes = forms.MarkdownField(_('Description'), [forms.validators.required()])
     owner_org = forms.PublishAsField(_('Publish as'))
     tags = forms.TagField(_('Tags'))
     groups = GroupsField(_('Topics'))
-    temporal_coverage_from = forms.StringField(_('Temporal coverage start'))
-    temporal_coverage_to = forms.StringField(_('Temporal coverage end'))
+    temporal_coverage_from = YMDField(_('Temporal coverage start'),
+        validators=[forms.validators.Optional(), year_or_month_or_day],
+        description=_('A year (YYYY), a month (MM/YYYY) or a day (DD/MM/YYYY)'))
+    temporal_coverage_to = YMDField(_('Temporal coverage end'),
+        validators=[forms.validators.Optional(), year_or_month_or_day],
+        description=_('A year (YYYY), a month (MM/YYYY) or a day (DD/MM/YYYY)'))
     territorial_coverage = forms.TerritoryField(_('Territorial coverage'))
     territorial_coverage_granularity = forms.SelectField(_('Territorial coverage granularity'),
         # description=_('Dataset update periodicity'),
