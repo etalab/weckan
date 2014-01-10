@@ -204,6 +204,12 @@
                                 data-api="{{ url(lang, 'youckan/dataset', dataset.name, 'alert') }}">
                                 <span class="glyphicon glyphicon-warning-sign"></span>
                             </a>
+                            {% if user and alerts %}
+                            <button type="button" class="btn btn-danger btn-report btn-punch"
+                                data-toggle="modal" data-target="#alerts-modal">
+                                ({{ alerts|length }})
+                            </button>
+                            {% endif %}
                         </div>
                     </div>
                 </div>
@@ -651,6 +657,36 @@
                 <button type="button" class="btn btn-warning" data-dismiss="modal">
                     <span class="glyphicon glyphicon-remove"></span>
                     {{ _("Cancel") }}
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="alerts-modal" tabindex="-1" role="dialog" aria-labelledby="alerts-modal-title" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 id="alerts-modal-title" class="modal-title">{{ _("Alerts") }}</h4>
+            </div>
+            <div class="modal-body">
+                <ul class="list-group">
+                {% for alert in alerts %}
+                    <li class="list-group-item">
+                        <h4 class="list-group-item-heading">
+                            {{ alert.type }}
+                            <small>{{ alert.created|date(format='long', locale=lang) }}</small>
+                        </h4>
+                        <p class="list-group-item-text">{{alert.comment}}</p>
+                    </li>
+                {% endfor %}
+                </ul>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-warning" data-dismiss="modal">
+                    <span class="glyphicon glyphicon-remove"></span>
+                    {{ _("Close") }}
                 </button>
             </div>
         </div>

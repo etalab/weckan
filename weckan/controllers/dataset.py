@@ -15,6 +15,8 @@ from sqlalchemy.sql import func
 
 from ckanext.etalab.plugins import year_or_month_or_day_re
 
+from ckanext.youckan.models import DatasetAlert
+
 from weckan import templates, urls, wsgihelpers, conf, contexts, auth, queries, territories, forms, model
 from weckan.model import Activity, meta, Package, Group, UserFollowingDataset, UserFollowingGroup, Member, repo
 from weckan.model import PACKAGE_NAME_MAX_LENGTH, PACKAGE_NAME_MAX_LENGTH
@@ -335,6 +337,7 @@ def display(request):
     supplier_id = dataset.extras.get('supplier_id', None)
     supplier = DB.query(Group).filter(Group.id == supplier_id).first() if supplier_id else None
 
+
     return templates.render_site('dataset.html', request,
         dataset=dataset,
         publication_date=timestamp,
@@ -354,6 +357,7 @@ def display(request):
         ceils=QA_CEILS,
         territory=territories.get_cookie(request),
         bot_name=conf['bot_name'],
+        alerts=DatasetAlert.get_open_for(dataset),
     )
 
 
@@ -366,7 +370,7 @@ def search_more(request):
         search_query=query,
         url_pattern=get_page_url_pattern(request),
         datasets=results
-        )
+    )
 
 
 @wsgihelpers.wsgify

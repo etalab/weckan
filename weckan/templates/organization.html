@@ -55,7 +55,7 @@
                     {% if not pending %}
                     <a href rel="tooltip" class="btn btn-primary btn-block btn-sm icon-left membership"
                         data-placement="left"
-                        data-api="{{ url('youckan/organization', organization.name, 'membership') }}"
+                        data-api="{{ url(lang, 'youckan/organization', organization.name, 'membership') }}"
                         title="{% trans %}I belong to this organization{% endtrans %}">
                         <span class="glyphicon glyphicon-user"></span>
                         {% trans %}Join{% endtrans %}
