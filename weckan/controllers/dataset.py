@@ -15,7 +15,7 @@ from sqlalchemy.sql import func
 
 from ckanext.etalab.plugins import year_or_month_or_day_re
 
-from ckanext.youckan.models import DatasetAlert
+from ckanext.youckan.models import DatasetAlert, AlertType
 
 from weckan import templates, urls, wsgihelpers, conf, contexts, auth, queries, territories, forms, model
 from weckan.model import Activity, meta, Package, Group, UserFollowingDataset, UserFollowingGroup, Member, repo
@@ -56,6 +56,12 @@ SPECIAL_EXTRAS = (
 )
 
 LICENSES = json.load(resource_stream('ckanext.etalab', 'public/licenses.json'))
+
+ALERT_TYPE_NAMES = {
+    AlertType.ILLEGAL: _('Illegal content'),
+    AlertType.TENDENCIOUS: _('Tendencious content'),
+    AlertType.OTHER: _('Other'),
+}
 
 
 class LicenseField(forms.SelectField):
@@ -358,6 +364,7 @@ def display(request):
         territory=territories.get_cookie(request),
         bot_name=conf['bot_name'],
         alerts=DatasetAlert.get_open_for(dataset),
+        alert_types=ALERT_TYPE_NAMES,
     )
 
 

@@ -675,7 +675,7 @@
                 {% for alert in alerts %}
                     <li class="list-group-item">
                         <h4 class="list-group-item-heading">
-                            {{ alert.type }}
+                            {{ _(alert_types[alert.type]) }}
                             <small>{{ alert.created|date(format='long', locale=lang) }}</small>
                         </h4>
                         <p class="list-group-item-text">{{alert.comment}}</p>
