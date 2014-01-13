@@ -70,6 +70,12 @@
                                 data-content="{{ _('This dataset is a fork of another existing dataset') }}"
                                 >{{ _('Forked') }}</small>
                             {% endif %}
+                            {% if dataset.state == 'deleted' %}
+                            <small class="deleted" rel="popover"
+                                data-title="{{ _('Deleted') }}" data-trigger="hover" data-placement="top"
+                                data-content="{{ _('This dataset has been deleted. This will be permanent in the next 24 hours') }}"
+                                >{{ _('Deleted') }}</small>
+                            {% endif %}
                         </p>
                     </div>
                 </div>
