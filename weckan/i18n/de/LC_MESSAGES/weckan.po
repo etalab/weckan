@@ -1,24 +1,26 @@
-# German translations for Weckan.
-# Copyright (C) 2013 ORGANIZATION
+# Translations template for Weckan.
+# Copyright (C) 2014 ORGANIZATION
 # This file is distributed under the same license as the Weckan project.
-#
+# 
 # Translators:
 # noirbizarre, 2013
+# noirbizarre, 2013
+# schwefel, 2013
 # schwefel, 2013
 msgid ""
 msgstr ""
-"Project-Id-Version:  weckan\n"
+"Project-Id-Version: weckan\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2014-01-13 11:41+0100\n"
-"PO-Revision-Date: 2013-12-12 15:54+0000\n"
+"POT-Creation-Date: 2014-01-13 11:56+0100\n"
+"PO-Revision-Date: 2014-01-13 10:56+0000\n"
 "Last-Translator: noirbizarre\n"
-"Language-Team: German "
-"(http://www.transifex.com/projects/p/weckan/language/de/)\n"
-"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+"Language-Team: German (http://www.transifex.com/projects/p/weckan/language/de/)\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 0.9.6\n"
+"Language: de\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: weckan/application.py:55
 msgid "Web site not found."
@@ -112,7 +114,7 @@ msgid "Latest"
 msgstr "Neueste"
 
 #: weckan/controllers/dashboard.py:39 weckan/templates/organization.html:8
-#: weckan/templates/search.html:41
+#: weckan/templates/search.html:46
 msgid "Datasets"
 msgstr "Datensätze"
 
@@ -125,7 +127,7 @@ msgstr ""
 msgid "Resources"
 msgstr "Quellen"
 
-#: weckan/controllers/dashboard.py:42 weckan/templates/search.html:18
+#: weckan/controllers/dashboard.py:42 weckan/templates/search.html:23
 msgid "Organizations"
 msgstr "Organisationen"
 
@@ -163,9 +165,8 @@ msgstr ""
 
 #: weckan/controllers/dataset.py:63 weckan/controllers/dataset.py:136
 #: weckan/templates/dataset.html:642
-#, fuzzy
 msgid "Other"
-msgstr "Wo"
+msgstr ""
 
 #: weckan/controllers/dataset.py:107
 msgid "Should be either year, a month or a day"
@@ -194,23 +195,21 @@ msgid "Tags"
 msgstr ""
 
 #: weckan/controllers/dataset.py:115 weckan/templates/footer.html:23
-#: weckan/templates/search.html:63 weckan/templates/subnav-s.html:33
+#: weckan/templates/search.html:68 weckan/templates/subnav-s.html:33
 msgid "Topics"
 msgstr "Themen"
 
 #: weckan/controllers/dataset.py:116
-#, fuzzy
 msgid "Temporal coverage start"
-msgstr "Zeitumfang"
+msgstr ""
 
 #: weckan/controllers/dataset.py:118 weckan/controllers/dataset.py:121
 msgid "A year (YYYY), a month (MM/YYYY) or a day (DD/MM/YYYY)"
 msgstr ""
 
 #: weckan/controllers/dataset.py:119
-#, fuzzy
 msgid "Temporal coverage end"
-msgstr "Zeitumfang"
+msgstr ""
 
 #: weckan/controllers/dataset.py:122 weckan/templates/dataset.html:320
 #: weckan/templates/cards/dataset-card.html:71
@@ -241,9 +240,8 @@ msgid "Town"
 msgstr ""
 
 #: weckan/controllers/dataset.py:131
-#, fuzzy
 msgid "Canton"
-msgstr "Informationen"
+msgstr ""
 
 #: weckan/controllers/dataset.py:132
 msgid "Intermunicipal (EPCI)"
@@ -331,14 +329,12 @@ msgid "Old key"
 msgstr ""
 
 #: weckan/controllers/dataset.py:394
-#, fuzzy
 msgid "Recent datasets"
 msgstr ""
 
 #: weckan/controllers/dataset.py:414
-#, fuzzy
 msgid "Popular datasets"
-msgstr "Datensatz veröffentlichen !"
+msgstr ""
 
 #: weckan/controllers/group.py:35 weckan/controllers/reuse.py:21
 msgid "Image URL"
@@ -386,9 +382,8 @@ msgid "URL"
 msgstr ""
 
 #: weckan/controllers/resource.py:29
-#, fuzzy
 msgid "File"
-msgstr "Profil"
+msgstr ""
 
 #: weckan/controllers/resource.py:30 weckan/controllers/resource.py:37
 msgid "Format"
@@ -453,9 +448,8 @@ msgstr ""
 #: weckan/templates/dataset.html:48
 #, python-format
 msgid ""
-"This dataset has been published on %(date)s on the initiative and under "
-"the responsibility of <a href=\"%(url)s\" "
-"title=\"%(author)s\">%(author)s</a>"
+"This dataset has been published on %(date)s on the initiative and under the "
+"responsibility of <a href=\"%(url)s\" title=\"%(author)s\">%(author)s</a>"
 msgstr ""
 
 #: weckan/templates/dataset.html:57 weckan/templates/dataset.html:59
@@ -478,7 +472,8 @@ msgstr ""
 msgid "Forked"
 msgstr ""
 
-#: weckan/templates/dataset.html:70 weckan/templates/cards/dataset-card.html:24
+#: weckan/templates/dataset.html:70
+#: weckan/templates/cards/dataset-card.html:24
 #: weckan/templates/widgets/dataset-search-result.html:91
 msgid "This dataset is a fork of another existing dataset"
 msgstr ""
@@ -503,9 +498,9 @@ msgid "Add a resource"
 msgstr ""
 
 #: weckan/templates/dataset.html:161
-#, fuzzy, python-format
+#, python-format
 msgid "See the %(count)s resources"
-msgstr "Sehen sie sich %(count)s Ergebnisse an"
+msgstr ""
 
 #: weckan/templates/dataset.html:175
 msgid "No resources"
@@ -654,8 +649,8 @@ msgstr "Mit Datagouv untersuchen"
 
 #: weckan/templates/dataset.html:516
 msgid ""
-"You have built a more comprehensive database than those presented here? "
-"This is the time to share it!"
+"You have built a more comprehensive database than those presented here? This"
+" is the time to share it!"
 msgstr ""
 
 #: weckan/templates/dataset.html:563 weckan/templates/dataset.html:567
@@ -674,11 +669,9 @@ msgstr ""
 
 #: weckan/templates/dataset.html:589
 msgid ""
-"You reused these data and published an article, a computer graphics, or "
-"an application?\n"
+"You reused these data and published an article, a computer graphics, or an application?\n"
 "                    It's time to let you know!\n"
-"                    Reference your work in just a few clicks and increase"
-" your visibility."
+"                    Reference your work in just a few clicks and increase your visibility."
 msgstr ""
 
 #: weckan/templates/dataset.html:601 weckan/templates/organization.html:226
@@ -731,8 +724,7 @@ msgstr ""
 
 #: weckan/templates/dataset.html:630
 msgid ""
-"Illegal content: licence concern, privacy concern, defamatory statements "
-".."
+"Illegal content: licence concern, privacy concern, defamatory statements .."
 msgstr ""
 
 #: weckan/templates/dataset.html:636
@@ -823,7 +815,7 @@ msgstr ""
 msgid "Home"
 msgstr "Startseite"
 
-#: weckan/templates/home.html:18 weckan/templates/site.html:30
+#: weckan/templates/home.html:18
 msgid "News"
 msgstr "Nachrichten"
 
@@ -836,9 +828,8 @@ msgid "Best reuse cases"
 msgstr "Beste Wiederverwendungsmöglichkeiten"
 
 #: weckan/templates/home.html:113 weckan/templates/organization.html:154
-#, fuzzy
 msgid "See more"
-msgstr "mehr"
+msgstr ""
 
 #: weckan/templates/home.html:128
 msgid ""
@@ -941,7 +932,7 @@ msgid "Membership requests"
 msgstr ""
 
 #: weckan/templates/organization.html:161
-#: weckan/templates/search-datasets.html:31
+#: weckan/templates/search-datasets.html:36
 msgid "No dataset"
 msgstr ""
 
@@ -1016,11 +1007,15 @@ msgid "Refusal reason"
 msgstr ""
 
 #: weckan/templates/search-datasets.html:6
-#: weckan/templates/search-datasets.html:18
+#: weckan/templates/search-datasets.html:23
 msgid "Datasets search"
 msgstr "Suche nach Datensatz"
 
-#: weckan/templates/search-datasets.html:19
+#: weckan/templates/search-datasets.html:10 weckan/templates/search.html:10
+msgid "Recently created or updated datasets matching query: \"{0}\""
+msgstr ""
+
+#: weckan/templates/search-datasets.html:24
 #: weckan/templates/search-organizations.html:27
 #, python-format
 msgid "results %(start)s to %(end)s of %(total)s"
@@ -1051,32 +1046,31 @@ msgid "Add"
 msgstr ""
 
 #: weckan/templates/search-organizations.html:39
-#, fuzzy
 msgid "No organization found."
-msgstr "Organisationen"
+msgstr ""
 
 #: weckan/templates/search.html:6 weckan/templates/subnav-s.html:14
 #: weckan/templates/subnav-topic.html:20 weckan/templates/subnav.html:20
 msgid "Search"
 msgstr "Suche"
 
-#: weckan/templates/search.html:13
+#: weckan/templates/search.html:18
 msgid "No results found"
 msgstr "Keine Suchergebnisse gefunden"
 
-#: weckan/templates/search.html:20 weckan/templates/search.html:43
+#: weckan/templates/search.html:25 weckan/templates/search.html:48
 #, python-format
 msgid "%(count)s result"
 msgid_plural "%(count)s results"
 msgstr[0] "%(count)s Suchergebnis"
 msgstr[1] "%(count)s Suchergebnisse"
 
-#: weckan/templates/search.html:33 weckan/templates/search.html:56
+#: weckan/templates/search.html:38 weckan/templates/search.html:61
 #, python-format
 msgid "See the %(total)s results"
 msgstr "Sehen sie sich %(total)s Ergebnisse an"
 
-#: weckan/templates/search.html:80
+#: weckan/templates/search.html:85
 msgid "See all the results"
 msgstr "Alle Ergebnisse ansehen"
 
@@ -1088,7 +1082,11 @@ msgstr "Öffentliche Daten"
 msgid "Open license"
 msgstr "Offene Lizenz"
 
-#: weckan/templates/site.html:27
+#: weckan/templates/site.html:26
+msgid "Recently created or updated datasets"
+msgstr ""
+
+#: weckan/templates/site.html:30
 msgid "Recent Revision History"
 msgstr ""
 
@@ -1196,9 +1194,8 @@ msgstr ""
 #: weckan/templates/forms/dataset-extras-form.html:4
 #: weckan/templates/forms/group-base-form.html:42
 #: weckan/templates/forms/group-extras-form.html:4
-#, fuzzy
 msgid "Additional informations"
-msgstr "Informationen"
+msgstr ""
 
 #: weckan/templates/forms/dataset-base-form.html:62
 #: weckan/templates/forms/group-base-form.html:69
@@ -1269,7 +1266,6 @@ msgid "Add a new dataset"
 msgstr ""
 
 #: weckan/templates/forms/dataset-edit-form.html:4
-#, fuzzy
 msgid "Edit dataset"
 msgstr ""
 
@@ -1280,9 +1276,8 @@ msgstr ""
 #: weckan/templates/forms/group-members-form.html:42
 #: weckan/templates/forms/group-members-form.html:98
 #: weckan/templates/macros/forms.html:138
-#, fuzzy
 msgid "Remove"
-msgstr "Verbessern"
+msgstr ""
 
 #: weckan/templates/forms/dataset-extras-form.html:42
 #: weckan/templates/forms/group-extras-form.html:42
@@ -1306,9 +1301,8 @@ msgstr ""
 
 #: weckan/templates/forms/dataset-extras-form.html:63
 #: weckan/templates/forms/group-extras-form.html:63
-#, fuzzy
 msgid "The additional information has been deleted"
-msgstr "Informationen"
+msgstr ""
 
 #: weckan/templates/forms/dataset-extras-form.html:98
 #: weckan/templates/forms/group-extras-form.html:98
@@ -1316,7 +1310,6 @@ msgid "You are about to delete this information."
 msgstr ""
 
 #: weckan/templates/forms/group-base-form.html:43
-#, fuzzy
 msgid "Members"
 msgstr ""
 
@@ -1333,18 +1326,16 @@ msgid "Create a group"
 msgstr ""
 
 #: weckan/templates/forms/group-edit-form.html:4
-#, fuzzy
 msgid "Edit an organization"
-msgstr "Organisationen"
+msgstr ""
 
 #: weckan/templates/forms/group-edit-form.html:4
 msgid "Edit a group"
 msgstr ""
 
 #: weckan/templates/forms/group-members-form.html:4
-#, fuzzy
 msgid "Edit organization members"
-msgstr "Organisationen"
+msgstr ""
 
 #: weckan/templates/forms/group-members-form.html:4
 msgid "Edit group members"
@@ -1358,12 +1349,10 @@ msgstr ""
 #: weckan/templates/forms/group-members-form.html:15
 #: weckan/templates/forms/group-members-form.html:36
 #: weckan/templates/forms/group-members-form.html:92
-#, fuzzy
 msgid "Role"
-msgstr "Profil"
+msgstr ""
 
 #: weckan/templates/forms/group-members-form.html:50
-#, fuzzy
 msgid "No members"
 msgstr ""
 
@@ -1388,7 +1377,6 @@ msgid "Do you want to add this user as a member of your organization ?"
 msgstr ""
 
 #: weckan/templates/forms/group-members-form.html:134
-#, fuzzy
 msgid "Add member"
 msgstr ""
 
@@ -1397,14 +1385,12 @@ msgid "You are about to delete this member."
 msgstr ""
 
 #: weckan/templates/forms/group-membership-requests-form.html:14
-#, fuzzy
 msgid "Date"
-msgstr "Neueste"
+msgstr ""
 
 #: weckan/templates/forms/group-membership-requests-form.html:15
-#, fuzzy
 msgid "Actions"
-msgstr "Informationen"
+msgstr ""
 
 #: weckan/templates/forms/group-membership-requests-form.html:50
 msgid "No pending requests"
@@ -1464,4 +1450,3 @@ msgstr ""
 #: weckan/templates/widgets/organization-search-result.html:31
 msgid "Number of members"
 msgstr ""
-

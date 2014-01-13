@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Weckan 0.2.0.dev\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2014-01-13 11:41+0100\n"
+"POT-Creation-Date: 2014-01-13 11:56+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -109,7 +109,7 @@ msgid "Latest"
 msgstr ""
 
 #: weckan/controllers/dashboard.py:39 weckan/templates/organization.html:8
-#: weckan/templates/search.html:41
+#: weckan/templates/search.html:46
 msgid "Datasets"
 msgstr ""
 
@@ -122,7 +122,7 @@ msgstr ""
 msgid "Resources"
 msgstr ""
 
-#: weckan/controllers/dashboard.py:42 weckan/templates/search.html:18
+#: weckan/controllers/dashboard.py:42 weckan/templates/search.html:23
 msgid "Organizations"
 msgstr ""
 
@@ -189,7 +189,7 @@ msgid "Tags"
 msgstr ""
 
 #: weckan/controllers/dataset.py:115 weckan/templates/footer.html:23
-#: weckan/templates/search.html:63 weckan/templates/subnav-s.html:33
+#: weckan/templates/search.html:68 weckan/templates/subnav-s.html:33
 msgid "Topics"
 msgstr ""
 
@@ -803,7 +803,7 @@ msgstr ""
 msgid "Home"
 msgstr ""
 
-#: weckan/templates/home.html:18 weckan/templates/site.html:30
+#: weckan/templates/home.html:18
 msgid "News"
 msgstr ""
 
@@ -917,7 +917,7 @@ msgstr ""
 msgid "Membership requests"
 msgstr ""
 
-#: weckan/templates/organization.html:161 weckan/templates/search-datasets.html:31
+#: weckan/templates/organization.html:161 weckan/templates/search-datasets.html:36
 msgid "No dataset"
 msgstr ""
 
@@ -990,11 +990,15 @@ msgstr ""
 msgid "Refusal reason"
 msgstr ""
 
-#: weckan/templates/search-datasets.html:6 weckan/templates/search-datasets.html:18
+#: weckan/templates/search-datasets.html:6 weckan/templates/search-datasets.html:23
 msgid "Datasets search"
 msgstr ""
 
-#: weckan/templates/search-datasets.html:19
+#: weckan/templates/search-datasets.html:10 weckan/templates/search.html:10
+msgid "Recently created or updated datasets matching query: \"{0}\""
+msgstr ""
+
+#: weckan/templates/search-datasets.html:24
 #: weckan/templates/search-organizations.html:27
 #, python-format
 msgid "results %(start)s to %(end)s of %(total)s"
@@ -1032,23 +1036,23 @@ msgstr ""
 msgid "Search"
 msgstr ""
 
-#: weckan/templates/search.html:13
+#: weckan/templates/search.html:18
 msgid "No results found"
 msgstr ""
 
-#: weckan/templates/search.html:20 weckan/templates/search.html:43
+#: weckan/templates/search.html:25 weckan/templates/search.html:48
 #, python-format
 msgid "%(count)s result"
 msgid_plural "%(count)s results"
 msgstr[0] ""
 msgstr[1] ""
 
-#: weckan/templates/search.html:33 weckan/templates/search.html:56
+#: weckan/templates/search.html:38 weckan/templates/search.html:61
 #, python-format
 msgid "See the %(total)s results"
 msgstr ""
 
-#: weckan/templates/search.html:80
+#: weckan/templates/search.html:85
 msgid "See all the results"
 msgstr ""
 
@@ -1060,7 +1064,11 @@ msgstr ""
 msgid "Open license"
 msgstr ""
 
-#: weckan/templates/site.html:27
+#: weckan/templates/site.html:26
+msgid "Recently created or updated datasets"
+msgstr ""
+
+#: weckan/templates/site.html:30
 msgid "Recent Revision History"
 msgstr ""
 
