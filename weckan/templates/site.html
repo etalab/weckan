@@ -23,6 +23,13 @@
     <link rel="sso" href="{{ SSO_URL }}" />
     <link rel="animation-root" href="{{ static('/bower/etalab-assets/js/animation') }}" />
 
+    <link rel="alternate" type="application/atom+xml"
+        title="{{ _('Recent Revision History') }}"
+        href="{{ url(lang, 'revision/list', days=5, format='atom') }}">
+
+    <link rel="alternate" type="application/atom+xml" title="{{ _('News') }}"
+        href="{{ url(lang, 'feeds/general') }}">
+
     {# Default style to site, overridden by child templates #}
     {% set style = style|default('site') -%}
     {% assets '{0}-css'.format(style) %}

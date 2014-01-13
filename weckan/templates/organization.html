@@ -4,6 +4,11 @@
 
 {% block title %}{{organization.title}}{% endblock %}
 
+{% block extra_head %}
+<link rel="alternate" type="application/atom+xml" title="{{ organization.title }} - {{ _('Datasets') }}"
+    href="{{ url(lang, 'feeds/group/{0}.atom'.format(organization.name)) }}">
+{% endblock %}
+
 {% block content %}
 <section class="default">
     <div class="container organization-container"

@@ -6,6 +6,7 @@
 
 {% block extra_head %}
 <meta name="dataset-name" content="{{ dataset.name }}" />
+<link rel="alternate" type="application/rdf+xml" title="{{ dataset.title }}" href="{{ url(lang, 'dataset/{0}.rdf'.format(dataset.id)) }}">
 {% endblock %}
 
 {% block content %}
