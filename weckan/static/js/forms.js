@@ -11,7 +11,8 @@
             '<img src="{{profile.avatar}}">',
             '</div>',
             '<p>{{fullname}}</p>'
-        ].join('');
+        ].join(''),
+        RE_TAG = /^[\w\u00C0-\u017F \-.]*$/;
 
     $.fn.selectpicker.defaults.noneSelectedText = Utils.i18n('none-selected');
     $.fn.selectpicker.defaults.countSelectedText = Utils.i18n('count-selected');
@@ -79,14 +80,19 @@
 
         // Tags
         $('.tag-completer').each(function() {
-            var $this = $(this);
+            var $this = $(this),
+                minlength = parseInt($this.data('tag-minlength')),
+                maxlength = parseInt($this.data('tag-maxlength'));
             $this.typeahead({
                 name: 'tags',
                 remote: '/tags/autocomplete?q=%QUERY'
             })
             .tagsManager({
                 tagsContainer: $this.closest('div').find('.tag-container'),
-                prefilled: $this.val()
+                prefilled: $this.val(),
+                validator: function (tag) {
+                    return (tag.length >= minlength && tag.length <= maxlength && RE_TAG.test(tag));
+                }
             })
             .on('typeahead:selected', function (e, data) {
                 $this.tagsManager("pushTag", data.main_postal_distribution);

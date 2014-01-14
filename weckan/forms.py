@@ -15,7 +15,7 @@ _ = lambda s: s
 
 STORAGE_BUCKET = 'default'
 
-RE_TAG = re.compile('[\w \-.]*$', re.U)
+RE_TAG = re.compile('^[\w \-.]*$', re.U)
 
 
 def handle_upload(request, field, user=None):
@@ -162,6 +162,10 @@ class TerritoryAutocompleter(WidgetHelper, widgets.TextInput):
 
 class TagAutocompleter(WidgetHelper, widgets.TextInput):
     classes = 'tag-completer'
+    attributes = {
+        'data-tag-minlength': model.MIN_TAG_LENGTH,
+        'data-tag-maxlength': model.MAX_TAG_LENGTH,
+    }
 
 
 class TopicAutocompleter(WidgetHelper, widgets.TextInput):
@@ -238,7 +242,7 @@ class TagField(StringField):
 
     def process_formdata(self, valuelist):
         if valuelist:
-            self.data = list(set([x.strip() for x in valuelist[0].split(',')]))
+            self.data = list(set([x.strip().lower() for x in valuelist[0].split(',')]))
         else:
             self.data = []
 
