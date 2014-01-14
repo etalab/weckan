@@ -2,6 +2,7 @@
 from __future__ import unicode_literals
 
 import cgi
+import re
 
 from datetime import datetime
 
@@ -13,6 +14,8 @@ from weckan import model, urls, conf
 _ = lambda s: s
 
 STORAGE_BUCKET = 'default'
+
+RE_TAG = re.compile('[\w \-.]*$', re.U)
 
 
 def handle_upload(request, field, user=None):
@@ -239,9 +242,24 @@ class TagField(StringField):
         else:
             self.data = []
 
+    def pre_validate(self, form):
+        if not self.data:
+            pass
+        for tag in self.data:
+            if not model.MIN_TAG_LENGTH <= len(tag) <= model.MAX_TAG_LENGTH:
+                message = self._('Tag "%(tag)s" must be between %(min)d and %(max)d characters long.')
+                params = {'min': model.MIN_TAG_LENGTH, 'max': model.MAX_TAG_LENGTH, 'tag': tag}
+                raise validators.ValidationError(message % params)
+            if not RE_TAG.match(tag):
+                message = self._('Tag "%s" must be alphanumeric characters or symbols: -_.')
+                raise validators.ValidationError(message % tag)
+
 
 class TerritoryField(TagField):
     widget = TerritoryAutocompleter()
+
+    def pre_validate(self, form):
+        pass
 
 
 class MarkdownField(FieldHelper, fields.TextAreaField):
