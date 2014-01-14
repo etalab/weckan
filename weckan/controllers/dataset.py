@@ -112,7 +112,7 @@ class DatasetForm(forms.Form):
     notes = forms.MarkdownField(_('Description'), [forms.validators.required()])
     owner_org = forms.PublishAsField(_('Publish as'))
     tags = forms.TagField(_('Tags'),
-        description=_('Tags are a list of words containing only alphanumeric characters or symbols: -_.'))
+        description=_('Tags only contain alphanumeric characters or symbols: -_.'))
     groups = GroupsField(_('Topics'))
     temporal_coverage_from = YMDField(_('Temporal coverage start'),
         validators=[forms.validators.Optional(), year_or_month_or_day],
