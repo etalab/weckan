@@ -11,6 +11,7 @@ from sqlalchemy.sql import and_, or_
 from weckan import templates, wsgihelpers, contexts, auth, queries, territories
 from weckan.model import meta, Package, Group, Role, UserFollowingGroup
 from weckan.controllers import dataset, group
+from weckan.tools import parse_page
 
 from ckanext.youckan.models import MembershipRequest
 
@@ -71,7 +72,7 @@ def search(query, page=1, page_size=SEARCH_MAX_ORGANIZATIONS):
 @wsgihelpers.wsgify
 def search_more(request):
     query = request.params.get('q', '')
-    page = int(request.params.get('page', 1))
+    page = parse_page(request)
     _, results = search(query, page, SEARCH_PAGE_SIZE)
     return templates.render_site('search-organizations.html', request,
         search_query=query,
@@ -140,7 +141,7 @@ def display(request):
 @wsgihelpers.wsgify
 def popular_datasets(request):
     organization_name = request.urlvars.get('name')
-    page = int(request.params.get('page', 1))
+    page = parse_page(request)
     context = contexts.Ctx(request)
 
     query = queries.organizations_and_counters()
@@ -162,7 +163,7 @@ def popular_datasets(request):
 @wsgihelpers.wsgify
 def recent_datasets(request):
     organization_name = request.urlvars.get('name')
-    page = int(request.params.get('page', 1))
+    page = parse_page(request)
     context = contexts.Ctx(request)
 
     query = queries.organizations_and_counters()

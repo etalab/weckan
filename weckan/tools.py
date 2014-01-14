@@ -34,3 +34,11 @@ def ckan_api(action, user, data, timeout=None):
             pass
         raise CkanApiError('Error for action "{0}": {1}'.format(action, message))
     return response.json()
+
+
+def parse_page(request):
+    try:
+        page = int(request.params.get('page', 1))
+    except:
+        page = 1
+    return max(page, 1)

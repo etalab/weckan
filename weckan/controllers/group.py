@@ -11,7 +11,7 @@ from ckanext.youckan.models import MembershipRequest
 
 from weckan import templates, urls, wsgihelpers, contexts, auth, forms
 from weckan.model import meta, Group, Member, User
-from weckan.tools import ckan_api
+from weckan.tools import ckan_api, parse_page
 from weckan.controllers import dataset
 
 _ = lambda s: s
@@ -324,7 +324,7 @@ def display(request):
     group = Group.by_name(group_name)
     if not group:
         return wsgihelpers.not_found(context)
-    page = int(request.params.get('page', 1))
+    page = parse_page(request)
     _, results = dataset.search('', request, page, SEARCH_PAGE_SIZE, group)
     main_groups = [t['name'] for t in templates.main_topics()]
     return templates.render_site('group.html', request,

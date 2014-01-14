@@ -17,10 +17,10 @@ from ckanext.etalab.plugins import year_or_month_or_day_re
 
 from ckanext.youckan.models import DatasetAlert, AlertType
 
-from weckan import templates, urls, wsgihelpers, conf, contexts, auth, queries, territories, forms, model
+from weckan import templates, urls, wsgihelpers, conf, contexts, auth, queries, territories, forms
 from weckan.model import Activity, meta, Package, Group, UserFollowingDataset, UserFollowingGroup, Member, repo
 from weckan.model import PACKAGE_NAME_MAX_LENGTH, PACKAGE_NAME_MAX_LENGTH
-from weckan.tools import ckan_api
+from weckan.tools import ckan_api, parse_page
 
 _ = lambda s: s
 DB = meta.Session
@@ -372,7 +372,7 @@ def display(request):
 @wsgihelpers.wsgify
 def search_more(request):
     query = request.params.get('q', '')
-    page = int(request.params.get('page', 1))
+    page = parse_page(request)
     _, results = search(query, request, page, SEARCH_PAGE_SIZE)
     return templates.render_site('search-datasets.html', request,
         search_query=query,
@@ -384,7 +384,7 @@ def search_more(request):
 @wsgihelpers.wsgify
 def recent_datasets(request):
     ctx = contexts.Ctx(request)
-    page = int(request.params.get('page', 1))
+    page = parse_page(request)
 
     last_datasets = queries.last_datasets(False)
     count = last_datasets.count()
@@ -407,7 +407,7 @@ def recent_datasets(request):
 @wsgihelpers.wsgify
 def popular_datasets(request):
     ctx = contexts.Ctx(request)
-    page = int(request.params.get('page', 1))
+    page = parse_page(request)
 
     ident, results = search(None, request, page, SEARCH_PAGE_SIZE)
 
