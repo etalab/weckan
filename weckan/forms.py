@@ -242,13 +242,13 @@ class TagField(StringField):
 
     def process_formdata(self, valuelist):
         if valuelist:
-            self.data = list(set([x.strip().lower() for x in valuelist[0].split(',')]))
+            self.data = list(set([x.strip().lower() for x in valuelist[0].split(',') if x.strip()]))
         else:
             self.data = []
 
     def pre_validate(self, form):
         if not self.data:
-            pass
+            return
         for tag in self.data:
             if not model.MIN_TAG_LENGTH <= len(tag) <= model.MAX_TAG_LENGTH:
                 message = self._('Tag "%(tag)s" must be between %(min)d and %(max)d characters long.')
