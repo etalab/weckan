@@ -101,6 +101,10 @@ def load_environment(global_conf, app_conf):
             'bot_name': conv.default('bot-at-data-gouv-fr'),
             'https': conv.pipe(conv.guess_bool, conv.default(False)),
             'sentry.dsn': conv.default(False),
+            'piwik.url': conv.default(False),
+            'piwik.site_id': conv.pipe(conv.input_to_int, conv.default(0)),
+            'piwik.in_debug': conv.pipe(conv.guess_bool, conv.default(False)),
+            'piwik.domain': conv.default(False),
             },
         default = 'drop',
         ))(conf))

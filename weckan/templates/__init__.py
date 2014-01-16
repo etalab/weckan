@@ -226,6 +226,23 @@ def percent_filter(value, max_value, over=False):
     return percent if over else min(percent, 100)
 
 
+def get_piwik_context():
+    if conf['debug'] and not conf.get('piwik.in_debug'):
+        return {
+            'error': 'Piwik is disable in DEBUG mode unless PIWIK_IN_DEBUG is set',
+        }
+    elif not conf.get('piwik.url') or not conf.get('piwik.site_id'):
+        return {
+            'error': 'Piwik is missing configuration',
+        }
+    else:
+        return {
+            'url': conf['piwik.url'].replace('http://', '').replace('https://', '').rstrip('/'),
+            'site_id': conf['piwik.site_id'],
+            'domain': conf.get('piwik.domain'),
+        }
+
+
 def get_webassets_env(conf):
     '''Get a preconfigured WebAssets environment'''
     # Configure webassets
@@ -361,6 +378,7 @@ def render_site(name, request_or_context, **kwargs):
         user = auth.get_user_from_request(context.req),
         lang = lang,
         main_topics = main_topics(),
+        piwik = get_piwik_context(),
         DOMAIN = conf['domain'],
         HOME_URL = conf['home_url'],
         WIKI_URL = conf['wiki_url'],
