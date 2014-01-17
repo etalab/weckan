@@ -95,7 +95,7 @@ def format_date(value, format='display', locale='fr'):
 
 
 def avatar(user, size=100):
-    url = ('{0}/u/{1}/avatar/{2}' if size else '{0}/u/{1}/avatar/').format(conf['sso_url'], user.name, size)
+    url = ('{0}/u/{1}/avatar/{2}/' if size else '{0}/u/{1}/avatar/').format(conf['sso_url'], user.name, size)
     return Markup('<img src="{0}" class="gravatar" width="{1}" height="{1}"/>'.format(url, size))
 
 
@@ -125,15 +125,15 @@ def publisher_small(reuse, size=100, lang=DEFAULT_LANG):
         logo = '<img src="{0}" alt="{1} logo" />'.format(organization.image_url, organization.display_name)
         return Markup(markup.format(url=org_url, avatar=logo, title=organization.display_name))
     else:
-        user_url = '{0}/u/{1}'.format(conf['sso_url'], user.name)
+        user_url = '{0}/u/{1}/'.format(conf['sso_url'], user.name)
         return Markup(markup.format(url=user_url, avatar=avatar(user, size), title=user.fullname))
 
 
 def publisher_avatar(user, organization, size=100, **kwargs):
-    user_url = '{0}/u/{1}'.format(conf['sso_url'], user.name)
+    user_url = '{0}/u/{1}/'.format(conf['sso_url'], user.name)
     user_html = (
         '<a class="{clazz}" href="{url}" title="{display}">'
-        '<img src="{url}/avatar" alt="{display}"/>'
+        '<img src="{url}/avatar/" alt="{display}"/>'
         '</a>'
     )
     if organization:
