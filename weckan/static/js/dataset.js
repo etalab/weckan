@@ -139,6 +139,11 @@
             Utils.goal('reuse');
         });
 
+        // Track useful clicks
+        $('.btn.useful').click(function() {
+            Utils.goal('useful');
+        });
+
     });
 
 }(window.jQuery, window.Utils));
