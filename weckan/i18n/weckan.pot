@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Weckan 0.2.0.dev\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2014-01-14 13:19+0100\n"
+"POT-Creation-Date: 2014-01-18 12:15+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -40,7 +40,7 @@ msgstr ""
 msgid "Tag \"%s\" must be alphanumeric characters or symbols: -_."
 msgstr ""
 
-#: weckan/forms.py:289 weckan/controllers/dataset.py:164
+#: weckan/forms.py:301 weckan/controllers/dataset.py:164
 #: weckan/controllers/group.py:39
 #: weckan/templates/forms/dataset-extras-form.html:11
 #: weckan/templates/forms/dataset-extras-form.html:20
@@ -51,7 +51,7 @@ msgstr ""
 msgid "Key"
 msgstr ""
 
-#: weckan/forms.py:290 weckan/controllers/dataset.py:165
+#: weckan/forms.py:302 weckan/controllers/dataset.py:165
 #: weckan/controllers/group.py:40
 #: weckan/templates/forms/dataset-extras-form.html:12
 #: weckan/templates/forms/dataset-extras-form.html:25
@@ -110,11 +110,11 @@ msgstr ""
 msgid "Redirection in progress..."
 msgstr ""
 
-#: weckan/controllers/__init__.py:27 weckan/controllers/organization.py:106
+#: weckan/controllers/__init__.py:27 weckan/controllers/organization.py:107
 msgid "Most popular"
 msgstr ""
 
-#: weckan/controllers/__init__.py:28 weckan/controllers/organization.py:107
+#: weckan/controllers/__init__.py:28 weckan/controllers/organization.py:108
 msgid "Latest"
 msgstr ""
 
@@ -169,7 +169,7 @@ msgid "Tendencious content"
 msgstr ""
 
 #: weckan/controllers/dataset.py:63 weckan/controllers/dataset.py:137
-#: weckan/templates/dataset.html:648
+#: weckan/templates/dataset.html:649
 msgid "Other"
 msgstr ""
 
@@ -360,7 +360,7 @@ msgstr ""
 msgid "Member"
 msgstr ""
 
-#: weckan/controllers/organization.py:120
+#: weckan/controllers/organization.py:121
 msgid "Privates"
 msgstr ""
 
@@ -725,33 +725,37 @@ msgstr ""
 msgid "Error while sending alert"
 msgstr ""
 
-#: weckan/templates/dataset.html:627
+#: weckan/templates/dataset.html:618
+msgid "Error while closing alert"
+msgstr ""
+
+#: weckan/templates/dataset.html:628
 msgid "Alert"
 msgstr ""
 
-#: weckan/templates/dataset.html:630
+#: weckan/templates/dataset.html:631
 msgid "Please provide alert details"
 msgstr ""
 
-#: weckan/templates/dataset.html:636
+#: weckan/templates/dataset.html:637
 msgid "Illegal content: licence concern, privacy concern, defamatory statements .."
 msgstr ""
 
-#: weckan/templates/dataset.html:642
+#: weckan/templates/dataset.html:643
 msgid "Tendencious content: data alteration, partial or truncated data"
 msgstr ""
 
-#: weckan/templates/dataset.html:654 weckan/templates/organization.html:256
+#: weckan/templates/dataset.html:655 weckan/templates/organization.html:256
 #: weckan/templates/forms/group-membership-requests-form.html:13
 msgid "Details"
 msgstr ""
 
-#: weckan/templates/dataset.html:662
+#: weckan/templates/dataset.html:663
 msgid "Send alert"
 msgstr ""
 
-#: weckan/templates/dataset.html:666 weckan/templates/organization.html:268
-#: weckan/templates/organization.html:301
+#: weckan/templates/dataset.html:667 weckan/templates/dataset.html:702
+#: weckan/templates/organization.html:268 weckan/templates/organization.html:301
 #: weckan/templates/forms/dataset-base-form.html:65
 #: weckan/templates/forms/dataset-base-form.html:66
 #: weckan/templates/forms/group-base-form.html:71
@@ -765,11 +769,30 @@ msgstr ""
 msgid "Cancel"
 msgstr ""
 
-#: weckan/templates/dataset.html:678
+#: weckan/templates/dataset.html:679
 msgid "Alerts"
 msgstr ""
 
-#: weckan/templates/dataset.html:696 weckan/templates/group.html:46
+#: weckan/templates/dataset.html:686
+#: weckan/templates/forms/dataset-base-form.html:70
+#: weckan/templates/forms/dataset-base-form.html:72
+#: weckan/templates/forms/resource-form.html:46
+#: weckan/templates/forms/resource-form.html:48
+#: weckan/templates/forms/reuse-form.html:40
+#: weckan/templates/forms/reuse-form.html:42
+msgid "Delete"
+msgstr ""
+
+#: weckan/templates/dataset.html:695
+msgid "Closure details"
+msgstr ""
+
+#: weckan/templates/dataset.html:697
+msgid "Enter some optionnal closure details"
+msgstr ""
+
+#: weckan/templates/dataset.html:700 weckan/templates/dataset.html:712
+#: weckan/templates/group.html:46
 msgid "Close"
 msgstr ""
 
@@ -1206,15 +1229,6 @@ msgstr ""
 #: weckan/templates/forms/resource-form.html:32
 #: weckan/templates/forms/reuse-form.html:32
 msgid "Save"
-msgstr ""
-
-#: weckan/templates/forms/dataset-base-form.html:70
-#: weckan/templates/forms/dataset-base-form.html:72
-#: weckan/templates/forms/resource-form.html:46
-#: weckan/templates/forms/resource-form.html:48
-#: weckan/templates/forms/reuse-form.html:40
-#: weckan/templates/forms/reuse-form.html:42
-msgid "Delete"
 msgstr ""
 
 #: weckan/templates/forms/dataset-base-form.html:96
