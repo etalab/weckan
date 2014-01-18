@@ -530,7 +530,7 @@
                         {% for reuse in dataset.related %}
                         {% set owner = user_by_id(reuse.owner_id) %}
                         <div class="col-sm-6 col-lg-4">
-                            <div class="thumbnail reuse">
+                            <div id="reuse-{{reuse.id}}" class="thumbnail reuse">
                                 <a class="preview" href="{{ reuse.url.format(**territory) }}" target="_blank">
                                     <img class="media-object img-responsive" alt="{{ reuse.title.format(**territory) }}"
                                         src="{{ reuse.image_url or static('/base/images/placeholder-image.png') }}">
