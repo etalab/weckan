@@ -212,7 +212,7 @@
                                 <span class="glyphicon glyphicon-warning-sign"></span>
                             </a>
                             {% if user and alerts %}
-                            <button type="button" class="btn btn-danger btn-report btn-punch"
+                            <button id="alert-counter-btn" type="button" class="btn btn-danger btn-report btn-punch"
                                 data-toggle="modal" data-target="#alerts-modal">
                                 ({{ alerts|length }})
                             </button>
@@ -615,6 +615,7 @@
 <meta name="login-to-alert-i18n" content="{{ _('You need to be logged in to send an alert') }}">
 <meta name="alert-sent-i18n" content="{{ _('An alert has been sent to the team') }}">
 <meta name="alert-send-error-i18n" content="{{ _('Error while sending alert') }}">
+<meta name="alert-close-error-i18n" content="{{ _('Error while closing alert') }}">
 
 
 {# Send alert request modal #}
@@ -680,12 +681,27 @@
             <div class="modal-body">
                 <ul class="list-group">
                 {% for alert in alerts %}
-                    <li class="list-group-item">
+                    <li id="alert-{{alert.id}}" class="list-group-item">
                         <h4 class="list-group-item-heading">
+                            {% if user.sysadmin %}<a class="close" data-toggle="collapse" title="{{ _('Delete') }}"
+                            data-target="#alert-{{alert.id}} .collapse">&times;</a>{% endif %}
                             {{ _(alert_types[alert.type]) }}
                             <small>{{ alert.created|date(format='long', locale=lang) }}</small>
                         </h4>
                         <p class="list-group-item-text">{{alert.comment}}</p>
+                        {% if user.sysadmin %}
+                        <div class="collapse text-center">
+                            <div class="form-group">
+                                <label for="comment-{{alert.id}}">{{ _('Closure details') }}</label>
+                                <textarea id="comment-{{alert.id}}" name="comment" class="form-control"
+                                    rows="3" placeholder="{{ _('Enter some optionnal closure details') }}"></textarea>
+                            </div>
+                            <a href="{{ url(lang, 'youckan/dataset', dataset.name, 'alert', alert.id, 'close') }}"
+                                class="btn btn-danger close-alert">{{ _('Close') }}</a>
+                            <a href class="btn btn-warning" data-toggle="collapse"
+                                data-target="#alert-{{alert.id}} .collapse">{{ _('Cancel') }}</a>
+                        </div>
+                        {% endif %}
                     </li>
                 {% endfor %}
                 </ul>

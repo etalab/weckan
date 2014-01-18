@@ -95,6 +95,24 @@
             return false;
         });
 
+        // Async alert removal
+        $('a.close-alert').click(function() {
+            var $this = $(this),
+                url = $this.attr('href'),
+                comment = $this.closest('li').find('textarea[name="comment"]').val();
+
+            $.post(url, {comment:comment}, function(data) {
+                var nbAlerts = $this.closest('ul').find('li').length - 1;
+                $this.closest('li').remove();
+                $('#alert-counter-btn').text('(' + nbAlerts + ')');
+            }).error(function(e) {
+                var msg = Utils.i18n('alert-close-error', mapping);
+                Utils.error(msg, '#alerts-modal .modal-body');
+                console.error(e.responseJSON);
+            });
+            return false;
+        });
+
         // Display hidden resources
         $('#more-resources').click(function() {
             var $this = $(this);
