@@ -125,6 +125,7 @@
 
         $('.resources-list div.list-group-item').click(function(e) {
             if (!$(e.target).parents('.tools, .resource-owner').length) {
+                Utils.goal('download-resource');
                 if ($(this).data('format') == 'html') {
                     window.open($(this).data('url'));
                 } else {
