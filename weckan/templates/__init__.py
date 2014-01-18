@@ -55,6 +55,8 @@ GRAVATAR_DEFAULTS = ('404', 'mm', 'identicon', 'monsterid', 'wavatar', 'retro')
 
 MAIN_TOPICS = None
 
+PIWIK_CONTEXT = None
+
 
 def format_group_url(row):
     url = row[2].format(
@@ -227,20 +229,28 @@ def percent_filter(value, max_value, over=False):
 
 
 def get_piwik_context():
-    if conf['debug'] and not conf.get('piwik.in_debug'):
-        return {
-            'error': 'Piwik is disable in DEBUG mode unless PIWIK_IN_DEBUG is set',
-        }
-    elif not conf.get('piwik.url') or not conf.get('piwik.site_id'):
-        return {
-            'error': 'Piwik is missing configuration',
-        }
-    else:
-        return {
-            'url': conf['piwik.url'].replace('http://', '').replace('https://', '').rstrip('/'),
-            'site_id': conf['piwik.site_id'],
-            'domain': conf.get('piwik.domain'),
-        }
+    global PIWIK_CONTEXT
+    if not PIWIK_CONTEXT:
+        if conf['debug'] and not conf.get('piwik.in_debug'):
+            PIWIK_CONTEXT = {
+                'error': 'Piwik is disable in DEBUG mode unless PIWIK_IN_DEBUG is set',
+            }
+        elif not conf.get('piwik.url') or not conf.get('piwik.site_id'):
+            PIWIK_CONTEXT = {
+                'error': 'Piwik is missing configuration',
+            }
+        else:
+            goals = [
+                (l.split('=')[0].strip(), int(l.split('=')[1].strip()))
+                for l in conf.get('piwik.goals', '').splitlines() if l
+            ]
+            PIWIK_CONTEXT = {
+                'url': conf['piwik.url'].replace('http://', '').replace('https://', '').rstrip('/'),
+                'site_id': conf['piwik.site_id'],
+                'domain': conf.get('piwik.domain'),
+                'goals': json.dumps(dict(goals)),
+            }
+    return PIWIK_CONTEXT
 
 
 def get_webassets_env(conf):

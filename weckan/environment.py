@@ -105,6 +105,7 @@ def load_environment(global_conf, app_conf):
             'piwik.site_id': conv.pipe(conv.input_to_int, conv.default(0)),
             'piwik.in_debug': conv.pipe(conv.guess_bool, conv.default(False)),
             'piwik.domain': conv.default(False),
+            'piwik.goals': conv.default(''),
             },
         default = 'drop',
         ))(conf))

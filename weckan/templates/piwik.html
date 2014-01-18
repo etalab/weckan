@@ -1,5 +1,6 @@
 <!-- Piwik -->{% if piwik.error %}<!-- {{ piwik.error }} -->{% else %}
 <script type="text/javascript">
+  var _pGoals = {{piwik.goals|safe}};
   var _paq = _paq || [];
   {% if piwik.domain %}
   _paq.push(["setCookieDomain", "*.{{ piwik.domain }}"]);

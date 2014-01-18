@@ -45,6 +45,12 @@
                 }
                 window.location = url;
             }
+        },
+
+        goal: function(goal_name) {
+            if (window._paq && window._pGoals && goal_name in window._pGoals) {
+                window._paq.push(['trackGoal', window._pGoals[goal_name]]);
+            }
         }
     };
 
