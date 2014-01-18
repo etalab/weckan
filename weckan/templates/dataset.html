@@ -471,7 +471,7 @@
                 {% for resource in dataset.community_resources %}
                     {% set resource_name = resource.name or resource.description or _('Nameless resource') %}
                     {% set resource_format = resource.format|trim|lower or 'data' %}
-                    <div class="list-group-item"
+                    <div id="community-resource-{{resource.id}}" class="list-group-item"
                         data-url="{{ resource.url }}" data-format="{{ resource_format }}"
                         rel="popover" data-trigger="hover" data-placement="top"
                         {% if resource.description %}
