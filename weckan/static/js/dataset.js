@@ -134,6 +134,11 @@
             }
         });
 
+        // Track reuse clicks
+        $('.reuse a[target="_blank"]').click(function() {
+            Utils.goal('reuse');
+        });
+
     });
 
 }(window.jQuery, window.Utils));
