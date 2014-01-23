@@ -112,10 +112,13 @@ def edit_group_or_org(request, is_org):
         redirect_url = urls.get_url(lang, 'organization' if is_org else 'group', name)
         return wsgihelpers.redirect(context, location=redirect_url)
 
-    group_base_url = urls.get_url(lang, 'organization' if is_org else 'group')
-    back_url = urls.get_url(lang, 'group', group.name)
+    group_type = 'organization' if is_org else 'group'
+    group_base_url = urls.get_url(lang, group_type)
+    back_url = urls.get_url(lang, group_type, group.name)
+    delete_url = urls.get_url(lang, group_type, 'delete', group.name)
     return templates.render_site('forms/group-edit-form.html', request,
-        is_org=is_org, form=form, group_base_url=group_base_url, back_url=back_url, group=group)
+        is_org=is_org, form=form, group_base_url=group_base_url, group=group,
+        back_url=back_url, delete_url=delete_url)
 
 
 def group_or_org_extras(request, is_org):
