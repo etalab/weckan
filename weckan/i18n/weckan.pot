@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Weckan 0.2.0.dev\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2014-01-18 12:15+0100\n"
+"POT-Creation-Date: 2014-01-23 17:36+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -348,15 +348,15 @@ msgstr ""
 msgid "Image URL"
 msgstr ""
 
-#: weckan/controllers/group.py:227 weckan/templates/organization.html:81
+#: weckan/controllers/group.py:230 weckan/templates/organization.html:81
 msgid "Administrator"
 msgstr ""
 
-#: weckan/controllers/group.py:228 weckan/templates/organization.html:88
+#: weckan/controllers/group.py:231 weckan/templates/organization.html:88
 msgid "Editor"
 msgstr ""
 
-#: weckan/controllers/group.py:229 weckan/templates/organization.html:95
+#: weckan/controllers/group.py:232 weckan/templates/organization.html:95
 msgid "Member"
 msgstr ""
 
@@ -426,7 +426,7 @@ msgid "Visualization"
 msgstr ""
 
 #. TRANSLATORS: Short date format with full year (4-digits)
-#: weckan/templates/__init__.py:90
+#: weckan/templates/__init__.py:92
 msgid "MM-dd-yyyy"
 msgstr ""
 
@@ -663,7 +663,7 @@ msgid ""
 msgstr ""
 
 #: weckan/templates/dataset.html:569 weckan/templates/dataset.html:573
-#: weckan/templates/home.html:61
+#: weckan/templates/home.html:62
 msgid "Unmark as featured"
 msgstr ""
 
@@ -776,6 +776,8 @@ msgstr ""
 #: weckan/templates/dataset.html:686
 #: weckan/templates/forms/dataset-base-form.html:70
 #: weckan/templates/forms/dataset-base-form.html:72
+#: weckan/templates/forms/group-base-form.html:76
+#: weckan/templates/forms/group-base-form.html:78
 #: weckan/templates/forms/resource-form.html:46
 #: weckan/templates/forms/resource-form.html:48
 #: weckan/templates/forms/reuse-form.html:40
@@ -860,15 +862,15 @@ msgstr ""
 msgid "Best reuse cases"
 msgstr ""
 
-#: weckan/templates/home.html:113 weckan/templates/organization.html:154
+#: weckan/templates/home.html:114 weckan/templates/organization.html:154
 msgid "See more"
 msgstr ""
 
-#: weckan/templates/home.html:128
+#: weckan/templates/home.html:129
 msgid "This reuse is no more featured and will not be visible anymore at page reload"
 msgstr ""
 
-#: weckan/templates/home.html:129
+#: weckan/templates/home.html:130
 msgid "Error while removing featured state"
 msgstr ""
 
@@ -1233,6 +1235,7 @@ msgstr ""
 
 #: weckan/templates/forms/dataset-base-form.html:96
 #: weckan/templates/forms/dataset-extras-form.html:94
+#: weckan/templates/forms/group-base-form.html:102
 #: weckan/templates/forms/group-extras-form.html:94
 #: weckan/templates/forms/group-members-form.html:158
 #: weckan/templates/forms/resource-form.html:69
@@ -1246,6 +1249,7 @@ msgstr ""
 
 #: weckan/templates/forms/dataset-base-form.html:101
 #: weckan/templates/forms/dataset-extras-form.html:99
+#: weckan/templates/forms/group-base-form.html:107
 #: weckan/templates/forms/group-extras-form.html:99
 #: weckan/templates/forms/resource-form.html:74
 #: weckan/templates/forms/reuse-form.html:69
@@ -1254,6 +1258,7 @@ msgstr ""
 
 #: weckan/templates/forms/dataset-base-form.html:103
 #: weckan/templates/forms/dataset-extras-form.html:101
+#: weckan/templates/forms/group-base-form.html:109
 #: weckan/templates/forms/group-extras-form.html:101
 #: weckan/templates/forms/group-members-form.html:164
 #: weckan/templates/forms/resource-form.html:76
@@ -1263,6 +1268,7 @@ msgstr ""
 
 #: weckan/templates/forms/dataset-base-form.html:106
 #: weckan/templates/forms/dataset-extras-form.html:104
+#: weckan/templates/forms/group-base-form.html:112
 #: weckan/templates/forms/group-extras-form.html:104
 #: weckan/templates/forms/group-members-form.html:167
 #: weckan/templates/forms/resource-form.html:79
@@ -1272,6 +1278,7 @@ msgstr ""
 
 #: weckan/templates/forms/dataset-base-form.html:107
 #: weckan/templates/forms/dataset-extras-form.html:105
+#: weckan/templates/forms/group-base-form.html:113
 #: weckan/templates/forms/group-extras-form.html:105
 #: weckan/templates/forms/group-members-form.html:168
 #: weckan/templates/forms/resource-form.html:80
@@ -1333,6 +1340,10 @@ msgstr ""
 
 #: weckan/templates/forms/group-base-form.html:69
 msgid "Create"
+msgstr ""
+
+#: weckan/templates/forms/group-base-form.html:106
+msgid "You are about to delete this organization."
 msgstr ""
 
 #: weckan/templates/forms/group-create-form.html:4
