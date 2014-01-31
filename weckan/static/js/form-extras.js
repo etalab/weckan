@@ -45,7 +45,7 @@
         $modal.modal();
         $modal.find('.modal-footer .btn-primary').off('click').click(function() {
             $.ajax({
-                url: window.location + '/' + key,
+                url: window.location + '/' + encodeURIComponent(key),
                 type: 'DELETE',
                 success:  function(data) {
                     var msg = Utils.i18n('extra-deleted');

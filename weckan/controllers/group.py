@@ -174,7 +174,7 @@ def group_or_org_delete_extra(request, is_org):
     if not group:
         return wsgihelpers.not_found(context)
 
-    extra_key = request.urlvars.get('key', '').strip()
+    extra_key = request.urlvars.get('key', '').strip().decode('utf8')
     if not extra_key in group.extras.keys():
         return wsgihelpers.not_found(context)
 

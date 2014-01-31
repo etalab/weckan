@@ -672,7 +672,7 @@ def delete_extra(request):
     if not dataset:
         return wsgihelpers.not_found(context)
 
-    extra_key = request.urlvars.get('key', '').strip()
+    extra_key = request.urlvars.get('key', '').strip().decode('utf8')
     if not extra_key in dataset.extras.keys():
         return wsgihelpers.not_found(context)
 
