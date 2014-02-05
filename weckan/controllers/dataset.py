@@ -107,6 +107,11 @@ def year_or_month_or_day(form, field):
         raise forms.validators.ValidationError(field._('Should be either year, a month or a day'))
 
 
+class PrivateField(forms.BooleanField):
+    def is_visible(self, user):
+        return len(user.organizations) > 0
+
+
 class DatasetForm(forms.Form):
     title = forms.StringField(_('Title'), [forms.validators.required()])
     notes = forms.MarkdownField(_('Description'), [forms.validators.required()])
@@ -157,7 +162,7 @@ class DatasetForm(forms.Form):
         )
     )
     license_id = LicenseField(_('License'), default='notspecified')
-    private = forms.BooleanField(_('Private'), default=False, validators=[forms.Requires('owner_org')])
+    private = PrivateField(_('Private'), default=False, validators=[forms.Requires('owner_org')])
 
 
 class DatasetExtrasForm(forms.Form):

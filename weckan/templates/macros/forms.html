@@ -12,7 +12,7 @@
         {{ publish_as(field, user) }}
         {% elif field.type == 'RadioField' %}
         {{ radio(field, user) }}
-        {% elif field.type == 'BooleanField' %}
+        {% elif field.type == 'BooleanField'or field.type == 'PrivateField' %}
         {{ checkbox(field, user) }}
         {% elif field.type == 'KeyValueField' %}
         {{ checkbox(field, user) }}
