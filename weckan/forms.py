@@ -30,7 +30,9 @@ def handle_upload(request, field, user=None):
         'filename-original': field.data.filename,
         'uploaded-by': user.name if user else '',
     })
-    root = conf['home_url'].replace('//', 'https://' if conf['https'] else 'http://', 1)
+    root = conf['home_url']
+    if root.startswith('//'):
+        root = root.replace('//', 'https://' if conf['https'] else 'http://', 1)
     path = urls.get_url(None, 'storage/f', filename)
     return ''.join([root, path])
 
