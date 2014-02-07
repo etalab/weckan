@@ -140,7 +140,7 @@ def create(request):
             'description': form.description.data,
             'url': url or form.url.data,
             'format': form.format.data,
-            'resource_type': form.resource_type.data,
+            'resource_type': form.resource_type.data.replace('.upload', ''),
         })
         if 'add_another' in request.POST:
             return wsgihelpers.redirect(context, location=urls.get_url(lang, 'dataset/new_resource', dataset_name))
