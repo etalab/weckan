@@ -88,7 +88,7 @@ def make_router(app):
     )
     routes = routes + catchall
     router = urls.make_router(app,
-        ('GET', r'^/Dataset/(?P<id>\d+)/?$', redirect_old_dataset),
+        ('GET', r'^/DataSet/(?P<id>\d+)/?$', redirect_old_dataset),
         ('GET', r'^(/(?P<lang>\w{2}))?/?$', home),
         ('GET', r'^(/(?P<lang>\w{2}))?/error(/(?P<code>\d{3}))?/?$', error),
         ('GET', r'^(/(?P<lang>\w{2}))?/search/?$', search_results),
