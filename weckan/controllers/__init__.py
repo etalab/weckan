@@ -4,7 +4,7 @@ from __future__ import unicode_literals
 import futures
 import logging
 
-from weckan import templates, urls, wsgihelpers, contexts, queries, territories
+from weckan import redirections, templates, urls, wsgihelpers, contexts, queries, territories
 
 from weckan.controllers import dashboard, dataset, group, organization, redirect, reuse, resource, tags, wiki
 
@@ -68,6 +68,15 @@ def error(request):
     return wsgihelpers.error(context, code)
 
 
+@wsgihelpers.wsgify
+def redirect_old_dataset(request):
+    context = contexts.Ctx(request)
+    dataset_name = redirections.dataset_name_by_old_id.get(request.urlvars['id'])
+    if dataset_name is None:
+        return wsgihelpers.not_found(context)
+    return wsgihelpers.redirect(context, 'fr', 'dataset', dataset_name)
+
+
 def make_router(app):
     """Return a WSGI application that searches requests to controllers """
     global router
@@ -79,6 +88,7 @@ def make_router(app):
     )
     routes = routes + catchall
     router = urls.make_router(app,
+        ('GET', r'^(/Dataset/(?P<id>\d+)/?$', redirect_old_dataset),
         ('GET', r'^(/(?P<lang>\w{2}))?/?$', home),
         ('GET', r'^(/(?P<lang>\w{2}))?/error(/(?P<code>\d{3}))?/?$', error),
         ('GET', r'^(/(?P<lang>\w{2}))?/search/?$', search_results),
