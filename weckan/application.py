@@ -140,8 +140,8 @@ def make_filter_app(app, global_conf, **app_conf):
     app = environment_setter(app)
 ##    app = language_detector(app)
 
-#    # Repair badly encoded query in request URL.
-#    app = request_query_encoding_fixer(app)
+    # Repair badly encoded query in request URL.
+    app = request_query_encoding_fixer(app)
 
 #    # CUSTOM MIDDLEWARE HERE (filtered by error handling middlewares)
 
