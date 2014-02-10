@@ -74,7 +74,7 @@ def redirect_old_dataset(request):
     dataset_name = redirections.dataset_name_by_old_id.get(request.urlvars['id'])
     if dataset_name is None:
         return wsgihelpers.not_found(context)
-    return wsgihelpers.redirect(context, urls.get_url(context, 'fr', 'dataset', dataset_name))
+    return wsgihelpers.redirect(context, location = urls.get_url(context, 'fr', 'dataset', dataset_name))
 
 
 def make_router(app):
