@@ -2526,7 +2526,7 @@ dataset_name_by_old_id = {
     "550645": "lfi-2012-fdc-du-bg-en-ae-cp-550645", 
     "550647": "lfi-2012-fdc-des-cas-en-ae-cp-550647", 
     "550649": "lfi-2012-fdc-des-ccf-en-ae-cp-550649", 
-    "550652": "associations-reconnues-d-utilite-publique-550652", 
+    "550652": "associations-reconnues-d-utilite-publique", 
     "550653": "fondations-reconnues-d-utilite-publique-550653", 
     "550656": "fondations-d-entreprises-550656", 
     "550658": "liste-des-casinos-de-france-550658", 
