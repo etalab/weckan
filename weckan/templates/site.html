@@ -24,11 +24,7 @@
     <link rel="animation-root" href="{{ static('/bower/etalab-assets/js/animation') }}" />
 
     <link rel="alternate" type="application/atom+xml" title="{{ _('Recently created or updated datasets') }}"
-        href="{{ url(lang, 'feeds/dataset.atom') }}">
-
-    <link rel="alternate" type="application/atom+xml"
-        title="{{ _('Recent Revision History') }}"
-        href="{{ url(lang, 'revision/list', days=5, format='atom') }}">
+        href="{{ COW_URL + '/api/1/datasets?format=atom&target=front' }}">
 
     {# Default style to site, overridden by child templates #}
     {% set style = style|default('site') -%}
