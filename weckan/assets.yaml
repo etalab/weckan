@@ -1,8 +1,8 @@
-modernizr:
+iecompat:
     filters: uglifyjs
-    output: js/modernizr.min.js
+    output: js/iecompat.min.js
     contents:
-        - bower/modernizr/modernizr.js
+        - bower/html5shiv/dist/html5shiv.js
         - bower/respond/dest/respond.src.js
 
 site-common:

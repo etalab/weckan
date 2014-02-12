@@ -32,9 +32,11 @@
     <link rel="stylesheet" media="screen" href="{{ ASSET_URL }}">
     {% endassets %}
 
-    {% assets "modernizr" %}
+    <!--[if lt IE 9]>
+    {% assets "iecompat" %}
     <script src="{{ ASSET_URL}}"></script>
     {% endassets %}
+    <![endif]-->
 
     {% block extra_head %}{% endblock %}
 
