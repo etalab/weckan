@@ -446,37 +446,6 @@ def autocomplete(request):
     return wsgihelpers.respond_json(context, data, headers=headers)
 
 
-@wsgihelpers.wsgify
-def fork(request):
-    context = contexts.Ctx(request)
-
-    user = auth.get_user_from_request(request)
-    if not user:
-        return wsgihelpers.unauthorized(context)  # redirect to login/register ?
-
-    dataset_name = request.urlvars.get('name')
-
-    url = '{0}/youckan/dataset/{1}/fork'.format(conf['ckan_url'], dataset_name)
-    headers = {
-        'content-type': 'application/json',
-        'Authorization': user.apikey,
-    }
-
-    try:
-        response = requests.post(url, headers=headers)
-        response.raise_for_status()
-    except requests.RequestException:
-        log.exception('Unable to fork dataset')
-        raise
-    forked = response.json()
-
-    lang = request.urlvars.get('lang', templates.DEFAULT_LANG)
-    fork_url = urls.get_url(lang, 'dataset', forked['name'])
-    # fork_url = urls.get_url(rlang, 'dataset/edit', forked['name'])
-
-    return wsgihelpers.redirect(context, location=fork_url)
-
-
 def extras_from_form(form):
     extras = {
         'temporal_coverage_from': form.temporal_coverage_from.data,
@@ -720,6 +689,5 @@ routes = (
     (('GET','POST'), r'^(/(?P<lang>\w{2}))?/dataset/edit/(?P<name>[\w_-]+)/?$', edit),
     (('GET','POST'), r'^(/(?P<lang>\w{2}))?/dataset/extras/(?P<name>[\w_-]+)/?$', extras),
     ('DELETE', r'^(/(?P<lang>\w{2}))?/dataset/extras/(?P<name>[\w_-]+)/(?P<key>.+)/?$', delete_extra),
-    ('GET', r'^(/(?P<lang>\w{2}))?/dataset/(?P<name>[\w_-]+)/fork/?$', fork),
     ('GET', r'^(/(?P<lang>\w{{2}}))?/dataset/(?!{0}(/|$))(?P<name>[\w_-]+)/?$'.format('|'.join(EXCLUDED_PATTERNS)), display),
 )
