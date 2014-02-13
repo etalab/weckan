@@ -11,7 +11,7 @@ from datetime import datetime
 from urllib import urlencode
 from pkg_resources import resource_stream
 
-from sqlalchemy.sql import func
+from sqlalchemy.sql import func, or_
 
 from ckanext.etalab.plugins import year_or_month_or_day_re
 
@@ -336,7 +336,10 @@ def display(request):
     query = DB.query(Package, Group, func.min(Activity.timestamp))
     query = query.outerjoin(Group, Group.id == Package.owner_org)
     query = query.outerjoin(Activity, Activity.object_id == Package.id)
-    query = query.filter(Package.name == dataset_name)
+    query = query.filter(or_(
+        Package.name == dataset_name,
+        Package.id == dataset_name
+    ))
     query = query.group_by(Package, Group)
 
     if not query.count():
@@ -555,7 +558,7 @@ def edit(request):
         return wsgihelpers.unauthorized(context)  # redirect to login/register ?
 
     dataset_name = request.urlvars.get('name')
-    dataset = Package.by_name(dataset_name)
+    dataset = Package.get(dataset_name)
 
     if not dataset:
         return wsgihelpers.not_found(context)
@@ -617,7 +620,7 @@ def extras(request):
         return wsgihelpers.unauthorized(context)  # redirect to login/register ?
 
     dataset_name = request.urlvars.get('name')
-    dataset = Package.by_name(dataset_name)
+    dataset = Package.get(dataset_name)
     if not dataset:
         return wsgihelpers.not_found(context)
 
@@ -673,7 +676,7 @@ def delete_extra(request):
         return wsgihelpers.unauthorized(context)  # redirect to login/register ?
 
     dataset_name = request.urlvars.get('name')
-    dataset = Package.by_name(dataset_name)
+    dataset = Package.get(dataset_name)
     if not dataset:
         return wsgihelpers.not_found(context)
 
