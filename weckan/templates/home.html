@@ -20,15 +20,23 @@
                     <!-- Wrapper for slides -->
                     <div class="carousel-inner">
                         <div class="item active">
-                            <img class="slide" src="{{ static('images/homepage/hommes-femmes.jpg') }}"
-                                alt="Projet de loi pour l’égalité entre les femmes et les hommes">
+                            <a rel="popover" title="{{ _('Credits') }}"
+                                data-placement="top" data-trigger="hover" data-container="body"
+                                data-content="{{ _('Photo by %s') % 'Damien [Phototrend.fr]' }}"
+                            >
+                                <img class="slide" src="{{ static('images/homepage/police.jpg') }}"
+                                    alt="Combien de policiers municipaux dans votre commune ?">
+                            </a>
 
                             <div class="carousel-caption">
-                                <label>{{ _('Discussion topic') }}</label>
+                                <label>{{ _('Featured dataset') }}</label>
                                 <h4 class="title ellipsis-dot">
-                                    <a href="http://wiki.data.gouv.fr/wiki/L%27%C3%A9galit%C3%A9_Femmes_Hommes"
-                                        title="Projet de loi pour l’égalité entre les femmes et les hommes">
-                                        Projet de loi pour l’égalité entre les femmes et les hommes
+                                    <a href="https://www.data.gouv.fr/fr/dataset/les-polices-municipales-par-commune"
+                                        title="Combien de policiers municipaux dans votre commune ?">
+                                        Combien de policiers municipaux dans votre commune ?
+                                    </a>
+                                    <a href="http://phototrend.fr">
+                                        <small>{{ _('Photo by %s') % 'Damien [Phototrend.fr]' }}</small>
                                     </a>
                                 </h4>
                             </div>
