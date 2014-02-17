@@ -26,7 +26,8 @@
                             <div class="carousel-caption">
                                 <label>{{ _('Featured dataset') }}</label>
                                 <h4 class="title ellipsis-dot">
-                                    <a href="https://www.data.gouv.fr/fr/dataset/les-polices-municipales-par-commune"
+                                    <a class="featured-dataset"
+                                        href="https://www.data.gouv.fr/fr/dataset/les-polices-municipales-par-commune"
                                         title="Combien de policiers municipaux dans votre commune ?">
                                         Combien de policiers municipaux dans votre commune ?
                                     </a>
@@ -54,7 +55,9 @@
                             <div class="carousel-caption">
                                 {{ publisher(reuse, 80, classes='slide-logo pull-left') }}
                                 <h4 class="title ellipsis-dot">
-                                    <a href="{{ url(lang, 'dataset', dataset.name) }}#reuse-{{reuse.id}}" title="{{ reuse.title.format(**territory) }}">
+                                    <a class="featured-reuse"
+                                        href="{{ url(lang, 'dataset', dataset.name) }}#reuse-{{reuse.id}}"
+                                        title="{{ reuse.title.format(**territory) }}">
                                     {{ reuse.title.format(**territory) }}
                                     </a>
                                     <label>{{ markdown_extract(reuse.description, 250) }}</label>

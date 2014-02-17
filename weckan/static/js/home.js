@@ -29,6 +29,18 @@
 
             return false;
         });
+
+
+        // Track news carousel clicks
+        $('.featured-dataset').click(function() {
+            Utils.goal('featured-dataset');
+        });
+
+
+        // Track reuse carousel clicks
+        $('.featured-reuse').click(function() {
+            Utils.goal('featured-reuse');
+        });
     });
 
 }(window.jQuery, window.Utils));
