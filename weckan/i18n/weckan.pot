@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Weckan 0.2.0.dev\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2014-01-23 17:36+0100\n"
+"POT-Creation-Date: 2014-02-17 19:24+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -25,22 +25,22 @@ msgstr ""
 msgid "External URL"
 msgstr ""
 
-#: weckan/forms.py:106
+#: weckan/forms.py:108
 #, python-format
 msgid "This field requires \"%(name)s\" to be set"
 msgstr ""
 
-#: weckan/forms.py:254
+#: weckan/forms.py:256
 #, python-format
 msgid "Tag \"%(tag)s\" must be between %(min)d and %(max)d characters long."
 msgstr ""
 
-#: weckan/forms.py:258
+#: weckan/forms.py:260
 #, python-format
 msgid "Tag \"%s\" must be alphanumeric characters or symbols: -_."
 msgstr ""
 
-#: weckan/forms.py:301 weckan/controllers/dataset.py:164
+#: weckan/forms.py:303 weckan/controllers/dataset.py:169
 #: weckan/controllers/group.py:39
 #: weckan/templates/forms/dataset-extras-form.html:11
 #: weckan/templates/forms/dataset-extras-form.html:20
@@ -51,7 +51,7 @@ msgstr ""
 msgid "Key"
 msgstr ""
 
-#: weckan/forms.py:302 weckan/controllers/dataset.py:165
+#: weckan/forms.py:304 weckan/controllers/dataset.py:170
 #: weckan/controllers/group.py:40
 #: weckan/templates/forms/dataset-extras-form.html:12
 #: weckan/templates/forms/dataset-extras-form.html:25
@@ -123,12 +123,12 @@ msgstr ""
 msgid "Datasets"
 msgstr ""
 
-#: weckan/controllers/dashboard.py:40 weckan/templates/dataset.html:526
+#: weckan/controllers/dashboard.py:40 weckan/templates/dataset.html:525
 msgid "Reuses"
 msgstr ""
 
-#: weckan/controllers/dashboard.py:41 weckan/templates/dataset.html:111
-#: weckan/templates/dataset.html:468
+#: weckan/controllers/dashboard.py:41 weckan/templates/dataset.html:110
+#: weckan/templates/dataset.html:467
 msgid "Resources"
 msgstr ""
 
@@ -168,8 +168,8 @@ msgstr ""
 msgid "Tendencious content"
 msgstr ""
 
-#: weckan/controllers/dataset.py:63 weckan/controllers/dataset.py:137
-#: weckan/templates/dataset.html:649
+#: weckan/controllers/dataset.py:63 weckan/controllers/dataset.py:142
+#: weckan/templates/dataset.html:648
 msgid "Other"
 msgstr ""
 
@@ -177,170 +177,170 @@ msgstr ""
 msgid "Should be either year, a month or a day"
 msgstr ""
 
-#: weckan/controllers/dataset.py:111 weckan/controllers/group.py:33
+#: weckan/controllers/dataset.py:116 weckan/controllers/group.py:33
 #: weckan/controllers/reuse.py:19
 msgid "Title"
 msgstr ""
 
-#: weckan/controllers/dataset.py:112 weckan/controllers/group.py:34
+#: weckan/controllers/dataset.py:117 weckan/controllers/group.py:34
 #: weckan/controllers/resource.py:31 weckan/controllers/resource.py:38
 #: weckan/controllers/reuse.py:31 weckan/templates/forms/dataset-base-form.html:35
 #: weckan/templates/forms/group-base-form.html:41
 msgid "Description"
 msgstr ""
 
-#: weckan/controllers/dataset.py:113 weckan/controllers/resource.py:39
+#: weckan/controllers/dataset.py:118 weckan/controllers/resource.py:39
 #: weckan/controllers/reuse.py:32
 msgid "Publish as"
 msgstr ""
 
-#: weckan/controllers/dataset.py:114
+#: weckan/controllers/dataset.py:119
 msgid "Tags"
 msgstr ""
 
-#: weckan/controllers/dataset.py:115
+#: weckan/controllers/dataset.py:120
 msgid "Tags only contain alphanumeric characters or symbols: -_."
 msgstr ""
 
-#: weckan/controllers/dataset.py:116 weckan/templates/footer.html:23
+#: weckan/controllers/dataset.py:121 weckan/templates/footer.html:23
 #: weckan/templates/search.html:68 weckan/templates/subnav-s.html:33
 msgid "Topics"
 msgstr ""
 
-#: weckan/controllers/dataset.py:117
+#: weckan/controllers/dataset.py:122
 msgid "Temporal coverage start"
 msgstr ""
 
-#: weckan/controllers/dataset.py:119 weckan/controllers/dataset.py:122
+#: weckan/controllers/dataset.py:124 weckan/controllers/dataset.py:127
 msgid "A year (YYYY), a month (MM/YYYY) or a day (DD/MM/YYYY)"
 msgstr ""
 
-#: weckan/controllers/dataset.py:120
+#: weckan/controllers/dataset.py:125
 msgid "Temporal coverage end"
 msgstr ""
 
-#: weckan/controllers/dataset.py:123 weckan/templates/dataset.html:326
+#: weckan/controllers/dataset.py:128 weckan/templates/dataset.html:325
 #: weckan/templates/cards/dataset-card.html:71
 #: weckan/templates/widgets/dataset-search-result.html:59
 msgid "Territorial coverage"
 msgstr ""
 
-#: weckan/controllers/dataset.py:124 weckan/templates/dataset.html:336
+#: weckan/controllers/dataset.py:129 weckan/templates/dataset.html:335
 #: weckan/templates/cards/dataset-card.html:82
 #: weckan/templates/widgets/dataset-search-result.html:69
 msgid "Territorial coverage granularity"
 msgstr ""
 
-#: weckan/controllers/dataset.py:128 weckan/controllers/dataset.py:144
+#: weckan/controllers/dataset.py:133 weckan/controllers/dataset.py:149
 msgid "None"
 msgstr ""
 
-#: weckan/controllers/dataset.py:129
+#: weckan/controllers/dataset.py:134
 msgid "POI"
 msgstr ""
 
-#: weckan/controllers/dataset.py:130
+#: weckan/controllers/dataset.py:135
 msgid "Iris (Insee districts)"
 msgstr ""
 
-#: weckan/controllers/dataset.py:131
+#: weckan/controllers/dataset.py:136
 msgid "Town"
 msgstr ""
 
-#: weckan/controllers/dataset.py:132
+#: weckan/controllers/dataset.py:137
 msgid "Canton"
 msgstr ""
 
-#: weckan/controllers/dataset.py:133
+#: weckan/controllers/dataset.py:138
 msgid "Intermunicipal (EPCI)"
 msgstr ""
 
-#: weckan/controllers/dataset.py:134
+#: weckan/controllers/dataset.py:139
 msgid "County"
 msgstr ""
 
-#: weckan/controllers/dataset.py:135
+#: weckan/controllers/dataset.py:140
 msgid "Region"
 msgstr ""
 
-#: weckan/controllers/dataset.py:136
+#: weckan/controllers/dataset.py:141
 msgid "Country"
 msgstr ""
 
-#: weckan/controllers/dataset.py:140
+#: weckan/controllers/dataset.py:145
 msgid "Frequency"
 msgstr ""
 
-#: weckan/controllers/dataset.py:141
+#: weckan/controllers/dataset.py:146
 msgid "Dataset update periodicity"
 msgstr ""
 
-#: weckan/controllers/dataset.py:145
+#: weckan/controllers/dataset.py:150
 msgid "Punctual"
 msgstr ""
 
-#: weckan/controllers/dataset.py:146
+#: weckan/controllers/dataset.py:151
 msgid "Real time"
 msgstr ""
 
-#: weckan/controllers/dataset.py:147
+#: weckan/controllers/dataset.py:152
 msgid "Daily"
 msgstr ""
 
-#: weckan/controllers/dataset.py:148
+#: weckan/controllers/dataset.py:153
 msgid "Weekly"
 msgstr ""
 
-#: weckan/controllers/dataset.py:149
+#: weckan/controllers/dataset.py:154
 msgid "Fortnighly"
 msgstr ""
 
-#: weckan/controllers/dataset.py:150
+#: weckan/controllers/dataset.py:155
 msgid "Mensuelle"
 msgstr ""
 
-#: weckan/controllers/dataset.py:151
+#: weckan/controllers/dataset.py:156
 msgid "Bimonthly"
 msgstr ""
 
-#: weckan/controllers/dataset.py:152
+#: weckan/controllers/dataset.py:157
 msgid "Quaterly"
 msgstr ""
 
-#: weckan/controllers/dataset.py:153
+#: weckan/controllers/dataset.py:158
 msgid "Biannual"
 msgstr ""
 
-#: weckan/controllers/dataset.py:154
+#: weckan/controllers/dataset.py:159
 msgid "Annual"
 msgstr ""
 
-#: weckan/controllers/dataset.py:155
+#: weckan/controllers/dataset.py:160
 msgid "Triennial"
 msgstr ""
 
-#: weckan/controllers/dataset.py:156
+#: weckan/controllers/dataset.py:161
 msgid "Quinquennial"
 msgstr ""
 
-#: weckan/controllers/dataset.py:159 weckan/templates/dataset.html:289
+#: weckan/controllers/dataset.py:164 weckan/templates/dataset.html:288
 msgid "License"
 msgstr ""
 
-#: weckan/controllers/dataset.py:160 weckan/templates/dataset.html:63
-#: weckan/templates/dataset.html:65
+#: weckan/controllers/dataset.py:165 weckan/templates/dataset.html:62
+#: weckan/templates/dataset.html:64
 msgid "Private"
 msgstr ""
 
-#: weckan/controllers/dataset.py:166 weckan/controllers/group.py:41
+#: weckan/controllers/dataset.py:171 weckan/controllers/group.py:41
 msgid "Old key"
 msgstr ""
 
-#: weckan/controllers/dataset.py:395
+#: weckan/controllers/dataset.py:403
 msgid "Recent datasets"
 msgstr ""
 
-#: weckan/controllers/dataset.py:415
+#: weckan/controllers/dataset.py:423
 msgid "Popular datasets"
 msgstr ""
 
@@ -430,49 +430,49 @@ msgstr ""
 msgid "MM-dd-yyyy"
 msgstr ""
 
-#: weckan/templates/dataset.html:26 weckan/templates/dataset.html:144
-#: weckan/templates/dataset.html:504 weckan/templates/dataset.html:558
+#: weckan/templates/dataset.html:25 weckan/templates/dataset.html:143
+#: weckan/templates/dataset.html:503 weckan/templates/dataset.html:557
 #: weckan/templates/organization.html:28 weckan/templates/subnav-topic.html:66
 #: weckan/templates/subnav-topic.html:69
 msgid "Edit"
 msgstr ""
 
-#: weckan/templates/dataset.html:36
+#: weckan/templates/dataset.html:35
 msgid "This dataset comes from a certified public service"
 msgstr ""
 
-#: weckan/templates/dataset.html:38
+#: weckan/templates/dataset.html:37
 #, python-format
 msgid "Published on %(date)s"
 msgstr ""
 
-#: weckan/templates/dataset.html:41
+#: weckan/templates/dataset.html:40
 #, python-format
 msgid ""
 "Published on %(date)s by <a href=\"%(url)s\" "
 "title=\"%(author)s\">%(author)s</a>"
 msgstr ""
 
-#: weckan/templates/dataset.html:48
+#: weckan/templates/dataset.html:47
 #, python-format
 msgid ""
 "This dataset has been published on %(date)s on the initiative and under the "
 "responsibility of <a href=\"%(url)s\" title=\"%(author)s\">%(author)s</a>"
 msgstr ""
 
-#: weckan/templates/dataset.html:57 weckan/templates/dataset.html:59
+#: weckan/templates/dataset.html:56 weckan/templates/dataset.html:58
 msgid "Not certified"
 msgstr ""
 
-#: weckan/templates/dataset.html:58
+#: weckan/templates/dataset.html:57
 msgid "This dataset is not provided by a certified public service"
 msgstr ""
 
-#: weckan/templates/dataset.html:64
+#: weckan/templates/dataset.html:63
 msgid "This dataset is private and will not be visible by other users"
 msgstr ""
 
-#: weckan/templates/dataset.html:69 weckan/templates/dataset.html:71
+#: weckan/templates/dataset.html:68 weckan/templates/dataset.html:70
 #: weckan/templates/cards/dataset-card.html:23
 #: weckan/templates/cards/dataset-card.html:25
 #: weckan/templates/widgets/dataset-search-result.html:90
@@ -480,67 +480,67 @@ msgstr ""
 msgid "Forked"
 msgstr ""
 
-#: weckan/templates/dataset.html:70 weckan/templates/cards/dataset-card.html:24
+#: weckan/templates/dataset.html:69 weckan/templates/cards/dataset-card.html:24
 #: weckan/templates/widgets/dataset-search-result.html:91
 msgid "This dataset is a fork of another existing dataset"
 msgstr ""
 
-#: weckan/templates/dataset.html:75 weckan/templates/dataset.html:77
+#: weckan/templates/dataset.html:74 weckan/templates/dataset.html:76
 msgid "Deleted"
 msgstr ""
 
-#: weckan/templates/dataset.html:76
+#: weckan/templates/dataset.html:75
 msgid "This dataset has been deleted. This will be permanent in the next 24 hours"
 msgstr ""
 
-#: weckan/templates/dataset.html:85
+#: weckan/templates/dataset.html:84
 msgid "Provided by"
 msgstr ""
 
-#: weckan/templates/dataset.html:99
+#: weckan/templates/dataset.html:98
 msgid "See the original website"
 msgstr ""
 
-#: weckan/templates/dataset.html:114 weckan/templates/dataset.html:472
+#: weckan/templates/dataset.html:113 weckan/templates/dataset.html:471
 msgid "Nameless resource"
 msgstr ""
 
-#: weckan/templates/dataset.html:159 weckan/templates/dataset.html:177
-#: weckan/templates/dataset.html:516 weckan/templates/forms/resource-form.html:4
+#: weckan/templates/dataset.html:158 weckan/templates/dataset.html:176
+#: weckan/templates/dataset.html:515 weckan/templates/forms/resource-form.html:4
 #: weckan/templates/forms/resource-form.html:19
 msgid "Add a resource"
 msgstr ""
 
-#: weckan/templates/dataset.html:167
+#: weckan/templates/dataset.html:166
 #, python-format
 msgid "See the %(count)s resources"
 msgstr ""
 
-#: weckan/templates/dataset.html:181
+#: weckan/templates/dataset.html:180
 msgid "No resources"
 msgstr ""
 
-#: weckan/templates/dataset.html:192
+#: weckan/templates/dataset.html:191
 msgid "Unmark this dataset as useful"
 msgstr ""
 
-#: weckan/templates/dataset.html:198
+#: weckan/templates/dataset.html:197
 msgid "Mark this dataset as useful"
 msgstr ""
 
-#: weckan/templates/dataset.html:203
+#: weckan/templates/dataset.html:202
 msgid "Useful"
 msgstr ""
 
-#: weckan/templates/dataset.html:210
+#: weckan/templates/dataset.html:209
 msgid "Report"
 msgstr ""
 
-#: weckan/templates/dataset.html:233
+#: weckan/templates/dataset.html:232
 msgid "Producer"
 msgstr ""
 
-#: weckan/templates/dataset.html:237 weckan/templates/organization.html:41
+#: weckan/templates/dataset.html:236 weckan/templates/organization.html:41
 #: weckan/templates/cards/dataset-card.html:11
 #: weckan/templates/forms/group-base-form.html:24
 #: weckan/templates/widgets/dataset-search-result.html:10
@@ -548,135 +548,135 @@ msgstr ""
 msgid "Certified public service"
 msgstr ""
 
-#: weckan/templates/dataset.html:238 weckan/templates/cards/dataset-card.html:12
+#: weckan/templates/dataset.html:237 weckan/templates/cards/dataset-card.html:12
 #: weckan/templates/forms/group-base-form.html:25
 #: weckan/templates/widgets/dataset-search-result.html:11
 #: weckan/templates/widgets/organization-search-result.html:10
 msgid "The identity of this public service public is certified by Etalab"
 msgstr ""
 
-#: weckan/templates/dataset.html:251
+#: weckan/templates/dataset.html:250
 msgid "more"
 msgstr ""
 
-#: weckan/templates/dataset.html:263 weckan/templates/dataset.html:270
-#: weckan/templates/dataset.html:272 weckan/templates/organization.html:104
+#: weckan/templates/dataset.html:262 weckan/templates/dataset.html:269
+#: weckan/templates/dataset.html:271 weckan/templates/organization.html:104
 #: weckan/templates/organization.html:113
 msgid "Follow"
 msgstr ""
 
-#: weckan/templates/dataset.html:264 weckan/templates/dataset.html:266
-#: weckan/templates/dataset.html:268 weckan/templates/organization.html:105
+#: weckan/templates/dataset.html:263 weckan/templates/dataset.html:265
+#: weckan/templates/dataset.html:267 weckan/templates/organization.html:105
 #: weckan/templates/organization.html:107 weckan/templates/organization.html:109
 msgid "Unfollow"
 msgstr ""
 
-#: weckan/templates/dataset.html:281
+#: weckan/templates/dataset.html:280
 msgid "Informations"
 msgstr ""
 
-#: weckan/templates/dataset.html:300 weckan/templates/cards/dataset-card.html:45
+#: weckan/templates/dataset.html:299 weckan/templates/cards/dataset-card.html:45
 #: weckan/templates/widgets/dataset-search-result.html:35
 msgid "Temporal coverage"
 msgstr ""
 
-#: weckan/templates/dataset.html:303 weckan/templates/cards/dataset-card.html:48
+#: weckan/templates/dataset.html:302 weckan/templates/cards/dataset-card.html:48
 #: weckan/templates/widgets/dataset-search-result.html:38
 #, python-format
 msgid "%(from)s to %(to)s"
 msgstr ""
 
-#: weckan/templates/dataset.html:315 weckan/templates/cards/dataset-card.html:59
+#: weckan/templates/dataset.html:314 weckan/templates/cards/dataset-card.html:59
 #: weckan/templates/widgets/dataset-search-result.html:48
 msgid "Periodicity"
 msgstr ""
 
-#: weckan/templates/dataset.html:369
+#: weckan/templates/dataset.html:368
 msgid "Data quality"
 msgstr ""
 
-#: weckan/templates/dataset.html:373
+#: weckan/templates/dataset.html:372
 msgid "Go to the report page"
 msgstr ""
 
-#: weckan/templates/dataset.html:376
+#: weckan/templates/dataset.html:375
 msgid "Performance"
 msgstr ""
 
-#: weckan/templates/dataset.html:384
+#: weckan/templates/dataset.html:383
 #, python-format
 msgid "%(nb)s warning"
 msgid_plural "%(nb)s warnings"
 msgstr[0] ""
 msgstr[1] ""
 
-#: weckan/templates/dataset.html:392
+#: weckan/templates/dataset.html:391
 msgid "No warning"
 msgstr ""
 
-#: weckan/templates/dataset.html:400
+#: weckan/templates/dataset.html:399
 #, python-format
 msgid "%(nb)s error"
 msgid_plural "%(nb)s errors"
 msgstr[0] ""
 msgstr[1] ""
 
-#: weckan/templates/dataset.html:408
+#: weckan/templates/dataset.html:407
 msgid "No error"
 msgstr ""
 
-#: weckan/templates/dataset.html:416
+#: weckan/templates/dataset.html:415
 #, python-format
 msgid "%(nb)s critical"
 msgid_plural "%(nb)s criticals"
 msgstr[0] ""
 msgstr[1] ""
 
-#: weckan/templates/dataset.html:424
+#: weckan/templates/dataset.html:423
 msgid "No critical"
 msgstr ""
 
-#: weckan/templates/dataset.html:430
+#: weckan/templates/dataset.html:429
 msgid "No report available"
 msgstr ""
 
-#: weckan/templates/dataset.html:435
+#: weckan/templates/dataset.html:434
 msgid "Improve quality"
 msgstr ""
 
-#: weckan/templates/dataset.html:438
+#: weckan/templates/dataset.html:437
 msgid "Improve"
 msgstr ""
 
-#: weckan/templates/dataset.html:460
+#: weckan/templates/dataset.html:459
 msgid "Community contributions"
 msgstr ""
 
-#: weckan/templates/dataset.html:461
+#: weckan/templates/dataset.html:460
 msgid "Explore with Datagouv"
 msgstr ""
 
-#: weckan/templates/dataset.html:522
+#: weckan/templates/dataset.html:521
 msgid ""
 "You have built a more comprehensive database than those presented here? This "
 "is the time to share it!"
 msgstr ""
 
-#: weckan/templates/dataset.html:569 weckan/templates/dataset.html:573
-#: weckan/templates/home.html:62
+#: weckan/templates/dataset.html:568 weckan/templates/dataset.html:572
+#: weckan/templates/home.html:70
 msgid "Unmark as featured"
 msgstr ""
 
-#: weckan/templates/dataset.html:571 weckan/templates/dataset.html:574
+#: weckan/templates/dataset.html:570 weckan/templates/dataset.html:573
 msgid "Mark as featured"
 msgstr ""
 
-#: weckan/templates/dataset.html:587 weckan/templates/forms/reuse-form.html:4
+#: weckan/templates/dataset.html:586 weckan/templates/forms/reuse-form.html:4
 #: weckan/templates/forms/reuse-form.html:19
 msgid "Add a reuse"
 msgstr ""
 
-#: weckan/templates/dataset.html:595
+#: weckan/templates/dataset.html:594
 msgid ""
 "You reused these data and published an article, a computer graphics, or an "
 "application?\n"
@@ -685,76 +685,76 @@ msgid ""
 "your visibility."
 msgstr ""
 
-#: weckan/templates/dataset.html:607 weckan/templates/organization.html:226
+#: weckan/templates/dataset.html:606 weckan/templates/organization.html:226
 msgid "You need to be logged in to follow an organization"
 msgstr ""
 
-#: weckan/templates/dataset.html:608 weckan/templates/organization.html:239
+#: weckan/templates/dataset.html:607 weckan/templates/organization.html:239
 msgid "You are now following {org}"
 msgstr ""
 
-#: weckan/templates/dataset.html:609 weckan/templates/organization.html:240
+#: weckan/templates/dataset.html:608 weckan/templates/organization.html:240
 msgid "You are not following {org} anymore"
 msgstr ""
 
-#: weckan/templates/dataset.html:610 weckan/templates/organization.html:241
+#: weckan/templates/dataset.html:609 weckan/templates/organization.html:241
 msgid "Error while toggling follower status"
 msgstr ""
 
-#: weckan/templates/dataset.html:611
+#: weckan/templates/dataset.html:610
 msgid "This reuse is now featured"
 msgstr ""
 
-#: weckan/templates/dataset.html:612
+#: weckan/templates/dataset.html:611
 msgid "This reuse is no more featured"
 msgstr ""
 
-#: weckan/templates/dataset.html:613
+#: weckan/templates/dataset.html:612
 msgid "Error while toggling featured state"
 msgstr ""
 
-#: weckan/templates/dataset.html:615
+#: weckan/templates/dataset.html:614
 msgid "You need to be logged in to send an alert"
 msgstr ""
 
-#: weckan/templates/dataset.html:616
+#: weckan/templates/dataset.html:615
 msgid "An alert has been sent to the team"
 msgstr ""
 
-#: weckan/templates/dataset.html:617
+#: weckan/templates/dataset.html:616
 msgid "Error while sending alert"
 msgstr ""
 
-#: weckan/templates/dataset.html:618
+#: weckan/templates/dataset.html:617
 msgid "Error while closing alert"
 msgstr ""
 
-#: weckan/templates/dataset.html:628
+#: weckan/templates/dataset.html:627
 msgid "Alert"
 msgstr ""
 
-#: weckan/templates/dataset.html:631
+#: weckan/templates/dataset.html:630
 msgid "Please provide alert details"
 msgstr ""
 
-#: weckan/templates/dataset.html:637
+#: weckan/templates/dataset.html:636
 msgid "Illegal content: licence concern, privacy concern, defamatory statements .."
 msgstr ""
 
-#: weckan/templates/dataset.html:643
+#: weckan/templates/dataset.html:642
 msgid "Tendencious content: data alteration, partial or truncated data"
 msgstr ""
 
-#: weckan/templates/dataset.html:655 weckan/templates/organization.html:256
+#: weckan/templates/dataset.html:654 weckan/templates/organization.html:256
 #: weckan/templates/forms/group-membership-requests-form.html:13
 msgid "Details"
 msgstr ""
 
-#: weckan/templates/dataset.html:663
+#: weckan/templates/dataset.html:662
 msgid "Send alert"
 msgstr ""
 
-#: weckan/templates/dataset.html:667 weckan/templates/dataset.html:702
+#: weckan/templates/dataset.html:666 weckan/templates/dataset.html:701
 #: weckan/templates/organization.html:268 weckan/templates/organization.html:301
 #: weckan/templates/forms/dataset-base-form.html:65
 #: weckan/templates/forms/dataset-base-form.html:66
@@ -769,11 +769,11 @@ msgstr ""
 msgid "Cancel"
 msgstr ""
 
-#: weckan/templates/dataset.html:679
+#: weckan/templates/dataset.html:678
 msgid "Alerts"
 msgstr ""
 
-#: weckan/templates/dataset.html:686
+#: weckan/templates/dataset.html:685
 #: weckan/templates/forms/dataset-base-form.html:70
 #: weckan/templates/forms/dataset-base-form.html:72
 #: weckan/templates/forms/group-base-form.html:76
@@ -785,15 +785,15 @@ msgstr ""
 msgid "Delete"
 msgstr ""
 
-#: weckan/templates/dataset.html:695
+#: weckan/templates/dataset.html:694
 msgid "Closure details"
 msgstr ""
 
-#: weckan/templates/dataset.html:697
+#: weckan/templates/dataset.html:696
 msgid "Enter some optionnal closure details"
 msgstr ""
 
-#: weckan/templates/dataset.html:700 weckan/templates/dataset.html:712
+#: weckan/templates/dataset.html:699 weckan/templates/dataset.html:711
 #: weckan/templates/group.html:46
 msgid "Close"
 msgstr ""
@@ -821,7 +821,7 @@ msgstr ""
 msgid "Metrics"
 msgstr ""
 
-#: weckan/templates/footer.html:18
+#: weckan/templates/footer.html:18 weckan/templates/home.html:23
 msgid "Credits"
 msgstr ""
 
@@ -854,23 +854,28 @@ msgstr ""
 msgid "News"
 msgstr ""
 
-#: weckan/templates/home.html:27
-msgid "Discussion topic"
+#: weckan/templates/home.html:25 weckan/templates/home.html:39
+#, python-format
+msgid "Photo by %s"
 msgstr ""
 
-#: weckan/templates/home.html:43
+#: weckan/templates/home.html:32
+msgid "Featured dataset"
+msgstr ""
+
+#: weckan/templates/home.html:51
 msgid "Best reuse cases"
 msgstr ""
 
-#: weckan/templates/home.html:114 weckan/templates/organization.html:154
+#: weckan/templates/home.html:122 weckan/templates/organization.html:154
 msgid "See more"
 msgstr ""
 
-#: weckan/templates/home.html:129
+#: weckan/templates/home.html:137
 msgid "This reuse is no more featured and will not be visible anymore at page reload"
 msgstr ""
 
-#: weckan/templates/home.html:130
+#: weckan/templates/home.html:138
 msgid "Error while removing featured state"
 msgstr ""
 
@@ -1115,79 +1120,75 @@ msgstr ""
 msgid "Recently created or updated datasets"
 msgstr ""
 
-#: weckan/templates/site.html:30
-msgid "Recent Revision History"
-msgstr ""
-
-#: weckan/templates/site.html:66
+#: weckan/templates/site.html:64
 msgid "This field is required."
 msgstr ""
 
-#: weckan/templates/site.html:67
+#: weckan/templates/site.html:65
 msgid "Please fix this field."
 msgstr ""
 
-#: weckan/templates/site.html:68
+#: weckan/templates/site.html:66
 msgid "Please enter a valid email address."
 msgstr ""
 
-#: weckan/templates/site.html:69
+#: weckan/templates/site.html:67
 msgid "Please enter a valid URL."
 msgstr ""
 
-#: weckan/templates/site.html:70
+#: weckan/templates/site.html:68
 msgid "Please enter a valid date."
 msgstr ""
 
-#: weckan/templates/site.html:71
+#: weckan/templates/site.html:69
 msgid "Please enter a valid date (ISO)."
 msgstr ""
 
-#: weckan/templates/site.html:72
+#: weckan/templates/site.html:70
 msgid "Please enter a valid number."
 msgstr ""
 
-#: weckan/templates/site.html:73
+#: weckan/templates/site.html:71
 msgid "Please enter only digits."
 msgstr ""
 
-#: weckan/templates/site.html:74
+#: weckan/templates/site.html:72
 msgid "Please enter a valid credit card number."
 msgstr ""
 
-#: weckan/templates/site.html:75
+#: weckan/templates/site.html:73
 msgid "Please enter the same value again."
 msgstr ""
 
-#: weckan/templates/site.html:76
+#: weckan/templates/site.html:74
 msgid "Please enter no more than {0} characters."
 msgstr ""
 
-#: weckan/templates/site.html:77
+#: weckan/templates/site.html:75
 msgid "Please enter at least {0} characters."
 msgstr ""
 
-#: weckan/templates/site.html:78
+#: weckan/templates/site.html:76
 msgid "Please enter a value between {0} and {1} characters long."
 msgstr ""
 
-#: weckan/templates/site.html:79
+#: weckan/templates/site.html:77
 msgid "Please enter a value between {0} and {1}."
 msgstr ""
 
-#: weckan/templates/site.html:80
+#: weckan/templates/site.html:78
 msgid "Please enter a value less than or equal to {0}."
 msgstr ""
 
-#: weckan/templates/site.html:81
+#: weckan/templates/site.html:79
 msgid "Please enter a value greater than or equal to {0}."
 msgstr ""
 
-#: weckan/templates/site.html:83
+#: weckan/templates/site.html:81
 msgid "No selection"
 msgstr ""
 
-#: weckan/templates/site.html:84
+#: weckan/templates/site.html:82
 msgid "{0} of {1} selected"
 msgstr ""
 
