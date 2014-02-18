@@ -31,23 +31,20 @@
                     <div class="row">
                         <p class="col-md-12">
                             <small>
-                                {% if organization.certified_public_service %}
+                                {% if organization %}
+                                    {% if organization.certified_public_service %}
                                     <strong>{{ _('This dataset comes from a certified public service') }}</strong><br/>
-                                    {% if owner.name == bot_name %}
-                                        {% trans date=publication_date|date(format='long', locale=lang)
-                                        %}Published on {{date}}{% endtrans %}
-                                    {% else %}
-                                        {% trans
-                                            date=publication_date|date(format='long', locale=lang),
-                                            author=owner.fullname,
-                                            url=sso('user', owner.name)
-                                        %}Published on {{date}} by <a href="{{url}}" title="{{author}}">{{author}}</a>{% endtrans %}
                                     {% endif %}
+                                    {% trans
+                                        date=publication_date|date(format='long', locale=lang),
+                                        author=organization.display_name,
+                                        url=url(lang, 'organization', organization.name)
+                                    %}Published on {{date}} by <a href="{{url}}" title="{{author}}">{{author}}</a>{% endtrans %}
                                 {% else %}
                                     {% trans
                                         date=publication_date|date(format='long', locale=lang),
-                                        author=organization.display_name if owner.name == bot_name else owner.fullname,
-                                        url=url(lang, 'organization', organization.name) if owner.name == bot_name else sso('user', owner.name)
+                                        author=owner.fullname,
+                                        url=sso('user', owner.name)
                                     %}This dataset has been published on {{date}} on the initiative and under the responsibility of <a href="{{url}}" title="{{author}}">{{author}}</a>{% endtrans %}
                                 {% endif %}
                             </small>
@@ -436,14 +433,6 @@
                         <span class="glyphicon glyphicon-tasks"></span>
                         {{ _("Improve") }}
                     </a>
-                    {# {% elif user %}
-                    <a title="{{ _("Fork") }}" class="btn btn-primary btn-block btn-sm icon-left"
-                        data-toggle="modal" href="#fork-modal"
-                        rel="popover" data-placement="left" data-trigger="hover" data-container="body"
-                        data-content="{{ _("Duplicate this dataset and improve it !") }}" >
-                        <span class="glyphicon glyphicon-random"></span>
-                        {{ _("Fork") }}
-                    </a> #}
                     {% endif %}
                 </div>
 

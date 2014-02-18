@@ -101,7 +101,7 @@ def avatar(user, size=100):
     return Markup('<img src="{0}" class="gravatar" width="{1}" height="{1}"/>'.format(url, size))
 
 
-def publisher(reuse, size=100, **kwargs):
+def reuse_publisher(reuse, size=100, **kwargs):
     from weckan.model import User
     from ckanext.youckan.models import ReuseAsOrganization
     user = User.get(reuse.owner_id)
@@ -112,8 +112,6 @@ def publisher(reuse, size=100, **kwargs):
 def publisher_small(reuse, size=100, lang=DEFAULT_LANG):
     from weckan.model import User
     from ckanext.youckan.models import ReuseAsOrganization
-    user = User.get(reuse.owner_id)
-    organization = ReuseAsOrganization.get_org(reuse)
     markup = (
         '<a class="avatar" href="{url}" title="{title}">'
         '{avatar}'
@@ -122,36 +120,33 @@ def publisher_small(reuse, size=100, lang=DEFAULT_LANG):
         '{title}'
         '</a>'
     )
+    organization = ReuseAsOrganization.get_org(reuse)
     if organization:
         org_url = url(lang, 'organization', organization.name)
         logo = '<img src="{0}" alt="{1} logo" />'.format(organization.image_url, organization.display_name)
         return Markup(markup.format(url=org_url, avatar=logo, title=organization.display_name))
     else:
+        user = User.get(reuse.owner_id)
         user_url = '{0}/u/{1}/'.format(conf['sso_url'], user.name)
         return Markup(markup.format(url=user_url, avatar=avatar(user, size), title=user.fullname))
 
 
 def publisher_avatar(user, organization, size=100, **kwargs):
-    user_url = '{0}/u/{1}/'.format(conf['sso_url'], user.name)
-    user_html = (
-        '<a class="{clazz}" href="{url}" title="{display}">'
-        '<img src="{url}/avatar/" alt="{display}"/>'
-        '</a>'
-    )
     if organization:
         org_url = url('organization', organization.name)
         image_url = organization.image_url or static('/img/placeholder_producer.png')
-        org_html = (
+        content = (
             '<a class="organization" href="{url}" title="{display}">'
             '<img src="{image_url}" alt="{display}"/>'
             '</a>'
         ).format(display=organization.display_name, url=org_url, image_url=image_url, size=size)
-        content = ''.join([
-            org_html,
-            user_html.format(clazz='user', display=user.fullname, url=user_url, size=(size / 4))
-        ])
     else:
-        content = user_html.format(clazz='', display=user.fullname, url=user_url, size=size)
+        user_url = '{0}/u/{1}/'.format(conf['sso_url'], user.name)
+        content = (
+            '<a class="{clazz}" href="{url}" title="{display}">'
+            '<img src="{url}/avatar/" alt="{display}"/>'
+            '</a>'
+        ).format(clazz='', display=user.fullname, url=user_url, size=size)
 
     classes = [] if kwargs.get('overwrite') else ['publisher-avatar-{0}'.format(size)]
     classes.extend([cls for cls in kwargs.get('classes', '').split()])
@@ -304,7 +299,7 @@ def get_jinja_env():
         env.globals['slugify'] = strings.slugify
         env.globals['ifelse'] = lambda condition, first, second: first if condition else second
         env.globals['avatar'] = avatar
-        env.globals['publisher'] = publisher
+        env.globals['reuse_publisher'] = reuse_publisher
         env.globals['publisher_small'] = publisher_small
         env.globals['publisher_avatar'] = publisher_avatar
         env.globals['markdown'] = markdown_filter
