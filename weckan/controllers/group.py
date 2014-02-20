@@ -84,6 +84,17 @@ def create_group_or_org(request, is_org):
         is_new=True, is_org=is_org, form=form, back_url=back_url)
 
 
+def _get_members(group):
+    return [
+        {'name': m.table_id, 'capacity': m.capacity}
+        for m in DB.query(Member).filter(
+            Member.group == group,
+            Member.state == 'active',
+            Member.table_name == 'user',
+        )
+    ]
+
+
 def edit_group_or_org(request, is_org):
     context = contexts.Ctx(request)
     lang = request.urlvars.get('lang', templates.DEFAULT_LANG)
@@ -107,6 +118,7 @@ def edit_group_or_org(request, is_org):
             'description': form.description.data,
             'image_url': form.image_url.data,
             'extras': extras,
+            'users': _get_members(group),
         })
 
         redirect_url = urls.get_url(lang, 'organization' if is_org else 'group', name)
@@ -150,6 +162,7 @@ def group_or_org_extras(request, is_org):
                 'description': group.description,
                 'image_url': group.image_url,
                 'extras': extras,
+                'users': _get_members(group)
             })
             if data['success']:
                 return wsgihelpers.respond_json(context, {'key': form.key.data, 'value': form.value.data}, headers=headers, code=200)
@@ -187,6 +200,7 @@ def group_or_org_delete_extra(request, is_org):
         'description': group.description,
         'image_url': group.image_url,
         'extras': extras,
+        'users': _get_members(group)
     })
     if data['success']:
         return wsgihelpers.respond_json(context, {}, headers=headers, code=200)
