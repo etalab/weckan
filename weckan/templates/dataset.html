@@ -7,7 +7,11 @@
 {% block extra_head %}
 <meta name="dataset-name" content="{{ dataset.name }}" />
 {% endblock %}
-
+{% if user.sysadmin %}
+{% assets 'forms-css' %}
+<link rel="stylesheet" media="screen" href="{{ ASSET_URL }}"/>
+{% endassets %}
+{% endif %}
 {% block content %}
 <section class="content {% if not organization.certified_public_service %}non{% endif %}certified">
     <div class="container dataset-container">
@@ -678,17 +682,20 @@
                         </h4>
                         <p class="list-group-item-text">{{alert.comment}}</p>
                         {% if user.sysadmin %}
-                        <div class="collapse text-center">
+                        <form class="collapse text-center validation">
                             <div class="form-group">
-                                <label for="comment-{{alert.id}}">{{ _('Closure details') }}</label>
-                                <textarea id="comment-{{alert.id}}" name="comment" class="form-control"
-                                    rows="3" placeholder="{{ _('Enter some optionnal closure details') }}"></textarea>
+                                <label for="comment-{{alert.id}}" class="control-label required">
+                                    {{ _('Closure comment') }}
+                                </label>
+                                <textarea id="comment-{{alert.id}}" name="comment"
+                                    class="form-control" rows="3" required
+                                    placeholder="{{ _('Enter some details about the closure') }}"></textarea>
                             </div>
                             <a href="{{ url(lang, 'youckan/dataset', dataset.name, 'alert', alert.id, 'close') }}"
                                 class="btn btn-danger close-alert">{{ _('Close') }}</a>
                             <a href class="btn btn-warning" data-toggle="collapse"
                                 data-target="#alert-{{alert.id}} .collapse">{{ _('Cancel') }}</a>
-                        </div>
+                        </form>
                         {% endif %}
                     </li>
                 {% endfor %}
@@ -710,4 +717,9 @@
 {% assets "dataset-js" %}
 <script src="{{ ASSET_URL}}"></script>
 {% endassets %}
+{% if user.sysadmin %}
+{% assets "forms-js" %}
+<script src="{{ ASSET_URL}}"></script>
+{% endassets %}
+{% endif %}
 {% endblock %}

@@ -99,7 +99,13 @@
         $('a.close-alert').click(function() {
             var $this = $(this),
                 url = $this.attr('href'),
+                $form = $this.closest('li').find('form'),
                 comment = $this.closest('li').find('textarea[name="comment"]').val();
+
+            if (!$form.valid()) {
+                return false;
+            }
+
 
             $.post(url, {comment:comment}, function(data) {
                 var nbAlerts = $this.closest('ul').find('li').length - 1;
