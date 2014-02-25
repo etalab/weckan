@@ -1,24 +1,26 @@
-# German translations for Weckan.
+# Translations template for Weckan.
 # Copyright (C) 2014 ORGANIZATION
 # This file is distributed under the same license as the Weckan project.
-#
+# 
 # Translators:
 # noirbizarre, 2013
+# noirbizarre, 2013
+# schwefel, 2013
 # schwefel, 2013
 msgid ""
 msgstr ""
-"Project-Id-Version:  weckan\n"
+"Project-Id-Version: weckan\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
 "POT-Creation-Date: 2014-02-25 10:55+0100\n"
-"PO-Revision-Date: 2014-01-13 10:56+0000\n"
+"PO-Revision-Date: 2014-02-25 09:52+0000\n"
 "Last-Translator: noirbizarre\n"
-"Language-Team: German "
-"(http://www.transifex.com/projects/p/weckan/language/de/)\n"
-"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+"Language-Team: German (http://www.transifex.com/projects/p/weckan/language/de/)\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 0.9.6\n"
+"Language: de\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: weckan/application.py:55
 msgid "Web site not found."
@@ -455,9 +457,8 @@ msgstr ""
 #: weckan/templates/dataset.html:48
 #, python-format
 msgid ""
-"This dataset has been published on %(date)s on the initiative and under "
-"the responsibility of <a href=\"%(url)s\" "
-"title=\"%(author)s\">%(author)s</a>"
+"This dataset has been published on %(date)s on the initiative and under the "
+"responsibility of <a href=\"%(url)s\" title=\"%(author)s\">%(author)s</a>"
 msgstr ""
 
 #: weckan/templates/dataset.html:57 weckan/templates/dataset.html:59
@@ -480,7 +481,8 @@ msgstr ""
 msgid "Forked"
 msgstr ""
 
-#: weckan/templates/dataset.html:70 weckan/templates/cards/dataset-card.html:24
+#: weckan/templates/dataset.html:70
+#: weckan/templates/cards/dataset-card.html:24
 #: weckan/templates/widgets/dataset-search-result.html:91
 msgid "This dataset is a fork of another existing dataset"
 msgstr ""
@@ -490,7 +492,8 @@ msgid "Deleted"
 msgstr ""
 
 #: weckan/templates/dataset.html:76
-msgid "This dataset has been deleted. This will be permanent in the next 24 hours"
+msgid ""
+"This dataset has been deleted. This will be permanent in the next 24 hours"
 msgstr ""
 
 #: weckan/templates/dataset.html:85
@@ -664,8 +667,8 @@ msgstr "Mit Datagouv untersuchen"
 
 #: weckan/templates/dataset.html:514
 msgid ""
-"You have built a more comprehensive database than those presented here? "
-"This is the time to share it!"
+"You have built a more comprehensive database than those presented here? This"
+" is the time to share it!"
 msgstr ""
 
 #: weckan/templates/dataset.html:561 weckan/templates/dataset.html:565
@@ -684,11 +687,9 @@ msgstr ""
 
 #: weckan/templates/dataset.html:587
 msgid ""
-"You reused these data and published an article, a computer graphics, or "
-"an application?\n"
+"You reused these data and published an article, a computer graphics, or an application?\n"
 "                    It's time to let you know!\n"
-"                    Reference your work in just a few clicks and increase"
-" your visibility."
+"                    Reference your work in just a few clicks and increase your visibility."
 msgstr ""
 
 #: weckan/templates/dataset.html:599 weckan/templates/organization.html:226
@@ -745,8 +746,7 @@ msgstr ""
 
 #: weckan/templates/dataset.html:629
 msgid ""
-"Illegal content: licence concern, privacy concern, defamatory statements "
-".."
+"Illegal content: licence concern, privacy concern, defamatory statements .."
 msgstr ""
 
 #: weckan/templates/dataset.html:635
@@ -1495,13 +1495,3 @@ msgstr ""
 #: weckan/templates/widgets/organization-search-result.html:31
 msgid "Number of members"
 msgstr ""
-
-#~ msgid "Published on %(date)s"
-#~ msgstr "Veröffentlicht am %(date)s"
-
-#~ msgid "Closure details"
-#~ msgstr ""
-
-#~ msgid "Enter some optionnal closure details"
-#~ msgstr ""
-

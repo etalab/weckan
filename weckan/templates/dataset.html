@@ -6,7 +6,7 @@
 
 {% block extra_head %}
 <meta name="dataset-name" content="{{ dataset.name }}" />
-{% if user.sysadmin %}
+{% if can_edit %}
 {% assets 'forms-css' %}
 <link rel="stylesheet" media="screen" href="{{ ASSET_URL }}"/>
 {% endassets %}
@@ -676,13 +676,13 @@
                 {% for alert in alerts %}
                     <li id="alert-{{alert.id}}" class="list-group-item">
                         <h4 class="list-group-item-heading">
-                            {% if user.sysadmin %}<a class="close" data-toggle="collapse" title="{{ _('Delete') }}"
+                            {% if can_edit %}<a class="close" data-toggle="collapse" title="{{ _('Delete') }}"
                             data-target="#alert-{{alert.id}} .collapse">&times;</a>{% endif %}
                             {{ _(alert_types[alert.type]) }}
                             <small>{{ alert.created|date(format='long', locale=lang) }}</small>
                         </h4>
                         <p class="list-group-item-text">{{alert.comment}}</p>
-                        {% if user.sysadmin %}
+                        {% if can_edit %}
                         <form class="collapse text-center validation">
                             <div class="form-group">
                                 <label for="comment-{{alert.id}}" class="control-label required">
@@ -718,7 +718,7 @@
 {% assets "dataset-js" %}
 <script src="{{ ASSET_URL}}"></script>
 {% endassets %}
-{% if user.sysadmin %}
+{% if can_edit %}
 {% assets "forms-js" %}
 <script src="{{ ASSET_URL}}"></script>
 {% endassets %}

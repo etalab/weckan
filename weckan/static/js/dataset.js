@@ -78,7 +78,6 @@
                     type: $modal.find('input[name="type"]:checked').val(),
                     comment: $modal.find('#comment').val()
                 };
-                console.log(data);
                 $.post(api_url, data, function(data) {
                     var msg = Utils.i18n('alert-sent', mapping);
                     Utils.success(msg, default_container);
@@ -101,6 +100,8 @@
                 url = $this.attr('href'),
                 $form = $this.closest('li').find('form'),
                 comment = $this.closest('li').find('textarea[name="comment"]').val();
+
+            Utils.ensure_user(Utils.i18n('login-to-alert'));
 
             if (!$form.valid()) {
                 return false;
