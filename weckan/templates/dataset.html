@@ -6,12 +6,13 @@
 
 {% block extra_head %}
 <meta name="dataset-name" content="{{ dataset.name }}" />
-{% endblock %}
 {% if user.sysadmin %}
 {% assets 'forms-css' %}
 <link rel="stylesheet" media="screen" href="{{ ASSET_URL }}"/>
 {% endassets %}
 {% endif %}
+{% endblock %}
+
 {% block content %}
 <section class="content {% if not organization.certified_public_service %}non{% endif %}certified">
     <div class="container dataset-container">
