@@ -182,7 +182,7 @@ def private_datasets(request):
 
     count = private_datasets.count()
     end = page * NB_DATASETS
-    start = end - NB_DATASETS - 1
+    start = end - NB_DATASETS
 
     return templates.render_site('search-datasets.html', request,
         title = organization.title,
@@ -216,7 +216,7 @@ def recent_datasets(request):
 
     count = last_datasets.count()
     end = page * NB_DATASETS
-    start = end - NB_DATASETS - 1
+    start = end - NB_DATASETS
 
     return templates.render_site('search-datasets.html', request,
         title = organization.title,
