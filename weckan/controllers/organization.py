@@ -152,7 +152,7 @@ def popular_datasets(request):
 
     organization, nb_datasets, nb_members = query.first()
 
-    fake, results = dataset.search(None, request, page=page, page_size=NB_DATASETS, organization=organization)
+    fake, results = dataset.search(None, request, page=page, page_size=SEARCH_PAGE_SIZE, organization=organization)
     return templates.render_site('search-datasets.html', request,
         title = organization.title,
         url_pattern=get_page_url_pattern(request),
@@ -181,8 +181,8 @@ def private_datasets(request):
     private_datasets = private_datasets.filter(Package.owner_org == organization.id)
 
     count = private_datasets.count()
-    end = page * NB_DATASETS
-    start = end - NB_DATASETS
+    end = page * SEARCH_PAGE_SIZE
+    start = end - SEARCH_PAGE_SIZE
 
     return templates.render_site('search-datasets.html', request,
         title = organization.title,
@@ -190,8 +190,8 @@ def private_datasets(request):
         datasets={
             'total': count,
             'page': page,
-            'page_size': NB_DATASETS,
-            'total_pages': count / NB_DATASETS,
+            'page_size': SEARCH_PAGE_SIZE,
+            'total_pages': count / SEARCH_PAGE_SIZE,
             'results': dataset.serialize(private_datasets[start:end])
             }
         )
@@ -215,8 +215,8 @@ def recent_datasets(request):
     last_datasets = last_datasets.filter(Package.owner_org == organization.id)
 
     count = last_datasets.count()
-    end = page * NB_DATASETS
-    start = end - NB_DATASETS
+    end = page * SEARCH_PAGE_SIZE
+    start = end - SEARCH_PAGE_SIZE
 
     return templates.render_site('search-datasets.html', request,
         title = organization.title,
@@ -224,8 +224,8 @@ def recent_datasets(request):
         datasets={
             'total': count,
             'page': page,
-            'page_size': NB_DATASETS,
-            'total_pages': count / NB_DATASETS,
+            'page_size': SEARCH_PAGE_SIZE,
+            'total_pages': count / SEARCH_PAGE_SIZE,
             'results': dataset.serialize(last_datasets[start:end])
             }
         )
