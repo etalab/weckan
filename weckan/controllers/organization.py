@@ -144,6 +144,8 @@ def popular_datasets(request):
     page = parse_page(request)
     context = contexts.Ctx(request)
 
+
+
     query = queries.organizations_and_counters()
     query = query.filter(Group.name == organization_name)
 
@@ -157,6 +159,45 @@ def popular_datasets(request):
         title = organization.title,
         url_pattern=get_page_url_pattern(request),
         datasets=results,
+        )
+
+
+@wsgihelpers.wsgify
+def private_datasets(request):
+    user = auth.get_user_from_request(request)
+    organization_name = request.urlvars.get('name')
+    page = parse_page(request)
+    context = contexts.Ctx(request)
+
+    query = queries.organizations_and_counters()
+    query = query.filter(Group.name == organization_name)
+    if not query.count():
+        return wsgihelpers.not_found(context)
+
+    organization, nb_datasets, nb_members = query.first()
+
+    role = auth.get_role_for(user, organization)
+    is_member = user and user.is_in_group(organization.id)
+    if not (is_member and role == Role.ADMIN) or (user and user.sysadmin):
+        return wsgihelpers.unauthorized(context)
+
+    private_datasets = queries.datasets(private=True)
+    private_datasets = private_datasets.filter(Package.owner_org == organization.id)
+
+    count = private_datasets.count()
+    end = (page * NB_DATASETS) + 1
+    start = end - NB_DATASETS
+
+    return templates.render_site('search-datasets.html', request,
+        title = organization.title,
+        url_pattern=get_page_url_pattern(request),
+        datasets={
+            'total': count,
+            'page': page,
+            'page_size': NB_DATASETS,
+            'total_pages': count / NB_DATASETS,
+            'results': dataset.serialize(private_datasets[start:end])
+            }
         )
 
 
@@ -259,5 +300,6 @@ routes = (
     ('GET', r'^(/(?P<lang>\w{2}))?/organization/requests/(?P<name>[\w_-]+)/?$', membership_requests),
     ('GET', r'^(/(?P<lang>\w{2}))?/organization/(?P<name>[\w_-]+)/popular?$', popular_datasets),
     ('GET', r'^(/(?P<lang>\w{2}))?/organization/(?P<name>[\w_-]+)/recents?$', recent_datasets),
+    ('GET', r'^(/(?P<lang>\w{2}))?/organization/(?P<name>[\w_-]+)/privates?$', private_datasets),
     ('GET', r'^(/(?P<lang>\w{{2}}))?/organization/(?!{0}(/|$))(?P<name>[\w_-]+)/?$'.format('|'.join(EXCLUDED_PATTERNS)), display),
 )
