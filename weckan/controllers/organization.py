@@ -144,8 +144,6 @@ def popular_datasets(request):
     page = parse_page(request)
     context = contexts.Ctx(request)
 
-
-
     query = queries.organizations_and_counters()
     query = query.filter(Group.name == organization_name)
 
@@ -176,17 +174,15 @@ def private_datasets(request):
 
     organization, nb_datasets, nb_members = query.first()
 
-    role = auth.get_role_for(user, organization)
-    is_member = user and user.is_in_group(organization.id)
-    if not (is_member and role == Role.ADMIN) or (user and user.sysadmin):
-        return wsgihelpers.unauthorized(context)
+    if not user or not (user.sysadmin or user.is_in_group(organization.id)):
+        return wsgihelpers.forbidden(context)
 
     private_datasets = queries.datasets(private=True)
     private_datasets = private_datasets.filter(Package.owner_org == organization.id)
 
     count = private_datasets.count()
-    end = (page * NB_DATASETS) + 1
-    start = end - NB_DATASETS
+    end = page * NB_DATASETS
+    start = end - NB_DATASETS - 1
 
     return templates.render_site('search-datasets.html', request,
         title = organization.title,
@@ -219,8 +215,8 @@ def recent_datasets(request):
     last_datasets = last_datasets.filter(Package.owner_org == organization.id)
 
     count = last_datasets.count()
-    end = (page * NB_DATASETS) + 1
-    start = end - NB_DATASETS
+    end = page * NB_DATASETS
+    start = end - NB_DATASETS - 1
 
     return templates.render_site('search-datasets.html', request,
         title = organization.title,
