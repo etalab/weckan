@@ -5,7 +5,9 @@ import cgi
 import re
 
 from datetime import datetime
+from os.path import splitext
 
+from biryani1 import strings
 from wtforms import Form as WTForm, Field, validators, fields, widgets
 from wtforms.fields import html5
 
@@ -24,7 +26,10 @@ def handle_upload(request, field, user=None):
     if not isinstance(field.data, cgi.FieldStorage):
         return None
 
-    filename = '{ts:%Y-%m-%dT%H-%M-%S}/{name}'.format(name=field.data.filename, ts=datetime.now())
+    filename, ext = splitext(field.data.filename)
+    filename = strings.slugify(filename)
+    filename = ''.join([filename, ext])
+    filename = '{ts:%Y-%m-%dT%H-%M-%S}/{name}'.format(name=filename, ts=datetime.now())
     ofs = storage.get_ofs()
     ofs.put_stream(STORAGE_BUCKET, filename, field.data.file, {
         'filename-original': field.data.filename,
