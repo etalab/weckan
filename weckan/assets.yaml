@@ -21,7 +21,7 @@ site-js:
     filters: uglifyjs
     output: js/site.min.js
     contents:
-        - bower/jquery/jquery.js
+        - bower/jquery/dist/jquery.js
         - site-common
 
 site-legacy-js:
