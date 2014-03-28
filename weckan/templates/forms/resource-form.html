@@ -10,8 +10,7 @@
 {% endblock %}
 
 {% block content %}
-<section class="form">
-    <div class="animation"></div>
+<section class="form cover">
     <div class="container">
 
         <div class="animover row">
@@ -85,7 +84,7 @@
 {% endblock %}
 
 {% block javascript %}
-{% assets "forms-js", "resource-form-js", "animation-js" %}
+{% assets "forms-js", "resource-form-js" %}
 <script src="{{ ASSET_URL}}"></script>
 {% endassets %}
 {% endblock %}

@@ -3,8 +3,7 @@
 {% block title %}{{title}}{% endblock %}
 
 {% block content %}
-<section class="error">
-    <div class="animation"></div>
+<section class="error cover">
     <div class="container">
         <div class="jumbotron">
             <h2>{{title}}</h2>
@@ -15,10 +14,4 @@
         </div>
     </div>
 </section>
-{% endblock %}
-
-{% block javascript %}
-{% assets "animation-js" %}
-<script src="{{ ASSET_URL}}"></script>
-{% endassets %}
 {% endblock %}

@@ -11,8 +11,7 @@
 {% endblock %}
 
 {% block content %}
-<section class="form">
-    <div class="animation"></div>
+<section class="form cover">
     <div class="container"
         {% if group %}
         data-group-id="{{ group.id }}" data-group-title="{{ group.title }}"
@@ -112,7 +111,7 @@
 {% endblock %}
 
 {% block javascript %}
-{% assets "forms-js", "animation-js" %}
+{% assets "forms-js" %}
 <script src="{{ ASSET_URL}}"></script>
 {% endassets %}
 {% endblock %}

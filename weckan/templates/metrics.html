@@ -5,8 +5,7 @@
 {% block title %}{{ _('Metrics') }}{% endblock %}
 
 {% block content %}
-<section class="message">
-    <div class="animation"></div>
+<section class="message form">
     <div class="container metrics-container" data-ws-url="{{ ws_url }}">
 
         <ul class="card-list">
@@ -25,7 +24,7 @@
 {% endblock %}
 
 {% block javascript %}
-{% assets "metrics-js", "animation-js" %}
+{% assets "metrics-js" %}
 <script src="{{ ASSET_URL}}"></script>
 {% endassets %}
 {% endblock %}

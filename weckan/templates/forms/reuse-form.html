@@ -10,8 +10,7 @@
 {% endblock %}
 
 {% block content %}
-<section class="form">
-    <div class="animation"></div>
+<section class="form cover">
     <div class="container">
         <div class="row">
             <div class="animover col-lg-offset-1 col-lg-10">
@@ -80,7 +79,7 @@
 {% endblock %}
 
 {% block javascript %}
-{% assets "forms-js", "animation-js" %}
+{% assets "forms-js" %}
 <script src="{{ ASSET_URL}}"></script>
 {% endassets %}
 {% endblock %}
