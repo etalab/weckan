@@ -20,16 +20,19 @@
                     <!-- Wrapper for slides -->
                     <div class="carousel-inner">
                         <div class="item active">
-                            <img class="slide" src="{{ static('images/homepage/serge-dael.jpg') }}"
-                                alt="Les avis et conseils de la CADA">
+                            <img class="slide" src="{{ static('images/homepage/sante.jpg') }}"
+                                alt="Les données de santé">
 
                             <div class="carousel-caption">
                                 <label>{{ _('Featured dataset') }}</label>
                                 <h4 class="title ellipsis-dot">
                                     <a class="featured-dataset"
-                                        href="http://cada.data.gouv.fr/"
-                                        title="Les avis et conseils de la CADA">
-                                        Les avis et conseils de la CADA
+                                        href="url(lang, 'dataset', thematique-donnees-de-sante)"
+                                        title="Les données de santé">
+                                        Les données de santé
+                                    </a>
+                                    <a href="https://www.flickr.com/photos/gaetan_z/8469749300/">
+                                    <small>{{ _('Photo by %s') % 'Gaetan Zarforoushan' }}</small>
                                     </a>
                                 </h4>
                             </div>
