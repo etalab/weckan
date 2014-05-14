@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Weckan 0.2.0.dev\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2014-05-14 16:41+0200\n"
+"POT-Creation-Date: 2014-05-14 17:35+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -854,8 +854,7 @@ msgid "Featured dataset"
 msgstr ""
 
 #: weckan/templates/home.html:35
-#, python-format
-msgid "Photo by %s"
+msgid "Photo credit"
 msgstr ""
 
 #: weckan/templates/home.html:47
