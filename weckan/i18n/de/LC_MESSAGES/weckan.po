@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version:  weckan\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2014-05-14 17:35+0200\n"
+"POT-Creation-Date: 2014-05-16 15:23+0200\n"
 "PO-Revision-Date: 2014-05-14 14:42+0000\n"
 "Last-Translator: noirbizarre\n"
 "Language-Team: German "
@@ -864,7 +864,7 @@ msgid "News"
 msgstr "Nachrichten"
 
 #: weckan/templates/home.html:27
-msgid "Featured dataset"
+msgid "Featured topic"
 msgstr ""
 
 #: weckan/templates/home.html:35
@@ -1499,6 +1499,6 @@ msgstr ""
 msgid "Number of members"
 msgstr ""
 
-#~ msgid "Photo by %s"
+#~ msgid "Featured dataset"
 #~ msgstr ""
 
