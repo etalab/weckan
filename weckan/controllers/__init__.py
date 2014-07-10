@@ -36,6 +36,11 @@ def home(request):
 
 
 @wsgihelpers.wsgify
+def redevances(request):
+    return templates.render_site('redevances.html', contexts.Ctx(request))
+
+
+@wsgihelpers.wsgify
 def search_results(request):
     query = request.params.get('q', '')
 
@@ -89,6 +94,7 @@ def make_router(app):
     routes = routes + catchall
     router = urls.make_router(app,
         ('GET', r'^/DataSet/(?P<id>\d+)/?$', redirect_old_dataset),
+        ('GET', r'^/Redevances/?$', redevances),
         ('GET', r'^(/(?P<lang>\w{2}))?/?$', home),
         ('GET', r'^(/(?P<lang>\w{2}))?/error(/(?P<code>\d{3}))?/?$', error),
         ('GET', r'^(/(?P<lang>\w{2}))?/search/?$', search_results),
